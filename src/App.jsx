@@ -4,11 +4,12 @@ import viteLogo from '/vite.svg'
 import "./index.css";
 import { Button,Card,CardContent } from '@mui/material'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Teacherpage from './Teacherpage';
-import Studentspage from './Studentspage';
+import TeacherListingpage from './TeacherListing';
 import Dataanalyticspage from './Dataanalyticspage';
 import Teacherloginportal from './Teacherloginportal';
-import AdminLoginpage from './Adminportal';
+import AdminLoginpage from './AdminLoginpage';
+import SignupFunction from './Signupsection';
+import StudentsListingpage from './StudentsListing';
 
 
 
@@ -25,11 +26,12 @@ function App() {
 
     <Routes>
 
-    <Route path="/Teachers" element={<Teacherpage />} />
-    <Route path="/students" element={<Studentspage />} />
+    <Route path="/Teachers" element={<TeacherListingpage />} />
+    <Route path="/students" element={<StudentsListingpage />} />
     <Route path="/data" element={<Dataanalyticspage />} />
     <Route path="/login" element={<Teacherloginportal />} />
     <Route path="/adminlogin" element={<AdminLoginpage/>} />
+    <Route path='/Signup' element={<SignupFunction/>} />
     </Routes>
     
     </BrowserRouter>
