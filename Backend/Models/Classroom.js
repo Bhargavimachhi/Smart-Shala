@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import joi from 'joi';
 
 let classRoomSchema = new mongoose.Schema({
     name :{
@@ -28,3 +29,7 @@ let classRoomSchema = new mongoose.Schema({
 });
 
 export const Classroom = mongoose.model("Classroom", classRoomSchema);
+
+export const classRoomSchemaValidation = joi.object({
+    name : joi.string().required()
+});

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import joi from 'joi';
 
 let adminSchema = new mongoose.Schema({
     email :{
@@ -25,3 +26,8 @@ let adminSchema = new mongoose.Schema({
 });
 
 export const Admin = mongoose.model("Admin", adminSchema);
+
+export const adminSchemaValidation = joi.object({
+    email : joi.string().required(),
+    password : joi.string().required(),
+});

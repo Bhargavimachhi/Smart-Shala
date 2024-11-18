@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import joi from 'joi';
 
 let teacherSchema = new mongoose.Schema({
     email :{
@@ -35,3 +36,10 @@ let teacherSchema = new mongoose.Schema({
 });
 
 export const Teacher = mongoose.model("Teacher", teacherSchema);
+
+export const teacherSchemaValidation = joi.object({
+    email : joi.string().required(),
+    name : joi.string().required(),
+    password : joi.string().required(),
+    contact : joi.number().max(1000000000).min(999999999)
+});
