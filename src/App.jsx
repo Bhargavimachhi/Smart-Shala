@@ -7,9 +7,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Teacherpage from './Teacherpage';
 import Studentspage from './Studentspage';
 import Dataanalyticspage from './Dataanalyticspage';
-
-
-
+import Teacherloginportal from './Teacherloginportal';
+import AdminLoginpage from './Adminportal';
 
 
 
@@ -29,6 +28,8 @@ function App() {
     <Route path="/Teachers" element={<Teacherpage />} />
     <Route path="/students" element={<Studentspage />} />
     <Route path="/data" element={<Dataanalyticspage />} />
+    <Route path="/login" element={<Teacherloginportal />} />
+    <Route path="/adminlogin" element={<AdminLoginpage/>} />
     </Routes>
     
     </BrowserRouter>
