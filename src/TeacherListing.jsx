@@ -7,7 +7,7 @@ import SideNavbar from "./components/SideNavbar";
 
   
 
-const Teacherpage = () => {
+const TeacherListingpage = () => {
 
     const teachers = [
         {
@@ -103,4 +103,4 @@ const Teacherpage = () => {
   )
 }
 
-export default Teacherpage
+export default TeacherListingpage

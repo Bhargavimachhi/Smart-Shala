@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 
-const AdminPortal = () => {
+const AdminLoginpage = () => {
   const [AdminEmail, setAdminEmail] = useState('');
   const [AdminPassword, setAdminPassword] = useState('');
 
@@ -84,4 +84,4 @@ const AdminPortal = () => {
   );
 };
 
-export default AdminPortal;
+export default AdminLoginpage;

@@ -4,7 +4,7 @@ import { Mail, Phone, MoreVertical, User, BookOpen, Database, Calendar } from 'l
 
 import SideNavbar from './components/SideNavbar';
 
-const Studentspage = () => {
+const StudentsListingpage = () => {
 
     const students = [
         {
@@ -160,4 +160,4 @@ const Studentspage = () => {
   )
 }
 
-export default Studentspage
+export default StudentsListingpage;
