@@ -17,6 +17,9 @@ import {
   CardContent
 } from '@mui/material';
 import { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { toast,Toaster } from 'react-hot-toast';
 const steps = ['Select your Type', 'Fill out the details', 'Review your data'];
 
 const SignupFunction = () => {
@@ -24,7 +27,7 @@ const SignupFunction = () => {
   const [role, setRole] = useState('');
   const [studentDetails, setStudentDetails] = useState({ name: '', email: '', password: '',rollno:"" });
   const [teacherDetails, setTeacherDetails] = useState({ name: '', email: '' , password: ''});
-  
+  const navigate = useNavigate();
   const isStepOptional = (step) => {
     return step === 1;
   };
@@ -52,7 +55,7 @@ const SignupFunction = () => {
     setActiveStep(0);
     setRole('');
     setStudentDetails({ name: '', email: '', rollno: '' });
-    setTeacherDetails({ name: '', email: '' });
+    setTeacherDetails({ name: '', email: '',password:'' });
   };
 
 
@@ -62,13 +65,45 @@ const SignupFunction = () => {
 
         console.log("Student details are : ", studentDetails);
         // Sooo here will be our axios signup request to student
+        toast.loading("Signing you up ...");
+
+        const res = await axios.post("http://localhost:3000/signupstudent", studentDetails);
+
+       
+
+        // So yea checking for the right message
+
+        if(res.data.message === "New Student Added Successfully"){
+
+
+
+          // little notification would be nice
+          toast.success('New Student Added Successfully');
+
+          navigate('/students'); 
+        }
         
       } else if (role === 'teacher') {
         console.log("Teacher details are : ", teacherDetails);
+        toast.loading("Signing you up ...");
+
+
         // Sooo here will be our axios signup request to teacher
+
+        const res = await axios.post("http://localhost:3000/signupteacher", teacherDetails);
+
+        // So yea checking for the right message
+
+        if(res.data.message === "New Teacher Added Successfully"){
+
+          // little notification would be nice
+          toast.success('New Teacher Added Successfully');
+
+          navigate('/Teachers'); 
       }
       handleReset();
-    } catch (error) {
+    }
+   } catch (error) {
       console.error('There was an error submitting the form!', error);
       alert('Signup failed. Please try again.');
     }
@@ -85,7 +120,10 @@ const SignupFunction = () => {
   };
 
   return (
+
     <Container component="main" maxWidth="md" className="mt-24">
+      <Toaster />
+
     <Card elevation={3} className="p-6 sm:p-10">
     <Typography variant="h4" component="h1" align="center" gutterBottom>
             SMART SHALA SIGNUP
