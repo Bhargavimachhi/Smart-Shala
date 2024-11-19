@@ -10,6 +10,7 @@ import Teacherloginportal from './Teacherloginportal';
 import AdminLoginpage from './AdminLoginpage';
 import SignupFunction from './Signupsection';
 import StudentsListingpage from './StudentsListing';
+import { Toaster } from 'react-hot-toast';
 
 
 
@@ -22,10 +23,13 @@ function App() {
   return (
     <>
 
+
+
+
     <BrowserRouter>
 
     <Routes>
-
+    
     <Route path="/Teachers" element={<TeacherListingpage />} />
     <Route path="/students" element={<StudentsListingpage />} />
     <Route path="/data" element={<Dataanalyticspage />} />
@@ -35,6 +39,7 @@ function App() {
     </Routes>
     
     </BrowserRouter>
+    
 
 
 
