@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+// import { useState } from 'react'
+// import reactLogo from './assets/react.svg'
+// import viteLogo from '/vite.svg'
 import "./index.css";
-import { Button,Card,CardContent } from '@mui/material'
+// import { Button,Card,CardContent } from '@mui/material'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import TeacherListingpage from './TeacherListing';
 import Dataanalyticspage from './Dataanalyticspage';
@@ -10,6 +10,7 @@ import Teacherloginportal from './Teacherloginportal';
 import AdminLoginpage from './AdminLoginpage';
 import SignupFunction from './Signupsection';
 import StudentsListingpage from './StudentsListing';
+import AdminHome from './Pages/Admin/Pages/AdminHome';
 
 
 
@@ -25,6 +26,7 @@ function App() {
     <BrowserRouter>
 
     <Routes>
+    <Route path='/admin' element={<AdminHome/>}   />
 
     <Route path="/Teachers" element={<TeacherListingpage />} />
     <Route path="/students" element={<StudentsListingpage />} />
