@@ -1,8 +1,8 @@
 import express from 'express';
 const app = express();
 const PORT = 3000;
-import { addStudent } from './Controller/student.js';
-import { addTeacher } from './Controller/teacher.js';
+import { addStudent, getStudent, getAllStuents } from './Controller/student.js';
+import { addTeacher, getTeacher, getAllTeachers } from './Controller/teacher.js';
 import mongoose from 'mongoose';
 import cors from "cors";
 
