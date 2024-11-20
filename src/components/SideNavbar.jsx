@@ -14,10 +14,10 @@ const SideNavbar = () => {
 
   const navItems = [
     { icon: HomeIcon, name: "Home", path: "/admin" },
-    { icon: TeacherIcon, name: "Teachers", path: "/Teachers" },
-    { icon: StudentIcon, name: "Students    ", path: "/students" },
-    { icon: DataIcon, name: "Data Analytics", path: "/data" },
-    { icon: MeetingIcon, name: "Meeting", path: "/meeting" },
+    { icon: TeacherIcon, name: "Teachers", path: "/admin/teachers" },
+    { icon: StudentIcon, name: "Students    ", path: "/admin/students" },
+    { icon: DataIcon, name: "Data Analytics", path: "/admin/data-analytics" },
+    { icon: MeetingIcon, name: "Meeting", path: "/admin/meeting" },
   ];
 
   return (

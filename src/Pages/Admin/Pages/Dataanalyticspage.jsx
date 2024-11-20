@@ -1,7 +1,7 @@
 import React from 'react'
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import { User, BookOpen, Database, Calendar, PieChart as PieChartIcon } from 'lucide-react';
-import SideNavbar from './components/SideNavbar';
+import SideNavbar from '../../../components/SideNavbar';
 
 const Dataanalyticspage = () => {
 
