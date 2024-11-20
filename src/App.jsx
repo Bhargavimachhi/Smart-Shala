@@ -11,6 +11,7 @@ import AdminLoginpage from './AdminLoginpage';
 import SignupFunction from './Signupsection';
 import StudentsListingpage from './StudentsListing';
 import AdminHome from './Pages/Admin/Pages/AdminHome';
+import { Toaster } from 'react-hot-toast';
 
 
 
