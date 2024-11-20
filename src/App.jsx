@@ -1,8 +1,4 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
 import "./index.css";
-// import { Button,Card,CardContent } from '@mui/material'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import TeacherListingpage from './Pages/Admin/Pages/TeacherListing';
 import Dataanalyticspage from './Pages/Admin/Pages/Dataanalyticspage';
