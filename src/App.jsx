@@ -23,11 +23,14 @@ function App() {
   return (
     <>
 
+
+
+
     <BrowserRouter>
 
     <Routes>
-    <Route path='/admin' element={<AdminHome/>}   />
 
+    <Route path='/admin' element={<AdminHome/>}   />
     <Route path="/Teachers" element={<TeacherListingpage />} />
     <Route path="/students" element={<StudentsListingpage />} />
     <Route path="/data" element={<Dataanalyticspage />} />
@@ -37,6 +40,7 @@ function App() {
     </Routes>
     
     </BrowserRouter>
+    
 
 
 

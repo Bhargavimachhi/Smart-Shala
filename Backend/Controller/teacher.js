@@ -8,7 +8,15 @@ export const addTeacher = (req, res) => {
     });
 
     teacher.save().then(()=>{
-        res.redirect("/teacher");
+        console.log("New Teacher Added Successfully");
+
+        // We will check if this message comes when we add a new teacher.
+        // If yes , then we redirect user to teacher page
+
+        res.status(200).json({ message: "New Teacher Added Successfully" });
+
+        // Aae redirect thi server side redirect thase not from client
+        // res.redirect("/teacher");
     }).catch((err)=>{
         res.send("Error Occurred !!! , Couldn't Add new Teacher");
     });
