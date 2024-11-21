@@ -25,7 +25,8 @@ function App() {
         <Route path="/admin/data-analytics" element={<Dataanalyticspage />} />
         <Route path="/login" element={<Teacherloginportal />} />
         <Route path="/adminlogin" element={<AdminLoginpage/>} />
-        <Route path='/signup' element={<AddStudent/>} />
+        <Route path='/signup/student' element={<AddStudent/>} />
+        <Route path='/signup/teacher' element={<AddTeacher/>} />
       </Routes>
     </BrowserRouter>
     </>
