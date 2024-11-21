@@ -19,9 +19,10 @@ let studentSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    classroom : {
-        type : String,
-        default : null
+    classroom: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Classroom',
+        default: null
     },
     contact :{
         type : Number,
