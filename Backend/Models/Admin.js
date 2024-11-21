@@ -11,18 +11,21 @@ let adminSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    classrooms : {
-        type : [String],
-        default : [],
-    },
-    teachers : {
-        type : [String],
-        default : [],
-    },
-    students : {
-        type : [String],
-        default : [],
-    }
+    classrooms : [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Classroom',
+        default: []
+    }],
+    teachers : [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Teacher',
+        default: []
+    }],
+    students: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Student',
+        default: []
+    }]
 });
 
 export const Admin = mongoose.model("Admin", adminSchema);
