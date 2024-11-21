@@ -27,4 +27,4 @@ app.listen(PORT, () => {
 
 app.get("/getstudents", getAllClassrooms);
 app.get("/getstudents/:id", getClassroom);
-
+app.get("/getallteachers", getAllTeachers);
