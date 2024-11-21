@@ -24,7 +24,13 @@ const AdminHome = () => {
               <TopPerformer/>  
             </div>         
           <NoticeBoard/>
+          <AttendanceGraph/>
         </div>
+
+
+
+
+        
       </div>
       </>
     );
