@@ -4,7 +4,7 @@ import {Student} from "../Models/Student.js"
 export const addStudent = async(req, res) => {
     let student = await Student.find({email : req.body.email});
 
-    if(student != null) {
+    if(student.length > 0) {
         res.status(403).json({"message":"Student already exists"});
         return;
     }
