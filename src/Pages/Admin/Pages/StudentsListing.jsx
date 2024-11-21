@@ -1,5 +1,6 @@
 import React from 'react';
 import { Mail, Phone, MoreVertical, User, BookOpen, Database, Calendar } from 'lucide-react';
+import {NavLink} from 'react-router-dom'
 
 
 import SideNavbar from '../../../components/SideNavbar';
@@ -58,9 +59,9 @@ const StudentsListingpage = () => {
                   placeholder="Search students..."
                   className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                <NavLink to='/AddStudent'><button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
                   Add New Student
-                </button>
+                </button> </NavLink>
               </div>
             </div>
           </div>

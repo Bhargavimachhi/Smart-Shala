@@ -8,6 +8,7 @@ import SignupFunction from './Signupsection';
 import StudentsListingpage from './Pages/Admin/Pages/StudentsListing';
 import AdminHome from './Pages/Admin/Pages/AdminHome';
 import { Toaster } from 'react-hot-toast';
+import AddStudent from "./Pages/Admin/Pages/AddStudent";
 
 
 function App() {

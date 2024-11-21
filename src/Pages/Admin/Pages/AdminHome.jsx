@@ -4,6 +4,7 @@ import TopPerformer from '../Components/TopPerformer.jsx'
 import UpperNavbar from '../Components/UpperNavbar.jsx'
 import SideNavbar from '../../../components/SideNavbar.jsx';
 import DataCard from "../Components/DataCard.jsx";
+import AttendanceGraph from "../Components/AttendanceGraph.jsx";
 
 const AdminHome = () => {
     return (
