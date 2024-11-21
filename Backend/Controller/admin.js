@@ -3,7 +3,7 @@ import {Admin} from "../Models/Admin.js"
 export const addAdmin = async(req, res) => {
     let admin = await Admin.find({email : req.body.email});
 
-    if(admin != null) {
+    if(admin.length > 0) {
         res.status(403).json({"message":"Admin already exists"});
         return;
     }

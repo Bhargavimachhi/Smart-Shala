@@ -4,11 +4,12 @@ import TeacherListingpage from './Pages/Admin/Pages/TeacherListing';
 import Dataanalyticspage from './Pages/Admin/Pages/Dataanalyticspage';
 import Teacherloginportal from './Teacherloginportal';
 import AdminLoginpage from './Pages/Admin/Pages/AdminLoginPage';
-import SignupFunction from './Signupsection';
+import Signupsection from './Signupsection';
 import StudentsListingpage from './Pages/Admin/Pages/StudentsListing';
 import AdminHome from './Pages/Admin/Pages/AdminHome';
 import { Toaster } from 'react-hot-toast';
-import AddStudent from "./Pages/Admin/Pages/AddStudent";
+import AddStudent from "./Pages/Student/Pages/StudentSignUpForm";
+import AddTeacher from "./Pages/Teacher/Pages/TeacherSignUpForm";
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
         <Route path="/admin/data-analytics" element={<Dataanalyticspage />} />
         <Route path="/login" element={<Teacherloginportal />} />
         <Route path="/adminlogin" element={<AdminLoginpage/>} />
-        <Route path='/Signup' element={<SignupFunction/>} />
+        <Route path='/signup' element={<Signupsection/>} />
       </Routes>
     </BrowserRouter>
     </>

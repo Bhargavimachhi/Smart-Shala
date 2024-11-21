@@ -21,6 +21,3 @@ app.listen(PORT, () => {
         console.log("Connected to Database");
     });
 });
-
-app.get("/getstudents", getAllClassrooms);
-app.get("/getstudents/:id", getClassroom);
