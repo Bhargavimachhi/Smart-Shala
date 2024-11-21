@@ -3,7 +3,7 @@ import {Teacher} from "../Models/Teacher.js"
 export const addTeacher = async(req, res) => {
     let teacher = await Teacher.find({email : req.body.email});
 
-    if(teacher.length > 0) {
+    if(teacher != null) {
         res.status(403).json({"message":"Teacher already exists"});
         return;
     }

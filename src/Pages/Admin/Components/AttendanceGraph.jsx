@@ -23,7 +23,7 @@ const AttendanceGraph = () => {
       </div>
 
       {/* Radial Progress Bar */}
-      <div className="relative my-4 w-16 h-16">
+      <div className="relative my-4 w-32 h-32">
         <Nested
           circles={AttendanceData}
           sx={{

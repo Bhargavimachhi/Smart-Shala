@@ -21,8 +21,8 @@ const SideNavbar = () => {
   ];
 
   return (
-    <div className="w-64  bg-white shadow-lg p-4 space-y-4  ">
-      <div className="flex items-center gap-2 p-2  ">
+    <div className="w-64  bg-white shadow-lg p-4 space-y-4">
+      <div className="flex items-center gap-2 p-2 ">
         <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
           <span className="text-white text-sm">A</span>
         </div>
