@@ -5,6 +5,7 @@ import { addStudent, getStudent, getAllStuents } from './Controller/student.js';
 import { addTeacher, getTeacher, getAllTeachers } from './Controller/teacher.js';
 import mongoose from 'mongoose';
 import cors from "cors";
+import { getAllClassrooms, getClassroom } from './Controller/classroom.js';
 
 
 app.use(express.json());
@@ -20,3 +21,6 @@ app.listen(PORT, () => {
         console.log("Connected to Database");
     });
 });
+
+app.get("/getstudents", getAllClassrooms);
+app.get("/getstudents/:id", getClassroom);
