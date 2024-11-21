@@ -17,10 +17,10 @@ const TeacherListingpage = () => {
 
     async function fetchTeachers(){
 
-      const res = await axios.get("http://localhost:3000/getallstudent");
+      const res = await axios.get("http://localhost:3000/getallteachers");
 
-      console.log(res.data.allUser);
-      setTeachers(res.data.allUser);
+      console.log(res.data.teachers);
+      setTeachers(res.data.teachers);
       setLoading(false);
     }
     fetchTeachers();
@@ -86,6 +86,7 @@ const TeacherListingpage = () => {
           </button>
         </div>
 
+        {teachers && teachers.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {teachers?.map((teacher) => (
             <Card key={teacher.id} className="bg-white rounded-lg shadow hover:shadow-lg transition-shadow">
@@ -112,6 +113,9 @@ const TeacherListingpage = () => {
             </Card>
           ))}
         </div>
+        ) : (
+          <div className="text-center mt-8">No teacher found</div>
+        )}
       </div>
     </div>
 
