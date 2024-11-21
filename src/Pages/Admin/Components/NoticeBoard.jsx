@@ -45,7 +45,7 @@ const NoticeBoard = () => {
         return words.length > wordLimit ? words.slice(0, wordLimit).join(' ') + '...' : text;
       };
     return (
-        <div className="flex items-center justify-between w-full bg-white p-4 rounded-lg shadow-lg border">
+        <div className="flex items-center justify-between w-full  bg-white p-4 rounded-lg shadow-lg border">
         {/* Left Section: Icon and Title */}
         <div className="flex items-center">
           <div className="bg-blue-500 text-white w-12 h-12 flex items-center justify-center rounded-md">
