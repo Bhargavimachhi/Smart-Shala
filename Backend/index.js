@@ -5,7 +5,8 @@ import { addStudent, getStudent, getAllStuents } from './Controller/student.js';
 import { addTeacher, getTeacher, getAllTeachers } from './Controller/teacher.js';
 import mongoose from 'mongoose';
 import cors from "cors";
-import { getAllClassrooms, getClassroom,addClassroom } from './Controller/classroom.js';
+import { getAllClassrooms, getClassroom } from './Controller/classroom.js';
+import { addAdmin, addClassroomToAdmin } from './Controller/admin.js';
 
 
 app.use(express.json());
@@ -14,7 +15,6 @@ app.use(cors());
 
 app.post('/signupstudent', addStudent);
 app.post('/signupteacher', addTeacher);
-app.post("/addclassroom", addClassroom);
 app.post("/getclassroom",getClassroom);
 app.post("/getallclassrooms",getAllClassrooms);
 
@@ -28,3 +28,5 @@ app.listen(PORT, () => {
 app.get("/getstudents", getAllClassrooms);
 app.get("/getstudents/:id", getClassroom);
 app.get("/getallteachers", getAllTeachers);
+app.post("/assignClassroom/:id", addClassroomToAdmin);
+app.post("/addAdmin", addAdmin);

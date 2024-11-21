@@ -1,19 +1,6 @@
 import {Classroom} from "../Models/Classroom.js"
-
-//add classroom
-export const addClassroom = (req, res) => {
-    let classroom = new Classroom({
-        name : req.body.name
-    });
-
-    classroom.save().then(()=>{
-        console.log("New Classroom Added Successfully");
-        res.status(200).json({ message: "New Classroom Added Successfully" });
-    }).catch((err)=>{
-        console.log(err);
-        res.send("Error Occurred !!! , Couldn't Add new Classroom");
-    });
-}
+import {Teacher} from "../Models/Teacher.js"
+import {Student} from "../Models/Student.js"
 
 //get Classroom
 export const getClassroom = async(req,res)=>{

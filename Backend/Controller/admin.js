@@ -1,5 +1,7 @@
 import {Admin} from "../Models/Admin.js"
+import { Classroom } from "../Models/Classroom.js";
 
+//add Admin
 export const addAdmin = async(req, res) => {
     let admin = await Admin.find({email : req.body.email});
 
@@ -15,8 +17,35 @@ export const addAdmin = async(req, res) => {
     });
 
     admin.save().then(()=>{
-        res.redirect("/admin");
+        res.status(200).json({"message":"success"});
     }).catch((err)=>{
-        res.send("Error Occurred !!! , Couldn't Add new Admin");
+        res.send("Error Occurred !!!");
+    });
+}
+
+//add classroom to admin portal
+export const addClassroomToAdmin = async(req, res) => {
+    let admin = await Admin.findById(req.params.id);
+
+    if(admin.length == 0) {
+        res.status(404).json({"message":"Admin does not exist"});
+        return;
+    }
+    let classroom = new Classroom({
+        name : req.body.name,
+        subjects : req.body.subjects,
+        endingDate : req.body.endingDate
+    });
+    classroom.save().then(()=>{
+        console.log("New Classroom Added Successfully");
+    }).catch((err)=>{
+        console.log(err);
+    });
+    admin.classrooms.push(classroom._id);
+
+    admin.save().then(()=>{
+        res.status(200).json({"message":"success"});
+    }).catch((err)=>{
+        res.send("Error Occurred !!!");
     });
 }
