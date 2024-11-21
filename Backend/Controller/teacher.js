@@ -21,3 +21,29 @@ export const addTeacher = (req, res) => {
         res.send("Error Occurred !!! , Couldn't Add new Teacher");
     });
 }
+
+//get Teacher
+export const getTeacher = async(req,res)=>{
+    const id = req.params.id;
+    try {
+        const teacher = await Teacher.findById(id);
+        //respond with success message
+        res.status(201).json({message:"success", teacher});
+    } catch (err) {
+        //handle error
+        console.log(err);
+        res.status(500).json({message:"internal server error"});
+    }
+}
+
+//get all teachers
+export const getAllTeachers = async(req,res)=>{
+    try {
+        const allUser = await Teacher.find({});
+        res.status(201).json({message:"success",allUser})
+    } catch (err) {
+        //handle error
+        console.log(err)
+        res.status(500).json({message:"internal server error"})
+    }
+}

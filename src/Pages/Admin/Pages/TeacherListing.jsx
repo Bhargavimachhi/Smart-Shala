@@ -1,11 +1,5 @@
 import { Card,CardContent } from "@mui/material"
-import SideNavbar from "./components/SideNavbar";
-
-
-
-
-
-  
+import SideNavbar from "../../../components/SideNavbar";
 
 const TeacherListingpage = () => {
 
@@ -51,10 +45,7 @@ const TeacherListingpage = () => {
     <>
 
 <div className="flex min-h-screen bg-gray-100">
-      
    <SideNavbar/>
-
-    
       <div className="flex-1 p-8">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Teacher</h1>

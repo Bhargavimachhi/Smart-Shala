@@ -3,7 +3,7 @@ import { Mail, Phone, MoreVertical, User, BookOpen, Database, Calendar } from 'l
 import {NavLink} from 'react-router-dom'
 
 
-import SideNavbar from './components/SideNavbar';
+import SideNavbar from '../../../components/SideNavbar';
 
 const StudentsListingpage = () => {
 
@@ -47,10 +47,7 @@ const StudentsListingpage = () => {
   return (
   <>
   <div className="flex min-h-screen bg-gray-100">
-   
      <SideNavbar/>
-
-    
       <div className="flex-1 p-8">
         <div className="bg-white rounded-lg shadow">
           <div className="p-6 border-b border-gray-200">
@@ -152,11 +149,6 @@ const StudentsListingpage = () => {
         </div>
       </div>
     </div>
-
-
-  
-  
-  
   </>
   )
 }
