@@ -4,12 +4,10 @@ import TeacherListingpage from './Pages/Admin/Pages/TeacherListing';
 import Dataanalyticspage from './Pages/Admin/Pages/Dataanalyticspage';
 import Teacherloginportal from './Teacherloginportal';
 import AdminLoginpage from './Pages/Admin/Pages/AdminLoginPage';
-import SignupFunction from './Signupsection';
 import StudentsListingpage from './Pages/Admin/Pages/StudentsListing'; 
-import StudentHomePage from './Pages/Students/StudentPages/StudentHomePage';
+import StudentHomePage from './Pages/Student/StudentPages/StudentHomePage.jsx';
 import AdminHome from './Pages/Admin/Pages/AdminHome';
-import { Toaster } from 'react-hot-toast';
-import AddStudent from "./Pages/Student/Pages/StudentSignUpForm.jsx";
+import AddStudent from "./Pages/Student/StudentPages/StudentSignUpForm.jsx";
 import AddTeacher from "./Pages/Teacher/Pages/TeacherSignUpForm.jsx";
 
 
