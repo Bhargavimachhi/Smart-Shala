@@ -1,13 +1,21 @@
-import { all } from "axios";
 import {Student} from "../Models/Student.js"
 
 //add Student
-export const addStudent = (req, res) => {
-    let student = new Student({
+export const addStudent = async(req, res) => {
+    let student = await Student.find({email : req.body.email});
+
+    if(student.length > 0) {
+        res.status(403).json({"message":"Student already exists"});
+        return;
+    }
+    
+    student = new Student({
         name : req.body.name,
         email : req.body.email,
         password : req.body.password,
-        rollno : req.body.rollno
+        rollno : req.body.rollno,
+        address : req.body.address,
+        parentContact : req.body.parentContact
     });
 
     student.save().then(()=>{
@@ -24,8 +32,12 @@ export const getStudent = async(req,res)=>{
     const id = req.params.id;
     try {
         const student = await Student.findById(id);
-        //respond with success message
-        res.status(201).json({message:"success", student});
+        if(student == null) {
+            res.status(400).json({message:"student does not exist"});
+        }
+        else {
+            res.status(201).json({message:"success", student});
+        }
     } catch (err) {
         //handle error
         console.log(err);
@@ -37,7 +49,6 @@ export const getStudent = async(req,res)=>{
 export const getAllStuents = async(req,res)=>{
     try {
         const allUser = await Student.find({});
-        console.log(allUser);
         res.status(201).json({message:"success",allUser})
     } catch (err) {
         //handle error

@@ -9,7 +9,8 @@ import StudentsListingpage from './Pages/Admin/Pages/StudentsListing';
 import StudentHomePage from './Pages/Students/StudentPages/StudentHomePage';
 import AdminHome from './Pages/Admin/Pages/AdminHome';
 import { Toaster } from 'react-hot-toast';
-import AddStudent from "./Pages/Admin/Pages/AddStudent";
+import AddStudent from "./Pages/Student/Pages/StudentSignUpForm.jsx";
+import AddTeacher from "./Pages/Teacher/Pages/TeacherSignUpForm.jsx";
 
 
 function App() {
@@ -26,7 +27,8 @@ function App() {
         <Route path="/admin/data-analytics" element={<Dataanalyticspage />} />
         <Route path="/login" element={<Teacherloginportal />} />
         <Route path="/adminlogin" element={<AdminLoginpage/>} />
-        <Route path='/Signup' element={<SignupFunction/>} />
+        <Route path='/signup/student' element={<AddStudent/>} />
+        <Route path='/signup/teacher' element={<AddTeacher/>} />
       </Routes>
     </BrowserRouter>
     </>
