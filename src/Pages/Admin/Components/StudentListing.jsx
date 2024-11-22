@@ -3,13 +3,13 @@ import { useEffect,useState } from 'react'
 import axios from 'axios';
 
 const StudentListingrow = ({id}) => {
-    const [studentname,setstudentname] = useState("");
+    const [student,setStudent] = useState("");
 
     useEffect(()=>{
         async function getstudents(){
             const res = await axios.get("http://localhost:3000/getstudent/"+id);
-            console.log(res.data.student.name);
-            setstudentname(res.data.student.name);
+            console.log(res.data.student);
+            setStudent(res.data.student);
         }
         getstudents();
     },[]);
@@ -24,8 +24,9 @@ const StudentListingrow = ({id}) => {
 className="hover:bg-gray-200 transition duration-150"
 >
 
-<td className="py-2 px-4">{studentname}</td>
-<td className="py-2 px-4">22038</td>
+<td className="py-2 px-4">{student.name}</td>
+<td className="py-2 px-4">{student.rollno}</td>
+<td className="py-2 px-4">{student.contact}</td>
 
 </tr>
     </>
