@@ -48,8 +48,8 @@ export const getStudent = async(req,res)=>{
 //get all students
 export const getAllStuents = async(req,res)=>{
     try {
-        const allUser = await Student.find({});
-        res.status(201).json({message:"success",allUser})
+        const students = await Student.find({});
+        res.status(201).json({message:"success", students})
     } catch (err) {
         //handle error
         console.log(err)
