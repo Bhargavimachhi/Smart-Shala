@@ -15,8 +15,8 @@ const StudentListingpage = () => {
 
       const res = await axios.get("http://localhost:3000/getstudents");
 
-      console.log(res.data.students);
-      setStudents(res.data.students);
+      console.log(res.data.allUser);
+      setStudents(res.data.allUser);
       setLoading(false);
     }
     fetchStudents();
