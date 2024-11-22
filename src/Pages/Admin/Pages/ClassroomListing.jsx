@@ -88,7 +88,8 @@ const ClassroomListingpage = () => {
                             <thead>
                               <tr className="bg-gray-100">
                                 <th className="py-2 px-4 text-left">Name</th>
-                                <th className="py-2 px-4 text-left">Roll No</th>
+                                <th className="py-2 px-4 text-left">Roll no</th>
+                                <th className="py-2 px-4 text-left">Contact</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -117,7 +118,8 @@ const ClassroomListingpage = () => {
                             <thead>
                               <tr className="bg-gray-100">
                                 <th className="py-2 px-4 text-left">Name</th>
-                                <th className="py-2 px-4 text-left">Roll No</th>
+                                <th className="py-2 px-4 text-left">Email</th>
+                                <th className="py-2 px-4 text-left">Contact</th>
                               </tr>
                             </thead>
                             <tbody>
