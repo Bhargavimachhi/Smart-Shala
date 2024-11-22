@@ -33,3 +33,17 @@ export const generateIssue = async(req, res) => {
     });
 
 }
+
+// delete issue
+export const deleteIssue = async(req,res)=>{
+    const id=req.params.id;
+    try {
+        const deleteIssue = await Issue.findByIdAndDelete(id);
+        //respond with success message
+        res.status(201).json({message:"success", deleteIssue})
+    } catch (err) {
+        //handle error
+        console.log(err);
+        res.status(500).json({message:"internal server error"});
+    }
+}

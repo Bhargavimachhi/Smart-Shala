@@ -101,3 +101,17 @@ export const getClassroomName = async(id) => {
     }
     return classroom.name;
 }
+
+// delete classroom
+export const deleteClassroom = async(req,res)=>{
+    const id=req.params.id;
+    try {
+        const deleteClassroom = await Classroom.findByIdAndDelete(id);
+        //respond with success message
+        res.status(201).json({message:"success", deleteClassroom})
+    } catch (err) {
+        //handle error
+        console.log(err);
+        res.status(500).json({message:"internal server error"});
+    }
+}

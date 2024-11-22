@@ -53,3 +53,17 @@ export const getAllTeachers = async(req,res)=>{
         res.status(500).json({message:"internal server error"});
     }
 }
+
+// delete teacher
+export const deleteTeacher = async(req,res)=>{
+    const id=req.params.id;
+    try {
+        const deleteTeacher = await Teacher.findByIdAndDelete(id);
+        //respond with success message
+        res.status(201).json({message:"success", deleteTeacher})
+    } catch (err) {
+        //handle error
+        console.log(err);
+        res.status(500).json({message:"internal server error"});
+    }
+}
