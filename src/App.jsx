@@ -12,6 +12,7 @@ import AddStudent from "./Pages/Student/StudentPages/StudentSignUpForm.jsx";
 import AddTeacher from "./Pages/Teacher/Pages/TeacherSignUpForm.jsx";
 import { Toaster } from "react-hot-toast";
 import ClassroomListingpage from "./Pages/Admin/Pages/ClassroomListing.jsx";
+import Classroom from "./Pages/Admin/Pages/Classroom.jsx";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/admin/students" element={<StudentListingpage />} />
         <Route path="/admin/teachers" element={<TeacherListingpage />} />
         <Route path="/admin/classrooms" element={<ClassroomListingpage/>} />
+        <Route path="/admin/classrooms/:id" element={<Classroom/>} />
         <Route path="/admin/data-analytics" element={<Dataanalyticspage />} />
         <Route path="/login" element={<Teacherloginportal />} />
         <Route path="/adminlogin" element={<AdminLoginpage/>} />

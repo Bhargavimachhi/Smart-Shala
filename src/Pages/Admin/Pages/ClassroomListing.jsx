@@ -1,7 +1,7 @@
 import React from 'react';
 import { Mail, Phone,User, BookOpen, Database, Calendar } from 'lucide-react';
-import { NavLink } from 'react-router-dom';
-import { Card, CardContent, Typography, Dialog, DialogTitle, DialogContent, IconButton, CardHeader } from '@mui/material';
+import { NavLink,useNavigate } from 'react-router-dom';
+import { Card, CardContent, Typography, Dialog, DialogTitle, DialogContent, IconButton, CardHeader,Button } from '@mui/material';
 
 import SideNavbar from '../../../components/SideNavbar';
 import { useState, useEffect } from 'react';
@@ -11,21 +11,16 @@ import { MoreVertical } from 'lucide-react';
 import TeacherListingrow from '../Components/TeacherListing';
 import StudentListingrow from '../Components/StudentListing';
 import Createclassroom from '../Components/Createclassroom';
+import TableListingstudent from '../Components/TableListingstudent';
+import TableListingteacher from '../Components/TableListingteacher';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 
 const ClassroomListingpage = () => {
   const [classrooms, setClassrooms] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [selectedClassroom, setSelectedClassroom] = useState(null);
+  
+  const navigate = useNavigate();
 
-  const handleOpenDetails = (classroom) => {
-    setSelectedClassroom(classroom);
-    setOpen(true);
-  };
-
-  const handleCloseDetails = () => {
-    setOpen(false);
-    setSelectedClassroom(null);
-  };
+ 
 
   useEffect(() => {
     async function getClassrooms() {
@@ -54,7 +49,7 @@ const ClassroomListingpage = () => {
               {classrooms.map((classroom) => {
                 return (
                   
-                  <Card className="relative mb-8 h-48" key={classroom.id} onClick={() => handleOpenDetails(classroom)}>
+                  <Card className="relative mb-8 h-48" key={classroom.id} onClick={() => navigate(`/admin/classrooms/${classroom._id}`)}>
                    
                     <CardContent className="flex flex-col justify-center items-center h-full relative">
                       <Typography variant="h5" className="font-bold text-blue-600 text-center">
@@ -72,74 +67,7 @@ const ClassroomListingpage = () => {
             </div>
           )}
 
-          <Dialog open={open} onClose={handleCloseDetails} maxWidth="md" fullWidth>
-            <DialogTitle>Classroom Details</DialogTitle>
-            <DialogContent>
-              {selectedClassroom && (
-                <>
-                  {selectedClassroom.students.length > 0 ? (
-                    <>
-                      <Typography variant="h6" className="text-gray-700 mb-2">
-                        Students
-                      </Typography>
-                      <div className="space-y-1">
-                        <div className="mb-6">
-                          <table className="w-full shadow-sm rounded-md">
-                            <thead>
-                              <tr className="bg-gray-100">
-                                <th className="py-2 px-4 text-left">Name</th>
-                                <th className="py-2 px-4 text-left">Roll no</th>
-                                <th className="py-2 px-4 text-left">Contact</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {selectedClassroom.students.map((student) => {
-                                return <StudentListingrow id={student} key={student} />;
-                              })}
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    <Typography variant="body1" className="text-gray-500">
-                      No students found.
-                    </Typography>
-                  )}
-
-                  {selectedClassroom.teachers.length > 0 ? (
-                    <>
-                      <Typography variant="h6" className="text-gray-700 mb-2">
-                        Teachers
-                      </Typography>
-                      <div className="space-y-1">
-                        <div className="mb-6">
-                          <table className="w-full shadow-sm rounded-md">
-                            <thead>
-                              <tr className="bg-gray-100">
-                                <th className="py-2 px-4 text-left">Name</th>
-                                <th className="py-2 px-4 text-left">Email</th>
-                                <th className="py-2 px-4 text-left">Contact</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {selectedClassroom.teachers.map((teacher) => {
-                                return <TeacherListingrow id={teacher} key={teacher} />;
-                              })}
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    <Typography variant="body1" className="text-gray-500">
-                      No teachers found.
-                    </Typography>
-                  )}
-                </>
-              )}
-            </DialogContent>
-          </Dialog>
+      
         </div>
       </div>
     </>
