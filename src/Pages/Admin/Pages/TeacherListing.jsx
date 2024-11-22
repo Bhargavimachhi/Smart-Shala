@@ -31,45 +31,6 @@ const TeacherListingpage = () => {
     return <div className="text-center mt-8">Loading Teachers...</div>;
   }
 
-    // const teachers = [
-    //     {
-    //       id: 1,
-    //       name: "Itadori",
-    //       subjects: ["Mathematics", "Physics", "Computer"],
-    //       image: "https://th.bing.com/th?id=OIP.RN9YBharTO8gPqAsNqtReAHaHa&w=249&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2"
-    //     },
-    //     {
-    //       id: 2,
-    //       name: "Gojo",
-    //       subjects: ["Mathematics", "Physics", "Computer"],
-    //       image: "https://th.bing.com/th?id=OIP.ugb3vQqhtCQYNyOpU54CRwHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2"
-    //     },
-    //     {
-    //       id: 3,
-    //       name: "Kakashi",
-    //       subjects: ["Mathematics", "Physics", "Computer"],
-    //       image: "https://th.bing.com/th?id=OSK.mmcolfSzSahwzdn0_KjPY29A_BIQ3qktfk6d6E44Q-Ik22Eg&w=76&h=100&c=8&o=6&dpr=1.3&pid=SANGAM"
-    //     },
-    //     {
-    //       id: 4,
-    //       name: "Capt Levi",
-    //       subjects: ["Mathematics", "Physics", "Computer"],
-    //       image: "https://th.bing.com/th?id=OIP.l5Zgutq1cRRzDZ5AROYxJwHaNJ&w=187&h=333&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2"
-    //     },
-    //     {
-    //       id: 5,
-    //       name: "Erwin Smith",
-    //       subjects: ["Mathematics", "Physics", "Computer"],
-    //       image: "https://th.bing.com/th?id=OIP.MVmMdVG1ormMulsZzY7K3wHaEK&w=333&h=187&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2"
-    //     },
-    //     {
-    //       id: 6,
-    //       name: "Zoro",
-    //       subjects: ["Mathematics", "Physics", "Computer"],
-    //       image: "https://th.bing.com/th?id=OIP.HkxDftcu901JEpHbQHXpiQHaH-&w=240&h=259&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2"
-    //     }
-    //   ];
-
 
 
 

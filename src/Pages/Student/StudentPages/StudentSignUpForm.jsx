@@ -2,6 +2,7 @@ import { useState } from "react";
 import { StudentRegistrationImage } from "../../Admin/Icons/NavIcon.jsx";
 import axios from 'axios'
 import { Password } from "@mui/icons-material";
+import toast from "react-hot-toast";
 
 
 const StudentForm = () => {
@@ -15,8 +16,14 @@ const StudentForm = () => {
   const [rollno , setRollNo] = useState('');
   const [error, setError] = useState("");
 
+  
+
+
+
   const HandleStudentSubmit = async(e) => {
  e.preventDefault();
+
+
 
 const studentFormData = {
   name,
@@ -30,8 +37,22 @@ const studentFormData = {
 
 
 }
+if (!/^\d{10}$/.test(studentFormData.phone)) {
+  toast.error("Phone number must be 10 digits.")
+  return;
+};
+if (!/^\d{10}$/.test(studentFormData.parentPhone)) {
+  toast.error("Parent number must be 10 digits.")
+  return;
+};
 
-   
+
+if ( studentFormData.password < 6) {
+  toast.error("Password must be 6 charcater long");
+  return;
+}
+
+
     try {
     
 
@@ -95,7 +116,7 @@ console.log(responce.data);
                 }}
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-phone"
-                type="text"
+                type="number"
                 placeholder="+91   "
               />
               {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
@@ -115,9 +136,10 @@ console.log(responce.data);
                   setEmail(e.target.value);
                 }}
                 value={email}
+                
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-email"
-                type="text"
+                type="email"
                 placeholder="abc@gmail.com   "
               />
               {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
@@ -222,9 +244,10 @@ console.log(responce.data);
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-phone"
-                type="text"
+                type="number"
                 placeholder="+91   "
                 onChange={(e)=>{setParentPhone(e.target.value)}}
+
               />
               {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
             </div>
