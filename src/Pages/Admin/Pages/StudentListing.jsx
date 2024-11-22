@@ -2,33 +2,29 @@ import { Card,CardContent } from "@mui/material"
 import SideNavbar from "../../../components/SideNavbar";
 import { useState,useEffect } from "react";
 import axios from "axios";
-import Teacherprofile from "../../../components/Teacherprofile";
-const TeacherListingpage = () => {
-
-
-
-  
-  const [teachers, setTeachers] = useState([]);
+import StudentProfile from "../Components/Studentprofile";
+const StudentListingpage = () => {
+  const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
 
 
 // Thiss useEffect hookk willl try to preload the data from the server before rendering the screen.
   useEffect(()=>{
 
-    async function fetchTeachers(){
+    async function fetchStudents(){
 
-      const res = await axios.get("http://localhost:3000/getallteachers");
+      const res = await axios.get("http://localhost:3000/getstudents");
 
-      console.log(res.data.teachers);
-      setTeachers(res.data.teachers);
+      console.log(res.data.students);
+      setStudents(res.data.students);
       setLoading(false);
     }
-    fetchTeachers();
+    fetchStudents();
 
   },[]);
 
   if (loading) {
-    return <div className="text-center mt-8">Loading Teachers...</div>;
+    return <div className="text-center mt-8">Loading Students...</div>;
   }
 
 
@@ -47,24 +43,12 @@ const TeacherListingpage = () => {
         {students && students.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {students?.map((student) => (
-            <Card key={teacher.id} className="bg-white rounded-lg shadow hover:shadow-lg transition-shadow">
+            <Card key={student.id} className="bg-white rounded-lg shadow hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex flex-col items-center">
                   
-                  <h3 className="text-lg font-semibold mb-2">{teacher.name}</h3>
-                  <p className="text-sm text-gray-500 mb-4">Teacher</p>
-                  <div className="flex gap-2 mb-4">
-                    {teacher.subjects?.map((subject, index) => (
-                      <span
-                        key={index}
-                        className="text-xs text-gray-600"
-                      >
-                        {subject}
-                        {index < teacher.subjects.length - 1 && " • "}
-                      </span>
-                    ))}
-                  </div>
-                  <Teacherprofile Teachers={teacher} />
+                  <h2 className="text-lg font-semibold mb-2">{student.name}</h2>
+                  <StudentProfile student={student} />
                   
                 </div>
               </CardContent>
@@ -72,7 +56,7 @@ const TeacherListingpage = () => {
           ))}
         </div>
         ) : (
-          <div className="text-center mt-8">No teacher found</div>
+          <div className="text-center mt-8">No student found</div>
         )}
       </div>
     </div>
@@ -83,4 +67,4 @@ const TeacherListingpage = () => {
   )
 }
 
-export default TeacherListingpage
+export default StudentListingpage

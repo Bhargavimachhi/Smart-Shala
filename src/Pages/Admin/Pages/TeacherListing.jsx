@@ -2,7 +2,7 @@ import { Card,CardContent } from "@mui/material"
 import SideNavbar from "../../../components/SideNavbar";
 import { useState,useEffect } from "react";
 import axios from "axios";
-import Teacherprofile from "../../../components/Teacherprofile";
+import Teacherprofile from "../Components/Teacherprofile";
 const TeacherListingpage = () => {
 
 
@@ -17,7 +17,7 @@ const TeacherListingpage = () => {
 
     async function fetchTeachers(){
 
-      const res = await axios.get("http://localhost:3000/getallteachers");
+      const res = await axios.get("http://localhost:3000/getteachers");
 
       console.log(res.data.teachers);
       setTeachers(res.data.teachers);

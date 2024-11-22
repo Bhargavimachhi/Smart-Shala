@@ -92,3 +92,12 @@ export const assignStudent = async(req,res) => {
         res.send("Error Occurred !!! , Couldn't Assign student to the classroom");
     });
 }
+
+export const getClassroomName = async(id) => {
+    let classroom = await Classroom.findById(id);
+
+    if(classroom == null) {
+        return "No classroom found";
+    }
+    return classroom.name;
+}
