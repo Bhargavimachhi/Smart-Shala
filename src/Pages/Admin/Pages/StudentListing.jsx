@@ -41,17 +41,29 @@ const TeacherListingpage = () => {
    <SideNavbar/>
       <div className="flex-1 p-8">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">Teacher</h1>
+          <h1 className="text-2xl font-bold">Student</h1>
         </div>
 
-        {teachers && teachers.length > 0 ? (
+        {students && students.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {teachers?.map((teacher) => (
+          {students?.map((student) => (
             <Card key={teacher.id} className="bg-white rounded-lg shadow hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex flex-col items-center">
                   
-                  <h2 className="text-lg font-semibold mb-2">{teacher.name}</h2>
+                  <h3 className="text-lg font-semibold mb-2">{teacher.name}</h3>
+                  <p className="text-sm text-gray-500 mb-4">Teacher</p>
+                  <div className="flex gap-2 mb-4">
+                    {teacher.subjects?.map((subject, index) => (
+                      <span
+                        key={index}
+                        className="text-xs text-gray-600"
+                      >
+                        {subject}
+                        {index < teacher.subjects.length - 1 && " • "}
+                      </span>
+                    ))}
+                  </div>
                   <Teacherprofile Teachers={teacher} />
                   
                 </div>

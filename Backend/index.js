@@ -28,7 +28,10 @@ app.listen(PORT, () => {
 });
 
 app.get("/getclassrooms", getAllClassrooms);
-app.get("/getstudents/:id", getClassroom);
+app.get("/getclassroom/:id", getClassroom);
+app.get("/getstudents", getAllStuents);
+app.get("/getstudent/:id", getStudent);
 app.get("/getallteachers", getAllTeachers);
+app.get("/getteacher/:id", getTeacher);
 app.post("/assignClassroom/:id", addClassroomToAdmin);
 app.post("/addAdmin", addAdmin);
