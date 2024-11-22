@@ -1,12 +1,13 @@
 import React from 'react';
-import { Mail, Phone, MoreVertical, User, BookOpen, Database, Calendar } from 'lucide-react';
+import { Mail, Phone,User, BookOpen, Database, Calendar } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
-import { Card, CardContent, Typography, Dialog, DialogTitle, DialogContent, IconButton } from '@mui/material';
+import { Card, CardContent, Typography, Dialog, DialogTitle, DialogContent, IconButton, CardHeader } from '@mui/material';
 
 import SideNavbar from '../../../components/SideNavbar';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Info as InfoIcon } from '@mui/icons-material';
+import { MoreVertical } from 'lucide-react';
+
 import TeacherListingrow from '../Components/TeacherListing';
 import StudentListingrow from '../Components/StudentListing';
 import Createclassroom from '../Components/Createclassroom';
@@ -48,20 +49,17 @@ const ClassroomListingpage = () => {
           </div>
 
           {classrooms && classrooms.length > 0 ? (
-             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <>
               {classrooms.map((classroom) => {
                 return (
-                  <Card className="relative mb-8" key={classroom.id} onClick={() => handleOpenDetails(classroom)}>
-                    <CardContent>
-                      <div className="flex justify-between items-center mb-4">
-                        <Typography variant="h5" className="font-bold text-blue-600">
-                          {classroom.name}
-                        </Typography>
-                        <IconButton color="primary" className="absolute top-2 right-2">
-                          <InfoIcon />
-                        </IconButton>
-                      </div>
+                  
+                  <Card className="relative mb-8 h-48" key={classroom.id} onClick={() => handleOpenDetails(classroom)}>
+                   
+                    <CardContent className="flex flex-col justify-center items-center h-full relative">
+                      <Typography variant="h5" className="font-bold text-blue-600 text-center">
+                        {classroom.name}
+                      </Typography>
                     </CardContent>
                   </Card>
                 );
