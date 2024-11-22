@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import cors from "cors";
 import { getAllClassrooms, getClassroom } from './Controller/classroom.js';
 import { addAdmin, addClassroomToAdmin } from './Controller/admin.js';
+import { generateIssue } from './Controller/issue.js';
 
 
 app.use(express.json());
@@ -35,3 +36,5 @@ app.get("/getteachers", getAllTeachers);
 app.get("/getteacher/:id", getTeacher);
 app.post("/assignClassroom/:id", addClassroomToAdmin);
 app.post("/addAdmin", addAdmin);
+
+app.post("/teacher/classrooms/:id/generate-issue", generateIssue);

@@ -6,6 +6,11 @@ let issueSchema = new mongoose.Schema({
         type : String,
         required : true,
     },
+    severity : {
+        type : String,
+        enum : ['high', 'medium', 'low'],
+        required : true
+    },
     classroom : {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Student',
@@ -21,5 +26,6 @@ export const Issue = mongoose.model("Issue", issueSchema);
 
 export const issueSchemaValidation = joi.object({
     name : joi.string().required(),
-    classroom : joi.object().required()
+    classroom : joi.object().required(),
+    severity : joi.string().required()
 });
