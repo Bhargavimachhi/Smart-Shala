@@ -16,6 +16,10 @@ let issueSchema = new mongoose.Schema({
         ref: 'Student',
         required : true
     },
+    isResolved : {
+        type: Boolean,
+        default : false
+    },
     issueDate: {
         type: Date,
         default: Date.now

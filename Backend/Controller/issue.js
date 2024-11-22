@@ -47,3 +47,25 @@ export const deleteIssue = async(req,res)=>{
         res.status(500).json({message:"internal server error"});
     }
 }
+
+export const markIssueAsResolved = async(req, res) => {
+    const id = req.params.id;
+    const issue = await Issue.findById(id);
+
+    if(issue == null) {
+        res.status(404).json({"message" : "Issue does not exist"});
+        return;
+    }
+
+    try {
+        issue.isResolved = true;
+        issue.save().then(()=>{
+            res.status(200).json({ message: "Issue Resolved Successfully" });
+        }).catch((err)=>{
+            console.log(err);
+            res.send("Error Occurred !!! , Couldn't resolve issue");
+        });
+    } catch (err) {
+        res.send("Internal server error");
+    }
+}
