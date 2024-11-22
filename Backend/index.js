@@ -17,6 +17,8 @@ app.post('/signupstudent', addStudent);
 app.post('/signupteacher', addTeacher);
 app.post("/getclassroom",getClassroom);
 app.post("/getallclassrooms",getAllClassrooms);
+app.get("/getstudent/:id", getStudent);
+app.get("/getteacher/:id", getTeacher);
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
@@ -25,7 +27,7 @@ app.listen(PORT, () => {
     });
 });
 
-app.get("/getstudents", getAllClassrooms);
+app.get("/getclassrooms", getAllClassrooms);
 app.get("/getstudents/:id", getClassroom);
 app.get("/getallteachers", getAllTeachers);
 app.post("/assignClassroom/:id", addClassroomToAdmin);
