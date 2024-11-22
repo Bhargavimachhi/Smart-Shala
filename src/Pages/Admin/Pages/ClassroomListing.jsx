@@ -9,6 +9,7 @@ import axios from 'axios';
 import { Info as InfoIcon } from '@mui/icons-material';
 import TeacherListingrow from '../Components/TeacherListing';
 import StudentListingrow from '../Components/StudentListing';
+import Createclassroom from '../Components/Createclassroom';
 
 const ClassroomListingpage = () => {
   const [classrooms, setClassrooms] = useState([]);
@@ -40,9 +41,10 @@ const ClassroomListingpage = () => {
       <div className="flex min-h-screen bg-gray-100">
         <SideNavbar />
         <div className="flex-1 p-8">
-          <div className="mb-6">
+          <div className="mb-6 flex justify-between items-center">
             <h1 className="text-2xl font-bold mb-2">Your Classrooms</h1>
-            <p className="text-gray-600">Comprehensive overview of your classrooms</p>
+           
+           <Createclassroom/>
           </div>
 
           {classrooms && classrooms.length > 0 ? (
