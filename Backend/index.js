@@ -6,7 +6,7 @@ import { addTeacher, getTeacher, getAllTeachers, deleteTeacher, getClassroomsOfT
 import mongoose from 'mongoose';
 import cors from "cors";
 import { getAllClassrooms, getClassroom, deleteClassroom } from './Controller/classroom.js';
-import { addAdmin, addClassroomToAdmin, getClassroomsOfAdmin , getTeachersOfAdmin, getStudentsOfAdmin} from './Controller/admin.js';
+import { addAdmin, addClassroomToAdmin, getClassroomsOfAdmin , getTeachersOfAdmin, getStudentsOfAdmin, addTeacherToAdmin, addStudentToAdmin} from './Controller/admin.js';
 import { generateIssue, deleteIssue, markIssueAsResolved, getIssue, markIssueAsNotResolved } from './Controller/issue.js';
 
 
@@ -52,4 +52,7 @@ app.get("/issue/:id/refuse", markIssueAsNotResolved);
 app.get("/admin/:id/classrooms", getClassroomsOfAdmin);
 app.get("/admin/:id/students", getStudentsOfAdmin);
 app.get("/admin/:id/teachers", getTeachersOfAdmin);
+
 app.post("/admin/:id/assign-classroom", addClassroomToAdmin);
+app.post("/admin/:id/assign-teacher", addTeacherToAdmin);
+app.post("/admin/:id/assign-student", addStudentToAdmin);
