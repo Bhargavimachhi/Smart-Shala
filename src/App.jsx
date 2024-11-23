@@ -13,6 +13,7 @@ import AddTeacher from "./Pages/Teacher/Pages/TeacherSignUpForm.jsx";
 import { Toaster } from "react-hot-toast";
 import ClassroomListingpage from "./Pages/Admin/Pages/ClassroomListing.jsx";
 import Classroom from "./Pages/Admin/Pages/Classroom.jsx";
+import Issuessection from "./Pages/Admin/Pages/Issuessection.jsx";
 
 import TeacherHomePage from './Pages/Teacher/Pages/TeacherHomePage';
 import TeacherSignUpForm from './Pages/Teacher/Pages/TeacherSignUpForm';
@@ -44,6 +45,7 @@ function App() {
         <Route path='/teacher/profile' element={<TeacherProfilePage />} /> {/* Add the new route */}
        
         <Route path='/student' element={<StudentHomePage/>}   />
+        <Route path='/admin/Issues' element={<Issuessection/>} />
       </Routes>
       <Toaster/>
     </BrowserRouter>
