@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 import cors from "cors";
 import { getAllClassrooms, getClassroom, deleteClassroom } from './Controller/classroom.js';
 import { addAdmin, addClassroomToAdmin } from './Controller/admin.js';
-import { generateIssue, deleteIssue, markIssueAsResolved, getIssue } from './Controller/issue.js';
+import { generateIssue, deleteIssue, markIssueAsResolved, getIssue, markIssueAsNotResolved } from './Controller/issue.js';
 
 
 app.use(express.json());
@@ -47,3 +47,4 @@ app.get("/classroom/:id/delete", deleteClassroom);
 app.get("/issue/:id/delete", deleteIssue);
 app.get("/issue/:id", getIssue);
 app.get("/issue/:id/resolve", markIssueAsResolved);
+app.get("/issue/:id/refuse", markIssueAsNotResolved);
