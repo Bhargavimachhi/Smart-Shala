@@ -15,6 +15,10 @@ import ClassroomListingpage from "./Pages/Admin/Pages/ClassroomListing.jsx";
 import Classroom from "./Pages/Admin/Pages/Classroom.jsx";
 import Issuessection from "./Pages/Admin/Pages/Issuessection.jsx";
 
+import TeacherHomePage from './Pages/Teacher/Pages/TeacherHomePage';
+import TeacherSignUpForm from './Pages/Teacher/Pages/TeacherSignUpForm';
+import TeacherProfilePage from './Pages/Teacher/Pages/TeacherProfilePage'; // Import the new page
+
 
 function App() {
 
@@ -24,16 +28,23 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/admin' element={<AdminHome/>}   /> 
-        <Route path='/student' element={<StudentHomePage/>}   />
         <Route path="/admin/students" element={<StudentListingpage />} />
         <Route path="/admin/teachers" element={<TeacherListingpage />} />
         <Route path="/admin/classrooms" element={<ClassroomListingpage/>} />
         <Route path="/admin/classrooms/:id" element={<Classroom/>} />
         <Route path="/admin/data-analytics" element={<Dataanalyticspage />} />
+
         <Route path="/login" element={<Teacherloginportal />} />
         <Route path="/adminlogin" element={<AdminLoginpage/>} />
         <Route path='/signup/student' element={<AddStudent/>} />
         <Route path='/signup/teacher' element={<AddTeacher/>} />
+
+        
+        <Route path='/teacher' element={<TeacherHomePage />} />
+        <Route path='/teacher/signup' element={<TeacherSignUpForm />} />
+        <Route path='/teacher/profile' element={<TeacherProfilePage />} /> {/* Add the new route */}
+       
+        <Route path='/student' element={<StudentHomePage/>}   />
         <Route path='/admin/Issues' element={<Issuessection/>} />
       </Routes>
       <Toaster/>
