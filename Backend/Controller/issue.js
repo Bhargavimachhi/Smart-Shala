@@ -48,6 +48,25 @@ export const deleteIssue = async(req,res)=>{
     }
 }
 
+export const getIssue = async(req,res) =>{
+    const id = req.params.id;
+    
+    try {
+        const issue = await Issue.findById(id);
+        if(issue == null) {
+            res.status(400).json({message:"Issue does not exist"});
+        }
+        else {
+            //respond with success message
+            res.status(201).json({message:"success", issue});
+        }
+    } catch (err) {
+        //handle error
+        console.log(err);
+        res.status(500).json({message:"internal server error"});
+    }
+}
+
 export const markIssueAsResolved = async(req, res) => {
     const id = req.params.id;
     const issue = await Issue.findById(id);

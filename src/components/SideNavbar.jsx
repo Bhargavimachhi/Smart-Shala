@@ -7,6 +7,7 @@ import {
   MeetingIcon,
   StudentIcon,
 } from "../Pages/Admin/Icons/NavIcon.jsx";
+import { CircleCheckBig } from "lucide-react";
 
 const SideNavbar = () => {
   const location = useLocation();
@@ -19,6 +20,7 @@ const SideNavbar = () => {
     { icon: StudentIcon, name: "Classrooms", path: "/admin/classrooms" },
     { icon: DataIcon, name: "Data Analytics", path: "/admin/data-analytics" },
     { icon: MeetingIcon, name: "Meeting", path: "/admin/meeting" },
+    { icon: MeetingIcon, name: "Issues", path: "/admin/Issues" },
   ];
 
   return (
