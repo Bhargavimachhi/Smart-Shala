@@ -17,8 +17,11 @@ import Issuessection from "./Pages/Admin/Pages/Issuessection.jsx";
 
 import TeacherHomePage from './Pages/Teacher/Pages/TeacherHomePage';
 import TeacherSignUpForm from './Pages/Teacher/Pages/TeacherSignUpForm';
-import TeacherProfilePage from './Pages/Teacher/Pages/TeacherProfilePage'; 
+
+import TeacherProfilePage from './Pages/Teacher/Pages/TeacherProfilePage'; // Import the new page
+import AdminForm from "./Pages/Admin/Pages/AdminSignup.jsx";
 import AddHomeworkPage from './Pages/Teacher/Pages/AddHomeworkPage';
+
 function App() {
 
   // Routers page
@@ -32,6 +35,7 @@ function App() {
         <Route path="/admin/classrooms" element={<ClassroomListingpage/>} />
         <Route path="/admin/classrooms/:id" element={<Classroom/>} />
         <Route path="/admin/data-analytics" element={<Dataanalyticspage />} />
+        <Route path="/admin/signup" element={<AdminForm />} />
 
         <Route path="/login" element={<Teacherloginportal />} />
         <Route path="/adminlogin" element={<AdminLoginpage/>} />
@@ -41,6 +45,7 @@ function App() {
         
         <Route path='/teacher' element={<TeacherHomePage />} />
         <Route path='/teacher/signup' element={<TeacherSignUpForm />} />
+
         <Route path='/teacher/profile' element={<TeacherProfilePage />} />
         <Route path='/teacher/add-homework' element={<AddHomeworkPage />} /> 
         
