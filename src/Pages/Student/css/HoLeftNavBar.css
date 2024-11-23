@@ -5,3 +5,6 @@
     color: white; 
    
 }
+html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Edge */
+}

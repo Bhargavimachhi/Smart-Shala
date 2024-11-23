@@ -13,6 +13,8 @@ import AddTeacher from "./Pages/Teacher/Pages/TeacherSignUpForm.jsx";
 import { Toaster } from "react-hot-toast";
 import ClassroomListingpage from "./Pages/Admin/Pages/ClassroomListing.jsx";
 import Classroom from "./Pages/Admin/Pages/Classroom.jsx";
+import SubmitHomework from "./Pages/Student/StudentPages/SubmitHomework.jsx";
+import StudentNotification from "./Pages/Student/StudentPages/StudentNotification.jsx";
 
 
 function App() {
@@ -20,10 +22,9 @@ function App() {
   // Routers page
   return (
     <>
-    <BrowserRouter>
+  
       <Routes>
         <Route path='/admin' element={<AdminHome/>}   /> 
-        <Route path='/student' element={<StudentHomePage/>}   />
         <Route path="/admin/students" element={<StudentListingpage />} />
         <Route path="/admin/teachers" element={<TeacherListingpage />} />
         <Route path="/admin/classrooms" element={<ClassroomListingpage/>} />
@@ -33,9 +34,15 @@ function App() {
         <Route path="/adminlogin" element={<AdminLoginpage/>} />
         <Route path='/signup/student' element={<AddStudent/>} />
         <Route path='/signup/teacher' element={<AddTeacher/>} />
+        {/* student page route */} 
+        <Route path='/student' element={<StudentHomePage/>}   /> 
+        <Route path='/student/SubmitHomework' element={<SubmitHomework/>}/> 
+        <Route path='/student/Notification' element={<StudentNotification/>}   /> 
+        <Route path='/student/Doubts' element={<StudentHomePage/>}   /> 
+
       </Routes>
       <Toaster/>
-    </BrowserRouter>
+   
     </>
   )
 }
