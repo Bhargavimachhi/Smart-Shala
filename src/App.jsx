@@ -17,9 +17,10 @@ import Issuessection from "./Pages/Admin/Pages/Issuessection.jsx";
 
 import TeacherHomePage from './Pages/Teacher/Pages/TeacherHomePage';
 import TeacherSignUpForm from './Pages/Teacher/Pages/TeacherSignUpForm';
+
 import TeacherProfilePage from './Pages/Teacher/Pages/TeacherProfilePage'; // Import the new page
 import AdminForm from "./Pages/Admin/Pages/AdminSignup.jsx";
-
+import AddHomeworkPage from './Pages/Teacher/Pages/AddHomeworkPage';
 
 function App() {
 
@@ -45,8 +46,9 @@ function App() {
         <Route path='/teacher' element={<TeacherHomePage />} />
         <Route path='/teacher/signup' element={<TeacherSignUpForm />} />
 
-        <Route path='/teacher/profile' element={<TeacherProfilePage />} /> 
-       
+        <Route path='/teacher/profile' element={<TeacherProfilePage />} />
+        <Route path='/teacher/add-homework' element={<AddHomeworkPage />} /> 
+        
         <Route path='/student' element={<StudentHomePage/>}   />
         <Route path='/admin/Issues' element={<Issuessection/>} />
       </Routes>

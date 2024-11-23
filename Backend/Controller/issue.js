@@ -88,3 +88,25 @@ export const markIssueAsResolved = async(req, res) => {
         res.send("Internal server error");
     }
 }
+
+export const markIssueAsNotResolved = async(req, res) => {
+    const id = req.params.id;
+    const issue = await Issue.findById(id);
+
+    if(issue == null) {
+        res.status(404).json({"message" : "Issue does not exist"});
+        return;
+    }
+
+    try {
+        issue.isResolved = false;
+        issue.save().then(()=>{
+            res.status(200).json({ message: "Issue Marked as Not Resolved Successfully" });
+        }).catch((err)=>{
+            console.log(err);
+            res.send("Error Occurred !!!");
+        });
+    } catch (err) {
+        res.send("Internal server error");
+    }
+}
