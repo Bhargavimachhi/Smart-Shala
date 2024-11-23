@@ -1,4 +1,5 @@
 import {Teacher} from "../Models/Teacher.js"
+import { Classroom } from "../Models/Classroom.js";
 
 export const addTeacher = async(req, res) => {
     let teacher = await Teacher.find({email : req.body.email});
@@ -65,5 +66,26 @@ export const deleteTeacher = async(req,res)=>{
         //handle error
         console.log(err);
         res.status(500).json({message:"internal server error"});
+    }
+}
+
+//get classrooms associated with teacher
+export const getClassroomsOfTeacher = async(req, res) => {
+    let id = req.params.id;
+    let teacher = await Teacher.findById(id);
+
+    if(teacher == null) {
+        res.status(404).json({"message":"Teacher does not exist"});
+    }
+    else {
+        let classrooms = [];
+
+        for (let i=0; i<teacher.classrooms.length; i++){
+            let classroom = await Classroom.findById(teacher.classrooms[i]);
+            if(classroom) {
+                classrooms.push(classroom);
+            }
+        }
+        res.status(201).json({message:"success", classrooms});
     }
 }

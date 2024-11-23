@@ -48,6 +48,25 @@ export const deleteIssue = async(req,res)=>{
     }
 }
 
+export const getIssue = async(req,res) =>{
+    const id = req.params.id;
+    
+    try {
+        const issue = await Issue.findById(id);
+        if(issue == null) {
+            res.status(400).json({message:"Issue does not exist"});
+        }
+        else {
+            //respond with success message
+            res.status(201).json({message:"success", issue});
+        }
+    } catch (err) {
+        //handle error
+        console.log(err);
+        res.status(500).json({message:"internal server error"});
+    }
+}
+
 export const markIssueAsResolved = async(req, res) => {
     const id = req.params.id;
     const issue = await Issue.findById(id);
@@ -64,6 +83,28 @@ export const markIssueAsResolved = async(req, res) => {
         }).catch((err)=>{
             console.log(err);
             res.send("Error Occurred !!! , Couldn't resolve issue");
+        });
+    } catch (err) {
+        res.send("Internal server error");
+    }
+}
+
+export const markIssueAsNotResolved = async(req, res) => {
+    const id = req.params.id;
+    const issue = await Issue.findById(id);
+
+    if(issue == null) {
+        res.status(404).json({"message" : "Issue does not exist"});
+        return;
+    }
+
+    try {
+        issue.isResolved = false;
+        issue.save().then(()=>{
+            res.status(200).json({ message: "Issue Marked as Not Resolved Successfully" });
+        }).catch((err)=>{
+            console.log(err);
+            res.send("Error Occurred !!!");
         });
     } catch (err) {
         res.send("Internal server error");

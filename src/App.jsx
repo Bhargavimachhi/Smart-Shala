@@ -15,7 +15,14 @@ import ClassroomListingpage from "./Pages/Admin/Pages/ClassroomListing.jsx";
 import Classroom from "./Pages/Admin/Pages/Classroom.jsx";
 import SubmitHomework from "./Pages/Student/StudentPages/SubmitHomework.jsx";
 import StudentNotification from "./Pages/Student/StudentPages/StudentNotification.jsx";
+import Issuessection from "./Pages/Admin/Pages/Issuessection.jsx";
 
+import TeacherHomePage from './Pages/Teacher/Pages/TeacherHomePage';
+import TeacherSignUpForm from './Pages/Teacher/Pages/TeacherSignUpForm';
+
+import TeacherProfilePage from './Pages/Teacher/Pages/TeacherProfilePage'; // Import the new page
+import AdminForm from "./Pages/Admin/Pages/AdminSignup.jsx";
+import AddHomeworkPage from './Pages/Teacher/Pages/AddHomeworkPage';
 
 function App() {
 
@@ -30,16 +37,25 @@ function App() {
         <Route path="/admin/classrooms" element={<ClassroomListingpage/>} />
         <Route path="/admin/classrooms/:id" element={<Classroom/>} />
         <Route path="/admin/data-analytics" element={<Dataanalyticspage />} />
+        <Route path="/admin/signup" element={<AdminForm />} />
+
         <Route path="/login" element={<Teacherloginportal />} />
         <Route path="/adminlogin" element={<AdminLoginpage/>} />
         <Route path='/signup/student' element={<AddStudent/>} />
         <Route path='/signup/teacher' element={<AddTeacher/>} />
+
         {/* student page route */} 
         <Route path='/student' element={<StudentHomePage/>}   /> 
         <Route path='/student/SubmitHomework' element={<SubmitHomework/>}/> 
         <Route path='/student/Notification' element={<StudentNotification/>}   /> 
         <Route path='/student/Doubts' element={<StudentHomePage/>}   /> 
+  
+        <Route path='/teacher' element={<TeacherHomePage />} />
+        <Route path='/teacher/signup' element={<TeacherSignUpForm />} />
 
+        <Route path='/teacher/profile' element={<TeacherProfilePage />} />
+        <Route path='/teacher/add-homework' element={<AddHomeworkPage />} />
+        <Route path='/admin/Issues' element={<Issuessection/>} />
       </Routes>
       <Toaster/>
    
