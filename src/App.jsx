@@ -47,9 +47,9 @@ function App() {
 
         {/* student page route */} 
         <Route path='/student' element={<StudentHomePage/>}   /> 
-        <Route path='/student/SubmitHomework' element={<SubmitHomework/>}/> 
-        <Route path='/student/Notification' element={<StudentNotification/>}   /> 
-        <Route path='/student/Doubts' element={<StudentChatbot/>}   /> 
+        <Route path='/student/submit-homework' element={<SubmitHomework/>}/> 
+        <Route path='/student/notification' element={<StudentNotification/>}   /> 
+        <Route path='/student/doubts' element={<StudentChatbot/>}   /> 
   
         <Route path='/teacher' element={<TeacherHomePage />} />
         <Route path='/teacher/signup' element={<TeacherSignUpForm />} />

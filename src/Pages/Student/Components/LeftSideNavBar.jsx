@@ -50,7 +50,7 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
           <div className="colorNavChange flex items-center p-4 rounded cursor-pointer">
             <FaFileUpload className="text-xl textColor text-blue-600 colorNavChange" />
             {isExpanded && (
-              <NavLink className="ml-4 textColor" to="/student/SubmitHomework">
+              <NavLink className="ml-4 textColor" to="/student/submit-homework">
                 Submit Homework
               </NavLink>
             )}
@@ -58,7 +58,7 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
           <div className="colorNavChange flex items-center p-4 rounded cursor-pointer">
             <FaInfoCircle className="text-xl textColor text-blue-600 colorNavChange" />
             {isExpanded && (
-              <NavLink className="ml-4 textColor" to="/student/Attendance">
+              <NavLink className="ml-4 textColor" to="/student/attendance">
                 Attendance
               </NavLink>
             )}
@@ -66,7 +66,7 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
           <div className="colorNavChange flex items-center p-4 rounded cursor-pointer">
             <IoIosDocument className="text-xl textColor text-blue-600 colorNavChange" />
             {isExpanded && (
-              <NavLink className="ml-4 textColor" to="/student/Performance">
+              <NavLink className="ml-4 textColor" to="/student/performance">
                 Performance Report
               </NavLink>
             )}
@@ -74,7 +74,7 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
           <div className="colorNavChange flex items-center p-4 rounded cursor-pointer">
             <MdNotificationsActive className="text-xl textColor text-blue-600 colorNavChange" />
             {isExpanded && (
-              <NavLink className="ml-4 textColor" to="/student/Notifications">
+              <NavLink className="ml-4 textColor" to="/student/notifications">
                 Notifications
               </NavLink>
             )}
@@ -82,7 +82,7 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
           <div className="colorNavChange flex items-center p-4 rounded cursor-pointer">
             <FaRocketchat className="text-xl textColor text-blue-600 colorNavChange" />
             {isExpanded && (
-              <NavLink className="ml-4 textColor" to="/student/Doubts">
+              <NavLink className="ml-4 textColor" to="/student/doubts">
                 Doubts (Chat Bot)
               </NavLink>
             )}
@@ -95,7 +95,7 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
         <div className="colorNavChange flex items-center p-4 rounded cursor-pointer">
           <FaCog className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && (
-            <NavLink className="ml-4 textColor" to="/student/Settings">
+            <NavLink className="ml-4 textColor" to="/student/settings">
               Settings
             </NavLink>
           )}
