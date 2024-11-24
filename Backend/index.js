@@ -8,6 +8,7 @@ import cors from "cors";
 import { getAllClassrooms, getClassroom, deleteClassroom } from './Controller/classroom.js';
 import { addAdmin, addClassroomToAdmin, getClassroomsOfAdmin , getTeachersOfAdmin, getStudentsOfAdmin, addTeacherToAdmin, addStudentToAdmin} from './Controller/admin.js';
 import { generateIssue, deleteIssue, markIssueAsResolved, getIssue, markIssueAsNotResolved } from './Controller/issue.js';
+import { getAnswer } from './Controller/Chatbot.js';
 
 
 app.use(express.json());
@@ -56,3 +57,5 @@ app.get("/admin/:id/teachers", getTeachersOfAdmin);
 app.post("/admin/:id/assign-classroom", addClassroomToAdmin);
 app.post("/admin/:id/assign-teacher", addTeacherToAdmin);
 app.post("/admin/:id/assign-student", addStudentToAdmin);
+
+app.post("/getAnswer", getAnswer);
