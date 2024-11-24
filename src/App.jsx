@@ -23,6 +23,7 @@ import TeacherSignUpForm from './Pages/Teacher/Pages/TeacherSignUpForm';
 import TeacherProfilePage from './Pages/Teacher/Pages/TeacherProfilePage'; // Import the new page
 import AdminForm from "./Pages/Admin/Pages/AdminSignup.jsx";
 import AddHomeworkPage from './Pages/Teacher/Pages/AddHomeworkPage';
+import StudentChatbot from "./Pages/Student/StudentPages/StudentChatbot.jsx";
 
 function App() {
 
@@ -48,7 +49,7 @@ function App() {
         <Route path='/student' element={<StudentHomePage/>}   /> 
         <Route path='/student/SubmitHomework' element={<SubmitHomework/>}/> 
         <Route path='/student/Notification' element={<StudentNotification/>}   /> 
-        <Route path='/student/Doubts' element={<StudentHomePage/>}   /> 
+        <Route path='/student/Doubts' element={<StudentChatbot/>}   /> 
   
         <Route path='/teacher' element={<TeacherHomePage />} />
         <Route path='/teacher/signup' element={<TeacherSignUpForm />} />
