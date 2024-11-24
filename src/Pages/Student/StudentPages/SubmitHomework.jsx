@@ -25,14 +25,14 @@ const SubmitHomework = () => {
           isExpanded ? "64" : "16"
         } p-6 mr-50 overflow-x-auto`}
       >
-        {/* Main Content */}
+       
         <div className="justify-between gap-6">
           <SubmitHWmainBox onFileupload={handleFileUpload} />
         </div>
       </div> 
       <RightSideBarHW
-       submittedHomework={submittedHomework} // Pass the state
-       approvedHomework={approvedHomework}   // Pass the state
+       submittedHomework={submittedHomework}
+       approvedHomework={approvedHomework}   
       />
     </div>
   );
