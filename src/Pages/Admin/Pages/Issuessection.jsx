@@ -32,6 +32,25 @@ const Issuessection = () => {
         return res.data.classroom.name;
     }
 
+    const markResolved = async (issueId) => {
+
+      const res = await axios.get(`http://localhost:3000/issue/${issueId}/resolve`);
+      console.log(res.data);
+      if(res.data.message === "Issue Resolved Successfully"){
+        window.location.reload();
+        
+      }
+
+    };
+    const markUnResolved = async (issueId) => {
+
+      const res = await axios.get(`http://localhost:3000/issue/${issueId}/refuse`);
+      console.log(res.data);
+      if(res.data.message === "Issue Marked as Not Resolved Successfully"){
+        window.location.reload();
+      };
+    };
+
 
     useEffect(() => {
         async function getIssues() {
@@ -64,7 +83,7 @@ const Issuessection = () => {
 
 
 
-console.log(issues);
+
 
   return (
     <>
@@ -130,15 +149,26 @@ console.log(issues);
           </Typography>
         </Box>
 
-        {issue.isResolved && (
+        {issue.isResolved ? (
                           <Button
-                            variant="contained"
-                            color="primary"
-                            className="mt-4"
-                            
-                          >
-                            Mark as Resolved
-                          </Button>
+                          variant="contained"
+                          color="primary"
+                          className="mt-4"
+                          onClick={() => markUnResolved(issue._id)}
+                        >
+                          Mark as Unresolved
+                        </Button>
+                        ) : (
+                         
+                           <Button
+                           variant="contained"
+                           color="primary"
+                           className="mt-4"
+                           onClick={() => markResolved(issue._id)}
+                           
+                         >
+                           Mark as Resolved
+                         </Button>
                         )}
       </CardContent>
     </Card>
