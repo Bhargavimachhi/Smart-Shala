@@ -9,7 +9,9 @@ import { getAllClassrooms, getClassroom, deleteClassroom } from './Controller/cl
 import { addAdmin, addClassroomToAdmin, getClassroomsOfAdmin , getTeachersOfAdmin, getStudentsOfAdmin, addTeacherToAdmin, addStudentToAdmin} from './Controller/admin.js';
 import { generateIssue, deleteIssue, markIssueAsResolved, getIssue, markIssueAsNotResolved } from './Controller/issue.js';
 import { getAnswer } from './Controller/Chatbot.js';
-
+// import  {requireSignIn}  from './middleware/requireSignIn.js';
+import { adminLogin } from './Controller/admin.js';
+import { Testing } from './Controller/Testing.js';
 
 app.use(express.json());
 
@@ -37,7 +39,8 @@ app.get("/getclassrooms", getAllClassrooms);
 app.get("/getstudents", getAllStuents);
 app.get("/getteachers", getAllTeachers);
 
-app.post("/addAdmin", addAdmin);
+app.post("/addAdmin",  addAdmin);
+app.post("/admin/login" ,adminLogin )
 
 app.post("/teacher/classrooms/:id/generate-issue", generateIssue);
 app.get("/teacher/:id/classrooms", getClassroomsOfTeacher);
@@ -58,4 +61,7 @@ app.post("/admin/:id/assign-classroom", addClassroomToAdmin);
 app.post("/admin/:id/assign-teacher", addTeacherToAdmin);
 app.post("/admin/:id/assign-student", addStudentToAdmin);
 
+
 app.post("/getAnswer", getAnswer);
+
+app.post('/testing',Testing)

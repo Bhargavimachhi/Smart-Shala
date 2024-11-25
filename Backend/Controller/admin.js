@@ -2,10 +2,14 @@ import {Admin} from "../Models/Admin.js"
 import { Classroom } from "../Models/Classroom.js";
 import { Student } from "../Models/Student.js";
 import { Teacher } from "../Models/Teacher.js";
+import JWT from 'jsonwebtoken'
 
+export const JWT_SECRET = "ABCD12345"
 //add Admin
 export const addAdmin = async(req, res) => {
     let admin = await Admin.find({email : req.body.email});
+
+    //jwt secret key
 
     if(admin && admin.length > 0) {
         res.status(403).json({"message":"Admin already exists"});
@@ -18,12 +22,81 @@ export const addAdmin = async(req, res) => {
         password : req.body.password
     });
 
-    admin.save().then(()=>{
-        res.status(200).json({"message":"success"});
+    admin.save().then((savedAdmin)=>{
+        // res.status(200).json({"message":"success",
+        //     "admin":savedAdmin,
+        //     "token":jwt_token
+        // });
+        res.status(200).send({
+            message:'success full login + registration',
+           admin:{
+            email:admin.email,
+            password:admin.password,
+        } 
+       
+        })
+        
+
+
+
     }).catch((err)=>{
         res.send("Error Occurred !!!");
     });
 }
+
+//admin Login
+
+export const adminLogin = async(req,res)=>{
+
+   try {
+       
+       const {email , password}  = req.body;
+       if(!email || !password){
+           return res.status(404).send({
+               success:false,
+               message:'invlid email or password'
+            })
+        }
+        
+        const ExistingAdmin = await Admin.findOne({email})
+        const jwt_token = JWT.sign({_id:ExistingAdmin._id}, JWT_SECRET  , {expiresIn:'10d'})
+if(ExistingAdmin == false){
+    return res.status(404).send({
+        success:false,
+        message:'email not registered'
+    })
+}
+res.status(200).send({
+    success:true,
+    message:'login success',
+    admin:{
+        email,
+        password,
+
+    },
+    jwt_token
+})
+
+
+
+   } catch (error) {
+    console.log("error in login",error);
+    
+    
+   }
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 //add classroom to admin portal
 export const addClassroomToAdmin = async(req, res) => {
@@ -46,7 +119,9 @@ export const addClassroomToAdmin = async(req, res) => {
     admin.classrooms.push(classroom._id);
 
     admin.save().then(()=>{
-        res.status(200).json({"message":"success"});
+        res.status(200).json({"message":"successfull"});
+       
+        
     }).catch((err)=>{
         res.send("Error Occurred !!!");
     });
@@ -73,6 +148,8 @@ export const addTeacherToAdmin = async(req, res) => {
 
     admin.save().then(()=>{
         res.status(200).json({"message":"success"});
+        
+        
     }).catch((err)=>{
         res.send("Error Occurred !!!");
     });
