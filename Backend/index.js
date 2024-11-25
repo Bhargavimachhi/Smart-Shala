@@ -6,7 +6,7 @@ import { addTeacher, getTeacher, getAllTeachers, deleteTeacher, getClassroomsOfT
 import mongoose from 'mongoose';
 import cors from "cors";
 import { getAllClassrooms, getClassroom, deleteClassroom } from './Controller/classroom.js';
-import { addAdmin, addClassroomToAdmin, getClassroomsOfAdmin , getTeachersOfAdmin, getStudentsOfAdmin, addTeacherToAdmin, addStudentToAdmin} from './Controller/admin.js';
+import { addAdmin, addClassroomToAdmin, getClassroomsOfAdmin , getTeachersOfAdmin, getStudentsOfAdmin, addTeacherToAdmin, addStudentToAdmin, deleteStudentOfAdmin, deleteTeacherOfAdmin, deleteClassroomOfAdmin} from './Controller/admin.js';
 import { generateIssue, deleteIssue, markIssueAsResolved, getIssue, markIssueAsNotResolved } from './Controller/issue.js';
 import { getAnswer } from './Controller/Chatbot.js';
 
@@ -53,6 +53,9 @@ app.get("/issue/:id/refuse", markIssueAsNotResolved);
 app.get("/admin/:id/classrooms", getClassroomsOfAdmin);
 app.get("/admin/:id/students", getStudentsOfAdmin);
 app.get("/admin/:id/teachers", getTeachersOfAdmin);
+app.get("/admin/:aId/student/remove/:sId", deleteStudentOfAdmin);
+app.get("/admin/:aId/teacher/remove/:tId", deleteTeacherOfAdmin);
+app.get("/admin/:aId/classroom/remove/:cId", deleteClassroomOfAdmin);
 
 app.post("/admin/:id/assign-classroom", addClassroomToAdmin);
 app.post("/admin/:id/assign-teacher", addTeacherToAdmin);

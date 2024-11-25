@@ -166,3 +166,60 @@ export const getTeachersOfAdmin = async(req, res) => {
         res.status(201).json({message:"success", teachers});
     }
 }
+
+//delete student associated with Admin
+export const deleteStudentOfAdmin = async(req, res) => {
+    let aId = req.params.aId;
+    let admin = await Admin.findById(aId);
+
+    if(admin == null) {
+        res.status(404).json({"message":"Admin does not exist"});
+        return;
+    }
+    let sId = req.params.sId;
+    admin.students = admin.students.filter(id => id != sId);
+
+    admin.save().then(()=>{
+        res.status(200).json({"message":"success"});
+    }).catch((err)=>{
+        res.send("Error Occurred !!!");
+    });
+}
+
+//delete teacher associated with Admin
+export const deleteTeacherOfAdmin = async(req, res) => {
+    let aId = req.params.aId;
+    let admin = await Admin.findById(aId);
+
+    if(admin == null) {
+        res.status(404).json({"message":"Admin does not exist"});
+        return;
+    }
+    let tId = req.params.tId;
+    admin.teachers = admin.teachers.filter(id => id != tId);
+
+    admin.save().then(()=>{
+        res.status(200).json({"message":"success"});
+    }).catch((err)=>{
+        res.send("Error Occurred !!!");
+    });
+}
+
+//delete classrooms associated with Admin
+export const deleteClassroomOfAdmin = async(req, res) => {
+    let aId = req.params.aId;
+    let admin = await Admin.findById(aId);
+
+    if(admin == null) {
+        res.status(404).json({"message":"Admin does not exist"});
+        return;
+    }
+    let cId = req.params.cId;
+    admin.classrooms = admin.classrooms.filter(id => id != cId);
+
+    admin.save().then(()=>{
+        res.status(200).json({"message":"success"});
+    }).catch((err)=>{
+        res.send("Error Occurred !!!");
+    });
+}

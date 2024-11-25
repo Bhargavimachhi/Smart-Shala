@@ -47,7 +47,11 @@ let studentSchema = new mongoose.Schema({
     absentDays: {
         type: [Date],
         default : [],
-    }
+    },
+    homeworks : [{
+        type : String,
+        default:[]
+    }],
 });
 
 export const Student = mongoose.model("Student", studentSchema);
