@@ -32,31 +32,35 @@ function App() {
     <>
   
       <Routes>
+        {/* Admin Page Routes */}
         <Route path='/admin' element={<AdminHome/>}   /> 
         <Route path="/admin/students" element={<StudentListingpage />} />
         <Route path="/admin/teachers" element={<TeacherListingpage />} />
         <Route path="/admin/classrooms" element={<ClassroomListingpage/>} />
         <Route path="/admin/classrooms/:id" element={<Classroom/>} />
         <Route path="/admin/data-analytics" element={<Dataanalyticspage />} />
-        <Route path="/admin/signup" element={<AdminForm />} />
+        <Route path='/admin/issues' element={<Issuessection/>} />
 
-        <Route path="/login" element={<Teacherloginportal />} />
-        <Route path="/adminlogin" element={<AdminLoginpage/>} />
-        <Route path='/signup/student' element={<AddStudent/>} />
-        <Route path='/signup/teacher' element={<AddTeacher/>} />
-
-        {/* student page route */} 
+        {/* Student Page Routes */} 
         <Route path='/student' element={<StudentHomePage/>}   /> 
         <Route path='/student/submit-homework' element={<SubmitHomework/>}/> 
         <Route path='/student/notification' element={<StudentNotification/>}   /> 
         <Route path='/student/doubts' element={<StudentChatbot/>}   /> 
   
+        {/* Teacher Page Routes */}
         <Route path='/teacher' element={<TeacherHomePage />} />
         <Route path='/teacher/signup' element={<TeacherSignUpForm />} />
-
         <Route path='/teacher/profile' element={<TeacherProfilePage />} />
         <Route path='/teacher/add-homework' element={<AddHomeworkPage />} />
-        <Route path='/admin/Issues' element={<Issuessection/>} />
+
+        {/* SignUp Page Routes */}
+        <Route path='/signup/student' element={<AddStudent/>} />
+        <Route path='/signup/teacher' element={<AddTeacher/>} />
+        <Route path="/signup/admin" element={<AdminForm />} />
+
+        {/* Login Page Routes */}
+        <Route path="/login" element={<Teacherloginportal />} />
+        <Route path="/login/admin" element={<AdminLoginpage/>} />
       </Routes>
       <Toaster/>
    

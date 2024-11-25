@@ -20,7 +20,7 @@ const SideNavbar = () => {
     { icon: StudentIcon, name: "Classrooms", path: "/admin/classrooms" },
     { icon: DataIcon, name: "Data Analytics", path: "/admin/data-analytics" },
     { icon: MeetingIcon, name: "Meeting", path: "/admin/meeting" },
-    { icon: MeetingIcon, name: "Issues", path: "/admin/Issues" },
+    { icon: MeetingIcon, name: "Issues", path: "/admin/issues" },
   ];
 
   return (
