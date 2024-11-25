@@ -39,13 +39,21 @@ const Classroom = () => {
 
       {classroom ? (
      <>
+
+<div className='flex justify-between mb-10'>
+
       <Typography variant="h4" className="mb-4">{classroom.name} Classroom Details</Typography>
+      <Button variant="contained" color="primary" className='mb-4'>
+          Edit Subjects
+        </Button>
+        </div>
+
       
       <div className='flex justify-between'>
       
 
       <Typography variant="h5" className="mb-4">Students</Typography>
-      <Button variant="contained" color="primary" className='mb-4'>
+      <Button variant="contained" color="primary" className='mb-4 '>
           Add Students
         </Button>
         </div>
