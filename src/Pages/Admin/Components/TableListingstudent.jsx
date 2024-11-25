@@ -28,7 +28,13 @@ const TableListingstudent = ({id}) => {
                 <Button variant="contained" color="primary" size="small">
                   View
                 </Button>
+                
               </TableCell>
+              <TableCell>
+              <Button variant="outlined" color="error" size="small">
+                  Delete
+                </Button>
+                </TableCell>
             </TableRow>
     
     

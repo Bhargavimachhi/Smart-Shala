@@ -24,10 +24,16 @@ const TableListingteacher = ({id}) => {
               <TableCell>{teacher.email}</TableCell>
               <TableCell>{teacher.contact}</TableCell>
               <TableCell>
-                <Button variant="contained" color="primary" size="small">
+              <Button variant="contained" color="primary" size="small">
                   View
                 </Button>
+              
               </TableCell>
+              <TableCell>
+              <Button variant="outlined" color="error" size="small">
+                  Delete
+                </Button>
+                </TableCell>
             </TableRow>
     
     
