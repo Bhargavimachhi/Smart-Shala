@@ -5,7 +5,7 @@ import { addStudent, getStudent, getAllStuents, deleteStudent } from './Controll
 import { addTeacher, getTeacher, getAllTeachers, deleteTeacher, getClassroomsOfTeacher } from './Controller/teacher.js';
 import mongoose from 'mongoose';
 import cors from "cors";
-import { getAllClassrooms, getClassroom, deleteClassroom } from './Controller/classroom.js';
+import { getAllClassrooms, getClassroom, deleteClassroom, editClassroom } from './Controller/classroom.js';
 import { addAdmin, addClassroomToAdmin, getClassroomsOfAdmin , getTeachersOfAdmin, getStudentsOfAdmin, addTeacherToAdmin, addStudentToAdmin, deleteStudentOfAdmin, deleteTeacherOfAdmin, deleteClassroomOfAdmin} from './Controller/admin.js';
 import { generateIssue, deleteIssue, markIssueAsResolved, getIssue, markIssueAsNotResolved } from './Controller/issue.js';
 import { getAnswer } from './Controller/Chatbot.js';
@@ -45,6 +45,7 @@ app.get("/teacher/:id/classrooms", getClassroomsOfTeacher);
 app.get("/student/:id/delete", deleteStudent);
 app.get("/teacher/:id/delete", deleteTeacher);
 app.get("/classroom/:id/delete", deleteClassroom);
+app.post("/classroom/:id/edit", editClassroom);
 app.get("/issue/:id/delete", deleteIssue);
 app.get("/issue/:id", getIssue);
 app.get("/issue/:id/resolve", markIssueAsResolved);
