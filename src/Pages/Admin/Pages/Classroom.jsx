@@ -16,6 +16,7 @@ const Classroom = () => {
         const res = await axios.get(`http://localhost:3000/getclassroom/${id}`);
         setClassroom(res.data.classroom);
         console.log(res.data.classroom);
+        
        
       } catch (error) {
         console.error('Error fetching classroom data:', error);
@@ -56,6 +57,7 @@ const Classroom = () => {
               <TableCell>Email</TableCell>
               <TableCell>Contact no</TableCell>
               <TableCell>Action</TableCell>
+              <TableCell> Delete </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -82,6 +84,7 @@ const Classroom = () => {
               <TableCell>Email</TableCell>
               <TableCell>Contact no</TableCell>
               <TableCell>Action</TableCell>
+              <TableCell> Delete </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
