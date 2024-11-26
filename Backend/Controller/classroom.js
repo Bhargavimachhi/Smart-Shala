@@ -1,6 +1,7 @@
 import {Classroom} from "../Models/Classroom.js"
 import {Teacher} from "../Models/Teacher.js"
 import {Student} from "../Models/Student.js"
+import { Homework } from "../Models/Homework.js";
 
 //get Classroom
 export const getClassroom = async(req,res)=>{
@@ -132,4 +133,33 @@ export const editClassroom = async(req, res) => {
         endingDate : req.body.endingDate
     },{runValidators : true , new :true});
     res.status(200).json({ message: "Classroom edited Successfully" });
+}
+
+// assign homework to classroom
+export const assignHomeworkToClassroom = async(req, res) => {
+    let id = req.body.id;
+    let classroom = await Classroom.findById(id);
+
+    if(classroom == null) {
+        res.status(404).json({message : "Classroom does not exist"});
+        return;
+    }
+
+    let homework = new Homework({
+        subject : req.body.subject,
+        title : req.body.title,
+        description : req.body.description,
+        dueDate : req.body.dueDate,
+        classroom : classroom._id,
+        file : req.body.file
+    });
+    classroom.homeworks.push(homework._id);
+
+    homework.save().then(()=>{
+        classroom.save();
+        res.status(200).json({ message: "Homework Assigned to Classroom Successfully" });
+    }).catch((err)=>{
+        console.log(err);
+        res.send("Error Occurred !!! , Couldn't Assign homework to the classroom");
+    });
 }

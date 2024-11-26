@@ -32,21 +32,14 @@ const AddHomeworkPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const formData = new FormData();
-      formData.append('title', homeworkTitle);
-      formData.append('description', homeworkDescription);
-      formData.append('dueDate', dueDate);
-      formData.append('subject', subject);
-      formData.append('classroomId', selectedClassroom);
-      if (file) {
-        formData.append('file', file);
+      const formData = {
+        "title" : homeworkTitle,
+        "description" : homeworkDescription,
+        "dueDate" : dueDate,
+        "subject" : subject,
+        "id" : selectedClassroom
       }
-
-      await axios.post('http://localhost:3000/teacher/add-homework', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      await axios.post('http://localhost:3000/teacher/assign-homework', formData);
       alert('Homework assigned successfully');
       // Reset form fields
       setHomeworkTitle('');

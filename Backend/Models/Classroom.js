@@ -21,6 +21,11 @@ let classRoomSchema = new mongoose.Schema({
         ref:'Issue',
         default: []
     }],
+    homeworks : [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Homework',
+        default:[]
+    }],
     subjects : {
         type : [String],
         default : []

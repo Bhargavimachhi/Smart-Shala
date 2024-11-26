@@ -48,7 +48,7 @@ let studentSchema = new mongoose.Schema({
         type: [Date],
         default : [],
     },
-    homeworks : [{
+    submittedHomeworks : [{
         type : String,
         default:[]
     }],
