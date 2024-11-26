@@ -18,6 +18,11 @@ let homeworkSchema = new mongoose.Schema({
     },
     classoom :{
         type: mongoose.Schema.Types.ObjectId,
+        required : true
+    },
+    teacher :{
+        type: mongoose.Schema.Types.ObjectId,
+        required : true
     },
     dueDate: {
         type: Date,
@@ -29,5 +34,7 @@ export const Homework = mongoose.model("Homework", homeworkSchema);
 
 export const homeworkSchemaValidation = joi.object({
     subject : joi.string().required(),
-    title : joi.string().required()
+    title : joi.string().required(),
+    classroom : joi.object().required(),
+    teacher : joi.object().required()
 });
