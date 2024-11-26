@@ -2,8 +2,9 @@ import { Admin } from "../Models/Admin.js";
 import { Classroom } from "../Models/Classroom.js";
 import { Student } from "../Models/Student.js";
 import { Teacher } from "../Models/Teacher.js";
-
+import JWT from 'jsonwebtoken'
 //add Admin
+export const JWT_SECRET = "asbcdefgh123"
 export const addAdmin = async (req, res) => {
   let admin = await Admin.find({ email: req.body.email });
 
@@ -58,6 +59,7 @@ export const adminLogin = async (req, res) => {
         password,
       },
       jwt_token,
+      
     });
   } catch (error) {
     console.log("error in login", error);
