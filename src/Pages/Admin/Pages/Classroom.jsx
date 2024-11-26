@@ -16,6 +16,7 @@ const Classroom = () => {
         const res = await axios.get(`http://localhost:3000/getclassroom/${id}`);
         setClassroom(res.data.classroom);
         console.log(res.data.classroom);
+        
        
       } catch (error) {
         console.error('Error fetching classroom data:', error);
@@ -38,13 +39,21 @@ const Classroom = () => {
 
       {classroom ? (
      <>
+
+<div className='flex justify-between mb-10'>
+
       <Typography variant="h4" className="mb-4">{classroom.name} Classroom Details</Typography>
+      <Button variant="contained" color="primary" className='mb-4'>
+          Edit Subjects
+        </Button>
+        </div>
+
       
       <div className='flex justify-between'>
       
 
       <Typography variant="h5" className="mb-4">Students</Typography>
-      <Button variant="contained" color="primary" className='mb-4'>
+      <Button variant="contained" color="primary" className='mb-4 '>
           Add Students
         </Button>
         </div>
@@ -56,6 +65,7 @@ const Classroom = () => {
               <TableCell>Email</TableCell>
               <TableCell>Contact no</TableCell>
               <TableCell>Action</TableCell>
+              <TableCell> Delete </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -82,6 +92,7 @@ const Classroom = () => {
               <TableCell>Email</TableCell>
               <TableCell>Contact no</TableCell>
               <TableCell>Action</TableCell>
+              <TableCell> Delete </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
