@@ -10,6 +10,7 @@ const AddHomeworkPage = () => {
   const [homeworkDescription, setHomeworkDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [subject, setSubject] = useState('');
+  const [file, setFile] = useState(null);
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
@@ -31,14 +32,21 @@ const AddHomeworkPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const homeworkData = {
-        title: homeworkTitle,
-        description: homeworkDescription,
-        dueDate,
-        subject,
-        classroomId: selectedClassroom,
-      };
-      await axios.post('http://localhost:3000/teacher/add-homework', homeworkData);
+      const formData = new FormData();
+      formData.append('title', homeworkTitle);
+      formData.append('description', homeworkDescription);
+      formData.append('dueDate', dueDate);
+      formData.append('subject', subject);
+      formData.append('classroomId', selectedClassroom);
+      if (file) {
+        formData.append('file', file);
+      }
+
+      await axios.post('http://localhost:3000/teacher/add-homework', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       alert('Homework assigned successfully');
       // Reset form fields
       setHomeworkTitle('');
@@ -46,6 +54,7 @@ const AddHomeworkPage = () => {
       setDueDate('');
       setSubject('');
       setSelectedClassroom('');
+      setFile(null);
     } catch (error) {
       console.error('Error assigning homework:', error);
       alert('Failed to assign homework');
@@ -126,6 +135,17 @@ const AddHomeworkPage = () => {
               onChange={(e) => setDueDate(e.target.value)}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="file">
+              Upload File
+            </label>
+            <input
+              id="file"
+              type="file"
+              onChange={(e) => setFile(e.target.files[0])}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="flex items-center justify-between">
