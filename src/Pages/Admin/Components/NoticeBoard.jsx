@@ -73,8 +73,9 @@ const NoticeBoard = () => {
   };
 
   return (
-    <div className="text-black  mt-4  h-52 px-5 py-5 rounded-lg shadow-md overflow-y-auto w-1/2 " id="NoticeBoard-container">
-      <h1 className="text-black text-xl font-bold mb-4">NoticeBoard</h1>
+    <>
+      <h1 className="text-black text-xl font-bold mt-10 -mb-8  ">NoticeBoard</h1>
+    <div className="text-black  mt-4  h-52 px-5 py-5 no-scrollbar rounded-lg shadow-md overflow-y-auto w-full " id="NoticeBoard-container">
       {NoticeBoardData.map((notice, index) => (
         <NoticeBoardCard
           key={index}
@@ -85,6 +86,7 @@ const NoticeBoard = () => {
         />
       ))}
     </div>
+    </>
   );
 };
 

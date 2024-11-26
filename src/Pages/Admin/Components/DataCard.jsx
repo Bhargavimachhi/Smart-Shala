@@ -16,7 +16,7 @@ const StudentCardData = [
 
 const DataCard = () => {
   return (
-    <div className="flex flex-wrap justify-between mr-80 mt-20 my-5 ml-5">
+    <div className="flex flex-wrap justify-between  ">
       {StudentCardData.map((item, index) => (
         <div
           key={index}

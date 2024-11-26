@@ -36,11 +36,11 @@ const TopPerformersTable = () => {
 
   return (
     <>
-      <div className="container mx-auto p-4 -mt-5">
+      <div className="container mx-auto p-4 -mt-5 no-scrollbar">
         {topStudents.map(({ className, topThree }) => (
-          <div key={className} className="mb-6">
-            <h2 className="text-lg font-semibold mb-2">Class: {className}</h2>
-            <table className="w-full shadow-sm rounded-md">
+          <div key={className} className="mb-6  ">
+            <h2 className="text-lg font-semibold mb-2 ">Class: {className}</h2>
+            <table className="w-full shadow-sm rounded-md ">
               <thead>
                 <tr className="bg-gray-100">
                   <th className="py-2 px-4 text-left">Photo</th>

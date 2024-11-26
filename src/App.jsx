@@ -24,6 +24,7 @@ import TeacherProfilePage from './Pages/Teacher/Pages/TeacherProfilePage'; // Im
 import AdminForm from "./Pages/Admin/Pages/AdminSignup.jsx";
 import AddHomeworkPage from './Pages/Teacher/Pages/AddHomeworkPage';
 import StudentChatbot from "./Pages/Student/StudentPages/StudentChatbot.jsx";
+import Testing from "./Pages/Admin/Pages/Testing.jsx";
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
   
       <Routes>
         {/* Admin Page Routes */}
+        <Route path="/" element = {<Testing/>}/>
         <Route path='/admin' element={<AdminHome/>}   /> 
         <Route path="/admin/students" element={<StudentListingpage />} />
         <Route path="/admin/teachers" element={<TeacherListingpage />} />
@@ -57,7 +59,7 @@ function App() {
         <Route path='/signup/student' element={<AddStudent/>} />
         <Route path='/signup/teacher' element={<AddTeacher/>} />
         <Route path="/signup/admin" element={<AdminForm />} />
-
+    
         {/* Login Page Routes */}
         <Route path="/login" element={<Teacherloginportal />} />
         <Route path="/login/admin" element={<AdminLoginpage/>} />

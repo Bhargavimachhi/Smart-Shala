@@ -27,7 +27,7 @@ const AdminForm = () => {
     console.log(res.data); 
     if(res.status === 200){
       toast.success("Admin added successfully");
-      navigate("/admin");
+      navigate("/login/admin");
 
     }
     else{
