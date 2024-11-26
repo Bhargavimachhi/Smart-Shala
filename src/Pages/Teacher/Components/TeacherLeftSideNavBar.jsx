@@ -1,5 +1,5 @@
 import React from "react";
-import { FaAngleRight, FaAngleLeft, FaHome, FaBook, FaChalkboardTeacher, FaUser } from "react-icons/fa";
+import { FaAngleRight, FaAngleLeft, FaHome, FaBook, FaChalkboardTeacher, FaUser, FaCamera } from "react-icons/fa";
 import { MdAssignment, MdNotificationsActive } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import '../css/HoLeftNavBar.css';
@@ -38,6 +38,10 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
         <Link to="/teacher/notifications" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
           <MdNotificationsActive className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">Notifications</span>}
+        </Link>
+        <Link to="/teacher/mark-attendance" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+          <FaCamera className="text-xl textColor text-blue-600 colorNavChange" />
+          {isExpanded && <span className="ml-4 textColor">Mark Attendance</span>}
         </Link>
       </ul>
     </div>
