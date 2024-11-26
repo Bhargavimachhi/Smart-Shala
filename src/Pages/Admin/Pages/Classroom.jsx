@@ -44,7 +44,7 @@ const Classroom = () => {
 
       <Typography variant="h4" className="mb-4">{classroom.name} Classroom Details</Typography>
       <Button variant="contained" color="primary" className='mb-4'>
-          Edit Subjects
+          Edit Classroom
         </Button>
         </div>
 
