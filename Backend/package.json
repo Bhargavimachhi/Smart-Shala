@@ -9,6 +9,7 @@
     "express": "^4.21.1",
     "face-api.js": "^0.22.2",
     "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
     "langchain": "^0.3.6",
     "mongoose": "^8.8.2"
   }

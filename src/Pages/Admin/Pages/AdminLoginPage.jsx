@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuth } from '../../../context/auth';
 import {
   Box,
   Card,
@@ -15,12 +16,53 @@ import axios from 'axios';
 const AdminLoginpage = () => {
   const [AdminEmail, setAdminEmail] = useState('');
   const [AdminPassword, setAdminPassword] = useState('');
-
-  const handleSubmit = (event) => {
+const [auth , setAuth] = useAuth();
+  const handleSubmit = async(event) => {
     event.preventDefault();
     console.log("Admin email and password are : ", AdminEmail, AdminPassword);
 
     // So now we send the request to login the admin using axios.
+    try {
+      const res = await axios.post("http://localhost:3000/admin/login", {
+  email: AdminEmail,
+  password: AdminPassword
+});
+
+setAuth({
+  ...auth,
+  email:'helo',
+  token:'njdjskfh'
+  // email: res.data.admin.email || 'none', // Fallback to an empty string if undefined
+  // token: res.data.jwt_token || 'none',   // Fallback to an empty string if undefined
+});
+
+console.log("auth Data is  :  "+ auth);
+
+
+
+
+
+console.log(res.data.jwt_token +" " + res.data.admin.email);
+      
+    } catch (error) {
+      console.log('error in login',error);
+      
+      
+    }
+
+    
+  
+    
+  //   if (res && res.data.success) {
+  // alert(res.data.message); // Ensure "message" is part of the response data
+  // setAuth({
+  //   ...auth,
+  //   user: res.data.email, // Ensure "user" is present in the response structure
+  //   token: res.data.jwt_token, // Include token if it exists
+  // });
+// } else {
+//   alert(res.data.message || "Login failed");
+// }
 
     
   };

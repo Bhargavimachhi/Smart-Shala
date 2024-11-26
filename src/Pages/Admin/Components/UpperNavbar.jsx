@@ -2,14 +2,14 @@ const UpperNav = () => {
     return (
       <div className="w-9/12 fixed ">
         {/* Search Bar */}
-        <div className="w-full bg-white shadow-sm rounded-sm h-12 mr-3 mt-3 ml-2">
+        <div className="  w- bg-white shadow-sm rounded-sm h-12 mr-3 mt-0 ">
           <div className="h-full flex justify-between" id="SearchBar">
             <div id="SearchBar-container" className="w-1/2 h-full">
-              <input
+              {/* <input
                 type="text"
                 className="w-full h-10 shadow-md pl-3 rounded-md mt-1 ml-2 focus:outline-none border border-gray-300"
                 placeholder="Search student, Teachers"
-              />
+              /> */}
             </div>
   
             <div id="icon-container" className="flex gap-4 items-center mr-2">

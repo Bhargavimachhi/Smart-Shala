@@ -115,3 +115,21 @@ export const deleteClassroom = async(req,res)=>{
         res.status(500).json({message:"internal server error"});
     }
 }
+
+// edit classroom
+export const editClassroom = async(req, res) => {
+    let id = req.params.id;
+    let classroom = await Classroom.findById(id);
+
+    if(classroom == null) {
+        res.status(404).json({message : "Classroom does not exist"});
+        return;
+    }
+
+    await Classroom.findByIdAndUpdate(id,{
+        name : req.body.name,
+        subjects : req.body.subjects,
+        endingDate : req.body.endingDate
+    },{runValidators : true , new :true});
+    res.status(200).json({ message: "Classroom edited Successfully" });
+}
