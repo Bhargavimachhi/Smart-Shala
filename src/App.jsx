@@ -19,8 +19,9 @@ import Issuessection from "./Pages/Admin/Pages/Issuessection.jsx";
 
 import TeacherHomePage from './Pages/Teacher/Pages/TeacherHomePage';
 import TeacherSignUpForm from './Pages/Teacher/Pages/TeacherSignUpForm';
+import TeacherProfilePage from './Pages/Teacher/Pages/TeacherProfilePage'; 
+import MarkTeacherAttendance from './Pages/Teacher/Pages/MarkTeacherAttendance'; 
 
-import TeacherProfilePage from './Pages/Teacher/Pages/TeacherProfilePage'; // Import the new page
 import AdminForm from "./Pages/Admin/Pages/AdminSignup.jsx";
 import AddHomeworkPage from './Pages/Teacher/Pages/AddHomeworkPage';
 import StudentChatbot from "./Pages/Student/StudentPages/StudentChatbot.jsx";
@@ -54,7 +55,8 @@ function App() {
         <Route path='/teacher/signup' element={<TeacherSignUpForm />} />
         <Route path='/teacher/profile' element={<TeacherProfilePage />} />
         <Route path='/teacher/add-homework' element={<AddHomeworkPage />} />
-
+        <Route path='/teacher/mark-attendance' element={<MarkTeacherAttendance />} /> 
+        
         {/* SignUp Page Routes */}
         <Route path='/signup/student' element={<AddStudent/>} />
         <Route path='/signup/teacher' element={<AddTeacher/>} />
