@@ -4,12 +4,12 @@ import { Student } from "../Models/Student.js";
 import { Teacher } from "../Models/Teacher.js";
 import JWT from 'jsonwebtoken'
 
+//jwt secret key
 export const JWT_SECRET = "ABCD12345"
 //add Admin
 export const addAdmin = async(req, res) => {
     let admin = await Admin.find({email : req.body.email});
 
-    //jwt secret key
 
     if(admin && admin.length > 0) {
         res.status(403).json({"message":"Admin already exists"});
@@ -22,17 +22,11 @@ export const addAdmin = async(req, res) => {
         password : req.body.password
     });
 
-    admin.save().then((savedAdmin)=>{
-        // res.status(200).json({"message":"success",
-        //     "admin":savedAdmin,
-        //     "token":jwt_token
-        // });
+    admin.save().then(()=>{
+        
         res.status(200).send({
-            message:'success full login + registration',
-           admin:{
-            email:admin.email,
-            password:admin.password,
-        } 
+            message:'success',
+          
        
         })
         
