@@ -8,14 +8,23 @@ import {
   StudentIcon,
 } from "../Pages/Admin/Icons/NavIcon.jsx";
 import { CircleCheckBig } from "lucide-react";
+import { useAuth } from "../context/auth.jsx";
 
 const SideNavbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
+  const [auth, setAuth] = useAuth();
+  const handleLogout = () => {
+    setAuth({
+      ...auth,
+      email: null,
+      token: "",
+    });
+    localStorage.removeItem("token");
+  };
   const navItems = [
     { icon: HomeIcon, name: "Home", path: "/admin" },
-    { icon: StudentIcon, name:"Students", path:"/admin/students"},
+    { icon: StudentIcon, name: "Students", path: "/admin/students" },
     { icon: TeacherIcon, name: "Teachers", path: "/admin/teachers" },
     { icon: StudentIcon, name: "Classrooms", path: "/admin/classrooms" },
     { icon: DataIcon, name: "Data Analytics", path: "/admin/data-analytics" },
@@ -62,7 +71,7 @@ const SideNavbar = () => {
       </nav>
 
       <button
-        onClick={() => navigate("/logout")}
+        onClick={handleLogout}
         className="w-full flex items-center gap-2 p-2 text-gray-600 hover:bg-gray-100 rounded-lg mt-auto"
       >
         <svg

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useAuth } from '../../../context/auth';
+import { useState, useEffect } from "react";
+import { useAuth } from "../../../context/auth";
 import {
   Box,
   Card,
@@ -9,62 +9,45 @@ import {
   Button,
   Link,
   Container,
-  FormHelperText
-} from '@mui/material';
-import axios from 'axios';
+  FormHelperText,
+} from "@mui/material";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AdminLoginpage = () => {
-  const [AdminEmail, setAdminEmail] = useState('');
-  const [AdminPassword, setAdminPassword] = useState('');
-const [auth , setAuth] = useAuth();
-  const handleSubmit = async(event) => {
+  const [AdminEmail, setAdminEmail] = useState("");
+  const [AdminPassword, setAdminPassword] = useState("");
+  const [auth, setAuth] = useAuth();
+  const navigate = useNavigate();
+
+  // Log `auth` when it updates
+  useEffect(() => {
+    console.log("auth updated:", auth);
+  }, [auth]);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Admin email and password are : ", AdminEmail, AdminPassword);
+    console.log("Admin email and password are: ", AdminEmail, AdminPassword);
 
-    // So now we send the request to login the admin using axios.
     try {
+      // Send login request to the server
       const res = await axios.post("http://localhost:3000/admin/login", {
-  email: AdminEmail,
-  password: AdminPassword
-});
+        email: AdminEmail,
+        password: AdminPassword,
+      });
 
-setAuth({
-  ...auth,
-  email:'helo',
-  token:'njdjskfh'
-  // email: res.data.admin.email || 'none', // Fallback to an empty string if undefined
-  // token: res.data.jwt_token || 'none',   // Fallback to an empty string if undefined
-});
+      // Update `auth` state with the response data
+      setAuth({
+        ...auth,
+        email: res.data.admin.email,
+        token: res.data.jwt_token,
+      });
 
-console.log("auth Data is  :  "+ auth);
-
-
-
-
-
-console.log(res.data.jwt_token +" " + res.data.admin.email);
-      
+      console.log("Login successful!");
+      navigate("/admin");
     } catch (error) {
-      console.log('error in login',error);
-      
-      
+      console.error("Error in login:", error);
     }
-
-    
-  
-    
-  //   if (res && res.data.success) {
-  // alert(res.data.message); // Ensure "message" is part of the response data
-  // setAuth({
-  //   ...auth,
-  //   user: res.data.email, // Ensure "user" is present in the response structure
-  //   token: res.data.jwt_token, // Include token if it exists
-  // });
-// } else {
-//   alert(res.data.message || "Login failed");
-// }
-
-    
   };
 
   return (
@@ -86,7 +69,7 @@ console.log(res.data.jwt_token +" " + res.data.admin.email);
                 name="email"
                 autoComplete="email"
                 autoFocus
-                type='email'
+                type="email"
                 onChange={(e) => setAdminEmail(e.target.value)}
                 variant="outlined"
                 value={AdminEmail}
@@ -97,7 +80,7 @@ console.log(res.data.jwt_token +" " + res.data.admin.email);
                 fullWidth
                 name="password"
                 label="Enter your password"
-                type='password'
+                type="password"
                 autoComplete="current-password"
                 onChange={(e) => setAdminPassword(e.target.value)}
                 variant="outlined"
