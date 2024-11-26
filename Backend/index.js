@@ -68,4 +68,4 @@ app.post("/admin/:id/assign-student", addStudentToAdmin);
 
 app.post("/getAnswer", getAnswer);
 
-app.post('/testing',Testing)
+app.post('/testing',Testing);
