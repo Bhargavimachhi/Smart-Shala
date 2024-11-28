@@ -43,6 +43,10 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
           <FaCamera className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">Mark Attendance</span>}
         </Link>
+        <Link to="/teacher/generate-issue" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+          <FaBook className="text-xl textColor text-blue-600 colorNavChange" />
+          {isExpanded && <span className="ml-4 textColor">Generate Issue</span>}
+        </Link>
       </ul>
     </div>
   );
