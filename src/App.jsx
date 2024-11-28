@@ -59,6 +59,7 @@ function App() {
         <Route path='/teacher/add-homework' element={<AddHomeworkPage />} />
         <Route path='/teacher/mark-attendance' element={<MarkTeacherAttendance />} /> 
         <Route path="/teacher/classrooms" element={<TeachersClassroom/>}/>
+        <Route path='/teacher/generate-issue' element={<GenerateTeacherIssue />} />
         
         {/* SignUp Page Routes */}
         <Route path='/signup/student' element={<AddStudent/>} />
