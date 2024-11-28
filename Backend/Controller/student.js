@@ -70,3 +70,57 @@ export const deleteStudent = async(req,res)=>{
         res.status(500).json({message:"internal server error"});
     }
 }
+
+//mark attendance as preset
+export const markPresent = async(req, res) => {
+    const id = req.params.id;
+    const date = new Date().toISOString().split('T')[0];
+    const student = await Student.findById(id);
+
+    if(student == null) {
+        res.status(404).json({message : "Student does not exist"});
+        return;
+    }
+    const index = student.absentDays.indexOf(date);
+    if(index > -1) {
+        student.absentDays.splice(index, 1);
+    }
+
+    if(!student.presentDays.includes(date)) {
+        student.presentDays.push(date);
+    }
+
+    student.save().then(()=>{
+        res.status(200).json({ message: "Student marked present Successfully" });
+    }).catch((err)=>{
+        console.log(err);
+        res.send("Error Occurred !!!");
+    });
+}
+
+//mark attendance as absent
+export const markAbsent = async(req, res) => {
+    const id = req.params.id;
+    const date = new Date().toISOString().split('T')[0];
+    const student = await Student.findById(id);
+
+    if(student == null) {
+        res.status(404).json({message : "Student does not exist"});
+        return;
+    }
+    const index = student.presentDays.indexOf(date);
+    if(index > -1) {
+        student.presentDays.splice(index, 1);
+    }
+
+    if(!student.absentDays.includes(date)) {
+        student.absentDays.push(date);
+    }
+
+    student.save().then(()=>{
+        res.status(200).json({ message: "Student marked absent Successfully" });
+    }).catch((err)=>{
+        console.log(err);
+        res.send("Error Occurred !!!");
+    });
+}
