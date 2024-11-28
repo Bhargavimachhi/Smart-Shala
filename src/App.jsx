@@ -21,6 +21,7 @@ import TeacherHomePage from './Pages/Teacher/Pages/TeacherHomePage';
 import TeacherSignUpForm from './Pages/Teacher/Pages/TeacherSignUpForm';
 import TeacherProfilePage from './Pages/Teacher/Pages/TeacherProfilePage'; 
 import MarkTeacherAttendance from './Pages/Teacher/Pages/MarkTeacherAttendance'; 
+import GenerateTeacherIssue from './Pages/Teacher/Pages/GenerateTeacherIssue'; 
 
 import AdminForm from "./Pages/Admin/Pages/AdminSignup.jsx";
 import AddHomeworkPage from './Pages/Teacher/Pages/AddHomeworkPage';
@@ -56,6 +57,7 @@ function App() {
         <Route path='/teacher/profile' element={<TeacherProfilePage />} />
         <Route path='/teacher/add-homework' element={<AddHomeworkPage />} />
         <Route path='/teacher/mark-attendance' element={<MarkTeacherAttendance />} /> 
+        <Route path='/teacher/generate-issue' element={<GenerateTeacherIssue />} />
         
         {/* SignUp Page Routes */}
         <Route path='/signup/student' element={<AddStudent/>} />
