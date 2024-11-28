@@ -137,11 +137,18 @@ export const editClassroom = async(req, res) => {
 
 // assign homework to classroom
 export const assignHomeworkToClassroom = async(req, res) => {
-    let id = req.body.id;
-    let classroom = await Classroom.findById(id);
+    let teacherId = req.params.id;
+    let classroomId = req.body.id;
+    let teacher = await Teacher.findById(teacherId);
+    let classroom = await Classroom.findById(classroomId);
 
     if(classroom == null) {
         res.status(404).json({message : "Classroom does not exist"});
+        return;
+    }
+
+    if(teacher == null) {
+        res.status(404).json({message : "Teacher does not exist"});
         return;
     }
 
@@ -150,6 +157,7 @@ export const assignHomeworkToClassroom = async(req, res) => {
         title : req.body.title,
         description : req.body.description,
         dueDate : req.body.dueDate,
+        teacher : teacher._id,
         classroom : classroom._id,
         file : req.body.file
     });

@@ -39,7 +39,7 @@ const AddHomeworkPage = () => {
         "subject" : subject,
         "id" : selectedClassroom
       }
-      await axios.post('http://localhost:3000/teacher/assign-homework', formData);
+      await axios.post('http://localhost:3000/teacher/6746c0f139ebaa51e6456dbd/assign-homework', formData);
       alert('Homework assigned successfully');
       // Reset form fields
       setHomeworkTitle('');
