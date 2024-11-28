@@ -1,11 +1,11 @@
 import express from 'express';
 const app = express();
 const PORT = 3000;
-import { addStudent, getStudent, getAllStuents, deleteStudent } from './Controller/student.js';
+import { addStudent, getStudent, getAllStuents, deleteStudent, markPresent, markAbsent } from './Controller/student.js';
 import { addTeacher, getTeacher, getAllTeachers, deleteTeacher, getClassroomsOfTeacher } from './Controller/teacher.js';
 import mongoose from 'mongoose';
 import cors from "cors";
-import { getAllClassrooms, getClassroom, deleteClassroom, editClassroom, assignHomeworkToClassroom } from './Controller/classroom.js';
+import { getAllClassrooms, getClassroom, deleteClassroom, editClassroom, assignHomeworkToClassroom, initiateAttendance } from './Controller/classroom.js';
 import { addAdmin, addClassroomToAdmin, getClassroomsOfAdmin , getTeachersOfAdmin, getStudentsOfAdmin, addTeacherToAdmin, addStudentToAdmin, deleteStudentOfAdmin, deleteTeacherOfAdmin, deleteClassroomOfAdmin} from './Controller/admin.js';
 import { generateIssue, deleteIssue, markIssueAsResolved, getIssue, markIssueAsNotResolved } from './Controller/issue.js';
 import { getAnswer } from './Controller/Chatbot.js';
@@ -46,9 +46,12 @@ app.post("/teacher/classrooms/:id/generate-issue", generateIssue);
 app.get("/teacher/:id/classrooms", getClassroomsOfTeacher);
 
 app.get("/student/:id/delete", deleteStudent);
+app.get("/student/:id/attendance/present", markPresent);
+app.get("/student/:id/attendance/absent", markAbsent);
 app.get("/teacher/:id/delete", deleteTeacher);
 app.get("/classroom/:id/delete", deleteClassroom);
 app.post("/classroom/:id/edit", editClassroom);
+app.post("/classroom/:id/initiate-attendance", initiateAttendance);
 app.post("/teacher/assign-homework", assignHomeworkToClassroom);
 app.get("/issue/:id/delete", deleteIssue);
 app.get("/issue/:id", getIssue);

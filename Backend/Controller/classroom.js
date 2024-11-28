@@ -163,3 +163,28 @@ export const assignHomeworkToClassroom = async(req, res) => {
         res.send("Error Occurred !!! , Couldn't Assign homework to the classroom");
     });
 }
+
+// initiate attendance
+export const initiateAttendance = async(req, res) => {
+    let date = new Date().toISOString().split('T')[0];
+    let id = req.params.id;
+    let classroom = await Classroom.findById(id);
+    
+    if(classroom == null) {
+        res.status(404).json({message : "Classroom does not exist"});
+        return;
+    }
+
+    let students = classroom.students;
+
+    for (let i=0; i<students.length; i++) {
+        let student = await Student.findById(students[i]);
+
+        if(student && !student.absentDays.includes(date)) {
+            student.absentDays.push(date);
+
+            student.save();
+        }
+    }
+    res.status(200).json({message : "success"});
+}

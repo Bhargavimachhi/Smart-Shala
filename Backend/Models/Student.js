@@ -45,7 +45,11 @@ let studentSchema = new mongoose.Schema({
         default: Date.now
     },
     absentDays: {
-        type: [Date],
+        type: [String],
+        default : [],
+    },
+    presentDays: {
+        type: [String],
         default : [],
     },
     submittedHomeworks : [{
