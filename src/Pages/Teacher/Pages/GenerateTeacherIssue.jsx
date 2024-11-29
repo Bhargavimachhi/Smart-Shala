@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import TeacherLeftSideNavBar from '../Components/TeacherLeftSideNavBar'; // Adjust the import path as needed
 
 const GenerateTeacherIssue = () => {
   const [description, setDescription] = useState('');
   const [severity, setSeverity] = useState('low');
   const [classroomId, setClassroomId] = useState('');
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,6 +28,7 @@ const GenerateTeacherIssue = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
+      <TeacherLeftSideNavBar isExpanded={isExpanded} toggleSidebar={toggleSidebar} />
       <div className="flex-1 p-8 flex items-center justify-center">
         <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-md">
           <h2 className="text-2xl font-bold mb-4">Generate Issue</h2>
