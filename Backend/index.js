@@ -48,11 +48,10 @@ import {
 } from "./Controller/issue.js";
 import { getAnswer } from "./Controller/Chatbot.js";
 
-
-
 // import  {requireSignIn}  from './middleware/requireSignIn.js';
 import { adminLogin } from "./Controller/admin.js";
-
+import LoginTeacher from "./Controller/loginTeacher.js";
+import loginStudent from "./Controller/loginStudent.js";
 
 app.use(express.json());
 
@@ -116,4 +115,6 @@ app.post("/admin/:id/assign-student", addStudentToAdmin);
 
 app.post("/getAnswer", getAnswer);
 
-
+//login routes
+app.post("/login/teacher", LoginTeacher);
+app.post("/login/student", loginStudent)
