@@ -15,7 +15,7 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
         onClick={toggleSidebar}
         className="p-4 focus:outline-none text-xl textColor colorNavChange w-full"
       >
-        {isExpanded ? <FaAngleLeft className="text-blue-600 colorNavChange"/>  && <span>Teacher Name</span>: <FaAngleRight className="text-blue-600 colorNavChange" />}
+        {isExpanded ? <FaAngleLeft className="text-blue-600 colorNavChange"/>: <FaAngleRight className="text-blue-600 colorNavChange" />}
       </button>
 
       <ul className="mt-4">
