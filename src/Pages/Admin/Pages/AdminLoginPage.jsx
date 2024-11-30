@@ -45,7 +45,7 @@ const AdminLoginpage = () => {
       console.log("Login successful!");
       navigate("/admin");
     } catch (error) {
-      console.error("Error in login:", error);
+      alert(error.response.data.message);
     }
   };
 

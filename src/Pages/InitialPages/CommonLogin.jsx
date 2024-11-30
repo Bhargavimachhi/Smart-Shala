@@ -9,20 +9,20 @@ const CommonLogin = () => {
 <div className=''>
 <h1 className='mb-5'>Register As </h1>
 <div className='flex'>
-   <NavLink to='/signup/admin'>
+   <NavLink to='/login/admin'>
 
    <div className='bg-gray-200 shadow-xl px-20 py-5 rounded-md mr-5 hover:bg-white cursor-pointer '>
     Admin
         
     </div>
    </NavLink> 
-   <NavLink to='/teacher/login'>
+   <NavLink to='/login/teacher'>
 
    <div className='bg-gray-200 shadow-xl px-20 py-5 mr-5 rounded-md hover:bg-white cursor-pointer '>
     Teacher     
     </div>
    </NavLink> 
-   <NavLink to='/student/login'>
+   <NavLink to='/login/student'>
 
    <div className='bg-gray-200 shadow-xl px-20 py-5 rounded-md hover:bg-white cursor-pointer '>
     Student

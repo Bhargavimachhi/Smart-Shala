@@ -42,13 +42,7 @@ function App() {
   
       <Routes>
 
-
-      {/* initial pages */}
-      <Route path="/commonlogin" element={<CommonLogin/>} />
-      <Route path="/teacher/login" element={<TeacherLogin/>} />
-      <Route path="/student/login" element={<StudentLogin/>}/>
         {/* Admin Page Routes */}
-        
         <Route path="/" element = {<Initial/>}/>
         <Route path='/admin' element={<AdminHome/>}   /> 
         <Route path="/admin/students" element={<StudentListingpage />} />
@@ -79,8 +73,10 @@ function App() {
         <Route path="/signup/admin" element={<AdminForm />} />
     
         {/* Login Page Routes */}
-        <Route path="/login" element={<Teacherloginportal />} />
+        <Route path="/login" element={<CommonLogin/>} />
         <Route path="/login/admin" element={<AdminLoginpage/>} />
+        <Route path="/login/teacher" element={<TeacherLogin/>} />
+        <Route path="/login/student" element={<StudentLogin/>}/>
       </Routes>
       <Toaster/>
    
