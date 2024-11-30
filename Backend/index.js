@@ -97,7 +97,7 @@ app.get("/teacher/:id/delete", deleteTeacher);
 app.get("/classroom/:id/delete", deleteClassroom);
 app.post("/classroom/:id/edit", editClassroom);
 app.post("/classroom/:id/initiate-attendance", initiateAttendance);
-app.post("/teacher/assign-homework", assignHomeworkToClassroom);
+app.post("/teacher/:id/assign-homework", assignHomeworkToClassroom);
 app.get("/issue/:id/delete", deleteIssue);
 app.get("/issue/:id", getIssue);
 app.get("/issue/:id/resolve", markIssueAsResolved);

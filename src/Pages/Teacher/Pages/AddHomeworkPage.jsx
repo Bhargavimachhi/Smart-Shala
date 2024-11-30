@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import TeacherLeftSideNavBar from '../Components/TeacherLeftSideNavBar';
 import axios from 'axios';
+import toast from 'react-hot-toast';
+import { getStorage, ref,uploadBytes,getDownloadURL } from "firebase/storage";
+import { storage } from "../../../../firebase";
 
 const AddHomeworkPage = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -12,9 +15,16 @@ const AddHomeworkPage = () => {
   const [subject, setSubject] = useState('');
   const [file, setFile] = useState(null);
 
+
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
   };
+  const handleFileSelect =  (event) => {
+    const file = event.target.files[0];
+    console.log("File selected:", file);
+    setFile(file);
+  };
+
 
   useEffect(() => {
     // Fetch classrooms from the server
@@ -39,8 +49,48 @@ const AddHomeworkPage = () => {
         "subject" : subject,
         "id" : selectedClassroom
       }
-      await axios.post('http://localhost:3000/teacher/assign-homework', formData);
-      alert('Homework assigned successfully');
+      const res = await axios.post('http://localhost:3000/teacher/6746c0f139ebaa51e6456dbd/assign-homework', formData);
+      console.log(res.data);
+
+      const homworkid = res.data.homework._id;
+      console.log(file);
+
+      const fileType = file?.type;
+
+      if(fileType === "application/pdf"){
+        const toastId = toast.loading("Uploading your  teacher homework...");
+  
+       
+  
+        try {
+          
+       
+        
+  
+        
+       
+          const refoffile = ref(storage, `homeworks/${homworkid}/teachersfile`);
+          uploadBytes(refoffile, file).then((snapshot) => {
+            console.log("Uploaded teacher homework!", snapshot);
+            toast.dismiss(toastId);
+            toast.success("Homework uploaded successfully!");
+            
+            setFile(null);
+          });
+          
+        } catch (error) {
+  
+          console.log(error);
+          toast.dismiss(toastId);
+          toast.error("Failed to upload homework!");
+        
+          setFile(null);
+        }
+  
+  
+      }
+
+     toast.success("Homework assigned to classroom");
       // Reset form fields
       setHomeworkTitle('');
       setHomeworkDescription('');
@@ -137,7 +187,7 @@ const AddHomeworkPage = () => {
             <input
               id="file"
               type="file"
-              onChange={(e) => setFile(e.target.files[0])}
+              onChange={handleFileSelect}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>

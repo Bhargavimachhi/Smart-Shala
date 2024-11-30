@@ -16,7 +16,7 @@ let homeworkSchema = new mongoose.Schema({
     file :{
         type : String,
     },
-    classoom :{
+    classroom :{
         type: mongoose.Schema.Types.ObjectId,
         required : true
     },
