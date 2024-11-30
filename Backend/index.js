@@ -77,7 +77,6 @@ app.listen(PORT, () => {
 
 app.get("/getclassroom/:id", getClassroom);
 app.get("/getstudent/:id", getStudent);
-app.get("/getteacher/:id", getTeacher);
 
 app.get("/getclassrooms", getAllClassrooms);
 app.get("/getstudents", getAllStuents);
@@ -87,6 +86,7 @@ app.post("/addAdmin", addAdmin);
 
 app.post("/teacher/classrooms/:id/generate-issue", generateIssue);
 app.get("/teacher/:id/classrooms", getClassroomsOfTeacher);
+app.get("/teacher/:id", getTeacher);
 
 app.get("/student/:id/delete", deleteStudent);
 app.get("/student/:id/attendance/present", markPresent);

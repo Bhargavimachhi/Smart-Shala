@@ -9,6 +9,7 @@ import { Card, CardContent, Typography, Dialog, DialogTitle, DialogContent, Icon
 const TeachersClassroom = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [classrooms, setClassrooms] = useState([]);
+    const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
     const toggleSidebar = () => {
         setIsExpanded(!isExpanded);
@@ -16,7 +17,7 @@ const TeachersClassroom = () => {
 
       useEffect(() => {
         async function getClassrooms() {
-          const res = await axios.get("http://localhost:3000/teacher/673ef420199ddbcc9cd57bed/classrooms");
+          const res = await axios.get(`http://localhost:3000/teacher/${savedAuth.id}/classrooms`);
           console.log(res.data.classrooms);
           setClassrooms(res.data.classrooms);
         }
