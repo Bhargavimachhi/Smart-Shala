@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useTeacherAuth } from "../../context/teacherAuth";
+import { useAuth } from "../../context/auth";
 import { useNavigate } from "react-router-dom";
 
 const TeacherLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [teacherAuth, setTeacherAuth] = useTeacherAuth();
+  const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
 
   const HandleTeacherSubmit = async (e) => {
@@ -20,14 +20,11 @@ const TeacherLogin = () => {
       });
 
       // Update teacherAuth state with response data
-      setTeacherAuth({
-        ...teacherAuth,
-        email: res.data.teacher.email,
+      setAuth({
+        id: res.data.teacher._id,
         token: res.data.jwt_token_teacher,
-        role: res.data.teacher.role,
+        role: "teacher",
       });
-
-      console.log("Login successful:", res.data);
       navigate("/teacher");
     } catch (error) {
       console.error(

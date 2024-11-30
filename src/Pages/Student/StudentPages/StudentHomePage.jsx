@@ -5,11 +5,11 @@ import OnlineMeetSchedule from "../Components/hompageComponent/OnlineMeetSchedul
 import "../css/rawcss.css";
 import RightSidebar from "../Components/hompageComponent/RightSidebar";
 import { FaUserCircle } from "react-icons/fa";
-import { useStudentAuth } from "../../../context/studentAuth";
+import { useAuth } from "../../../context/auth";
 import { useNavigate } from "react-router-dom";
 
 const StudentHomePage = () => {
-  const [studentAuth] = useStudentAuth(); // Assuming it's a context hook
+  const [studentAuth] = useAuth(); // Assuming it's a context hook
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
 

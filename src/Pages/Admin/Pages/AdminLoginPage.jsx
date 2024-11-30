@@ -17,7 +17,6 @@ import { useNavigate } from "react-router-dom";
 const AdminLoginpage = () => {
   const [AdminEmail, setAdminEmail] = useState("");
   const [AdminPassword, setAdminPassword] = useState("");
-  const [role , setRole] = useState("");
   const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
 
@@ -28,22 +27,19 @@ const AdminLoginpage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Admin email and password are: ", AdminEmail, AdminPassword,role);
+    console.log("Admin email and password are: ", AdminEmail, AdminPassword);
 
     try {
       // Send login request to the server
-      const res = await axios.post("http://localhost:3000/admin/login", {
+      const res = await axios.post("http://localhost:3000/login/admin", {
         email: AdminEmail,
-        password: AdminPassword,
-        role:role
+        password: AdminPassword
       });
-
       // Update `auth` state with the response data
       setAuth({
-        ...auth,
-        email: res.data.admin.email,
+        id: res.data.admin._id,
         token: res.data.jwt_token,
-        role:res.data.admin.role
+        role:"admin"
       });
 
       console.log("Login successful!");

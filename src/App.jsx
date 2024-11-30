@@ -44,9 +44,9 @@ function App() {
 
 
       {/* initial pages */}
-      <Route path="/commonlogin" element=<CommonLogin/> />
-      <Route path="/teacher/login" element=<TeacherLogin/> />
-      <Route path="/student/login" element=<StudentLogin/>/>
+      <Route path="/commonlogin" element={<CommonLogin/>} />
+      <Route path="/teacher/login" element={<TeacherLogin/>} />
+      <Route path="/student/login" element={<StudentLogin/>}/>
         {/* Admin Page Routes */}
         
         <Route path="/" element = {<Initial/>}/>

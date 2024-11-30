@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useStudentAuth } from "../../context/studentAuth";
+import { useAuth } from "../../context/auth";
 import { useNavigate } from "react-router-dom";
 
 const StudentLogin = () => {
-  const [studentAuth, setStudentAuth] = useStudentAuth();
+  const [auth, setAuth] = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -23,11 +23,10 @@ const StudentLogin = () => {
       console.log("Login successful:", res.data);
 
       // Update the studentAuth state with the response data
-      setStudentAuth({
-        ...studentAuth,
-        email: res.data.student.email,
+      setAuth({
+        id: res.data.student._id,
         token: res.data.jwt_token_student,
-        role: res.data.student.role,
+        role: "student",
       });
 
 
