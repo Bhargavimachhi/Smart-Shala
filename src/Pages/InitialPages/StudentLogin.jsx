@@ -1,10 +1,21 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useStudentAuth } from "../../context/studentAuth";
+import { useAuth } from "../../context/auth";
 import { useNavigate } from "react-router-dom";
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  TextField,
+  Button,
+  Link,
+  Container,
+  FormHelperText,
+} from "@mui/material";
 
 const StudentLogin = () => {
-  const [studentAuth, setStudentAuth] = useStudentAuth();
+  const [auth, setAuth] = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -23,80 +34,77 @@ const StudentLogin = () => {
       console.log("Login successful:", res.data);
 
       // Update the studentAuth state with the response data
-      setStudentAuth({
-        ...studentAuth,
-        email: res.data.student.email,
+      setAuth({
+        id: res.data.student._id,
         token: res.data.jwt_token_student,
-        role: res.data.student.role,
-        id:res.data.student.id
-        
+        role: "student",
       });
-
+      window.location.href = window.location.origin+"/student";
 
       navigate("/student")
     } catch (error) {
       console.error("Error during student login:", error);
-      alert("Login failed. Please check your credentials and try again.");
+      alert(error.response.data.message);
     }
   };
 
   return (
     <>
-      <div className="h-screen w-screen flex justify-center items-center">
-        <form className="w-full max-w-lg" onSubmit={HandleStudentSubmit}>
-          <h2 className=" -ml-5">Student Login</h2>
-          <hr className="mb-4 -ml-5" />
+      <Container component="main" maxWidth="sm" className="mt-24">
+      <Card elevation={3} className="p-6 sm:p-10">
+        <CardContent>
+          <Typography variant="h4" component="h1" align="center" gutterBottom>
+            SMART SHALA STUDENT LOGIN
+          </Typography>
 
-          {/* Email */}
-          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="grid-email"
-            >
-              Email
-            </label>
-            <input
-              required
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-              id="grid-email"
-              type="email"
-              placeholder="abc@gmail.com"
-            />
+          <div role="tabofadmin">
+            <Box component="form" sx={{ mt: 1 }} onSubmit={HandleStudentSubmit}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email-admin"
+                label="Enter your Student Email"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                type="email"
+                onChange={(e) => setEmail(e.target.value)}
+                variant="outlined"
+                value={email}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Enter your password"
+                type="password"
+                autoComplete="current-password"
+                onChange={(e) => setPassword(e.target.value)}
+                variant="outlined"
+                value={password}
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                size="large"
+                sx={{ mt: 2, mb: 2 }}
+              >
+                Login as Student
+              </Button>
+              <FormHelperText className="flex justify-center">
+                Don't have an account?{" "}
+                <Link href="#" underline="hover">
+                  Sign Up
+                </Link>
+              </FormHelperText>
+            </Box>
           </div>
-
-          {/* Password */}
-          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="grid-password"
-            >
-              Password
-            </label>
-            <input
-              required
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-              id="grid-password"
-              type="password"
-              placeholder=""
-            />
-          </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="relative h-12 w-40 overflow-hidden border rounded-md border-green-500 bg-blue-500 text-white shadow-2xl transition-all hover:shadow-gray-500"
-          >
-            Submit
-          </button>
-        </form>
-
-        {/* Display Auth State */}
-        {/* <h1>{JSON.stringify(studentAuth)}</h1> */}
-      </div>
+        </CardContent>
+      </Card>
+    </Container>
     </>
   );
 };

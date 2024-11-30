@@ -30,7 +30,7 @@ export const getTeacher = async(req,res)=>{
         const teacher = await Teacher.findById(id);
 
         if(teacher == null) {
-            res.status(403).json({message:"Teacher already exists"});
+            res.status(403).json({message:"Teacher does not exist"});
         }
         else {
             //respond with success message

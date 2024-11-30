@@ -33,36 +33,36 @@ export const addAdmin = async (req, res) => {
 
 export const adminLogin = async (req, res) => {
   try {
-    const { email, password, role, _id } = req.body;
+    const { email, password, _id } = req.body;
     if (!email || !password) {
       return res.status(404).send({
         success: false,
-        message: "invlid email or password",
+        message: "Enter email or password",
       });
     }
 
-    const ExistingAdmin = await Admin.findOne({ email });
-    const jwt_token = JWT.sign({ _id: ExistingAdmin._id }, JWT_SECRET, {
-      expiresIn: "10d",
-    });
-    if (ExistingAdmin == false) {
+    const admin = await Admin.findOne({ email : email });
+    if (admin == null) {
       return res.status(404).send({
         success: false,
         message: "email not registered",
       });
     }
+
+    if(password != admin.password) {
+      return res.status(404).send({
+        success: false,
+        message: "Password is incorrect",
+      });
+    }
+    const jwt_token = JWT.sign({ _id: admin._id }, JWT_SECRET, {
+      expiresIn: "10d",
+    });
     res.status(200).send({
       success: true,
       message: "login success",
-      admin: {
-        email,
-        password,
-        role:'admin',
-        id:ExistingAdmin._id
-      },
+      admin,
       jwt_token,
-      
-      
     });
   } catch (error) {
     console.log("error in login", error);

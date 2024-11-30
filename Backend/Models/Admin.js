@@ -11,11 +11,6 @@ let adminSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    role: {
-        type: String,
-        default: 'admin', // Default value for the role field
-    },
-    
     classrooms : [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Classroom',

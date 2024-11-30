@@ -9,27 +9,30 @@ const loginStudent = async (req, res) => {
       message: "invlid email or password",
     });
   }
-  const ExistingStudent= await Student.findOne({ email });
-  const jwt_token_student = JWT.sign({ _id: ExistingStudent._id }, JWT_SECRET, {
-    expiresIn: "10d",
-  });
+  const student = await Student.findOne({ email });
 
-  if (ExistingStudent == false) {
+  if (student == null) {
     return res.status(404).send({
       success: false,
       message: "email not registerd",
     });
   }
 
+  if(password != student.password) {
+    return res.status(404).send({
+      success: false,
+      message: "Password is incorrect",
+    });
+  }
+
+  const jwt_token_student = JWT.sign({ _id: student._id }, JWT_SECRET, {
+    expiresIn: "10d",
+  });
+
   res.status(200).send({
     success: true,
     message: "login success",
-    student: {
-         id:ExistingStudent._id,
-      email,
-      password,
-      role: "student",
-    },
+    student,
     jwt_token_student,
   });
 };

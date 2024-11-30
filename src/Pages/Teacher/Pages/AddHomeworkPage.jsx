@@ -24,13 +24,14 @@ const AddHomeworkPage = () => {
     console.log("File selected:", file);
     setFile(file);
   };
+  const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
 
   useEffect(() => {
     // Fetch classrooms from the server
     async function fetchClassrooms() {
       try {
-        const response = await axios.get('http://localhost:3000/getclassrooms');
+        const response = await axios.get(`http://localhost:3000/teacher/${savedAuth.id}/classrooms`);
         setClassrooms(response.data.classrooms);
       } catch (error) {
         console.error('Error fetching classrooms:', error);
@@ -49,7 +50,7 @@ const AddHomeworkPage = () => {
         "subject" : subject,
         "id" : selectedClassroom
       }
-      const res = await axios.post('http://localhost:3000/teacher/6746c0f139ebaa51e6456dbd/assign-homework', formData);
+      const res = await axios.post(`http://localhost:3000/teacher/${savedAuth.id}/assign-homework`, formData);
       console.log(res.data);
 
       const homworkid = res.data.homework._id;

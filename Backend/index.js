@@ -77,17 +77,16 @@ app.listen(PORT, () => {
 
 app.get("/getclassroom/:id", getClassroom);
 app.get("/getstudent/:id", getStudent);
-app.get("/getteacher/:id", getTeacher);
 
 app.get("/getclassrooms", getAllClassrooms);
 app.get("/getstudents", getAllStuents);
 app.get("/getteachers", getAllTeachers);
 
 app.post("/addAdmin", addAdmin);
-app.post("/admin/login", adminLogin);
 
 app.post("/teacher/classrooms/:id/generate-issue", generateIssue);
 app.get("/teacher/:id/classrooms", getClassroomsOfTeacher);
+app.get("/teacher/:id", getTeacher);
 
 app.get("/student/:id/delete", deleteStudent);
 app.get("/student/:id/attendance/present", markPresent);
@@ -117,4 +116,5 @@ app.post("/getAnswer", getAnswer);
 
 //login routes
 app.post("/login/teacher", LoginTeacher);
-app.post("/login/student", loginStudent)
+app.post("/login/student", loginStudent);
+app.post("/login/admin", adminLogin);

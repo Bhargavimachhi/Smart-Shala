@@ -6,6 +6,7 @@ import axios from 'axios';
 const TeacherProfilePage = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [teacher, setTeacher] = useState(null);
+  const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
@@ -15,7 +16,7 @@ const TeacherProfilePage = () => {
     // Fetch teacher data from the server
     async function fetchTeacher() {
       try {
-        const response = await axios.get('http://localhost:3000/getteacher/673ef420199ddbcc9cd57bed'); 
+        const response = await axios.get(`http://localhost:3000/teacher/${savedAuth.id}`); 
         setTeacher(response.data.teacher);
       } catch (error) {
         console.error('Error fetching teacher data:', error);
