@@ -33,7 +33,7 @@ export const addAdmin = async (req, res) => {
 
 export const adminLogin = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;
     if (!email || !password) {
       return res.status(404).send({
         success: false,
@@ -57,8 +57,10 @@ export const adminLogin = async (req, res) => {
       admin: {
         email,
         password,
+        role:'admin'
       },
       jwt_token,
+      
       
     });
   } catch (error) {

@@ -24,6 +24,10 @@ let studentSchema = new mongoose.Schema({
         ref: 'Classroom',
         default: null
     },
+    roll:{
+        type:String,
+        default: 'teacher',
+    },
     contact :{
         type : Number,
         min : 1000000000,

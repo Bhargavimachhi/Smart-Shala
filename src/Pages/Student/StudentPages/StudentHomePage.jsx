@@ -1,25 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LeftSideNavbar from "../Components/LeftSideNavBar";
 import UnitTestBoxContainer from "../Components/hompageComponent/UnitTestBoxContainer";
-import OnlineMeetSchedule from "../Components/hompageComponent/OnlineMeetSchedule"; 
-import '../css/rawcss.css'
+import OnlineMeetSchedule from "../Components/hompageComponent/OnlineMeetSchedule";
+import "../css/rawcss.css";
 import RightSidebar from "../Components/hompageComponent/RightSidebar";
-import {FaUserCircle} from "react-icons/fa"
+import { FaUserCircle } from "react-icons/fa";
+import { useStudentAuth } from "../../../context/studentAuth";
+import { useNavigate } from "react-router-dom";
+
 const StudentHomePage = () => {
+  const [studentAuth] = useStudentAuth(); // Assuming it's a context hook
   const [isExpanded, setIsExpanded] = useState(false);
+  const navigate = useNavigate();
 
   const handleToggleSidebar = () => {
     setIsExpanded((prevState) => !prevState);
   };
 
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!studentAuth?.token || studentAuth.role !== "student") {
+      navigate("/student/login", { replace: true }); // Replace history to avoid back navigation
+    }
+  }, [studentAuth, navigate]);
+
+  // Render nothing if redirecting
+  if (!studentAuth?.token || studentAuth.role !== "student") {
+    return null;
+  }
+
   return (
     <div className="flex flex-wrap">
-     
       {/* Left Sidebar */}
       <LeftSideNavbar isExpanded={isExpanded} toggleSidebar={handleToggleSidebar} />
-      <div className={`flex-1 transition-width duration-300 ml-${isExpanded ? "64" : "16"} p-6 mr-50 overflow-x-auto`}>
-       {/* Header Section */}
-       <div className="flex justify-between items-center   p-2  shadow-sm">
+
+      {/* Main Content */}
+      <div
+        className={`flex-1 transition-width duration-300 ml-${
+          isExpanded ? "64" : "16"
+        } p-6 mr-50 overflow-x-auto`}
+      >
+        {/* Header Section */}
+        <div className="flex justify-between items-center p-2 shadow-sm">
           {/* Title */}
           <div className="max-w-3xl">
             <h1 className="text-2xl font-bold text-blue-700 leading-tight">
@@ -35,16 +57,16 @@ const StudentHomePage = () => {
             <FaUserCircle className="text-3xl text-blue-600 cursor-pointer hover:text-blue-800 transition duration-200" />
           </div>
         </div>
-      {/* Main Content */}
-         <div className="justify-between gap-6">
-          <UnitTestBoxContainer  />
+
+        {/* Main Content */}
+        <div className="justify-between gap-6">
+          <UnitTestBoxContainer />
           <OnlineMeetSchedule />
         </div>
-      
-      </div> 
+      </div>
 
-      <RightSidebar/> 
-
+      {/* Right Sidebar */}
+      <RightSidebar />
     </div>
   );
 };
