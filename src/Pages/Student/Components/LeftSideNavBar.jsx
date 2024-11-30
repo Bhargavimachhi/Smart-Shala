@@ -16,7 +16,6 @@ import { Link } from 'react-router-dom';
 
 const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
   return (
-  
     <div
     className={`${
       isExpanded ? "w-64" : "w-16"
@@ -24,36 +23,53 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
   >
     <button
       onClick={toggleSidebar}
-      className="p-4 focus:outline-none text-xl textColor colorNavChange w-full"
+      className="p-4 focus:outline-none text-xl textColor bGcolor w-full"
     >
-      {isExpanded ? <FaAngleLeft className="text-blue-600 colorNavChange"/>  && <span>Teacher Name</span>: <FaAngleRight className="text-blue-600 colorNavChange" />}
+      {isExpanded ? <FaAngleLeft />  && <span>Student Name</span>:<FaAngleRight />}
     </button>
 
-    <ul className="mt-4">
-      <Link to="/student" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-        <FaHome className="text-xl textColor text-blue-600 colorNavChange" />
-        {isExpanded && <span className="ml-4 textColor">Home</span>}
+    <ul className="mt-4"> 
+      <li className="bGcolor ">
+      <Link to="/student" className=" flex items-center p-4 rounded cursor-pointer">
+        <FaHome className="text-xl textColor " />
+        {isExpanded && <span className="ml-4 textColor font-normal">Home</span>}
+      </Link> 
+      </li> 
+
+      <li className="bGcolor ">
+      <Link to="/student/submit-homework" className=" flex items-center p-4 rounded cursor-pointer">
+      <FaFileUpload className="text-xl textColor " />
+        {isExpanded && <span className="ml-4 textColor font-normal">Sumbit Homework</span>}
       </Link>
-      <Link to="/student/submit-homework" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-      <FaFileUpload className="text-xl textColor text-blue-600 colorNavChange" />
-        {isExpanded && <span className="ml-4 textColor">Sumbit Homework</span>}
+      </li>
+     
+      <li className="bGcolor "> 
+      <Link to="/student/performance" className=" flex items-center p-4 rounded cursor-pointer">
+      <IoIosDocument className="text-xl textColor " />
+        {isExpanded && <span className="ml-4 textColor font-normal"> Performance Report</span>}
+      </Link> 
+      </li>
+
+      <li className="bGcolor ">
+      <Link to="/student/attendance" className=" flex items-center p-4 rounded cursor-pointer">
+      <FaInfoCircle className="text-xl textColor " />
+        {isExpanded && <span className="ml-4 textColor font-normal">Attendence</span>}
       </Link>
-      <Link to="/student/performance" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-      <IoIosDocument className="text-xl textColor text-blue-600 colorNavChange" />
-        {isExpanded && <span className="ml-4 textColor"> Performance Report</span>}
+      </li>
+     
+      <li className="bGcolor ">
+      <Link to="/student/notifications" className=" flex items-center p-4 rounded cursor-pointer">
+        <MdNotificationsActive className="text-xl textColor " />
+        {isExpanded && <span className="ml-4 textColor font-normal">Notifications</span>}
+      </Link> 
+      </li>
+      <li className="bGcolor ">
+      <Link to="/student/doubts" className=" flex items-center p-4 rounded cursor-pointer">
+      <FaRocketchat className="text-xl textColor " />
+        {isExpanded && <span className="ml-4 textColor font-normal">Doubts(Chat bot)</span>}
       </Link>
-      <Link to="/student/attendance" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-      <FaInfoCircle className="text-xl textColor text-blue-600 colorNavChange" />
-        {isExpanded && <span className="ml-4 textColor">Attendence</span>}
-      </Link>
-      <Link to="/student/notifications" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-        <MdNotificationsActive className="text-xl textColor text-blue-600 colorNavChange" />
-        {isExpanded && <span className="ml-4 textColor">Notifications</span>}
-      </Link>
-      <Link to="/student/doubts" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-      <FaRocketchat className="text-xl textColor text-blue-600 colorNavChange" />
-        {isExpanded && <span className="ml-4 textColor">Doubts(Chat bot)</span>}
-      </Link>
+      </li>
+      
     </ul>
   </div>
   );

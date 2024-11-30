@@ -22,7 +22,7 @@ const StudentHomePage = () => {
        <div className="flex justify-between items-center   p-2  shadow-sm">
           {/* Title */}
           <div className="max-w-3xl">
-            <h1 className="text-2xl font-bold text-blue-700 leading-tight">
+            <h1 className="text-2xl font-bold bGcolor leading-tight cursor-pointer">
               Tomorrow will be a fantastic day for you, Cupie 😁
             </h1>
             <p className="text-gray-600 text-sm">
@@ -32,7 +32,7 @@ const StudentHomePage = () => {
 
           {/* Profile Icon */}
           <div className="flex items-center space-x-3">
-            <FaUserCircle className="text-3xl text-blue-600 cursor-pointer hover:text-blue-800 transition duration-200" />
+            <FaUserCircle className="text-3xl text-blue-600 cursor-pointer bGcolor transition duration-200" />
           </div>
         </div>
       {/* Main Content */}
