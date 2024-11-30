@@ -33,6 +33,10 @@ let teacherSchema = new mongoose.Schema({
     address : {
         type : String,
         default : null
+    },
+    role:{
+        type: String,
+        default: 'teacher',
     }
 });
 

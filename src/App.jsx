@@ -28,6 +28,11 @@ import AddHomeworkPage from './Pages/Teacher/Pages/AddHomeworkPage';
 import StudentChatbot from "./Pages/Student/StudentPages/StudentChatbot.jsx";
 import Testing from "./Pages/Admin/Pages/Testing.jsx";
 import TeachersClassroom from "./Pages/Teacher/Pages/TeachersClassroom.jsx";
+import Initial from "./Pages/InitialPages/Initial.jsx";
+import CommonLogin from "./Pages/InitialPages/CommonLogin.jsx";
+import TeacherLogin from "./Pages/InitialPages/TeacherLogin.jsx";
+import StudentLogin from "./Pages/InitialPages/StudentLogin.jsx";
+
 
 function App() {
 
@@ -36,8 +41,15 @@ function App() {
     <>
   
       <Routes>
+
+
+      {/* initial pages */}
+      <Route path="/commonlogin" element=<CommonLogin/> />
+      <Route path="/teacher/login" element=<TeacherLogin/> />
+      <Route path="/student/login" element=<StudentLogin/>/>
         {/* Admin Page Routes */}
-        <Route path="/" element = {<Testing/>}/>
+        
+        <Route path="/" element = {<Initial/>}/>
         <Route path='/admin' element={<AdminHome/>}   /> 
         <Route path="/admin/students" element={<StudentListingpage />} />
         <Route path="/admin/teachers" element={<TeacherListingpage />} />

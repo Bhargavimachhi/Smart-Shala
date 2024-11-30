@@ -11,6 +11,10 @@ let adminSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    role: {
+        type: String,
+        default: 'admin', // Default value for the role field
+    },
     
     classrooms : [{
         type: mongoose.Schema.Types.ObjectId,
@@ -34,4 +38,5 @@ export const Admin = mongoose.model("Admin", adminSchema);
 export const adminSchemaValidation = joi.object({
     email : joi.string().required(),
     password : joi.string().required(),
+    role: joi.string().optional(),
 });

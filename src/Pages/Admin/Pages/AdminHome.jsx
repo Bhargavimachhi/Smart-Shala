@@ -41,6 +41,7 @@ const AdminHome = () => {
 
         
       </div> */}
+      {auth?.token && auth.role =='admin' ?
       <div className="   w-screen h-screen" id="main-home-window">
         <div className="bg-red" id="side-nav-container">
           <div className="h-screen flex fixed">
@@ -63,15 +64,15 @@ const AdminHome = () => {
               <div className="flex flex-col" id="top-performer">
                 <h1 className="text-xl font-bold pt-5">Top Performers</h1>
                 <div className="w-9/12  h-1/5  overflow-hidden no-scrollbar mb-2  overflow-y-auto  rounded-md p-5 mt-5 ">
-                  {auth?.token
+                  {/* {auth?.token
                     ? (console.log("auth.email exists:", auth.token),
                       (
-                        <>
-                          <TopPerformer />{" "}
-                        </>
-                      ))
+                        <> */}
+                          <TopPerformer />
+                        
+                      {/* ))
                     : (navigate("/login/admin"),
-                      console.log("Rendering TopPerformer"))}
+                      console.log("Rendering TopPerformer"))} */}
                 </div>
 
                 <div className="  p-2 -mt-12 w-3/4 flex flex-col mt-2   ">
@@ -84,6 +85,9 @@ const AdminHome = () => {
           </div>
         </div>
       </div>
+      :navigate("/login/admin")
+      }
+    
     </>
   );
 };
