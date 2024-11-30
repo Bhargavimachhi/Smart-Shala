@@ -43,7 +43,8 @@ const AdminLoginpage = () => {
         ...auth,
         email: res.data.admin.email,
         token: res.data.jwt_token,
-        role:res.data.admin.role
+        role:res.data.admin.role,
+        id:res.data.admin.id
       });
 
       console.log("Login successful!");

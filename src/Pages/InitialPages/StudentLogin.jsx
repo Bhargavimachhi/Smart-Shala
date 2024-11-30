@@ -28,6 +28,8 @@ const StudentLogin = () => {
         email: res.data.student.email,
         token: res.data.jwt_token_student,
         role: res.data.student.role,
+        id:res.data.student.id
+        
       });
 
 

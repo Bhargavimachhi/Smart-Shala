@@ -36,7 +36,7 @@ const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(() => {
     // Load initial state from localStorage if available
     const savedAuth = JSON.parse(localStorage.getItem("auth"));
-    return savedAuth || { email: null, token: "" };
+    return savedAuth || { email: null,id:"", token: "" };
   });
 
   useEffect(() => {

@@ -14,7 +14,7 @@ const AdminHome = () => {
   const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
-    console.log(auth);
+    console.log("this is auth",auth);
   });
   return (
     <>

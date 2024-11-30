@@ -18,6 +18,8 @@ const TeacherLogin = () => {
         email,
         password,
       });
+      console.log(res);
+      
 
       // Update teacherAuth state with response data
       setTeacherAuth({
@@ -25,6 +27,7 @@ const TeacherLogin = () => {
         email: res.data.teacher.email,
         token: res.data.jwt_token_teacher,
         role: res.data.teacher.role,
+        id:res.data.teacher.id
       });
 
       console.log("Login successful:", res.data);

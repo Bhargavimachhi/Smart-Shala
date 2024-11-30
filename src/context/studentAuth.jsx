@@ -8,7 +8,7 @@ const StudentProvider = ({ children }) => {
   const [studentAuth, setStudentAuth] = useState(() => {
     // Load initial state for student from localStorage
     const savedStudentAuth = JSON.parse(localStorage.getItem("studentAuth"));
-    return savedStudentAuth || { email: null, token: "",role:'' };
+    return savedStudentAuth || { email: null,id:'', token: "",role:'' };
   });
 
   useEffect(() => {

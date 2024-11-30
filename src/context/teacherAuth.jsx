@@ -8,7 +8,7 @@ const TeacherProvider = ({ children }) => {
   const [teacherAuth, setTeacherAuth] = useState(() => {
     // Load initial state for teacher from localStorage
     const savedTeacherAuth = JSON.parse(localStorage.getItem("teacherAuth"));
-    return savedTeacherAuth || { email: null, token: "" ,role:''};
+    return savedTeacherAuth || { email: null,id:'', token: "" ,role:''};
   });
 
   useEffect(() => {

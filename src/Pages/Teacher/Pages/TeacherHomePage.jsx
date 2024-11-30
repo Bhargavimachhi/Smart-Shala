@@ -15,6 +15,8 @@ const TeacherHomePage = () => {
   // Handle navigation if user is not authenticated or not a teacher
   useEffect(() => {
     if (!teacherAuth?.token || teacherAuth.role !== "teacher") {
+     
+     
       navigate("/teacher/login", { replace: true }); // `replace` avoids adding this to browser history
     }
   }, [teacherAuth, navigate]);
@@ -24,8 +26,12 @@ const TeacherHomePage = () => {
     return null; // Avoid rendering anything while redirecting
   }
 
+  {console.log("this is context auth" , teacherAuth);
+  }
   return (
+    
     <div className="flex min-h-screen bg-gray-100">
+    {/* <h1>{JSON.stringify(teacherAuth)}</h1> */}
       <TeacherLeftSideNavBar
         isExpanded={isExpanded}
         toggleSidebar={toggleSidebar}
