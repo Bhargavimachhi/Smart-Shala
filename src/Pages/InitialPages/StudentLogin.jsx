@@ -39,7 +39,7 @@ const StudentLogin = () => {
         token: res.data.jwt_token_student,
         role: "student",
       });
-
+      window.location.href = window.location.origin+"/student";
 
       navigate("/student")
     } catch (error) {

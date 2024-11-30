@@ -41,8 +41,7 @@ const AdminLoginpage = () => {
         token: res.data.jwt_token,
         role:"admin"
       });
-
-      console.log("Login successful!");
+      window.location.href = window.location.origin+"/admin";
       navigate("/admin");
     } catch (error) {
       alert(error.response.data.message);

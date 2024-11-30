@@ -31,6 +31,7 @@ import Initial from "./Pages/InitialPages/Initial.jsx";
 import CommonLogin from "./Pages/InitialPages/CommonLogin.jsx";
 import TeacherLogin from "./Pages/InitialPages/TeacherLogin.jsx";
 import StudentLogin from "./Pages/InitialPages/StudentLogin.jsx";
+import { useEffect } from "react";
 
 
 function App() {
@@ -44,7 +45,7 @@ function App() {
 
         {
           /* Admin Page Routes */
-          savedAuth.role == 'admin' ? 
+          savedAuth && savedAuth.role == 'admin' ? 
             <>
               <Route path="/" element = {<Initial/>}/>
               <Route path='/admin' element={<AdminHome/>}   /> 
@@ -60,7 +61,7 @@ function App() {
         
         {
           /* Student Page Routes */
-          savedAuth.role == 'student' ?
+          savedAuth && savedAuth.role == 'student' ?
           <>
             <Route path='/student' element={<StudentHomePage/>}   /> 
             <Route path='/student/submit-homework' element={<SubmitHomework/>}/> 
@@ -73,7 +74,7 @@ function App() {
   
         {
           /* Teacher Page Routes */
-          savedAuth.role == 'teacher' ?
+          savedAuth && savedAuth.role == 'teacher' ?
           <>
             <Route path='/teacher' element={<TeacherHomePage />} />
             <Route path='/teacher/signup' element={<TeacherSignUpForm />} />
