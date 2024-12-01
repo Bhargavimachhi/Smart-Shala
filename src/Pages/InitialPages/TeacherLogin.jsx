@@ -1,5 +1,7 @@
-import { useState, useEffect } from "react";
-import { useAuth } from "../../../context/auth";
+import React, { useState } from "react";
+import axios from "axios";
+import { useAuth } from "../../context/auth";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Card,
@@ -11,66 +13,64 @@ import {
   Container,
   FormHelperText,
 } from "@mui/material";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
-const AdminLoginpage = () => {
-  const [AdminEmail, setAdminEmail] = useState("");
-  const [AdminPassword, setAdminPassword] = useState("");
+const TeacherLogin = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
 
-  // Log `auth` when it updates
-  useEffect(() => {
-    console.log("auth updated:", auth);
-  }, [auth]);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    console.log("Admin email and password are: ", AdminEmail, AdminPassword);
+  const HandleTeacherSubmit = async (e) => {
+    e.preventDefault();
 
     try {
-      // Send login request to the server
-      const res = await axios.post("http://localhost:3000/login/admin", {
-        email: AdminEmail,
-        password: AdminPassword
+      // Make the API request
+      const res = await axios.post("http://localhost:3000/login/teacher", {
+        email,
+        password,
       });
-      // Update `auth` state with the response data
+
+      // Update teacherAuth state with response data
       setAuth({
-        id: res.data.admin._id,
-        token: res.data.jwt_token,
-        role:"admin"
+        id: res.data.teacher._id,
+        token: res.data.jwt_token_teacher,
+        role: "teacher",
       });
-      window.location.href = window.location.origin+"/admin";
-      navigate("/admin");
+      window.location.href = window.location.origin+"/teacher";
+      navigate("/teacher");
     } catch (error) {
+      console.error(
+        "Error during teacher login:",
+        error.response?.data || error.message
+      );
       alert(error.response.data.message);
     }
   };
 
   return (
-    <Container component="main" maxWidth="sm" className="mt-24">
+    <>
+      <Container component="main" maxWidth="sm" className="mt-24">
       <Card elevation={3} className="p-6 sm:p-10">
         <CardContent>
           <Typography variant="h4" component="h1" align="center" gutterBottom>
-            SMART SHALA ADMIN LOGIN
+            SMART SHALA TEACHER LOGIN
           </Typography>
 
           <div role="tabofadmin">
-            <Box component="form" sx={{ mt: 1 }} onSubmit={handleSubmit}>
+            <Box component="form" sx={{ mt: 1 }} onSubmit={HandleTeacherSubmit}>
               <TextField
                 margin="normal"
                 required
                 fullWidth
                 id="email-admin"
-                label="Enter your Admin Email"
+                label="Enter your Teacher Email"
                 name="email"
                 autoComplete="email"
                 autoFocus
                 type="email"
-                onChange={(e) => setAdminEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 variant="outlined"
-                value={AdminEmail}
+                value={email}
               />
               <TextField
                 margin="normal"
@@ -80,9 +80,9 @@ const AdminLoginpage = () => {
                 label="Enter your password"
                 type="password"
                 autoComplete="current-password"
-                onChange={(e) => setAdminPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 variant="outlined"
-                value={AdminPassword}
+                value={password}
               />
               <Button
                 type="submit"
@@ -91,7 +91,7 @@ const AdminLoginpage = () => {
                 size="large"
                 sx={{ mt: 2, mb: 2 }}
               >
-                Login as Admin
+                Login as Teacher
               </Button>
               <FormHelperText className="flex justify-center">
                 Don't have an account?{" "}
@@ -104,7 +104,8 @@ const AdminLoginpage = () => {
         </CardContent>
       </Card>
     </Container>
+    </>
   );
 };
 
-export default AdminLoginpage;
+export default TeacherLogin;

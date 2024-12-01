@@ -25,7 +25,7 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
       onClick={toggleSidebar}
       className="p-4 focus:outline-none text-xl textColor bGcolor w-full"
     >
-      {isExpanded ? <FaAngleLeft />  && <span>Student Name</span>:<FaAngleRight />}
+      {isExpanded ? <FaAngleLeft />  :<FaAngleRight />}
     </button>
 
     <ul className="mt-4"> 

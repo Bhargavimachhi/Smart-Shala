@@ -20,11 +20,11 @@ const ClassroomListingpage = () => {
   
   const navigate = useNavigate();
 
- 
+  const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
   useEffect(() => {
     async function getClassrooms() {
-      const res = await axios.get("http://localhost:3000/getclassrooms");
+      const res = await axios.get(`http://localhost:3000/admin/${savedAuth.id}/classrooms`);
       console.log(res.data.classrooms);
       setClassrooms(res.data.classrooms);
     }

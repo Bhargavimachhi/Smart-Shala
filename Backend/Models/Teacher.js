@@ -33,7 +33,7 @@ let teacherSchema = new mongoose.Schema({
     address : {
         type : String,
         default : null
-    }
+    },
 });
 
 export const Teacher = mongoose.model("Teacher", teacherSchema);

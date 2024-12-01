@@ -11,7 +11,6 @@ let adminSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    
     classrooms : [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Classroom',
@@ -34,4 +33,5 @@ export const Admin = mongoose.model("Admin", adminSchema);
 export const adminSchemaValidation = joi.object({
     email : joi.string().required(),
     password : joi.string().required(),
+    role: joi.string().optional(),
 });

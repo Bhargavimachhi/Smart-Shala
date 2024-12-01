@@ -54,7 +54,14 @@ const LoginPage = () => {
 
       //Atle aie apde axios request karsu for student login
 
-      const res = axios.post("");
+      // const res = axios.post("http://localhost:3000/login/teacher",
+      //   {
+      //     email,
+      //     password
+      //   }).then((res)=>{
+      //     console.log(res);
+          
+      //   })
 
     
     }
@@ -135,6 +142,7 @@ const LoginPage = () => {
                   variant="outlined"
                   value={StudentPassword}
                 />
+                
                  <Button
                   type="submit"
                   fullWidth

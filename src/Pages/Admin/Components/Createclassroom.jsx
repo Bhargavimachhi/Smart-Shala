@@ -12,6 +12,7 @@ const Createclassroom = () => {
     const [subjectopen, setSubjectOpen] = useState(false);
     const [subject,setsubjects] = useState([]);
     const [subjectadded,setsubjectadded] = useState("");
+    const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
     const handleOpenDialog = () => {
         setOpen(true);
@@ -42,10 +43,17 @@ const Createclassroom = () => {
       }
     
       const handleCreateClassroom = async () => {
-
-        console.log(subject,newClassroomName);
-       
-       
+        try {
+          const response = await axios.post(`http://localhost:3000/admin/${savedAuth.id}/assign-classroom`, {
+            name : newClassroomName,
+            subjects : subject
+          });
+          window.location.reload();
+          alert(response.data.message);
+        } catch (error) {
+          console.error('Error generating issue:', error);
+          alert('Failed to generate issue');
+        }
       };
   return (
     <>

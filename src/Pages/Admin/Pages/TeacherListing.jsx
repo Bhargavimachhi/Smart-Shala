@@ -3,10 +3,11 @@ import SideNavbar from "../../../components/SideNavbar";
 import { useState,useEffect } from "react";
 import axios from "axios";
 import Teacherprofile from "../Components/Teacherprofile";
+import { SavedSearch } from "@mui/icons-material";
 const TeacherListingpage = () => {
 
 
-
+  const savedAuth = JSON.parse(localStorage.getItem("auth"));
   
   const [teachers, setTeachers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -17,7 +18,7 @@ const TeacherListingpage = () => {
 
     async function fetchTeachers(){
 
-      const res = await axios.get("http://localhost:3000/getteachers");
+      const res = await axios.get(`http://localhost:3000/admin/${savedAuth.id}/teachers`);
 
       console.log(res.data.teachers);
       setTeachers(res.data.teachers);

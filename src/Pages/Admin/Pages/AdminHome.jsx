@@ -11,36 +11,8 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AdminHome = () => {
-  const [auth, setAuth] = useAuth();
-  const navigate = useNavigate();
-  useEffect(() => {
-    console.log(auth);
-  });
   return (
     <>
-      {/* <div className="flex min-h-screen bg-gray-100">
-        <SideNavbar />
-        <div
-          id="main"
-          className=" rounded-sm flex w-screen flex-col px-5 text-gray-900">
-            <UpperNavbar/> */}
-      {/* Data Cards */}
-      {/* <DataCard /> */}
-
-      {/* Top Performer */}
-      {/* <h1 className="text-xl font-bold mb-2 ">Top Performers</h1>
-            <div className='w-9/12  h-1/4 overflow-hidden overflow-y-auto bg-white rounded-md p-5 '>
-              <TopPerformer/>  
-            </div>         
-          <NoticeBoard/>
-          <AttendanceGraph/>
-        </div>
-
-
-
-
-        
-      </div> */}
       <div className="   w-screen h-screen" id="main-home-window">
         <div className="bg-red" id="side-nav-container">
           <div className="h-screen flex fixed">
@@ -63,15 +35,15 @@ const AdminHome = () => {
               <div className="flex flex-col" id="top-performer">
                 <h1 className="text-xl font-bold pt-5">Top Performers</h1>
                 <div className="w-9/12  h-1/5  overflow-hidden no-scrollbar mb-2  overflow-y-auto  rounded-md p-5 mt-5 ">
-                  {auth?.token
+                  {/* {auth?.token
                     ? (console.log("auth.email exists:", auth.token),
                       (
-                        <>
-                          <TopPerformer />{" "}
-                        </>
-                      ))
+                        <> */}
+                          <TopPerformer />
+                        
+                      {/* ))
                     : (navigate("/login/admin"),
-                      console.log("Rendering TopPerformer"))}
+                      console.log("Rendering TopPerformer"))} */}
                 </div>
 
                 <div className="  p-2 -mt-12 w-3/4 flex flex-col mt-2   ">

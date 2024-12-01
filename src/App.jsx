@@ -27,44 +27,70 @@ import GenerateTeacherIssue from './Pages/Teacher/Pages/GenerateTeacherIssue';
 import AdminForm from "./Pages/Admin/Pages/AdminSignup.jsx";
 import AddHomeworkPage from './Pages/Teacher/Pages/AddHomeworkPage';
 import StudentChatbot from "./Pages/Student/StudentPages/StudentChatbot.jsx";
-import Testing from "./Pages/Admin/Pages/Testing.jsx";
 import TeachersClassroom from "./Pages/Teacher/Pages/TeachersClassroom.jsx";
+
 import StudentAttendancePage from "./Pages/Student/StudentPages/StudentAttendancePage.jsx";
+import Initial from "./Pages/InitialPages/Initial.jsx";
+import CommonLogin from "./Pages/InitialPages/CommonLogin.jsx";
+import TeacherLogin from "./Pages/InitialPages/TeacherLogin.jsx";
+import StudentLogin from "./Pages/InitialPages/StudentLogin.jsx";
+import { useEffect } from "react";
 
 
 function App() {
+  const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
   // Routers page
   return (
     <>
   
       <Routes>
-        {/* Admin Page Routes */}
-        <Route path="/" element = {<Testing/>}/>
-        <Route path='/admin' element={<AdminHome/>}   /> 
-        <Route path="/admin/students" element={<StudentListingpage />} />
-        <Route path="/admin/teachers" element={<TeacherListingpage />} />
-        <Route path="/admin/classrooms" element={<ClassroomListingpage/>} />
-        <Route path="/admin/classrooms/:id" element={<Classroom/>} />
-        <Route path="/admin/data-analytics" element={<Dataanalyticspage />} />
-        <Route path='/admin/issues' element={<Issuessection/>} />
 
-        {/* Student Page Routes */} 
-        <Route path='/student' element={<StudentHomePage/>}   /> 
-        <Route path='/student/submit-homework' element={<SubmitHomework/>}/> 
-        <Route path='/student/notification' element={<StudentNotification/>}   /> 
-        <Route path='/student/doubts' element={<StudentChatbot/>}   />  
-        <Route path='/student/pending-homework' element={<PendingHomeWork/>}   /> 
-        <Route path='/student/attendance' element={<StudentAttendancePage/>}   /> 
+        {
+          /* Admin Page Routes */
+          savedAuth && savedAuth.role == 'admin' ? 
+            <>
+              <Route path="/" element = {<Initial/>}/>
+              <Route path='/admin' element={<AdminHome/>}   /> 
+              <Route path="/admin/students" element={<StudentListingpage />} />
+              <Route path="/admin/teachers" element={<TeacherListingpage />} />
+              <Route path="/admin/classrooms" element={<ClassroomListingpage/>} />
+              <Route path="/admin/classrooms/:id" element={<Classroom/>} />
+              <Route path="/admin/data-analytics" element={<Dataanalyticspage />} />
+              <Route path='/admin/issues' element={<Issuessection/>} />
+            </> :
+            <></>
+        }
+        
+        {
+          /* Student Page Routes */
+          savedAuth && savedAuth.role == 'student' ?
+          <>
+            <Route path='/student' element={<StudentHomePage/>}   /> 
+            <Route path='/student/submit-homework' element={<SubmitHomework/>}/> 
+            <Route path='/student/notification' element={<StudentNotification/>}   /> 
+            <Route path='/student/doubts' element={<StudentChatbot/>}   /> 
+            <Route path='/student/pending-homework' element={<PendingHomeWork/>}   /> 
+            <Route path='/student/attendance' element={<StudentAttendancePage/>}   /> 
+          </> :
+          <></>
+        }
   
-        {/* Teacher Page Routes */}
-        <Route path='/teacher' element={<TeacherHomePage />} />
-        <Route path='/teacher/signup' element={<TeacherSignUpForm />} />
-        <Route path='/teacher/profile' element={<TeacherProfilePage />} />
-        <Route path='/teacher/add-homework' element={<AddHomeworkPage />} />
-        <Route path='/teacher/mark-attendance' element={<MarkTeacherAttendance />} /> 
-        <Route path="/teacher/classrooms" element={<TeachersClassroom/>}/>
-        <Route path='/teacher/generate-issue' element={<GenerateTeacherIssue />} />
+        {
+          /* Teacher Page Routes */
+          savedAuth && savedAuth.role == 'teacher' ?
+          <>
+            <Route path='/teacher' element={<TeacherHomePage />} />
+            <Route path='/teacher/signup' element={<TeacherSignUpForm />} />
+            <Route path='/teacher/profile' element={<TeacherProfilePage />} />
+            <Route path='/teacher/add-homework' element={<AddHomeworkPage />} />
+            <Route path='/teacher/mark-attendance' element={<MarkTeacherAttendance />} /> 
+            <Route path="/teacher/classrooms" element={<TeachersClassroom/>}/>
+            <Route path='/teacher/generate-issue' element={<GenerateTeacherIssue />} />
+          </> : 
+          <></>
+        }
+        
         
         {/* SignUp Page Routes */}
         <Route path='/signup/student' element={<AddStudent/>} />
@@ -72,8 +98,11 @@ function App() {
         <Route path="/signup/admin" element={<AdminForm />} />
     
         {/* Login Page Routes */}
-        <Route path="/login" element={<Teacherloginportal />} />
+        <Route path="/login" element={<CommonLogin/>} />
         <Route path="/login/admin" element={<AdminLoginpage/>} />
+        <Route path="/login/teacher" element={<TeacherLogin/>} />
+        <Route path="/login/student" element={<StudentLogin/>}/>
+        
       </Routes>
       <Toaster/>
    

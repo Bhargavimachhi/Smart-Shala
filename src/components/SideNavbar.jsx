@@ -16,9 +16,9 @@ const SideNavbar = () => {
   const [auth, setAuth] = useAuth();
   const handleLogout = () => {
     setAuth({
-      ...auth,
-      email: null,
+      _id: null,
       token: "",
+      role:""
     });
     localStorage.removeItem("token");
   };
