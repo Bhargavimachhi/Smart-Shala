@@ -16,6 +16,7 @@ import Classroom from "./Pages/Admin/Pages/Classroom.jsx";
 import SubmitHomework from "./Pages/Student/StudentPages/SubmitHomework.jsx";
 import StudentNotification from "./Pages/Student/StudentPages/StudentNotification.jsx";
 import Issuessection from "./Pages/Admin/Pages/Issuessection.jsx";
+import PendingHomeWork from "./Pages/Student/Components/submitHWComponent/PendingHomeWork.jsx";
 
 import TeacherHomePage from './Pages/Teacher/Pages/TeacherHomePage';
 import TeacherSignUpForm from './Pages/Teacher/Pages/TeacherSignUpForm';
@@ -27,6 +28,8 @@ import AdminForm from "./Pages/Admin/Pages/AdminSignup.jsx";
 import AddHomeworkPage from './Pages/Teacher/Pages/AddHomeworkPage';
 import StudentChatbot from "./Pages/Student/StudentPages/StudentChatbot.jsx";
 import TeachersClassroom from "./Pages/Teacher/Pages/TeachersClassroom.jsx";
+
+import StudentAttendancePage from "./Pages/Student/StudentPages/StudentAttendancePage.jsx";
 import Initial from "./Pages/InitialPages/Initial.jsx";
 import CommonLogin from "./Pages/InitialPages/CommonLogin.jsx";
 import TeacherLogin from "./Pages/InitialPages/TeacherLogin.jsx";
@@ -67,10 +70,11 @@ function App() {
             <Route path='/student/submit-homework' element={<SubmitHomework/>}/> 
             <Route path='/student/notification' element={<StudentNotification/>}   /> 
             <Route path='/student/doubts' element={<StudentChatbot/>}   /> 
+            <Route path='/student/pending-homework' element={<PendingHomeWork/>}   /> 
+            <Route path='/student/attendance' element={<StudentAttendancePage/>}   /> 
           </> :
           <></>
         }
-        
   
         {
           /* Teacher Page Routes */
