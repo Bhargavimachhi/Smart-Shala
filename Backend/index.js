@@ -75,7 +75,7 @@ app.listen(PORT, () => {
     });
 });
 
-// app.get("/getclassroom/:id", getClassroom);
+app.get("/getclassroom/:id", getClassroom);
 // app.get("/getstudent/:id", getStudent);
 
 // app.get("/getclassrooms", getAllClassrooms);

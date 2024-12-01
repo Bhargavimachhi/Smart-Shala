@@ -5,17 +5,24 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import TableListingstudent from '../Components/TableListingstudent';
 import TableListingteacher from '../Components/TableListingteacher';
+import Addstudenttoclassroom from '../Components/Addstudenttoclassroom';
+import Addteachertoclassroom from "../Components/Addteachertoclassroom";
 const Classroom = () => {
 
     const { id } = useParams();
   const [classroom, setClassroom] = useState(null);
+  const [students, setStudents] = useState([]);
+  const [teachers, setTeachers] = useState([]);
+
+  const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
   useEffect(() => {
     async function fetchClassroom() {
       try {
         const res = await axios.get(`http://localhost:3000/getclassroom/${id}`);
         setClassroom(res.data.classroom);
-        console.log(res.data.classroom);
+        console.log(res.data);
+
         
        
       } catch (error) {
@@ -23,8 +30,71 @@ const Classroom = () => {
       }
     }
 
+
+    async function fetchStudentsforadmin() {
+      try {
+        const res = await axios.get(`http://localhost:3000/admin/${savedAuth.id}/students`);
+        
+       
+        setStudents(res.data.students);
+
+        
+       
+      } catch (error) {
+        console.error('Error fetching classroom data:', error);
+      }
+    }
+    async function fetchTeachersforadmin() {
+      try {
+        const res = await axios.get(`http://localhost:3000/admin/${savedAuth.id}/teachers`);
+        
+        console.log(res.data.teachers);
+        setTeachers(res.data.teachers);
+        
+
+        
+       
+      } catch (error) {
+        console.error('Error fetching classroom data:', error);
+      }
+    }
+
+  
+
     fetchClassroom();
+    fetchStudentsforadmin();
+    fetchTeachersforadmin();
   }, [id]);
+
+  const addStudentFunction = async (selectedstudentList) => {
+    try {
+
+      console.log("This are the students to add",selectedstudentList);
+      const promises = selectedstudentList.map(async (student) => {
+        const res = await axios.post(`http://localhost:3000/admin/${savedAuth.id}/assign-student`, {
+          email: student.email,
+        });
+        return res.data.student;
+      });
+
+      const addedStudents = await Promise.all(promises);
+      console.log("This are the students added",addedStudents);
+      setStudents((prevStudents) => [...prevStudents, ...addedStudents]);
+      console.log('Students added:', addedStudents);
+    } catch (error) {
+      console.error('Error adding student:', error);
+    }
+  };
+
+  const Addteacherfunction = ({}) =>{
+
+  };
+
+ 
+
+ 
+
+
   return (
 <>
 <div className="flex min-h-screen bg-gray-100">
@@ -53,9 +123,7 @@ const Classroom = () => {
       
 
       <Typography variant="h5" className="mb-4">Students</Typography>
-      <Button variant="contained" color="primary" className='mb-4 '>
-          Add Students
-        </Button>
+     <Addstudenttoclassroom students={students} onAddStudent={addStudentFunction} />
         </div>
       <TableContainer component={Paper} className="mb-4">
         <Table>
@@ -80,9 +148,7 @@ const Classroom = () => {
       <div className='flex justify-between'>
 
       <Typography variant="h5" className="mb-4">Teachers</Typography>
-      <Button variant="contained" color="primary" className='mb-4'>
-          Add Teacher
-        </Button>
+      < Addteachertoclassroom teachers={teachers} onAddTeacher={console.log} />
         </div>
       <TableContainer component={Paper}>
         <Table>
