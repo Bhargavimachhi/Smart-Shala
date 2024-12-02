@@ -75,12 +75,7 @@ app.listen(PORT, () => {
     });
 });
 
-// app.get("/getclassroom/:id", getClassroom);
-// app.get("/getstudent/:id", getStudent);
-
-// app.get("/getclassrooms", getAllClassrooms);
-// app.get("/getstudents", getAllStuents);
-// app.get("/getteachers", getAllTeachers);
+app.get("/classroom/:id", getClassroom);
 
 app.post("/addAdmin", addAdmin);
 
