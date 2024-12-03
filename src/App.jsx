@@ -1,13 +1,13 @@
 import "./index.css";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import TeacherListingpage from './Pages/Admin/Pages/TeacherListing';
-import StudentListingpage from './Pages/Admin/Pages/StudentListing';
-import Dataanalyticspage from './Pages/Admin/Pages/Dataanalyticspage';
-import Teacherloginportal from './Teacherloginportal';
-import AdminLoginpage from './Pages/Admin/Pages/AdminLoginPage';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import TeacherListingpage from "./Pages/Admin/Pages/TeacherListing";
+import StudentListingpage from "./Pages/Admin/Pages/StudentListing";
+import Dataanalyticspage from "./Pages/Admin/Pages/Dataanalyticspage";
+import Teacherloginportal from "./Teacherloginportal";
+import AdminLoginpage from "./Pages/Admin/Pages/AdminLoginPage";
 
-import StudentHomePage from './Pages/Student/StudentPages/StudentHomePage.jsx';
-import AdminHome from './Pages/Admin/Pages/AdminHome';
+import StudentHomePage from "./Pages/Student/StudentPages/StudentHomePage.jsx";
+import AdminHome from "./Pages/Admin/Pages/AdminHome";
 import AddStudent from "./Pages/Student/StudentPages/StudentSignUpForm.jsx";
 import AddTeacher from "./Pages/Teacher/Pages/TeacherSignUpForm.jsx";
 import { Toaster } from "react-hot-toast";
@@ -18,14 +18,14 @@ import StudentNotification from "./Pages/Student/StudentPages/StudentNotificatio
 import Issuessection from "./Pages/Admin/Pages/Issuessection.jsx";
 import PendingHomeWork from "./Pages/Student/Components/submitHWComponent/PendingHomeWork.jsx";
 
-import TeacherHomePage from './Pages/Teacher/Pages/TeacherHomePage';
-import TeacherSignUpForm from './Pages/Teacher/Pages/TeacherSignUpForm';
-import TeacherProfilePage from './Pages/Teacher/Pages/TeacherProfilePage'; 
-import MarkTeacherAttendance from './Pages/Teacher/Pages/MarkTeacherAttendance'; 
-import GenerateTeacherIssue from './Pages/Teacher/Pages/GenerateTeacherIssue'; 
+import TeacherHomePage from "./Pages/Teacher/Pages/TeacherHomePage";
+import TeacherSignUpForm from "./Pages/Teacher/Pages/TeacherSignUpForm";
+import TeacherProfilePage from "./Pages/Teacher/Pages/TeacherProfilePage";
+import MarkTeacherAttendance from "./Pages/Teacher/Pages/MarkTeacherAttendance";
+import GenerateTeacherIssue from "./Pages/Teacher/Pages/GenerateTeacherIssue";
 
 import AdminForm from "./Pages/Admin/Pages/AdminSignup.jsx";
-import AddHomeworkPage from './Pages/Teacher/Pages/AddHomeworkPage';
+import AddHomeworkPage from "./Pages/Teacher/Pages/AddHomeworkPage";
 import StudentChatbot from "./Pages/Student/StudentPages/StudentChatbot.jsx";
 import TeachersClassroom from "./Pages/Teacher/Pages/TeachersClassroom.jsx";
 
@@ -36,8 +36,9 @@ import TeacherLogin from "./Pages/InitialPages/TeacherLogin.jsx";
 import StudentLogin from "./Pages/InitialPages/StudentLogin.jsx";
 import { useEffect } from "react";
 import LoginAlert from "./components/LoginAlert.jsx";
-import PageNotFound from "./components/PageNotFound.jsx"
-
+import PageNotFound from "./components/PageNotFound.jsx";
+import Test from "./Pages/Student/Components/UniStudentCard.jsx/Test.jsx";
+import AttendanceIndividual from "./Pages/Student/Components/UniStudentCard.jsx/AttendanceIndividual.jsx";
 
 function App() {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -45,55 +46,237 @@ function App() {
   // Routers page
   return (
     <>
-  
       <Routes>
+        {/* Admin Page Routes */}
+        <Route
+          path="/admin"
+          element={
+            savedAuth && savedAuth.role == "admin" ? (
+              <AdminHome />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+        <Route
+          path="/admin/students"
+          element={
+            savedAuth && savedAuth.role == "admin" ? (
+              <StudentListingpage />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+        <Route
+          path="/admin/teachers"
+          element={
+            savedAuth && savedAuth.role == "admin" ? (
+              <TeacherListingpage />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+        <Route
+          path="/admin/classrooms"
+          element={
+            savedAuth && savedAuth.role == "admin" ? (
+              <ClassroomListingpage />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+        <Route
+          path="/admin/classrooms/:id"
+          element={
+            savedAuth && savedAuth.role == "admin" ? (
+              <Classroom />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+        <Route
+          path="/admin/data-analytics"
+          element={
+            savedAuth && savedAuth.role == "admin" ? (
+              <Dataanalyticspage />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+        <Route
+          path="/admin/issues"
+          element={
+            savedAuth && savedAuth.role == "admin" ? (
+              <Issuessection />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+        <Route path="/admin/students/:id" element={<Test />} />
 
-        {/* Admin Page Routes */ }
-        <Route path='/admin' element={savedAuth && savedAuth.role == 'admin' ? <AdminHome/> : <LoginAlert />}   /> 
-        <Route path="/admin/students" element={savedAuth && savedAuth.role == 'admin' ?<StudentListingpage />: <LoginAlert />} />
-        <Route path="/admin/teachers" element={savedAuth && savedAuth.role == 'admin' ?<TeacherListingpage />: <LoginAlert />} />
-        <Route path="/admin/classrooms" element={savedAuth && savedAuth.role == 'admin' ?<ClassroomListingpage/>: <LoginAlert />} />
-        <Route path="/admin/classrooms/:id" element={savedAuth && savedAuth.role == 'admin' ?<Classroom/>: <LoginAlert />} />
-        <Route path="/admin/data-analytics" element={savedAuth && savedAuth.role == 'admin' ?<Dataanalyticspage />: <LoginAlert />} />
-        <Route path='/admin/issues' element={savedAuth && savedAuth.role == 'admin' ?<Issuessection/>: <LoginAlert />} />
-
-      
         {/* Student Page Routes  */}
-        <Route path='/student' element={savedAuth && savedAuth.role == 'student' ? <StudentHomePage/> : <LoginAlert />}   /> 
-        <Route path='/student/submit-homework' element={savedAuth && savedAuth.role == 'student' ? <SubmitHomework/> : <LoginAlert />}/> 
-        <Route path='/student/notification' element={savedAuth && savedAuth.role == 'student' ? <StudentNotification/> : <LoginAlert />}   /> 
-        <Route path='/student/doubts' element={savedAuth && savedAuth.role == 'student' ? <StudentChatbot/> : <LoginAlert />}   /> 
-        <Route path='/student/pending-homework' element={savedAuth && savedAuth.role == 'student' ? <PendingHomeWork/> : <LoginAlert />}   /> 
-        <Route path='/student/attendance' element={savedAuth && savedAuth.role == 'student' ? <StudentAttendancePage/> : <LoginAlert />}   />
-  
-        {/* Teacher Page Routes */}
-        <Route path='/teacher' element={savedAuth && savedAuth.role == 'teacher' ? <TeacherHomePage /> : <LoginAlert />} />
-        <Route path='/teacher/signup' element={savedAuth && savedAuth.role == 'teacher' ? <TeacherSignUpForm /> : <LoginAlert />} />
-        <Route path='/teacher/profile' element={savedAuth && savedAuth.role == 'teacher' ? <TeacherProfilePage /> : <LoginAlert />} />
-        <Route path='/teacher/add-homework' element={savedAuth && savedAuth.role == 'teacher' ? <AddHomeworkPage /> : <LoginAlert />} />
-        <Route path='/teacher/mark-attendance' element={savedAuth && savedAuth.role == 'teacher' ? <MarkTeacherAttendance /> : <LoginAlert />} /> 
-        <Route path="/teacher/classrooms" element={savedAuth && savedAuth.role == 'teacher' ? <TeachersClassroom/> : <LoginAlert />}/>
-        <Route path='/teacher/generate-issue' element={savedAuth && savedAuth.role == 'teacher' ? <GenerateTeacherIssue /> : <LoginAlert />} />
-        
-        
-        {/* SignUp Page Routes */}
-        <Route path='/signup/student' element={<AddStudent/>} />
-        <Route path='/signup/teacher' element={<AddTeacher/>} />
-        <Route path="/signup/admin" element={<AdminForm />} />
-    
-        {/* Login Page Routes */}
-        <Route path="/login" element={<CommonLogin/>} />
-        <Route path="/login/admin" element={<AdminLoginpage/>} />
-        <Route path="/login/teacher" element={<TeacherLogin/>} />
-        <Route path="/login/student" element={<StudentLogin/>}/>
+        <Route
+          path="/student"
+          element={
+            savedAuth && savedAuth.role == "student" ? (
+              <StudentHomePage />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+<Route path="/attendance/:id" element={<AttendanceIndividual />} />
 
-        <Route path="*" element={<PageNotFound />}/>
-        
+
+
+
+
+
+        <Route
+          path="/student/submit-homework"
+          element={
+            savedAuth && savedAuth.role == "student" ? (
+              <SubmitHomework />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+        <Route
+          path="/student/notification"
+          element={
+            savedAuth && savedAuth.role == "student" ? (
+              <StudentNotification />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+        <Route
+          path="/student/doubts"
+          element={
+            savedAuth && savedAuth.role == "student" ? (
+              <StudentChatbot />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+        <Route
+          path="/student/pending-homework"
+          element={
+            savedAuth && savedAuth.role == "student" ? (
+              <PendingHomeWork />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+        <Route
+          path="/student/attendance"
+          element={
+            savedAuth && savedAuth.role == "student" ? (
+              <StudentAttendancePage />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+
+        {/* Teacher Page Routes */}
+        <Route
+          path="/teacher"
+          element={
+            savedAuth && savedAuth.role == "teacher" ? (
+              <TeacherHomePage />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+        <Route
+          path="/teacher/signup"
+          element={
+            savedAuth && savedAuth.role == "teacher" ? (
+              <TeacherSignUpForm />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+        <Route
+          path="/teacher/profile"
+          element={
+            savedAuth && savedAuth.role == "teacher" ? (
+              <TeacherProfilePage />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+        <Route
+          path="/teacher/add-homework"
+          element={
+            savedAuth && savedAuth.role == "teacher" ? (
+              <AddHomeworkPage />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+        <Route
+          path="/teacher/mark-attendance"
+          element={
+            savedAuth && savedAuth.role == "teacher" ? (
+              <MarkTeacherAttendance />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+        <Route
+          path="/teacher/classrooms"
+          element={
+            savedAuth && savedAuth.role == "teacher" ? (
+              <TeachersClassroom />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+        <Route
+          path="/teacher/generate-issue"
+          element={
+            savedAuth && savedAuth.role == "teacher" ? (
+              <GenerateTeacherIssue />
+            ) : (
+              <LoginAlert />
+            )
+          }
+        />
+
+        {/* SignUp Page Routes */}
+        <Route path="/signup/student" element={<AddStudent />} />
+        <Route path="/signup/teacher" element={<AddTeacher />} />
+        <Route path="/signup/admin" element={<AdminForm />} />
+
+        {/* Login Page Routes */}
+        <Route path="/login" element={<CommonLogin />} />
+        <Route path="/login/admin" element={<AdminLoginpage />} />
+        <Route path="/login/teacher" element={<TeacherLogin />} />
+        <Route path="/login/student" element={<StudentLogin />} />
+
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
-      <Toaster/>
-   
+      <Toaster />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

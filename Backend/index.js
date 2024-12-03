@@ -1,5 +1,5 @@
 import express from "express";
-
+import { Student } from "./Models/Student.js";
 const app = express();
 const PORT = 3000;
 import {
@@ -54,6 +54,8 @@ import { getAnswer } from "./Controller/Chatbot.js";
 import { adminLogin } from "./Controller/admin.js";
 import LoginTeacher from "./Controller/loginTeacher.js";
 import loginStudent from "./Controller/loginStudent.js";
+import getIndividualStudent from "./Controller/getIndividualStudent.js";
+import getIndividualAttendance from "./Controller/getIndividualAttendance.js";
 
 app.use(express.json());
 
@@ -77,7 +79,7 @@ app.listen(PORT, () => {
     });
 });
 
-// classroom routes 
+// classroom routes
 app.get("/classroom/:id/delete", deleteClassroom);
 app.post("/classroom/:id/edit", editClassroom);
 app.post("/classroom/:id/initiate-attendance", initiateAttendance);
@@ -122,3 +124,37 @@ app.post("/getAnswer", getAnswer);
 app.post("/login/teacher", LoginTeacher);
 app.post("/login/student", loginStudent);
 app.post("/login/admin", adminLogin);
+app.get("/students/:id", getIndividualStudent);
+
+
+
+
+//getting Individual student Data
+app.get("/admin/students", getAllStuents);
+
+app.get("/admin/students/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const student = await Student.findById(id);
+    if (!student) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+    res.status(200).json(student);
+  } catch (err) {
+    console.error("Error fetching student:", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+//indivdual attendance route for calendar
+
+app.get('/admin/students/:id', (req, res) => {
+  const { id } = req.params;
+  const student = Student.find((s) => s.id === id);
+
+  if (student) {
+    res.json(student);
+  } else {
+    res.status(404).json({ message: 'Student not found' });
+  }
+});

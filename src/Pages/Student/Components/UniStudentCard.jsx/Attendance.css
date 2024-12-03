@@ -1,0 +1,10 @@
+.react-calendar__tile.present {
+    background-color: green !important;
+    color: white;
+  }
+  
+  .react-calendar__tile.absent {
+    background-color: red !important;
+    color: white;
+  }
+  
