@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const AdminLoginpage = () => {
   const [AdminEmail, setAdminEmail] = useState("");
@@ -43,7 +44,7 @@ const AdminLoginpage = () => {
       });
       window.location.href = window.location.origin+"/admin";
     } catch (error) {
-      alert(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 

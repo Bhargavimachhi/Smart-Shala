@@ -63,7 +63,7 @@ if ( studentFormData.password.length < 6) {
       window.location.href = window.location.origin+"/login";
       
     } catch (error) {
-      alert(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 

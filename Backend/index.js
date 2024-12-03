@@ -122,3 +122,4 @@ app.post("/login/admin", adminLogin);
 //signup routes
 app.post("/signup/student", addStudent);
 app.post("/signup/teacher", addTeacher);
+app.post("/signup/admin", addAdmin);

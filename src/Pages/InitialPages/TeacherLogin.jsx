@@ -13,12 +13,12 @@ import {
   Container,
   FormHelperText,
 } from "@mui/material";
+import toast from "react-hot-toast";
 
 const TeacherLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [auth, setAuth] = useAuth();
-  const navigate = useNavigate();
 
   const HandleTeacherSubmit = async (e) => {
     e.preventDefault();
@@ -42,7 +42,7 @@ const TeacherLogin = () => {
         "Error during teacher login:",
         error.response?.data || error.message
       );
-      alert(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 

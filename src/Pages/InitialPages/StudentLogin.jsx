@@ -13,6 +13,7 @@ import {
   Container,
   FormHelperText,
 } from "@mui/material";
+import toast from "react-hot-toast";
 
 const StudentLogin = () => {
   const [auth, setAuth] = useAuth();
@@ -42,7 +43,7 @@ const StudentLogin = () => {
       window.location.href = window.location.origin+"/student";
     } catch (error) {
       console.error("Error during student login:", error);
-      alert(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 
