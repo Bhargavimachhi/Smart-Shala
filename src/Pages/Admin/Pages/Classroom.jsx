@@ -19,7 +19,7 @@ const Classroom = () => {
   useEffect(() => {
     async function fetchClassroom() {
       try {
-        const res = await axios.get(`http://localhost:3000/getclassroom/${id}`);
+        const res = await axios.get(`http://localhost:3000/classroom/${id}`);
         setClassroom(res.data.classroom);
         console.log(res.data);
 
