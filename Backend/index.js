@@ -89,6 +89,7 @@ app.post("/teacher/:id/assign-homework", assignHomeworkToClassroom);
 app.get("/teacher/:id/delete", deleteTeacher);
 
 // student routes
+app.get("/student/:id", getStudent);
 app.get("/student/:id/delete", deleteStudent);
 app.get("/student/:id/attendance/present", markPresent);
 app.get("/student/:id/attendance/absent", markAbsent);

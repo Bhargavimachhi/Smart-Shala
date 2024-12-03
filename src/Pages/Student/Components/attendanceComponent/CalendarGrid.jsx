@@ -1,7 +1,7 @@
 import React from "react";
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDay } from "date-fns";
 
-const CalendarGrid = ({ currentDate, attendance }) => {
+const CalendarGrid = ({ currentDate, presentDays, absentDays }) => {
   const start = startOfMonth(currentDate);
   const end = endOfMonth(currentDate);
   const daysInMonth = eachDayOfInterval({ start, end });
@@ -18,7 +18,8 @@ const CalendarGrid = ({ currentDate, attendance }) => {
       {/* Calendar Dates */}
       {daysInMonth.map((date) => {
         const dateKey = format(date, "yyyy-MM-dd");
-        const status = attendance[dateKey];
+        const status = presentDays.includes(dateKey) ? "Present" : absentDays.includes(dateKey) ? "Absent" : "Holiday";
+
         return (
           <div
             key={dateKey}
