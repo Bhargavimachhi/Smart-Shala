@@ -71,7 +71,7 @@ const Classroom = () => {
 
       console.log("This are the students to add",selectedstudentList);
       const promises = selectedstudentList.map(async (student) => {
-        const res = await axios.post(`http://localhost:3000/admin/${savedAuth.id}/assign-student`, {
+        const res = await axios.post(`http://localhost:3000/classroom/${id}/assign-student`, {
           email: student.email,
         });
         return res.data.student;
@@ -80,13 +80,33 @@ const Classroom = () => {
       const addedStudents = await Promise.all(promises);
       console.log("This are the students added",addedStudents);
       setStudents((prevStudents) => [...prevStudents, ...addedStudents]);
+      window.location.reload();
       console.log('Students added:', addedStudents);
     } catch (error) {
       console.error('Error adding student:', error);
     }
   };
 
-  const Addteacherfunction = ({}) =>{
+  const Addteacherfunction = async (selectedTeacherlist) =>{
+
+    try {
+
+      console.log("This are the students to add",selectedTeacherlist);
+      const promises = selectedTeacherlist.map(async (teacher) => {
+        const res = await axios.post(`http://localhost:3000/classroom/${id}/assign-teacher`, {
+          email: teacher.email,
+        });
+        return res.data.teacher;
+      });
+
+      const addedteacher = await Promise.all(promises);
+      console.log("This are the teacher added",addedteacher);
+      setTeachers((prevTeachers) => [...prevTeachers, ...addedteacher]);
+      window.location.reload();
+      console.log('Students added:', addedteacher);
+    } catch (error) {
+      console.error('Error adding student:', error);
+    }
 
   };
 
@@ -148,7 +168,7 @@ const Classroom = () => {
       <div className='flex justify-between'>
 
       <Typography variant="h5" className="mb-4">Teachers</Typography>
-      < Addteachertoclassroom teachers={teachers} onAddTeacher={console.log} />
+      < Addteachertoclassroom teachers={teachers} onAddTeacher={Addteacherfunction} />
         </div>
       <TableContainer component={Paper}>
         <Table>
