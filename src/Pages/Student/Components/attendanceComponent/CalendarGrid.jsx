@@ -1,5 +1,5 @@
 import React from "react";
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDay } from "date-fns";
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDay, parseISO, isBefore } from "date-fns";
 
 const CalendarGrid = ({ currentDate, presentDays, absentDays }) => {
   const start = startOfMonth(currentDate);
@@ -18,7 +18,8 @@ const CalendarGrid = ({ currentDate, presentDays, absentDays }) => {
       {/* Calendar Dates */}
       {daysInMonth.map((date) => {
         const dateKey = format(date, "yyyy-MM-dd");
-        const status = presentDays.includes(dateKey) ? "Present" : absentDays.includes(dateKey) ? "Absent" : "Holiday";
+        const currDate = format(new Date(), "yyyy-MM-dd");
+        const status = !isBefore(parseISO(dateKey), parseISO(currDate)) ? "" : presentDays.includes(dateKey) ? "Present" : absentDays.includes(dateKey) ? "Absent" : "Holiday";
 
         return (
           <div
@@ -28,6 +29,8 @@ const CalendarGrid = ({ currentDate, presentDays, absentDays }) => {
                 ? "bg-green-100 text-green-700 border border-green-200"
                 : status === "Absent"
                 ? "bg-red-100 text-red-700 border border-red-200"
+                : status === "Holiday"
+                ? "bg-blue-100 text-blue-700 border border-blue-200"
                 : "bg-white text-gray-700 border border-gray-100"
             }`}
           >
