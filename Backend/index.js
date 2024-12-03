@@ -28,6 +28,7 @@ import {
   initiateAttendance,
   assignStudentToClassroom,
   assignTeacherToClassroom,
+  removeStudentFromClassroom,
 } from "./Controller/classroom.js";
 import {
   addAdmin,
@@ -84,6 +85,7 @@ app.post("/classroom/:id/initiate-attendance", initiateAttendance);
 app.get("/classroom/:id", getClassroom);
 app.post("/classroom/:id/assign-student", assignStudentToClassroom);
 app.post("/classroom/:id/assign-teacher", assignTeacherToClassroom);
+app.get("/classroom/:cId/student/:sId/remove", removeStudentFromClassroom);
 
 // teacher routes
 app.post("/teacher/classrooms/:id/generate-issue", generateIssue);

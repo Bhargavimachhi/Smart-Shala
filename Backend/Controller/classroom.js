@@ -205,3 +205,35 @@ export const initiateAttendance = async(req, res) => {
     }
     res.status(200).json({message : "success"});
 }
+
+// delete student from classroom
+export const removeStudentFromClassroom = async(req, res) => {
+    const student = await Student.findById(req.params.sId);
+    const classroom = await Classroom.findById(req.params.cId);
+
+    if(!student) {
+        res.status(404).json({message : "Student does not exist"});
+        return;
+    }
+
+    if(!classroom) {
+        res.status(404).json({message : "Classroom does not exist"});
+        return;
+    }
+
+    if(!classroom.students.includes(student._id)) {
+        res.status(404).json({message : "Classroom does not contain student"});
+        return;
+    }
+    
+    classroom.students = classroom.students.filter((s)=> s._id != student.id);
+    student.classroom = null;
+
+    classroom.save().then(()=>{
+        student.save();
+        res.status(200).json({ message: "Student Deleted from Classroom Successfully"});
+    }).catch((err)=>{
+        console.log(err);
+        res.send("Error Occurred !!!");
+    });
+}
