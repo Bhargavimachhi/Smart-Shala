@@ -5,10 +5,10 @@ import {
   FaHome,
   FaInfoCircle,
   FaRocketchat,
-  FaFileUpload,
-  MdPowerOff
+  FaFileUpload
 } from "react-icons/fa";
 import { IoIosDocument } from "react-icons/io";
+import { IoLogOut } from "react-icons/io5";
 import { MdNotificationsActive } from "react-icons/md";
 import "../css/HoLeftNavBar.css";
 import { Link } from 'react-router-dom';
@@ -23,7 +23,6 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
       role:""
     });
     localStorage.removeItem("token");
-    window.location.href = window.location.origin+"/login"
   };
 
   return (
@@ -82,7 +81,7 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
       </li>
       <li className="bGcolor ">
       <Link to="/login" className=" flex items-center p-4 rounded cursor-pointer" onClick={handleLogout}>
-      <MdPowerOff className="text-xl textColor " />
+      <IoLogOut className="text-xl textColor " />
         {isExpanded && <span className="ml-4 textColor font-normal">LogOut</span>}
       </Link>
       </li>
