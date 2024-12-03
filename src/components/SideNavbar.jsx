@@ -21,6 +21,7 @@ const SideNavbar = () => {
       role:""
     });
     localStorage.removeItem("token");
+    navigate("/login");
   };
   const navItems = [
     { icon: HomeIcon, name: "Home", path: "/admin" },

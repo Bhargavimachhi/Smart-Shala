@@ -35,28 +35,30 @@ export const getAllClassrooms = async(req,res)=>{
 }
 
 //assign teacher
-export const assignTeacher = async(req,res) => {
-    let teachers = await Teacher.find({email : req.body.email});
-    let classroom = await Classroom.find({_id : req.body.id});
+export const assignTeacherToClassroom = async(req,res) => {
+    let teacher = await Teacher.findOne({email : req.body.email});
+    let classroom = await Classroom.findById(req.params.id);
 
-    if(teachers.length == 0) {
+    if(teacher == null) {
         res.status(404).json({"message" : "Teacher does not exist"});
         return;
     }
 
-    if(classroom.length == 0) {
+    if(classroom == null) {
         res.status(404).json({"message" : "Classroom does not exist"});
         return;
     }
 
-    if(classroom[0].teachers.includes(teachers[0]._id)) {
-        res.status(404).json({"message" : "Teacher already exist"});
+    if(classroom.teachers.includes(teacher._id) || teacher.classrooms.includes(classroom._id)) {
+        res.status(404).json({"message" : "Teacher already exist in classroom"});
         return;
     }
 
-    classroom[0].teachers.push(teachers[0]._id);
+    classroom.teachers.push(teacher._id);
+    teacher.classrooms.push(classroom._id);
 
-    classroom[0].save().then(()=>{
+    classroom.save().then(()=>{
+        teacher.save();
         res.status(200).json({ message: "Teacher Assigned to Classroom Successfully" });
     }).catch((err)=>{
         console.log(err);
@@ -65,28 +67,35 @@ export const assignTeacher = async(req,res) => {
 }
 
 //assign student
-export const assignStudent = async(req,res) => {
-    let students = await Student.find({email : req.body.email});
-    let classroom = await Classroom.find({_id : req.body.id});
+export const assignStudentToClassroom = async(req,res) => {
+    let student = await Student.findOne({email : req.body.email});
+    let classroom = await Classroom.findById(req.params.id);
 
-    if(students.length == 0) {
+    if(student == null) {
         res.status(404).json({"message" : "Student does not exist"});
         return;
     }
 
-    if(classroom.length == 0) {
+    if(classroom == null) {
         res.status(404).json({"message" : "Classroom does not exist"});
         return;
     }
 
-    if(classroom[0].students.includes(students[0]._id)) {
-        res.status(404).json({"message" : "Student already exist"});
+    if(classroom.students.includes(student._id)) {
+        res.status(404).json({"message" : "Student already exist in classroom"});
         return;
     }
 
-    classroom[0].students.push(students[0]._id);
+    if(student.classroom != null) {
+        res.status(404).json({"message" : "Student is part of other classroom already"});
+        return;
+    }
 
-    classroom[0].save().then(()=>{
+    classroom.students.push(student._id);
+    student.classroom = classroom._id;
+
+    classroom.save().then(()=>{
+        student.save();
         res.status(200).json({ message: "Student Assigned to Classroom Successfully" });
     }).catch((err)=>{
         console.log(err);

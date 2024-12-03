@@ -6,6 +6,7 @@ import StudentProfile from "../Components/Studentprofile";
 const StudentListingpage = () => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
 
 // Thiss useEffect hookk willl try to preload the data from the server before rendering the screen.
@@ -13,7 +14,7 @@ const StudentListingpage = () => {
 
     async function fetchStudents(){
 
-      const res = await axios.get("http://localhost:3000/getstudents");
+      const res = await axios.get(`http://localhost:3000/admin/${savedAuth.id}/students`);
 
       console.log(res.data.students);
       setStudents(res.data.students);
@@ -52,7 +53,7 @@ const StudentListingpage = () => {
                   
                 </div>
               </CardContent>
-              <button type="button">Performance</button>
+              {/* <button type="button">Performance</button> */}
             </Card>
           ))}
         </div>

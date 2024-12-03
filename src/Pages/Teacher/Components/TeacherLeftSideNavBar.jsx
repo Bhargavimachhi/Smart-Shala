@@ -1,10 +1,22 @@
 import React from "react";
-import { FaAngleRight, FaAngleLeft, FaHome, FaBook, FaChalkboardTeacher, FaUser, FaCamera } from "react-icons/fa";
+import { FaAngleRight, FaAngleLeft, FaHome, FaBook, FaChalkboardTeacher, FaUser, FaCamera, FaRocketchat } from "react-icons/fa";
 import { MdAssignment, MdNotificationsActive } from "react-icons/md";
+import { IoLogOut } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 import '../css/HoLeftNavBar.css';
+import { useAuth } from "../../../context/auth.jsx";
 
 const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
+  const [auth, setAuth] = useAuth();
+  const handleLogout = () => {
+    setAuth({
+      _id: null,
+      token: "",
+      role:""
+    });
+    localStorage.removeItem("token");
+  };
+
   return (
     <div
       className={`${
@@ -46,6 +58,10 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
         <Link to="/teacher/generate-issue" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
           <FaBook className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">Generate Issue</span>}
+        </Link>
+        <Link to="/login" className="colorNavChange flex items-center p-4 rounded cursor-pointer" onClick={handleLogout}>
+        <IoLogOut className="text-xl textColor text-blue-600 colorNavChange" />
+          {isExpanded && <span className="ml-4 textColor">LogOut</span>}
         </Link>
       </ul>
     </div>
