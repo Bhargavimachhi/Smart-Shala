@@ -53,8 +53,7 @@ const StudentListingpage = () => {
                   );
                 })}
 
-                {/* <UniStudentCard name="hello"/>
-<UniStudentCard name="hello"/> */}
+                
               </div>
             </div>
           </div>
