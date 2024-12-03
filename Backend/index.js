@@ -26,6 +26,8 @@ import {
   editClassroom,
   assignHomeworkToClassroom,
   initiateAttendance,
+  assignStudentToClassroom,
+  assignTeacherToClassroom,
 } from "./Controller/classroom.js";
 import {
   addAdmin,
@@ -75,38 +77,45 @@ app.listen(PORT, () => {
     });
 });
 
-app.get("/classroom/:id", getClassroom);
-
-app.post("/addAdmin", addAdmin);
-
-app.post("/teacher/classrooms/:id/generate-issue", generateIssue);
-app.get("/teacher/:id/classrooms", getClassroomsOfTeacher);
-app.get("/teacher/:id", getTeacher);
-
-app.get("/student/:id/delete", deleteStudent);
-app.get("/student/:id/attendance/present", markPresent);
-app.get("/student/:id/attendance/absent", markAbsent);
-app.get("/teacher/:id/delete", deleteTeacher);
+// classroom routes 
 app.get("/classroom/:id/delete", deleteClassroom);
 app.post("/classroom/:id/edit", editClassroom);
 app.post("/classroom/:id/initiate-attendance", initiateAttendance);
+app.get("/classroom/:id", getClassroom);
+app.post("/classroom/:id/assign-student", assignStudentToClassroom);
+app.post("/classroom/:id/assign-teacher", assignTeacherToClassroom);
+
+// teacher routes
+app.post("/teacher/classrooms/:id/generate-issue", generateIssue);
+app.get("/teacher/:id/classrooms", getClassroomsOfTeacher);
+app.get("/teacher/:id", getTeacher);
 app.post("/teacher/:id/assign-homework", assignHomeworkToClassroom);
+app.get("/teacher/:id/delete", deleteTeacher);
+
+// student routes
+app.get("/student/:id/delete", deleteStudent);
+app.get("/student/:id/attendance/present", markPresent);
+app.get("/student/:id/attendance/absent", markAbsent);
+
+// issue generation routes
 app.get("/issue/:id/delete", deleteIssue);
 app.get("/issue/:id", getIssue);
 app.get("/issue/:id/resolve", markIssueAsResolved);
 app.get("/issue/:id/refuse", markIssueAsNotResolved);
 
+// admin routes
 app.get("/admin/:id/classrooms", getClassroomsOfAdmin);
 app.get("/admin/:id/students", getStudentsOfAdmin);
 app.get("/admin/:id/teachers", getTeachersOfAdmin);
 app.get("/admin/:aId/student/remove/:sId", deleteStudentOfAdmin);
 app.get("/admin/:aId/teacher/remove/:tId", deleteTeacherOfAdmin);
 app.get("/admin/:aId/classroom/remove/:cId", deleteClassroomOfAdmin);
-
 app.post("/admin/:id/assign-classroom", addClassroomToAdmin);
 app.post("/admin/:id/assign-teacher", addTeacherToAdmin);
 app.post("/admin/:id/assign-student", addStudentToAdmin);
+app.post("/addAdmin", addAdmin);
 
+// chat bot routes
 app.post("/getAnswer", getAnswer);
 
 //login routes

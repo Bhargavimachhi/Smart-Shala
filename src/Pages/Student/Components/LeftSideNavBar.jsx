@@ -6,15 +6,26 @@ import {
   FaInfoCircle,
   FaRocketchat,
   FaFileUpload,
-  FaCog,
-  FaSignOutAlt,
+  MdPowerOff
 } from "react-icons/fa";
 import { IoIosDocument } from "react-icons/io";
 import { MdNotificationsActive } from "react-icons/md";
 import "../css/HoLeftNavBar.css";
 import { Link } from 'react-router-dom';
+import { useAuth } from "../../../context/auth.jsx";
 
 const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
+  const [auth, setAuth] = useAuth();
+  const handleLogout = () => {
+    setAuth({
+      _id: null,
+      token: "",
+      role:""
+    });
+    localStorage.removeItem("token");
+    window.location.href = window.location.origin+"/login"
+  };
+
   return (
     <div
     className={`${
@@ -69,7 +80,12 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
         {isExpanded && <span className="ml-4 textColor font-normal">Doubts(Chat bot)</span>}
       </Link>
       </li>
-      
+      <li className="bGcolor ">
+      <Link to="/login" className=" flex items-center p-4 rounded cursor-pointer" onClick={handleLogout}>
+      <MdPowerOff className="text-xl textColor " />
+        {isExpanded && <span className="ml-4 textColor font-normal">LogOut</span>}
+      </Link>
+      </li>
     </ul>
   </div>
   );
