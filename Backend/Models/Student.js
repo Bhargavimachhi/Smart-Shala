@@ -15,10 +15,6 @@ let studentSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    rollno :{
-        type : String,
-        required : true
-    },
     classroom: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Classroom',
@@ -29,6 +25,10 @@ let studentSchema = new mongoose.Schema({
         min : 1000000000,
         max : 9999999999,
         default : null
+    },
+    parentName :{
+        type : String,
+        required : true
     },
     parentContact :{
         type : Number,
@@ -64,7 +64,6 @@ export const studentSchemaValidation = joi.object({
     email : joi.string().required(),
     name : joi.string().required(),
     password : joi.string().required(),
-    rollno : joi.string().required(),
     contact : joi.number().max(1000000000).min(999999999),
     parentContact : joi.number().max(1000000000).min(999999999)
 });

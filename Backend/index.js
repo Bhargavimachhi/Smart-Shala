@@ -60,12 +60,6 @@ app.use(express.json());
 
 app.use(cors());
 
-app.post("/signupstudent", addStudent);
-app.post("/signupteacher", addTeacher);
-app.post("/getclassroom", getClassroom);
-app.post("/getallclassrooms", getAllClassrooms);
-app.get("/getstudent/:id", getStudent);
-app.get("/getteacher/:id", getTeacher);
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
@@ -124,3 +118,7 @@ app.post("/getAnswer", getAnswer);
 app.post("/login/teacher", LoginTeacher);
 app.post("/login/student", loginStudent);
 app.post("/login/admin", adminLogin);
+
+//signup routes
+app.post("/signup/student", addStudent);
+app.post("/signup/teacher", addTeacher);

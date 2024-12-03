@@ -9,14 +9,7 @@ export const addStudent = async(req, res) => {
         return;
     }
     
-    student = new Student({
-        name : req.body.name,
-        email : req.body.email,
-        password : req.body.password,
-        rollno : req.body.rollno,
-        address : req.body.address,
-        parentContact : req.body.parentContact
-    });
+    student = new Student(req.body);
 
     student.save().then(()=>{
         console.log("New Student Added Successfully");

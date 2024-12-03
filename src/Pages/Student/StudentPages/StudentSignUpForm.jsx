@@ -7,13 +7,12 @@ import toast from "react-hot-toast";
 
 const StudentForm = () => {
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [contact, setContact] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [parentName,setParentName] = useState("");
-  const [parentPhone , setParentPhone] = useState("");
+  const [parentContact , setParentContact] = useState("");
   const [password , setPassword] = useState('');
-  const [rollno , setRollNo] = useState('');
   const [error, setError] = useState("");
 
   
@@ -28,27 +27,26 @@ const StudentForm = () => {
 const studentFormData = {
   name,
   email,
-  phone,
+  contact,
   address,
   parentName,
-  parentPhone,
-  password,
-  rollno
+  parentContact,
+  password
 
 
 }
-if (!/^\d{10}$/.test(studentFormData.phone)) {
+if (!/^\d{10}$/.test(studentFormData.contact)) {
   toast.error("Phone number must be 10 digits.")
   return;
 };
-if (!/^\d{10}$/.test(studentFormData.parentPhone)) {
+if (!/^\d{10}$/.test(studentFormData.parentContact)) {
   toast.error("Parent number must be 10 digits.")
   return;
 };
 
 
-if ( studentFormData.password < 6) {
-  toast.error("Password must be 6 charcater long");
+if ( studentFormData.password.length < 6) {
+  toast.error("Password must be atleast 6 charcater long");
   return;
 }
 
@@ -57,16 +55,15 @@ if ( studentFormData.password < 6) {
     
 
 
-      const responce =  await axios.post('http://localhost:3000/signupstudent' , studentFormData);
+      const responce =  await axios.post('http://localhost:3000/signup/student' , studentFormData);
 
-console.log(responce.data);
+      console.log(responce.data);
+      
 
-
-
+      window.location.href = window.location.origin+"/login";
       
     } catch (error) {
-      console.log("error");
-      setError(error);
+      alert(error.response.data.message);
     }
   };
 
@@ -109,10 +106,10 @@ console.log(responce.data);
                 Phone/Mo.
               </label>
               <input
-                value={phone}
+                value={contact}
                 required
                 onChange={(e) => {
-                  setPhone(e.target.value);
+                  setContact(e.target.value);
                 }}
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-phone"
@@ -162,33 +159,9 @@ console.log(responce.data);
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-password"
                 type="password"
-                placeholder="abc@gmail.com   "
               />
               {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
             </div>
- {/* Password */}
- <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-rollno"
-              >
-              Roll No.
-              </label>
-              <input
-                required
-                onChange={(e) => {
-                  setRollNo(e.target.value);
-                }}
-                value={rollno}
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                id="grid-email"
-                type="text"
-                placeholder="abc@gmail.com   "
-              />
-              {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
-            </div>
-
-
           </div>
 
           <div className="flex flex-wrap -mx-3 mb-2">
@@ -230,6 +203,7 @@ console.log(responce.data);
                 id="grid-first-name"
                 type="text"
                 placeholder="Jane"
+                required
                 onChange={(e)=>{setParentName(e.target.value)}}
               />
               {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
@@ -246,7 +220,8 @@ console.log(responce.data);
                 id="grid-phone"
                 type="number"
                 placeholder="+91   "
-                onChange={(e)=>{setParentPhone(e.target.value)}}
+                required
+                onChange={(e)=>{setParentContact(e.target.value)}}
 
               />
               {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
