@@ -41,7 +41,7 @@ const Addstudenttoclassroom = ({ students, onAddStudent }) => {
         <DialogTitle>Select Students</DialogTitle>
         <DialogContent>
           <List>
-            {students.map((student) => (
+            {students.map((student) => !student.classroom && (
               <ListItem key={student.id} button onClick={handleToggleStudent(student)}>
                 <Checkbox checked={selectedStudents.indexOf(student) !== -1} />
                 <ListItemText primary={student.name} />

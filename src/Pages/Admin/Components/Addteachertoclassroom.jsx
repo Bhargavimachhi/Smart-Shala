@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Typography, Button, TableContainer, Table, TableHead, TableRow, TableCell, Paper, Dialog, DialogTitle, DialogContent, DialogActions, List, ListItem, ListItemText, Checkbox } from '@mui/material';
 
-const addteachertoclassroom = ({ teachers, onAddTeacher }) => {
+const addteachertoclassroom = ({ teachers, onAddTeacher, classroom }) => {
   const [openTeacherDialog, setOpenTeacherDialog] = useState(false);
   const [selectedTeachers, setSelectedTeachers] = useState([]);
 
@@ -41,7 +41,7 @@ const addteachertoclassroom = ({ teachers, onAddTeacher }) => {
         <DialogTitle>Select Teachers</DialogTitle>
         <DialogContent>
           <List>
-            {teachers.map((teacher) => (
+            {teachers.map((teacher) => !teacher.classrooms.includes(classroom._id) && (
               <ListItem key={teacher.id} button onClick={handleToggleTeacher(teacher)}>
                 <Checkbox checked={selectedTeachers.indexOf(teacher) !== -1} />
                 <ListItemText primary={teacher.name} />

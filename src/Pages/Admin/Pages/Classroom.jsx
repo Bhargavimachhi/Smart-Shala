@@ -168,7 +168,7 @@ const Classroom = () => {
       <div className='flex justify-between'>
 
       <Typography variant="h5" className="mb-4">Teachers</Typography>
-      < Addteachertoclassroom teachers={teachers} onAddTeacher={Addteacherfunction} />
+      < Addteachertoclassroom teachers={teachers} onAddTeacher={Addteacherfunction} classroom={classroom} />
         </div>
       <TableContainer component={Paper}>
         <Table>
