@@ -42,7 +42,6 @@ const AdminLoginpage = () => {
         role:"admin"
       });
       window.location.href = window.location.origin+"/admin";
-      navigate("/admin");
     } catch (error) {
       alert(error.response.data.message);
     }

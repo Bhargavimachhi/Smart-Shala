@@ -37,7 +37,6 @@ const TeacherLogin = () => {
         role: "teacher",
       });
       window.location.href = window.location.origin+"/teacher";
-      navigate("/teacher");
     } catch (error) {
       console.error(
         "Error during teacher login:",
