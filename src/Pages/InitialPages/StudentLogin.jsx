@@ -40,8 +40,6 @@ const StudentLogin = () => {
         role: "student",
       });
       window.location.href = window.location.origin+"/student";
-
-      navigate("/student")
     } catch (error) {
       console.error("Error during student login:", error);
       alert(error.response.data.message);
