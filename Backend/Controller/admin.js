@@ -13,11 +13,7 @@ export const addAdmin = async (req, res) => {
     return;
   }
 
-  admin = new Admin({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-  });
+  admin = new Admin(req.body);
 
   admin
     .save()

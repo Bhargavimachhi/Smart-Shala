@@ -9,11 +9,7 @@ export const addTeacher = async(req, res) => {
         return;
     }
 
-    teacher = new Teacher({
-        name : req.body.name,
-        email : req.body.email,
-        password : req.body.password
-    });
+    teacher = new Teacher(req.body);
 
     teacher.save().then(()=>{
         console.log("New Teacher Added Successfully");

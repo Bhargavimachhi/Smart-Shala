@@ -4,19 +4,12 @@ import { Student } from "../Models/Student.js";
 export const addStudent = async (req, res) => {
   let student = await Student.find({ email: req.body.email });
 
-  if (student.length > 0) {
-    res.status(403).json({ message: "Student already exists" });
-    return;
-  }
-
-  student = new Student({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    rollno: req.body.rollno,
-    address: req.body.address,
-    parentContact: req.body.parentContact,
-  });
+    if(student.length > 0) {
+        res.status(403).json({"message":"Student already exists"});
+        return;
+    }
+    
+    student = new Student(req.body);
 
   student
     .save()

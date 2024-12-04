@@ -27,6 +27,7 @@ import {
   initiateAttendance,
   assignStudentToClassroom,
   assignTeacherToClassroom,
+  removeStudentFromClassroom,
 } from "./Controller/classroom.js";
 import {
   addAdmin,
@@ -59,12 +60,6 @@ app.use(express.json());
 
 app.use(cors());
 
-app.post("/signupstudent", addStudent);
-app.post("/signupteacher", addTeacher);
-app.post("/getclassroom", getClassroom);
-app.post("/getallclassrooms", getAllClassrooms);
-app.get("/getstudent/:id", getStudent);
-app.get("/getteacher/:id", getTeacher);
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
@@ -84,6 +79,7 @@ app.post("/classroom/:id/initiate-attendance", initiateAttendance);
 app.get("/classroom/:id", getClassroom);
 app.post("/classroom/:id/assign-student", assignStudentToClassroom);
 app.post("/classroom/:id/assign-teacher", assignTeacherToClassroom);
+app.get("/classroom/:cId/student/:sId/remove", removeStudentFromClassroom);
 
 // teacher routes
 app.post("/teacher/classrooms/:id/generate-issue", generateIssue);
@@ -93,6 +89,7 @@ app.post("/teacher/:id/assign-homework", assignHomeworkToClassroom);
 app.get("/teacher/:id/delete", deleteTeacher);
 
 // student routes
+app.get("/student/:id", getStudent);
 app.get("/student/:id/delete", deleteStudent);
 app.get("/student/:id/attendance/present", markPresent);
 app.get("/student/:id/attendance/absent", markAbsent);
@@ -123,9 +120,7 @@ app.post("/login/teacher", LoginTeacher);
 app.post("/login/student", loginStudent);
 app.post("/login/admin", adminLogin);
 
-
-
-
-
-
-
+//signup routes
+app.post("/signup/student", addStudent);
+app.post("/signup/teacher", addTeacher);
+app.post("/signup/admin", addAdmin);

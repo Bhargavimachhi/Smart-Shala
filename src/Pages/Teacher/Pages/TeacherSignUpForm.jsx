@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { StudentRegistrationImage } from "../../Admin/Icons/NavIcon.jsx";
-import axios from 'axios'
+import axios from 'axios';
+import toast from "react-hot-toast";
 
 
 const TeacherForm = () => {
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [contact, setContact] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [password , setPassword] = useState('');
@@ -14,26 +15,35 @@ const TeacherForm = () => {
   const HandleTeacherSubmit = async(e) => {
     e.preventDefault();
 
+    
+
   const teacherFormData = {
     name,
     email,
-    phone,
+    contact,
     address,
     password
   }
+  if (!/^\d{10}$/.test(teacherFormData.contact)) {
+      toast.error("Phone number must be 10 digits.")
+      return;
+    };
+    if ( teacherFormData.password.length < 6) {
+      toast.error("Password must be atleast 6 charcater long");
+      return;
+    }
 
    
     try {
-      const responce =  await axios.post('http://localhost:3000/signupteacher' , teacherFormData);
+      const responce =  await axios.post('http://localhost:3000/signup/teacher' , teacherFormData);
 
       console.log(responce.data);
+      
 
-
-
+      window.location.href = window.location.origin+"/login";
       
     } catch (error) {
-      console.log("error");
-      setError(error);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -76,10 +86,10 @@ const TeacherForm = () => {
                 Phone/Mo.
               </label>
               <input
-                value={phone}
+                value={contact}
                 required
                 onChange={(e) => {
-                  setPhone(e.target.value);
+                  setContact(e.target.value);
                 }}
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-phone"

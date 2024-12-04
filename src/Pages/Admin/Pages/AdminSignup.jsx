@@ -19,12 +19,15 @@ const AdminForm = () => {
     
     e.preventDefault();
 
-  console.log(email,password);
+    if (password.length < 6) {
+      toast.error("Password must be atleast 6 charcater long");
+      return;
+    }
 
   try {
 
 
-    const res = await axios.post('http://localhost:3000/addAdmin',{email,password});
+    const res = await axios.post('http://localhost:3000/signup/admin',{email,password});
     console.log(res.data); 
     if(res.status === 200){
       toast.success("Admin added successfully");
@@ -36,7 +39,7 @@ const AdminForm = () => {
       } 
     
   } catch (error) {
-    toast.error("Error in adding Admin.Please try again");
+    toast.error(error.response.data.message);
   }
 
    
