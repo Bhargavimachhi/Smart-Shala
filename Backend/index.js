@@ -1,5 +1,4 @@
 import express from "express";
-import { Student } from "./Models/Student.js";
 const app = express();
 const PORT = 3000;
 import {
@@ -54,8 +53,7 @@ import { getAnswer } from "./Controller/Chatbot.js";
 import { adminLogin } from "./Controller/admin.js";
 import LoginTeacher from "./Controller/loginTeacher.js";
 import loginStudent from "./Controller/loginStudent.js";
-import getIndividualStudent from "./Controller/getIndividualStudent.js";
-import getIndividualAttendance from "./Controller/getIndividualAttendance.js";
+
 
 app.use(express.json());
 
@@ -124,7 +122,7 @@ app.post("/getAnswer", getAnswer);
 app.post("/login/teacher", LoginTeacher);
 app.post("/login/student", loginStudent);
 app.post("/login/admin", adminLogin);
-app.get("/students/:id", getIndividualStudent);
+
 
 
 

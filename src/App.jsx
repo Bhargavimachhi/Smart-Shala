@@ -37,8 +37,8 @@ import StudentLogin from "./Pages/InitialPages/StudentLogin.jsx";
 import { useEffect } from "react";
 import LoginAlert from "./components/LoginAlert.jsx";
 import PageNotFound from "./components/PageNotFound.jsx";
-import Test from "./Pages/Student/Components/UniStudentCard.jsx/Test.jsx";
-import AttendanceIndividual from "./Pages/Student/Components/UniStudentCard.jsx/AttendanceIndividual.jsx";
+
+
 
 function App() {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -118,7 +118,7 @@ function App() {
             )
           }
         />
-        <Route path="/admin/students/:id" element={<Test />} />
+   
 
         {/* Student Page Routes  */}
         <Route
@@ -131,7 +131,7 @@ function App() {
             )
           }
         />
-<Route path="/attendance/:id" element={<AttendanceIndividual />} />
+
 
 
 

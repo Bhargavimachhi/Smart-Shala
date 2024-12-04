@@ -2,8 +2,8 @@ import { Card, CardContent } from "@mui/material";
 import SideNavbar from "../../../components/SideNavbar";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import StudentProfile from "../Components/Studentprofile";
 
-import UniStudentCard from "../../Student/Components/UniStudentCard.jsx/UniStudentCard";
 const StudentListingpage = () => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,8 +12,8 @@ const StudentListingpage = () => {
   // Thiss useEffect hookk willl try to preload the data from the server before rendering the screen.
   useEffect(() => {
     async function fetchStudents() {
-      // const res = await axios.get(`http://localhost:3000/admin/${savedAuth.id}/students`);
-      const res = await axios.get(`http://localhost:3000/admin/students`);
+      const res = await axios.get(`http://localhost:3000/admin/${savedAuth.id}/students`);
+      
 
       console.log(res.data.students);
       setStudents(res.data.students);
@@ -29,36 +29,33 @@ const StudentListingpage = () => {
   return (
     <>
       <div className="flex min-h-screen bg-gray-100">
-        <SideNavbar />
-        {/* new ui siddhart */}
-        <div className="flex-1 p-8">
-          <h1 className="text-xl font-semibold font-sans ">Student List</h1>
-          <div className="w-full mt-5 h-screen p-3 overflow-hidden bg-gray-300 rounded-md">
-            <div
-              id="filte bar"
-              className="w-full h-50 rounded-sm  bg-white p-5"
-            ></div>
-            <div className="w-full h-full mt-3 rounded-sm bg-gray-500 mb-6 ">
-              <div className="pt-10">
-                {students.map((student) => {
-                  return (
-                    <>
-                      <UniStudentCard
-                        key={student}
-                        id={student._id}
-                        name={student.name}
-                        email={student.email}
-                      />
-                    </>
-                  );
-                })}
-
-                
-              </div>
-            </div>
-          </div>
+   <SideNavbar/>
+      <div className="flex-1 p-8">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold">Student</h1>
         </div>
+
+        {students && students.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {students?.map((student) => (
+            <Card key={student.id} className="bg-white rounded-lg shadow hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex flex-col items-center">
+                  
+                  <h2 className="text-lg font-semibold mb-2">{student.name}</h2>
+                  <StudentProfile student={student} />
+                  
+                </div>
+              </CardContent>
+              {/* <button type="button">Performance</button> */}
+            </Card>
+          ))}
+        </div>
+        ) : (
+          <div className="text-center mt-8">No student found</div>
+        )}
       </div>
+</div>
     </>
   );
 };
