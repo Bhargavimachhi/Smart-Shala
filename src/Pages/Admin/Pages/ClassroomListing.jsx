@@ -17,7 +17,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 
 const ClassroomListingpage = () => {
   const [classrooms, setClassrooms] = useState([]);
-  
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -27,10 +27,15 @@ const ClassroomListingpage = () => {
       const res = await axios.get(`http://localhost:3000/admin/${savedAuth.id}/classrooms`);
       console.log(res.data.classrooms);
       setClassrooms(res.data.classrooms);
+      setLoading(false);
     }
 
     getClassrooms();
   }, []);
+
+  if (loading) {
+    return <div className="text-center mt-8">Loading Classrooms...</div>;
+  }
 
   return (
     <>
