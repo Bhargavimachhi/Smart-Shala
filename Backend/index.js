@@ -129,32 +129,5 @@ app.get("/students/:id", getIndividualStudent);
 
 
 
-//getting Individual student Data
-app.get("/admin/students", getAllStuents);
 
-app.get("/admin/students/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    const student = await Student.findById(id);
-    if (!student) {
-      return res.status(404).json({ message: "Student not found" });
-    }
-    res.status(200).json(student);
-  } catch (err) {
-    console.error("Error fetching student:", err);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
 
-//indivdual attendance route for calendar
-
-app.get('/admin/students/:id', (req, res) => {
-  const { id } = req.params;
-  const student = Student.find((s) => s.id === id);
-
-  if (student) {
-    res.json(student);
-  } else {
-    res.status(404).json({ message: 'Student not found' });
-  }
-});
