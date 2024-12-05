@@ -9,6 +9,7 @@ import { Card, CardContent, Typography, Dialog, DialogTitle, DialogContent, Icon
 const TeachersClassroom = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [classrooms, setClassrooms] = useState([]);
+    const [loading, setLoading] = useState(true);
     const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
     const toggleSidebar = () => {
@@ -20,12 +21,15 @@ const TeachersClassroom = () => {
           const res = await axios.get(`http://localhost:3000/teacher/${savedAuth.id}/classrooms`);
           console.log(res.data.classrooms);
           setClassrooms(res.data.classrooms);
+          setLoading(false);
         }
     
         getClassrooms();
       }, []);
 
-
+      if (loading) {
+        return <div className="text-center mt-8">Loading Classrooms...</div>;
+      }
 
   return (
    <>
