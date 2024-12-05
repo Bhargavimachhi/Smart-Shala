@@ -38,6 +38,7 @@ import { useEffect } from "react";
 import LoginAlert from "./components/LoginAlert.jsx";
 import PageNotFound from "./components/PageNotFound.jsx"
 
+import LandingPage from './Pages/InitialPages/LandingPage.jsx';
 
 function App() {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -47,6 +48,8 @@ function App() {
     <>
   
       <Routes>
+        {/* Landing Page Route */}
+        <Route path="/" element={<LandingPage />} />
 
         {/* Admin Page Routes */ }
         <Route path='/admin' element={savedAuth && savedAuth.role == 'admin' ? <AdminHome/> : <LoginAlert />}   /> 
