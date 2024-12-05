@@ -40,6 +40,8 @@ import PageNotFound from "./components/PageNotFound.jsx"
 
 import LandingPage from './Pages/InitialPages/LandingPage.jsx';
 
+import FilePreview from "./components/HomeworkReport.jsx";
+
 function App() {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
@@ -68,6 +70,7 @@ function App() {
         <Route path='/student/doubts' element={savedAuth && savedAuth.role == 'student' ? <StudentChatbot/> : <LoginAlert />}   /> 
         <Route path='/student/:id/pending-homework' element={savedAuth && savedAuth.role == 'student' ? <PendingHomeWork/> : <LoginAlert />}   /> 
         <Route path='/student/attendance' element={savedAuth && savedAuth.role == 'student' ? <StudentAttendancePage/> : <LoginAlert />}   />
+        <Route path="/student/homework/:id/preview" element={savedAuth && savedAuth.role == 'student' ? <FilePreview /> : <LoginAlert />}/>
   
         {/* Teacher Page Routes */}
         <Route path='/teacher' element={savedAuth && savedAuth.role == 'teacher' ? <TeacherHomePage /> : <LoginAlert />} />
@@ -89,6 +92,10 @@ function App() {
         <Route path="/login/admin" element={<AdminLoginpage/>} />
         <Route path="/login/teacher" element={<TeacherLogin/>} />
         <Route path="/login/student" element={<StudentLogin/>}/>
+
+        
+
+
 
         <Route path="*" element={<PageNotFound />}/>
         

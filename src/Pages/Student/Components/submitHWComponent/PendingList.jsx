@@ -74,7 +74,7 @@ const PendingList = () => {
             key={homework._id}
             className="p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200"
             onClick={() => {
-              navigate(`/student/${pendingItem._id}/pending-homework`);
+              navigate(`/student/homework/${homework._id}/preview`);
               return null;
             }}
           >
