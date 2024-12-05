@@ -3,7 +3,7 @@ import TeacherLeftSideNavBar from '../Components/TeacherLeftSideNavBar';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
 import { Card, CardContent, Typography, Dialog, DialogTitle, DialogContent, IconButton, CardHeader,Button } from '@mui/material';
-
+import "../../../components/hover.css";
 
 
 const TeachersClassroom = () => {
@@ -46,7 +46,7 @@ const TeachersClassroom = () => {
               {classrooms.map((classroom) => {
                 return (
                   
-                  <Card className="relative mb-8 h-48" key={classroom.id}>
+                  <Card className="relative mb-8 h-48 hover-card" key={classroom._id}>
                    
                     <CardContent className="flex flex-col justify-center items-center h-full relative">
                       <Typography variant="h5" className="font-bold text-blue-600 text-center">
