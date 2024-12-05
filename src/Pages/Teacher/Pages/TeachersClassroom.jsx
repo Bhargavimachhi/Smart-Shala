@@ -36,7 +36,7 @@ const TeachersClassroom = () => {
 
 <div className="flex min-h-screen bg-gray-100">
       <TeacherLeftSideNavBar isExpanded={isExpanded} toggleSidebar={toggleSidebar} />
-      <div className="flex-1 p-8">
+      <div className="flex-1 p-8 pl-60">
         
         <h1 className="text-2xl font-bold text-center mb-8">Your Classrooms</h1>
 
