@@ -58,7 +58,7 @@ import { getAnswer } from "./Controller/Chatbot.js";
 import { adminLogin } from "./Controller/admin.js";
 import LoginTeacher from "./Controller/loginTeacher.js";
 import loginStudent from "./Controller/loginStudent.js";
-import { analyzeImageFromFile } from "./Controller/homeworkAnalysis.js";
+import analyzeImageFromFile from "./Controller/homeworkAnalysis.js";
 import { getHomework } from "./Controller/homework.js";
 
 app.use(express.json());
@@ -121,7 +121,7 @@ app.post("/admin/:id/assign-student", addStudentToAdmin);
 app.post("/addAdmin", addAdmin);
 
 //homework routes
-app.get("/homework/:id", getHomework); 
+// app.get("/homework/:id", getHomework); 
 app.get("/homework/analysis", analyzeImageFromFile);
 
 // chat bot routes
