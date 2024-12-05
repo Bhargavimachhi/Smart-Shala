@@ -16,6 +16,7 @@ import {
   getAllTeachers,
   deleteTeacher,
   getClassroomsOfTeacher,
+  getHomeworkAssignedByTeacher,
 } from "./Controller/teacher.js";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -29,6 +30,7 @@ import {
   assignStudentToClassroom,
   assignTeacherToClassroom,
   removeStudentFromClassroom,
+  getHomeworkOfClass,
 } from "./Controller/classroom.js";
 import {
   addAdmin,
@@ -81,6 +83,7 @@ app.get("/classroom/:id", getClassroom);
 app.post("/classroom/:id/assign-student", assignStudentToClassroom);
 app.post("/classroom/:id/assign-teacher", assignTeacherToClassroom);
 app.get("/classroom/:cId/student/:sId/remove", removeStudentFromClassroom);
+app.get("/classroom/:id/homeworks", getHomeworkOfClass);
 
 // teacher routes
 app.post("/teacher/classrooms/:id/generate-issue", generateIssue);
@@ -88,6 +91,7 @@ app.get("/teacher/:id/classrooms", getClassroomsOfTeacher);
 app.get("/teacher/:id", getTeacher);
 app.post("/teacher/:id/assign-homework", assignHomeworkToClassroom);
 app.get("/teacher/:id/delete", deleteTeacher);
+app.get("/teacher/:id/homeworks", getHomeworkAssignedByTeacher);
 
 // student routes
 app.get("/student/:id", getStudent);

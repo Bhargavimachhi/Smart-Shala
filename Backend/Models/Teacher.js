@@ -24,6 +24,11 @@ let teacherSchema = new mongoose.Schema({
         type : [String],
         default : []
     },
+    homeworks: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Homework',
+        default: []
+    }],
     contact :{
         type : Number,
         min : 1000000000,
