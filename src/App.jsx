@@ -68,7 +68,7 @@ function App() {
         <Route path='/student/submit-homework' element={savedAuth && savedAuth.role == 'student' ? <SubmitHomework/> : <LoginAlert />}/> 
         <Route path='/student/notification' element={savedAuth && savedAuth.role == 'student' ? <StudentNotification/> : <LoginAlert />}   /> 
         <Route path='/student/doubts' element={savedAuth && savedAuth.role == 'student' ? <StudentChatbot/> : <LoginAlert />}   /> 
-        <Route path='/student/pending-homework' element={savedAuth && savedAuth.role == 'student' ? <PendingHomeWork/> : <LoginAlert />}   /> 
+        <Route path='/student/:id/pending-homework' element={savedAuth && savedAuth.role == 'student' ? <PendingHomeWork/> : <LoginAlert />}   /> 
         <Route path='/student/attendance' element={savedAuth && savedAuth.role == 'student' ? <StudentAttendancePage/> : <LoginAlert />}   />
   
         {/* Teacher Page Routes */}

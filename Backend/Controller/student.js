@@ -1,4 +1,6 @@
 import {Student} from "../Models/Student.js"
+import {Classroom} from "../Models/Classroom.js"
+import { Homework } from "../Models/Homework.js";
 
 //add Student
 export const addStudent = async(req, res) => {
@@ -148,3 +150,36 @@ export const getStudentDataAnalytics = async (req, res) => {
         res.status(500).json({ message: "internal server error" });
     }
 };
+// get pending homework of student
+export const getPendingHomeworkOfStudent = async(req, res) => {
+    const id = req.params.id;
+    const student = await Student.findById(id);
+
+    if(!student) {
+        res.status(404).json({message : "Student does not exist"});
+        return;
+    }
+
+    if(student.classroom == null) {
+        res.status(200).json({homeworks : []});
+        return;
+    }
+
+    const classroom = await Classroom.findById(student.classroom);
+
+    if(!classroom) {
+        res.status(200).json({homeworks : []});
+        return;
+    }
+
+    const homeworks = [];
+
+    await Promise.all(classroom.homeworks.map(async(homeworkId) => {
+        if(!student.submittedHomeworks.includes(homeworkId)) {
+            let homework = await Homework.findById(homeworkId);
+            homeworks.push(homework);
+        }
+    }));
+
+    res.status(200).json({homeworks});
+}
