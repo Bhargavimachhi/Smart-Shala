@@ -9,6 +9,7 @@ import {
   deleteStudent,
   markPresent,
   markAbsent,
+  getStudentDataAnalytics,
 } from "./Controller/student.js";
 import {
   addTeacher,
@@ -17,6 +18,7 @@ import {
   deleteTeacher,
   getClassroomsOfTeacher,
   getHomeworkAssignedByTeacher,
+  getStudentsOfTeacher,
 } from "./Controller/teacher.js";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -92,12 +94,14 @@ app.get("/teacher/:id", getTeacher);
 app.post("/teacher/:id/assign-homework", assignHomeworkToClassroom);
 app.get("/teacher/:id/delete", deleteTeacher);
 app.get("/teacher/:id/homeworks", getHomeworkAssignedByTeacher);
+app.get("/teacher/:id/students", getStudentsOfTeacher);
 
 // student routes
 app.get("/student/:id", getStudent);
 app.get("/student/:id/delete", deleteStudent);
 app.get("/student/:id/attendance/present", markPresent);
 app.get("/student/:id/attendance/absent", markAbsent);
+app.get("/student/:id/analytics", getStudentDataAnalytics);
 
 // issue generation routes
 app.get("/issue/:id/delete", deleteIssue);

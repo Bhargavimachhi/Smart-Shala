@@ -1,6 +1,7 @@
 import {Teacher} from "../Models/Teacher.js"
 import { Classroom } from "../Models/Classroom.js";
 import { Homework } from "../Models/Homework.js";
+import { Student } from "../Models/Student.js";
 
 export const addTeacher = async(req, res) => {
     let teacher = await Teacher.find({email : req.body.email});
@@ -99,3 +100,18 @@ export const getHomeworkAssignedByTeacher = async(req,res) => {
 
     res.status(200).json({homeworks : teacher.homeworks});
 }
+
+// get students available to a teacher
+export const getStudentsOfTeacher = async (req, res) => {
+    const teacherId = req.params.id;
+    try {
+        const classrooms = await Classroom.find({ teachers: teacherId }).populate('students');
+        const students = classrooms.reduce((acc, classroom) => {
+            return acc.concat(classroom.students);
+        }, []);
+        res.status(200).json({ message: "success", students });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "internal server error" });
+    }
+};

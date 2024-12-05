@@ -117,3 +117,34 @@ export const markAbsent = async(req, res) => {
         res.send("Error Occurred !!!");
     });
 }
+
+import mongoose from 'mongoose';
+
+// get student data analytics
+export const getStudentDataAnalytics = async (req, res) => {
+    const studentId = req.params.id;
+    //console.log('Received request for student analytics:', studentId); // Debugging line
+    if (!mongoose.Types.ObjectId.isValid(studentId)) {
+        return res.status(400).json({ message: "Invalid student ID" });
+    }
+    try {
+        const student = await Student.findById(studentId);
+        if (!student) {
+            return res.status(404).json({ message: "Student does not exist" });
+        }
+        const analytics = {
+            attendance: [
+                { name: 'Present', value: student.presentDays.length },
+                { name: 'Absent', value: student.absentDays.length }
+            ],
+            homeworks: [
+                { name: 'Submitted', value: student.submittedHomeworks.length },
+                { name: 'Not Submitted', value: 0 } // Assuming we don't track not submitted
+            ]
+        };
+        res.status(200).json({ message: "success", analytics });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "internal server error" });
+    }
+};
