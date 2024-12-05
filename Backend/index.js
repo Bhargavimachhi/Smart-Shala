@@ -10,6 +10,7 @@ import {
   markPresent,
   markAbsent,
   getPendingHomeworkOfStudent,
+  getSubmmitedHomeworkOfStudent,
 } from "./Controller/student.js";
 import {
   addTeacher,
@@ -101,6 +102,7 @@ app.get("/student/:id/delete", deleteStudent);
 app.get("/student/:id/attendance/present", markPresent);
 app.get("/student/:id/attendance/absent", markAbsent);
 app.get("/student/:id/pending-homeworks", getPendingHomeworkOfStudent);
+app.get("/student/:id/submitted-homeworks", getSubmmitedHomeworkOfStudent);
 
 // issue generation routes
 app.get("/issue/:id/delete", deleteIssue);

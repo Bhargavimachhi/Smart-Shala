@@ -153,3 +153,22 @@ export const getPendingHomeworkOfStudent = async(req, res) => {
 
     res.status(200).json({homeworks});
 }
+
+// get submitted homework
+export const getSubmmitedHomeworkOfStudent = async(req, res) => {
+    const id = req.params.id;
+    const student = await Student.findById(id);
+
+    if(!student) {
+        res.status(404).json({message : "Student does not exist"});
+        return;
+    }
+    const homeworks = [];
+
+    await Promise.all(student.submittedHomeworks.map(async(homeworkId) => {
+        let homework = await Homework.findById(homeworkId);
+        homeworks.push(homework);
+    }));
+
+    res.status(200).json({homeworks});
+}
