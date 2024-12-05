@@ -11,10 +11,10 @@ import axios from "axios";
 const PendingHomeWork = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { id } = useParams();
-  // const { state } = useLocation(); // Retrieve the data passed during navigation
   let [PendingHomeWork, setPendingHomework] = useState([]);
   const [uploadedFile, setUploadedFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
   useEffect(()=> {
 
@@ -51,7 +51,7 @@ const PendingHomeWork = () => {
       const toastId = toast.loading("Uploading your homework...");
       try {
         setLoading(true);
-        const refoffile = ref(storage, `homeworks/${uploadedFile.name}`);
+        const refoffile = ref(storage, `homeworks/${PendingHomeWork._id}/${savedAuth.id}`);
         await uploadBytes(refoffile, uploadedFile);
         toast.dismiss(toastId);
         toast.success("Homework uploaded successfully!");
