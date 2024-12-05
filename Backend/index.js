@@ -121,8 +121,8 @@ app.post("/admin/:id/assign-student", addStudentToAdmin);
 app.post("/addAdmin", addAdmin);
 
 //homework routes
-// app.get("/homework/:id", getHomework); 
 app.get("/homework/analysis", analyzeImageFromFile);
+app.get("/homework/:id", getHomework);
 
 // chat bot routes
 app.post("/getAnswer", getAnswer);
