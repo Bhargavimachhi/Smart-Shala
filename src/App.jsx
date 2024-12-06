@@ -41,6 +41,7 @@ import PageNotFound from "./components/PageNotFound.jsx"
 import LandingPage from './Pages/InitialPages/LandingPage.jsx';
 
 import FilePreview from "./components/HomeworkReport.jsx";
+import Createclassroom from "./Pages/Admin/Components/Createclassroom.jsx";
 
 function App() {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -58,6 +59,7 @@ function App() {
         <Route path="/admin/students" element={savedAuth && savedAuth.role == 'admin' ?<StudentListingpage />: <LoginAlert />} />
         <Route path="/admin/teachers" element={savedAuth && savedAuth.role == 'admin' ?<TeacherListingpage />: <LoginAlert />} />
         <Route path="/admin/classrooms" element={savedAuth && savedAuth.role == 'admin' ?<ClassroomListingpage/>: <LoginAlert />} />
+        <Route path="/admin/create-classroom" element={savedAuth && savedAuth.role == 'admin' ?<Createclassroom/>: <LoginAlert />} />
         <Route path="/admin/classrooms/:id" element={savedAuth && savedAuth.role == 'admin' ?<Classroom/>: <LoginAlert />} />
         <Route path="/admin/data-analytics" element={savedAuth && savedAuth.role == 'admin' ?<Dataanalyticspage />: <LoginAlert />} />
         <Route path='/admin/issues' element={savedAuth && savedAuth.role == 'admin' ?<Issuessection/>: <LoginAlert />} />

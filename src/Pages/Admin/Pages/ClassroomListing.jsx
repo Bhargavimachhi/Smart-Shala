@@ -46,7 +46,9 @@ const ClassroomListingpage = () => {
           <div className="mb-6 flex justify-between items-center">
             <h1 className="text-2xl font-bold mb-2">Your Classrooms</h1>
            
-           <Createclassroom/>
+           <Button variant="contained" color="primary" type="submit" sx={{ marginTop: 2 }} onClick={() => navigate('/admin/create-classroom')}>
+            Create Classroom
+           </Button>
           </div>
 
           {classrooms && classrooms.length > 0 ? (
