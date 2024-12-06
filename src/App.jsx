@@ -40,6 +40,10 @@ import PageNotFound from "./components/PageNotFound.jsx";
 import AddHW from "./Pages/Teacher/Pages/AddHW.jsx";
 
 
+import LandingPage from './Pages/InitialPages/LandingPage.jsx';
+
+import FilePreview from "./components/HomeworkReport.jsx";
+import Createclassroom from "./Pages/Admin/Components/Createclassroom.jsx";
 
 function App() {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -48,148 +52,28 @@ function App() {
   return (
     <>
       <Routes>
-        {/* Admin Page Routes */}
-        <Route
-          path="/admin"
-          element={
-            savedAuth && savedAuth.role == "admin" ? (
-              <AdminHome />
-            ) : (
-              <LoginAlert />
-            )
-          }
-        />
-        <Route
-          path="/admin/students"
-          element={
-            savedAuth && savedAuth.role == "admin" ? (
-              <StudentListingpage />
-            ) : (
-              <LoginAlert />
-            )
-          }
-        />
-        <Route
-          path="/admin/teachers"
-          element={
-            savedAuth && savedAuth.role == "admin" ? (
-              <TeacherListingpage />
-            ) : (
-              <LoginAlert />
-            )
-          }
-        />
-        <Route
-          path="/admin/classrooms"
-          element={
-            savedAuth && savedAuth.role == "admin" ? (
-              <ClassroomListingpage />
-            ) : (
-              <LoginAlert />
-            )
-          }
-        />
-        <Route
-          path="/admin/classrooms/:id"
-          element={
-            savedAuth && savedAuth.role == "admin" ? (
-              <Classroom />
-            ) : (
-              <LoginAlert />
-            )
-          }
-        />
-        <Route
-          path="/admin/data-analytics"
-          element={
-            savedAuth && savedAuth.role == "admin" ? (
-              <Dataanalyticspage />
-            ) : (
-              <LoginAlert />
-            )
-          }
-        />
-        <Route
-          path="/admin/issues"
-          element={
-            savedAuth && savedAuth.role == "admin" ? (
-              <Issuessection />
-            ) : (
-              <LoginAlert />
-            )
-          }
-        />
-   
+        {/* Landing Page Route */}
+        <Route path="/" element={<LandingPage />} />
 
+        {/* Admin Page Routes */ }
+        <Route path='/admin' element={savedAuth && savedAuth.role == 'admin' ? <AdminHome/> : <LoginAlert />}   /> 
+        <Route path="/admin/students" element={savedAuth && savedAuth.role == 'admin' ?<StudentListingpage />: <LoginAlert />} />
+        <Route path="/admin/teachers" element={savedAuth && savedAuth.role == 'admin' ?<TeacherListingpage />: <LoginAlert />} />
+        <Route path="/admin/classrooms" element={savedAuth && savedAuth.role == 'admin' ?<ClassroomListingpage/>: <LoginAlert />} />
+        <Route path="/admin/create-classroom" element={savedAuth && savedAuth.role == 'admin' ?<Createclassroom/>: <LoginAlert />} />
+        <Route path="/admin/classrooms/:id" element={savedAuth && savedAuth.role == 'admin' ?<Classroom/>: <LoginAlert />} />
+        <Route path="/admin/data-analytics" element={savedAuth && savedAuth.role == 'admin' ?<Dataanalyticspage />: <LoginAlert />} />
+        <Route path='/admin/issues' element={savedAuth && savedAuth.role == 'admin' ?<Issuessection/>: <LoginAlert />} />
+
+      
         {/* Student Page Routes  */}
-        <Route
-          path="/student"
-          element={
-            savedAuth && savedAuth.role == "student" ? (
-              <StudentHomePage />
-            ) : (
-              <LoginAlert />
-            )
-          }
-        />
-
-
-
-
-
-
-
-        <Route
-          path="/student/submit-homework"
-          element={
-            savedAuth && savedAuth.role == "student" ? (
-              <SubmitHomework />
-            ) : (
-              <LoginAlert />
-            )
-          }
-        />
-        <Route
-          path="/student/notification"
-          element={
-            savedAuth && savedAuth.role == "student" ? (
-              <StudentNotification />
-            ) : (
-              <LoginAlert />
-            )
-          }
-        />
-        <Route
-          path="/student/doubts"
-          element={
-            savedAuth && savedAuth.role == "student" ? (
-              <StudentChatbot />
-            ) : (
-              <LoginAlert />
-            )
-          }
-        />
-        <Route
-          path="/student/pending-homework"
-          element={
-            savedAuth && savedAuth.role == "student" ? (
-              <PendingHomeWork />
-            ) : (
-              <LoginAlert />
-            )
-          }
-        />
-        <Route
-          path="/student/attendance"
-          element={
-            savedAuth && savedAuth.role == "student" ? (
-              <StudentAttendancePage />
-            ) : (
-              <LoginAlert />
-            )
-          }
-        />
-
+        <Route path='/student' element={savedAuth && savedAuth.role == 'student' ? <StudentHomePage/> : <LoginAlert />}   /> 
+        <Route path='/student/submit-homework' element={savedAuth && savedAuth.role == 'student' ? <SubmitHomework/> : <LoginAlert />}/> 
+        <Route path='/student/notification' element={savedAuth && savedAuth.role == 'student' ? <StudentNotification/> : <LoginAlert />}   /> 
+        <Route path='/student/doubts' element={savedAuth && savedAuth.role == 'student' ? <StudentChatbot/> : <LoginAlert />}   /> 
+        <Route path='/student/pending-homework' element={savedAuth && savedAuth.role == 'student' ? <PendingHomeWork/> : <LoginAlert />}   /> 
+        <Route path='/student/attendance' element={savedAuth && savedAuth.role == 'student' ? <StudentAttendancePage/> : <LoginAlert />}   />
+  
         {/* Teacher Page Routes */}
         <Route
           path="/teacher"
@@ -277,10 +161,10 @@ function App() {
         <Route path="/signup/admin" element={<AdminForm />} />
 
         {/* Login Page Routes */}
-        <Route path="/login" element={<CommonLogin />} />
-        <Route path="/login/admin" element={<AdminLoginpage />} />
-        <Route path="/login/teacher" element={<TeacherLogin />} />
-        <Route path="/login/student" element={<StudentLogin />} />
+        <Route path="/login" element={<CommonLogin/>} />
+        <Route path="/login/admin" element={<AdminLoginpage/>} />
+        <Route path="/login/teacher" element={<TeacherLogin/>} />
+        <Route path="/login/student" element={<StudentLogin/>}/>
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>

@@ -171,10 +171,12 @@ export const assignHomeworkToClassroom = async(req, res) => {
         file : req.body.file
     });
     classroom.homeworks.push(homework._id);
+    teacher.homeworks.push(homework._id);
 
     homework.save().then(()=>{
         classroom.save();
-        res.status(200).json({ message: "Homework Assigned to Classroom Successfully" , homework:homework});
+        teacher.save();
+        res.status(200).json({ message: "Homework Assigned to Classroom Successfully" , homework});
     }).catch((err)=>{
         console.log(err);
         res.send("Error Occurred !!! , Couldn't Assign homework to the classroom");
@@ -236,4 +238,17 @@ export const removeStudentFromClassroom = async(req, res) => {
         console.log(err);
         res.send("Error Occurred !!!");
     });
+}
+
+// get Homework associated to classroom
+export const getHomeworkOfClass = async(req, res) => {
+    const id = req.params.id;
+    const classroom = await Classroom.findById(id);
+
+    if(!classroom) {
+        res.status(404).json({message : "Classroom does not exist"});
+        return;
+    }
+    res.status(200).json({homeworks : classroom.homeworks});
+
 }

@@ -1,4 +1,6 @@
-import { Student } from "../Models/Student.js";
+import {Student} from "../Models/Student.js"
+import {Classroom} from "../Models/Classroom.js"
+import { Homework } from "../Models/Homework.js";
 
 //add Student
 export const addStudent = async (req, res) => {
@@ -124,4 +126,90 @@ export const markAbsent = async (req, res) => {
       console.log(err);
       res.send("Error Occurred !!!");
     });
-};
+}
+
+// get pending homework of student
+export const getPendingHomeworkOfStudent = async(req, res) => {
+    const id = req.params.id;
+    const student = await Student.findById(id);
+
+    if(!student) {
+        res.status(404).json({message : "Student does not exist"});
+        return;
+    }
+
+    if(student.classroom == null) {
+        res.status(200).json({homeworks : []});
+        return;
+    }
+
+    const classroom = await Classroom.findById(student.classroom);
+
+    if(!classroom) {
+        res.status(200).json({homeworks : []});
+        return;
+    }
+
+    const homeworks = [];
+
+    await Promise.all(classroom.homeworks.map(async(homeworkId) => {
+        if(!student.submittedHomeworks.includes(homeworkId)) {
+            let homework = await Homework.findById(homeworkId);
+            homeworks.push(homework);
+        }
+    }));
+
+    res.status(200).json({homeworks});
+}
+
+// get submitted homework
+export const getSubmmitedHomeworkOfStudent = async(req, res) => {
+    const id = req.params.id;
+    const student = await Student.findById(id);
+
+    if(!student) {
+        res.status(404).json({message : "Student does not exist"});
+        return;
+    }
+    const homeworks = [];
+
+    await Promise.all(student.submittedHomeworks.map(async(homeworkId) => {
+        let homework = await Homework.findById(homeworkId);
+        homeworks.push(homework);
+    }));
+
+    res.status(200).json({homeworks});
+}
+
+// submit homework of student
+export const submitHomeWorkOfStudent = async(req, res) => {
+    const sId = req.params.sId;
+    const student = await Student.findById(sId);
+
+    if(!student) {
+        res.status(404).json({message : "Student does not exist"});
+        return;
+    }
+
+    const hId = req.params.hId;
+    const homework = await Homework.findById(hId);
+
+    if(!homework) {
+        res.status(404).json({message : "Homework does not exist"});
+        return;
+    }
+
+    if(student.submittedHomeworks.includes(hId)) {
+        res.status(200).json({message:"success"});
+        return;
+    }
+
+    student.submittedHomeworks.push(hId);
+
+    student.save().then(()=>{
+        res.status(200).json({ message: "success" });
+    }).catch((err)=>{
+        console.log(err);
+        res.send("Error Occurred !!!");
+    });
+}

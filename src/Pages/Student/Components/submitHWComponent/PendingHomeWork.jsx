@@ -1,16 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom"; // For retrieving navigation state
 import { RiUploadCloudLine } from "react-icons/ri";
 import { storage } from "../../../../../firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import { toast } from "react-hot-toast";
 import LeftSideNavbar from "../LeftSideNavBar";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const PendingHomeWork = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const { state } = useLocation(); // Retrieve the data passed during navigation
+  const { id } = useParams();
+  let [PendingHomeWork, setPendingHomework] = useState([]);
   const [uploadedFile, setUploadedFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const savedAuth = JSON.parse(localStorage.getItem("auth"));
+
+  useEffect(()=> {
+
+    async function fetchHomework() {
+      try {
+        let res = await axios.get(`http://localhost:3000/homework/${id}`);
+        setPendingHomework(res.data.homework);
+        setLoading(false);
+
+      } catch(err) {
+        console.log(err);
+      }
+    }
+    fetchHomework();
+  },[]);
+
   const handleToggleSidebar = () => {
     setIsExpanded((prevState) => !prevState);
   };
@@ -31,10 +51,11 @@ const PendingHomeWork = () => {
       const toastId = toast.loading("Uploading your homework...");
       try {
         setLoading(true);
-        const refoffile = ref(storage, `homeworks/${uploadedFile.name}`);
+        const refoffile = ref(storage, `homeworks/${PendingHomeWork._id}/${savedAuth.id}`);
         await uploadBytes(refoffile, uploadedFile);
         toast.dismiss(toastId);
         toast.success("Homework uploaded successfully!");
+        const res = await axios.get(`http://localhost:3000/student/${savedAuth.id}/homework/${id}/submit`);
         setUploadedFile(null);
       } catch (error) {
         console.error(error);
@@ -64,11 +85,12 @@ const PendingHomeWork = () => {
       </h1> 
       <div className="p-6 bg-white min-h-screen">
         {/* Render Subject Details */}
-        {state ? (
+        {PendingHomeWork ? (
           <div className="mb-6 border-2 border-gray-100 bg-blue rounded-lg items-center p-5">
-            <h1 className="text-2xl font-bold mb-5 text-center border-b-2 p-2 text-white">Subject : {state.subject}</h1>
-            <p className="text-red-400 font-bold text-center">Deadline: {state.deadline}</p>
-            <p className="text-gray-300 mt-2">Note: {state.description}</p>
+            <h1 className="text-2xl font-bold mb-5 text-center border-b-2 p-2 text-white">Subject : {PendingHomeWork.subject}</h1>
+            <p className="text-600 font-bold">Title: {PendingHomeWork.title}</p>
+            <p className="text-600 font-bold">Description: {PendingHomeWork.description}</p>
+            <p className="text-red-400 font-bold">Deadline: {PendingHomeWork.dueDate}</p>
           </div>
         ) : (
           <p>No homework details available.</p>

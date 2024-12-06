@@ -9,7 +9,7 @@ const TableListingteacher = ({id}) => {
 
     useEffect(()=>{
         async function getteachers(){
-            const res = await axios.get("http://localhost:3000/getteacher/"+id);
+            const res = await axios.get("http://localhost:3000/teacher/"+id);
             console.log(res.data.teacher);
             setTeacher(res.data.teacher);
         }

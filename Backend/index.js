@@ -8,6 +8,9 @@ import {
   deleteStudent,
   markPresent,
   markAbsent,
+  getPendingHomeworkOfStudent,
+  getSubmmitedHomeworkOfStudent,
+  submitHomeWorkOfStudent,
 } from "./Controller/student.js";
 import {
   addTeacher,
@@ -15,6 +18,7 @@ import {
   getAllTeachers,
   deleteTeacher,
   getClassroomsOfTeacher,
+  getHomeworkAssignedByTeacher,
 } from "./Controller/teacher.js";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -28,6 +32,7 @@ import {
   assignStudentToClassroom,
   assignTeacherToClassroom,
   removeStudentFromClassroom,
+  getHomeworkOfClass,
 } from "./Controller/classroom.js";
 import {
   addAdmin,
@@ -54,6 +59,8 @@ import { getAnswer } from "./Controller/Chatbot.js";
 import { adminLogin } from "./Controller/admin.js";
 import LoginTeacher from "./Controller/loginTeacher.js";
 import loginStudent from "./Controller/loginStudent.js";
+import analyzeImageFromFile from "./Controller/homeworkAnalysis.js";
+import { getHomework } from "./Controller/homework.js";
 
 
 app.use(express.json());
@@ -80,6 +87,7 @@ app.get("/classroom/:id", getClassroom);
 app.post("/classroom/:id/assign-student", assignStudentToClassroom);
 app.post("/classroom/:id/assign-teacher", assignTeacherToClassroom);
 app.get("/classroom/:cId/student/:sId/remove", removeStudentFromClassroom);
+app.get("/classroom/:id/homeworks", getHomeworkOfClass);
 
 // teacher routes
 app.post("/teacher/classrooms/:id/generate-issue", generateIssue);
@@ -87,12 +95,16 @@ app.get("/teacher/:id/classrooms", getClassroomsOfTeacher);
 app.get("/teacher/:id", getTeacher);
 app.post("/teacher/:id/assign-homework", assignHomeworkToClassroom);
 app.get("/teacher/:id/delete", deleteTeacher);
+app.get("/teacher/:id/homeworks", getHomeworkAssignedByTeacher);
 
 // student routes
 app.get("/student/:id", getStudent);
 app.get("/student/:id/delete", deleteStudent);
 app.get("/student/:id/attendance/present", markPresent);
 app.get("/student/:id/attendance/absent", markAbsent);
+app.get("/student/:id/pending-homeworks", getPendingHomeworkOfStudent);
+app.get("/student/:id/submitted-homeworks", getSubmmitedHomeworkOfStudent);
+app.get("/student/:sId/homework/:hId/submit", submitHomeWorkOfStudent);
 
 // issue generation routes
 app.get("/issue/:id/delete", deleteIssue);
@@ -111,6 +123,10 @@ app.post("/admin/:id/assign-classroom", addClassroomToAdmin);
 app.post("/admin/:id/assign-teacher", addTeacherToAdmin);
 app.post("/admin/:id/assign-student", addStudentToAdmin);
 app.post("/addAdmin", addAdmin);
+
+//homework routes
+app.post("/homework/analysis", analyzeImageFromFile);
+app.get("/homework/:id", getHomework);
 
 // chat bot routes
 app.post("/getAnswer", getAnswer);

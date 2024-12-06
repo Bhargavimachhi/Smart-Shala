@@ -1,5 +1,6 @@
 import {Teacher} from "../Models/Teacher.js"
 import { Classroom } from "../Models/Classroom.js";
+import { Homework } from "../Models/Homework.js";
 
 export const addTeacher = async(req, res) => {
     let teacher = await Teacher.find({email : req.body.email});
@@ -84,4 +85,17 @@ export const getClassroomsOfTeacher = async(req, res) => {
         }
         res.status(201).json({message:"success", classrooms});
     }
+}
+
+//get assigned homeworks of teacher
+export const getHomeworkAssignedByTeacher = async(req,res) => {
+    const id = req.params.id;
+    const teacher = await Teacher.findById(id);
+
+    if(!teacher) {
+        res.status(404).json({message : "Teacher does not exist"});
+        return;
+    }
+
+    res.status(200).json({homeworks : teacher.homeworks});
 }
