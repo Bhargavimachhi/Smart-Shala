@@ -37,6 +37,7 @@ import StudentLogin from "./Pages/InitialPages/StudentLogin.jsx";
 import { useEffect } from "react";
 import LoginAlert from "./components/LoginAlert.jsx";
 import PageNotFound from "./components/PageNotFound.jsx";
+import AddHW from "./Pages/Teacher/Pages/AddHW.jsx";
 
 
 
@@ -220,7 +221,7 @@ function App() {
             )
           }
         />
-        <Route
+        {/* <Route
           path="/teacher/add-homework"
           element={
             savedAuth && savedAuth.role == "teacher" ? (
@@ -229,7 +230,16 @@ function App() {
               <LoginAlert />
             )
           }
-        />
+        /> */}
+
+
+{/* Teacher Add Home Work initial pages// Page */}
+<Route path="/teacher/add-homework" element={<AddHW/>} ></Route>
+<Route path="/teacher/add-homework/form" element={<AddHomeworkPage/>}></Route>
+
+
+
+
         <Route
           path="/teacher/mark-attendance"
           element={
