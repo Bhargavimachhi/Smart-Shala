@@ -1,5 +1,4 @@
 import express from "express";
-
 const app = express();
 const PORT = 3000;
 import {
@@ -63,6 +62,7 @@ import loginStudent from "./Controller/loginStudent.js";
 import analyzeImageFromFile from "./Controller/homeworkAnalysis.js";
 import { getHomework } from "./Controller/homework.js";
 
+
 app.use(express.json());
 
 app.use(cors());
@@ -79,7 +79,7 @@ app.listen(PORT, () => {
     });
 });
 
-// classroom routes 
+// classroom routes
 app.get("/classroom/:id/delete", deleteClassroom);
 app.post("/classroom/:id/edit", editClassroom);
 app.post("/classroom/:id/initiate-attendance", initiateAttendance);

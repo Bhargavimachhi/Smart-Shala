@@ -29,7 +29,7 @@ export const addAdmin = async (req, res) => {
 
 export const adminLogin = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, _id } = req.body;
     if (!email || !password) {
       return res.status(404).send({
         success: false,

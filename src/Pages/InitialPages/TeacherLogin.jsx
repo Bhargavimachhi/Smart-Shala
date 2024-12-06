@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import{ useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../context/auth";
 import { useNavigate } from "react-router-dom";
@@ -29,6 +29,8 @@ const TeacherLogin = () => {
         email,
         password,
       });
+      console.log(res); 
+      
 
       // Update teacherAuth state with response data
       setAuth({

@@ -28,7 +28,8 @@ const StudentHomePage = () => {
   if (!studentAuth?.token || studentAuth.role !== "student") {
     return null;
   }
-
+{console.log("data student Context", studentAuth);
+}
   return (
     <div className="flex flex-wrap">
       {/* Left Sidebar */}

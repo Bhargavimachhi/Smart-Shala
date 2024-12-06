@@ -1,5 +1,5 @@
 import SideNavbar from "../../../components/SideNavbar";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import StudentProfile from "../Components/Studentprofile";
 import {
@@ -21,21 +21,18 @@ const StudentListingpage = () => {
   const [sortOption, setSortOption] = useState("name");
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
-
-// Thiss useEffect hookk willl try to preload the data from the server before rendering the screen.
-  useEffect(()=>{
-
-    async function fetchStudents(){
-
+  // Thiss useEffect hookk willl try to preload the data from the server before rendering the screen.
+  useEffect(() => {
+    async function fetchStudents() {
       const res = await axios.get(`http://localhost:3000/admin/${savedAuth.id}/students`);
+      
 
       console.log(res.data.students);
       setStudents(res.data.students);
       setLoading(false);
     }
     fetchStudents();
-
-  },[]);
+  }, []);
 
   if (loading) {
     return <div className="text-center mt-8">Loading Students...</div>;
@@ -54,8 +51,7 @@ const StudentListingpage = () => {
 
   return (
     <>
-
-<div className="flex min-h-screen bg-gray-100">
+      <div className="flex min-h-screen bg-gray-100">
    <SideNavbar/>
       <div className="flex-1 p-8">
         <div className="flex justify-between items-center mb-6">
@@ -112,12 +108,9 @@ const StudentListingpage = () => {
           <div className="text-center mt-8">No student found</div>
         )}
       </div>
-    </div>
-
-
-    
+</div>
     </>
-  )
-}
+  );
+};
 
-export default StudentListingpage
+export default StudentListingpage;

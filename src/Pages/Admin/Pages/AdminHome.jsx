@@ -11,6 +11,11 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AdminHome = () => {
+  const [auth, setAuth] = useAuth();
+  const navigate = useNavigate();
+  useEffect(() => {
+    console.log("this is auth",auth);
+  });
   return (
     <>
       <div className="   w-screen h-screen" id="main-home-window">
