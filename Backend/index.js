@@ -12,6 +12,7 @@ import {
   getPendingHomeworkOfStudent,
   getSubmmitedHomeworkOfStudent,
   submitHomeWorkOfStudent,
+  getPresentDaysAttendance,
 } from "./Controller/student.js";
 import {
   addTeacher,
@@ -46,6 +47,7 @@ import {
   deleteStudentOfAdmin,
   deleteTeacherOfAdmin,
   deleteClassroomOfAdmin,
+  getAdmin,
 } from "./Controller/admin.js";
 import {
   generateIssue,
@@ -99,7 +101,7 @@ app.get("/teacher/:id/homeworks", getHomeworkAssignedByTeacher);
 
 // student routes
 app.get("/student/:id", getStudent);
-app.get("/student/:id/delete", deleteStudent);
+app.get("/student/:id/attendance", getPresentDaysAttendance);
 app.get("/student/:id/attendance/present", markPresent);
 app.get("/student/:id/attendance/absent", markAbsent);
 app.get("/student/:id/pending-homeworks", getPendingHomeworkOfStudent);
@@ -113,6 +115,7 @@ app.get("/issue/:id/resolve", markIssueAsResolved);
 app.get("/issue/:id/refuse", markIssueAsNotResolved);
 
 // admin routes
+app.get("/admin/:id", getAdmin);
 app.get("/admin/:id/classrooms", getClassroomsOfAdmin);
 app.get("/admin/:id/students", getStudentsOfAdmin);
 app.get("/admin/:id/teachers", getTeachersOfAdmin);

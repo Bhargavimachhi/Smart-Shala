@@ -205,3 +205,20 @@ export const submitHomeWorkOfStudent = async(req, res) => {
         res.send("Error Occurred !!!");
     });
 }
+
+// get percentage of present days 
+export const getPresentDaysAttendance = async(req, res) => {
+    const id = req.params.id;
+    const student = await Student.findById(id);
+
+    if(!student) {
+        res.status(404).json({message : "Student does not exist"});
+        return;
+    }
+
+    const presentDays = student.presentDays.length;
+    const total = student.absentDays.length + presentDays;
+    const percentage = (presentDays / total) * 100;
+
+    res.status(200).json({message:"success", percentage});
+}
