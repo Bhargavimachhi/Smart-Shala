@@ -23,6 +23,7 @@ import TeacherSignUpForm from './Pages/Teacher/Pages/TeacherSignUpForm';
 import TeacherProfilePage from './Pages/Teacher/Pages/TeacherProfilePage'; 
 import MarkTeacherAttendance from './Pages/Teacher/Pages/MarkTeacherAttendance'; 
 import GenerateTeacherIssue from './Pages/Teacher/Pages/GenerateTeacherIssue'; 
+import ClassroomStudents from './Pages/Teacher/Pages/ClassroomStudents';
 
 import AdminForm from "./Pages/Admin/Pages/AdminSignup.jsx";
 import AddHomeworkPage from './Pages/Teacher/Pages/AddHomeworkPage';
@@ -84,7 +85,7 @@ function App() {
         <Route path='/teacher/mark-attendance' element={savedAuth && savedAuth.role == 'teacher' ? <MarkTeacherAttendance /> : <LoginAlert />} /> 
         <Route path="/teacher/classrooms" element={savedAuth && savedAuth.role == 'teacher' ? <TeachersClassroom/> : <LoginAlert />}/>
         <Route path='/teacher/generate-issue' element={savedAuth && savedAuth.role == 'teacher' ? <GenerateTeacherIssue /> : <LoginAlert />} />
-        
+        <Route path="/teacher/classrooms/:classroomId/students" element={<ClassroomStudents />} />
         
         {/* SignUp Page Routes */}
         <Route path='/signup/student' element={<AddStudent/>} />
