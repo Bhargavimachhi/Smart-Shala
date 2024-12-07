@@ -12,17 +12,13 @@ const HomeWorkManage = () => {
   const [isSidebarExpanded, setSidebarExpanded] = useState(false);
 
   const toggleSidebar = () => setSidebarExpanded(!isSidebarExpanded);
-const navigate = useNavigate()
-  const NavigateToStudents = (e)=>{
-    navigate(`/teacher/${savedAuth.id}/homework-submissions`);
-  }
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getHomeworksAssignedByTeacher() {
       const res = await axios.get(`http://localhost:3000/teacher/${savedAuth.id}/homeworks`);
       console.log(res.data.homeworks);
       setHomeworks(res.data.homeworks);
-      setLoading(false);
     }
     getHomeworksAssignedByTeacher();
   },[]); 
@@ -56,7 +52,7 @@ const navigate = useNavigate()
           <hr className="mb-6" />
 
           {/* Homework List */}
-          <div className=" rounded-sm h-screen  overflow-y-hidden " onClick={NavigateToStudents}>
+          <div className=" rounded-sm h-screen  overflow-y-hidden ">
             {homeworks.map((hw) => (
               <HWListComponent homework = {hw} />
             ))}
