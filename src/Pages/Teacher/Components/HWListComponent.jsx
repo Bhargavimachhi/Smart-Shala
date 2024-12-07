@@ -4,7 +4,7 @@ const HWListComponent = (props) => {
 
   return (
     <>
-       <div className="bg-white p-5 m-1 flex justify-between items-center cursor-pointer hover:bg-blue-400 hover:ease-in  ">
+       <div className="bg-white p-5 m-1 flex justify-between items-center cursor-pointer hover:bg-blue-400 hover:rounded-md  ">
        <div className='flex flex-col'>
        <h2>{props.name}</h2>
        <p className='text-sm text-gray-500'>

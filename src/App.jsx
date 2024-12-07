@@ -44,6 +44,7 @@ import LandingPage from './Pages/InitialPages/LandingPage.jsx';
 import FilePreview from "./components/HomeworkReport.jsx";
 import Createclassroom from "./Pages/Admin/Components/Createclassroom.jsx";
 import HomeWorkManage from "./Pages/Teacher/Pages/HomeWorkManage.jsx";
+import HwSubmission from "./Pages/Teacher/Pages/HwSubmission.jsx";
 
 function App() {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -82,6 +83,8 @@ function App() {
         <Route path='/teacher/profile' element={savedAuth && savedAuth.role == 'teacher' ? <TeacherProfilePage /> : <LoginAlert />} />
         <Route path='/teacher/add-homework' element={savedAuth && savedAuth.role == 'teacher' ? <HomeWorkManage /> : <LoginAlert />} />
         <Route path="/teacher/add-homework/form"  element={savedAuth && savedAuth.role == 'teacher' ? <AddHomeworkPage /> : <LoginAlert />} />
+        <Route path="/teacher/homework/studentsubmissions"  element={savedAuth && savedAuth.role == 'teacher' ? <HwSubmission /> : <LoginAlert />} />
+
         <Route path='/teacher/mark-attendance' element={savedAuth && savedAuth.role == 'teacher' ? <MarkTeacherAttendance /> : <LoginAlert />} /> 
         <Route path="/teacher/classrooms" element={savedAuth && savedAuth.role == 'teacher' ? <TeachersClassroom/> : <LoginAlert />}/>
         <Route path='/teacher/generate-issue' element={savedAuth && savedAuth.role == 'teacher' ? <GenerateTeacherIssue /> : <LoginAlert />} />
