@@ -35,6 +35,7 @@ import {
   assignTeacherToClassroom,
   removeStudentFromClassroom,
   getHomeworkOfClass,
+  getStudentsOfClassroom,
 } from "./Controller/classroom.js";
 import {
   addAdmin,
@@ -90,6 +91,7 @@ app.post("/classroom/:id/assign-student", assignStudentToClassroom);
 app.post("/classroom/:id/assign-teacher", assignTeacherToClassroom);
 app.get("/classroom/:cId/student/:sId/remove", removeStudentFromClassroom);
 app.get("/classroom/:id/homeworks", getHomeworkOfClass);
+app.get("/classroom/:id/students", getStudentsOfClassroom);
 
 // teacher routes
 app.post("/teacher/classrooms/:id/generate-issue", generateIssue);
