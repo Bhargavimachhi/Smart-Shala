@@ -298,3 +298,30 @@ export const deleteClassroomOfAdmin = async (req, res) => {
       res.send("Error Occurred !!!");
     });
 };
+
+//get admin's all classrooms attendance Report
+export const getAttendanceOfClassroomsOfAdmin = async(req, res) => {
+  let id = req.params.id;
+  let admin = await Admin.findById(id);
+
+  if (admin == null) {
+    res.status(404).json({ message: "Admin does not exist" });
+    return;
+  }
+  let attendance = [];
+  await Promise.all(admin.classrooms.map(async(classroomId) => {
+    let average = 0;
+    const classroom = await Classroom.findById(classroomId);
+    if(classroom) {
+      await Promise.all(classroom.students.map(async(studentId) => {
+          const student = await Student.findById(studentId);
+          const presentDays = student.presentDays.length;
+          const total = student.absentDays.length + presentDays;
+          average += presentDays / total;
+      }));
+      average = (average/classroom.students.length)*100;
+      attendance.push({name : classroom.name, value : !average ? 0 : average});
+    }
+  }))
+  res.status(200).json({message:"success", attendance});
+}

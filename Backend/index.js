@@ -36,6 +36,7 @@ import {
   removeStudentFromClassroom,
   getHomeworkOfClass,
   getStudentsOfClassroom,
+  getAverageStudentAttendanceOfClassroom,
 } from "./Controller/classroom.js";
 import {
   addAdmin,
@@ -49,6 +50,7 @@ import {
   deleteTeacherOfAdmin,
   deleteClassroomOfAdmin,
   getAdmin,
+  getAttendanceOfClassroomsOfAdmin,
 } from "./Controller/admin.js";
 import {
   generateIssue,
@@ -92,6 +94,7 @@ app.post("/classroom/:id/assign-teacher", assignTeacherToClassroom);
 app.get("/classroom/:cId/student/:sId/remove", removeStudentFromClassroom);
 app.get("/classroom/:id/homeworks", getHomeworkOfClass);
 app.get("/classroom/:id/students", getStudentsOfClassroom);
+app.get("/classroom/:id/attendance", getAverageStudentAttendanceOfClassroom);
 
 // teacher routes
 app.post("/teacher/classrooms/:id/generate-issue", generateIssue);
@@ -127,6 +130,7 @@ app.get("/admin/:aId/classroom/remove/:cId", deleteClassroomOfAdmin);
 app.post("/admin/:id/assign-classroom", addClassroomToAdmin);
 app.post("/admin/:id/assign-teacher", addTeacherToAdmin);
 app.post("/admin/:id/assign-student", addStudentToAdmin);
+app.get("/admin/:id/classrooms/attendance", getAttendanceOfClassroomsOfAdmin);
 app.post("/addAdmin", addAdmin);
 
 //homework routes

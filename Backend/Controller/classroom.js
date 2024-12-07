@@ -270,3 +270,23 @@ export const getStudentsOfClassroom = async (req, res) => {
         res.status(500).json({ message: "internal server error" });
     }
 };
+
+// get average student attendance of a classroom
+export const getAverageStudentAttendanceOfClassroom = async(req, res) => {
+    const id = req.params.id;
+    const classroom = await Classroom.findById(id);
+
+    if(!classroom) {
+        res.status(404).json({message : "Classroom does not exist"});
+        return;
+    }
+    let average = 0;
+    await Promise.all(classroom.students.map(async(studentId) => {
+        const student = await Student.findById(studentId);
+        const presentDays = student.presentDays.length;
+        const total = student.absentDays.length + presentDays;
+        average += presentDays / total;
+    }));
+    average = (average/classroom.students.length)*100;
+    res.status(200).json({message:"success", average : !average ? 0 : average});
+}
