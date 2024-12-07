@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, CardContent, Typography, TextField, InputAdornment } from '@mui/material';
 import { Search } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 import "../../../components/hover.css";
 
 const TeachersClassroom = () => {
@@ -12,6 +13,7 @@ const TeachersClassroom = () => {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const savedAuth = JSON.parse(localStorage.getItem("auth"));
+    const navigate = useNavigate();
 
     const toggleSidebar = () => {
         setIsExpanded(!isExpanded);
@@ -69,7 +71,7 @@ const TeachersClassroom = () => {
                                 <Card
                                     className="relative mb-8 h-48 hover-card cursor-pointer"
                                     key={classroom._id}
-                                    onClick={() => navigate(`/teacher/classrooms/${classroom._id}`)}
+                                    onClick={() => navigate(`/teacher/classrooms/${classroom._id}/students`)}
                                     style={{ cursor: 'pointer' }}
                                 >
                                     <CardContent className="flex flex-col justify-center items-center h-full relative">

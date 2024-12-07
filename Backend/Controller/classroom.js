@@ -252,3 +252,21 @@ export const getHomeworkOfClass = async(req, res) => {
     res.status(200).json({homeworks : classroom.homeworks});
 
 }
+
+// Get students of a particular classroom
+export const getStudentsOfClassroom = async (req, res) => {
+    const classroomId = req.params.id;
+
+    try {
+        const classroom = await Classroom.findById(classroomId).populate('students');
+        if (!classroom) {
+            return res.status(404).json({ message: "Classroom does not exist" });
+        }
+
+        const students = classroom.students;
+        res.status(200).json({ message: "success", students });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "internal server error" });
+    }
+};
