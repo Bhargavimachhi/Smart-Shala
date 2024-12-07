@@ -55,16 +55,16 @@ const StudentListingpage = () => {
   return (
     <>
 
-<div className="flex min-h-screen bg-gray-100">
+<div className="flex min-h-screen bg-gray-200">
    <SideNavbar/>
-      <div className="flex-1 p-8">
+      <div className="flex-1 p-8 bg-white rounded m-5 w-screen">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Students</h1>
         </div>
 
         {students && students.length > 0 ? (
           <>
-
+<div className="flex gap-5 mb-10">
           {/* Search bar */}
           <TextField
           label="Search here"
@@ -77,7 +77,7 @@ const StudentListingpage = () => {
 
         {/* Sorting dropdown */}
         <FormControl fullWidth margin="normal">
-          <InputLabel id="sort-label">Sort By</InputLabel>
+          <InputLabel id="sort-label" className="-mt-5">Sort By</InputLabel>
           <Select
             labelId="sort-label"
             value={sortOption}
@@ -88,6 +88,7 @@ const StudentListingpage = () => {
             <MenuItem value="email">Parent Name</MenuItem>
           </Select>
         </FormControl>
+        </div>
 
         <Grid container spacing={3}>
         {filteredStudents.map((student) => (

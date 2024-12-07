@@ -68,6 +68,7 @@ const TeacherListingpage = () => {
 
         {teachers && teachers.length > 0 ? (
         <>
+        <div className="flex gap-5 mb-10">
           {/* Search bar */}
           <TextField
           label="Search here"
@@ -80,16 +81,17 @@ const TeacherListingpage = () => {
 
         {/* Sorting dropdown */}
         <FormControl fullWidth margin="normal">
-          <InputLabel id="sort-label">Sort By</InputLabel>
+          <InputLabel id="sort-label" className="-mt-5">Sort By</InputLabel>
           <Select
             labelId="sort-label"
             value={sortOption}
             onChange={(e) => setSortOption(e.target.value)}
-          >
+          > 
             <MenuItem value="name">Name</MenuItem>
             <MenuItem value="email">Email</MenuItem>
           </Select>
         </FormControl>
+        </div>
 
         <Grid container spacing={3}>
         {filteredTeachers.map((teacher) => (
