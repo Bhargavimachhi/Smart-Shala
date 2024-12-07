@@ -96,6 +96,13 @@ export const getHomeworkAssignedByTeacher = async(req,res) => {
         res.status(404).json({message : "Teacher does not exist"});
         return;
     }
-
-    res.status(200).json({homeworks : teacher.homeworks});
+    let homeworks = [];
+    
+    await Promise.all(teacher.homeworks.map(async(homeworkId) => {
+        let hw = await Homework.findById(homeworkId);
+        if(hw) {
+            homeworks.push(hw);
+        }
+    }))
+    res.status(200).json({homeworks});
 }

@@ -83,12 +83,12 @@ function App() {
         <Route path='/teacher/profile' element={savedAuth && savedAuth.role == 'teacher' ? <TeacherProfilePage /> : <LoginAlert />} />
         <Route path='/teacher/add-homework' element={savedAuth && savedAuth.role == 'teacher' ? <HomeWorkManage /> : <LoginAlert />} />
         <Route path="/teacher/add-homework/form"  element={savedAuth && savedAuth.role == 'teacher' ? <AddHomeworkPage /> : <LoginAlert />} />
-        <Route path="/teacher/homework/studentsubmissions"  element={savedAuth && savedAuth.role == 'teacher' ? <HwSubmission /> : <LoginAlert />} />
+        <Route path="/teacher/:id/homework-submissions"  element={savedAuth && savedAuth.role == 'teacher' ? <HwSubmission /> : <LoginAlert />} />
 
         <Route path='/teacher/mark-attendance' element={savedAuth && savedAuth.role == 'teacher' ? <MarkTeacherAttendance /> : <LoginAlert />} /> 
         <Route path="/teacher/classrooms" element={savedAuth && savedAuth.role == 'teacher' ? <TeachersClassroom/> : <LoginAlert />}/>
         <Route path='/teacher/generate-issue' element={savedAuth && savedAuth.role == 'teacher' ? <GenerateTeacherIssue /> : <LoginAlert />} />
-        <Route path="/teacher/classrooms/:classroomId/students" element={<ClassroomStudents />} />
+        <Route path="/teacher/classrooms/:classroomId/students" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomStudents /> : <LoginAlert />} />
         
         {/* SignUp Page Routes */}
         <Route path='/signup/student' element={<AddStudent/>} />

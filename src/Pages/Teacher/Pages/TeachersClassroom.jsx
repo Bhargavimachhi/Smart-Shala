@@ -78,6 +78,12 @@ const TeachersClassroom = () => {
                                         <Typography variant="h5" className="font-bold text-blue-600 text-center">
                                             {classroom.name}
                                         </Typography>
+                                        <Typography variant="body2" className="text-gray-600 text-center mt-2">
+                                            {classroom.students.length} Students
+                                        </Typography>
+                                        <Typography variant="body2" className="text-gray-600 text-center">
+                                            {classroom.teachers.length} Teachers
+                                        </Typography>
                                     </CardContent>
                                 </Card>
                             );
