@@ -71,7 +71,8 @@ const HomeWorkManage = () => {
   const toggleSidebar = () => setSidebarExpanded(!isSidebarExpanded);
 const navigate = useNavigate()
   const NavigateToStudents = (e)=>{
-    // navigate("/teacher/homework/studentsubmissions");
+    navigate("/teacher/homework/studentsubmissions");
+
     
     
 
@@ -101,8 +102,9 @@ const navigate = useNavigate()
           <div className="flex justify-between items-center mb-6">
             <h1 className="font-semibold text-xl">Add Homework</h1>
             <button
+            onClick={()=>{navigate("/teacher/add-homework/form")}}
               type="button"
-              className="bg-blue-500 text-white font-bold text-base px-8 py-3 rounded shadow-md hover:shadow-lg transition duration-150"
+              className="bg-blue-500 text-white font-bold text-base px-8 py-3 rounded shadow-md hover:shadow-lg  transition duration-150"
             >
               Add Homework +
             </button>
@@ -110,7 +112,7 @@ const navigate = useNavigate()
           <hr className="mb-6" />
 
           {/* Homework List */}
-          <div className=" h-screen overflow-y-hidden " onClick={NavigateToStudents}>
+          <div className=" rounded-sm h-screen  overflow-y-hidden " onClick={NavigateToStudents}>
             {homeworkData.map((hw) => (
               <HWListComponent
               
