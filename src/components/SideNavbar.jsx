@@ -12,7 +12,7 @@ import { useAuth } from "../context/auth.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const SideNavbar = () => {
+const   SideNavbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [auth, setAuth] = useAuth();

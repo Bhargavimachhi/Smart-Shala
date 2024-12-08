@@ -25,6 +25,14 @@ const TeacherProfilePage = () => {
     fetchTeacher();
   }, []);
 
+
+
+
+
+
+
+
+
   return (
     <div className="flex min-h-screen bg-gray-100">
       <TeacherLeftSideNavBar isExpanded={isExpanded} toggleSidebar={toggleSidebar} />
@@ -33,6 +41,11 @@ const TeacherProfilePage = () => {
         {teacher ? (
           <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
             <TeacherProfile teacher={teacher} />
+        
+          
+
+         
+      
           </div>
         ) : (
           <div className="text-center">Loading...</div>
