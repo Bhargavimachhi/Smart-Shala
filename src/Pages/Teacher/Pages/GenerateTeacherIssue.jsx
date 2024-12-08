@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import TeacherLeftSideNavBar from '../Components/TeacherLeftSideNavBar'; // Adjust the import path as needed
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 const GenerateTeacherIssue = () => {
   const [description, setDescription] = useState('');
   const [severity, setSeverity] = useState('low');
   const [classroomId, setClassroomId] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
+  const [classrooms, setClassrooms] = useState([]);
+  const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
@@ -19,12 +23,24 @@ const GenerateTeacherIssue = () => {
         description,
         severity,
       });
-      alert(response.data.message);
+      toast.success(response.data.message);
     } catch (error) {
       console.error('Error generating issue:', error);
-      alert('Failed to generate issue');
+      toast.error('Failed to generate issue');
     }
   };
+
+  const handleChange = (e) => {
+    console.log(e);
+  }
+
+  useEffect(() => {
+    async function fetchClassrooms() {
+      const res = await axios.get(`http://localhost:3000/teacher/${savedAuth.id}/classrooms`);
+      setClassrooms(res.data.classrooms);
+    }
+    fetchClassrooms();
+  },[])
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -56,14 +72,18 @@ const GenerateTeacherIssue = () => {
             </select>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Classroom ID</label>
-            <input
-              type="text"
-              value={classroomId}
+            <label for="classrooms">Select Classroom:</label>
+            <select
               onChange={(e) => setClassroomId(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded mt-1"
               required
-            />
+            >
+              {
+                classrooms.map((classroom) => (
+                  <option value={classroom._id} name={classroom.name}>{classroom.name}</option>
+                ))
+              }
+            </select>
           </div>
           <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Generate Issue</button>
         </form>

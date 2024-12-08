@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 const HWListComponent = (props) => {
 
   const [teacher, setTeacher] = useState(null);
   const [classroom, setClassroom] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
   useEffect(() => {
     async function fetchTeacher() {
@@ -27,7 +31,9 @@ const HWListComponent = (props) => {
 
   return (
       <>
-        <div className="bg-white p-5 m-1 flex justify-between items-center cursor-pointer hover:bg-blue-400 hover:rounded-md  ">
+        <div className="bg-white p-5 m-1 flex justify-between items-center cursor-pointer hover:bg-blue-400 hover:rounded-md  " onClick={()=> {
+                navigate(`/teacher/${savedAuth.id}/homework/${props.homework._id}/submissions`);
+              }} >
           <div className='flex flex-col'>
             <h2>{props.homework.title}</h2>
             <p className='text-sm text-gray-500'>
