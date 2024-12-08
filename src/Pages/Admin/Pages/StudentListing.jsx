@@ -13,6 +13,7 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
+import toast from "react-hot-toast";
 
 const StudentListingpage = () => {
   const [students, setStudents] = useState([]);
@@ -42,13 +43,13 @@ const handleSubmit = async (e) => {
       { email: studentEmail }, 
       
     );
-    console.log("Teacher added:", response.data);
-    alert("Teacher added successfully!");
+    console.log("Student added:", response.data);
+    toast.success("Student added successfully!");
     setStudentEmail(""); // Clear the input field after successful submission
     toggleVisibility(); // Hide the form after adding
   } catch (error) {
-    console.error("Error adding teacher:", error);
-    alert("Failed to add teacher. Please try again.");
+    console.error("Error adding student:", error);
+    toast.error(error.response.data.message);
   }
 };
 
@@ -143,7 +144,7 @@ const handleSubmit = async (e) => {
   type="submit"
   className="justify-center text-white bg-[rgb(45,132,239)] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2"
 >
-  Add Teacher
+  Add Student
 </button>
 </form>
       </div>

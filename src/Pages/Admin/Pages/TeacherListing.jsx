@@ -14,7 +14,7 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
-
+import toast from "react-hot-toast";
 
 const TeacherListingpage = () => {
 
@@ -49,12 +49,12 @@ const TeacherListingpage = () => {
         { headers: { "Content-Type": "application/json" } } // Add this to ensure JSON format
       );
       console.log("Teacher added:", response.data);
-      alert("Teacher added successfully!");
+      toast.success("Teacher added successfully!");
       setTeacherEmail(""); // Clear the input field after successful submission
       toggleVisibility(); // Hide the form after adding
     } catch (error) {
       console.error("Error adding teacher:", error);
-      alert("Failed to add teacher. Please try again.");
+      toast.error(error.response.data.message);
     }
   };
   
