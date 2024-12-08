@@ -32,7 +32,8 @@ const DataCard = () => {
             />
           </div>
         </div>
-        <div className="w-64 h-18 bg-white rounded-lg shadow-lg flex items-center justify-between p-4 mr-10">
+        <div cl
+        assName="w-64 h-18 bg-white rounded-lg shadow-lg flex items-center justify-between p-4 mr-10">
           <div>
             <p className="text-gray-500 font-medium">Teachers</p>
             <p className="text-blue-600 text-3xl font-bold">{admin && admin.teachers.length}</p>
