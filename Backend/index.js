@@ -68,6 +68,9 @@ import LoginTeacher from "./Controller/loginTeacher.js";
 import loginStudent from "./Controller/loginStudent.js";
 import analyzeImageFromFile from "./Controller/homeworkAnalysis.js";
 import { getHomework } from "./Controller/homework.js";
+import { 
+  addFaceOfStudent, 
+  recognizeFaceAndMarkPresent} from "./Controller/face.js";
 
 app.use(express.json());
 
@@ -114,6 +117,8 @@ app.get("/student/:id/attendance/absent", markAbsent);
 app.get("/student/:id/pending-homeworks", getPendingHomeworkOfStudent);
 app.get("/student/:id/submitted-homeworks", getSubmmitedHomeworkOfStudent);
 app.get("/student/:sId/homework/:hId/submit", submitHomeWorkOfStudent);
+app.get("/student/:id/add-face", addFaceOfStudent);
+app.get("/student/:id/mark-attendance", recognizeFaceAndMarkPresent);
 
 // issue generation routes
 app.get("/issue/:id/delete", deleteIssue);
