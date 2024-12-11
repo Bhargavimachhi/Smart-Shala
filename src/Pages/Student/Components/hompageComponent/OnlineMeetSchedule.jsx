@@ -31,8 +31,7 @@ const OnlineMeetSchedule = () => {
           className={`cursor-pointer px-4 py-2 text-lg ${
             activeTab === "ongoing"
               ? "text-blue-600 border-b-2 border-blue-600"
-              : "text-gray-600"
-          }`}
+              : "text-gray-600 "}`}
         >
           Ongoing
         </div>
@@ -67,8 +66,8 @@ const OnlineMeetSchedule = () => {
           >
             <div>
               <h2 className="text-lg font-semibold">{meeting.subject}</h2>
-              <p className="text-gray-600">{meeting.date}</p>
-              <p className="text-gray-600">{meeting.time}</p>
+              <p className="text-gray-600 text-red-400">{meeting.date}</p>
+              <p className="text-gray-600 text-red-400">{meeting.time}</p>
             </div>
             <button
               onClick={() => window.open(meeting.link, "_blank")}
