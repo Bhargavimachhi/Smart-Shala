@@ -57,6 +57,8 @@ import PendingList from "./Pages/Student/Components/submitHWComponent/PendingLis
 import StudentPerformanceReport from "./Pages/Student/StudentPages/StudentPerformanceReport.jsx";
 import FilePreviewComponenent from "./Pages/Student/Components/performanceRepoComponent/FilePreviewComponent.jsx";
 import FilePreviewMain from "./Pages/Student/Components/performanceRepoComponent/FilePreviewMain.jsx";
+import ManualAttendancePage from "./Pages/Teacher/Pages/ManualAttendancePage.jsx";
+import ClassroomAttendancePage from "./Pages/Teacher/Pages/ClassroomAttendancePage.jsx";
 
 function App() {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -105,7 +107,9 @@ function App() {
         <Route path="/teacher/check-all-attendance" element={savedAuth && savedAuth.role == 'teacher' ? <CheckAllAttendance /> : <LoginAlert />} />
         <Route path="/teacher/classroomsforHomework" element={savedAuth && savedAuth.role == 'teacher' ? <ViewClassrooms /> : <LoginAlert />} />
         <Route path="/teacher/classroom/:id/submitted-homeworks" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomSubmittedHomeworks /> : <LoginAlert />} />
-        <Route path="/teacher/classrooms-low-attendance" element={<ClassroomsLowAttendance />} />
+        <Route path="/teacher/classrooms-low-attendance" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomsLowAttendance /> : <LoginAlert />} />
+        <Route path="/teacher/manual-attendance" element={savedAuth && savedAuth.role == 'teacher' ? <ManualAttendancePage /> : <LoginAlert />} />
+        <Route path="/teacher/classrooms/:classroomId/manual-attendance" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomAttendancePage /> : <LoginAlert />} />
 
         {/* SignUp Page Routes */}
         <Route path='/signup/student' element={<AddStudent />} />
