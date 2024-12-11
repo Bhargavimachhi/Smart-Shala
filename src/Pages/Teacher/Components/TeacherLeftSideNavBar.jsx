@@ -47,6 +47,10 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
           <MdAssignment className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">Add Homework</span>}
         </Link>
+        <Link to="/teacher/classroomsforHomework" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+          <FaCamera className="text-xl textColor text-blue-600 colorNavChange" />
+          {isExpanded && <span className="ml-4 textColor">Check Homework</span>}
+        </Link>
         <Link to="/teacher/notifications" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
           <MdNotificationsActive className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">Notifications</span>}

@@ -307,3 +307,36 @@ export const getTopPerformersOfClassroom = async (req, res) => {
 
     res.status(200).json({ message: "success", topPerformers: students });
 };
+
+export const getSubmittedHomeworksOfClassroom = async (req, res) => {
+    const classroomId = req.params.id;
+    try {
+        const classroom = await Classroom.findById(classroomId).populate('homeworks');
+        if (!classroom) {
+            return res.status(404).json({ message: "Classroom does not exist" });
+        }
+
+        const submittedHomeworks = [];
+
+        for (const homework of classroom.homeworks) {
+            const students = await Student.find({ submittedHomeworks: homework._id });
+            const submissions = students.map(student => ({
+                studentId: student._id,
+                studentName: student.name,
+                homeworkId: homework._id,
+                homeworkTitle: homework.title,
+                homeworkDescription: homework.description,
+                homeworkDueDate: homework.dueDate
+            }));
+            submittedHomeworks.push({
+                homework,
+                submissions
+            });
+        }
+
+        res.status(200).json({ submittedHomeworks });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
