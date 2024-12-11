@@ -22,7 +22,9 @@ import {
   getClassroomsOfTeacher,
   getHomeworkAssignedByTeacher,
   checkAttendanceAndSendEmails,
-  sendEmailsToStudents,
+  // sendEmailsToStudents,
+  getClassroomsAndLowAttendanceStudents,
+  sendEmailsToLowAttendanceStudents,
 } from "./Controller/teacher.js";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -117,7 +119,9 @@ app.post("/teacher/:id/assign-homework", assignHomeworkToClassroom);
 app.get("/teacher/:id/delete", deleteTeacher);
 app.get("/teacher/:id/homeworks", getHomeworkAssignedByTeacher);
 app.post("/teacher/:teacherId/check-attendance", checkAttendanceAndSendEmails);
-app.post("/teacher/:teacherId/send-emails", sendEmailsToStudents);
+// app.post("/teacher/:teacherId/send-emails", sendEmailsToStudents);
+app.get("/teacher/:teacherId/classrooms-low-attendance", getClassroomsAndLowAttendanceStudents);
+app.post("/teacher/send-low-attendance-emails", sendEmailsToLowAttendanceStudents);
 
 // student routes
 app.get("/student/:id", getStudent);

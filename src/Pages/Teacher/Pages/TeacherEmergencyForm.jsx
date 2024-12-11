@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import LeftSideNavbar from '../../Student/Components/LeftSideNavBar';
+import TeacherLeftSideNavBar from '../Components/TeacherLeftSideNavBar';
 import toast from 'react-hot-toast';
 
 function TeacherEmergencyForm() {
@@ -10,100 +10,102 @@ function TeacherEmergencyForm() {
         location: '',
     });
 
-    const [classes, setClasses] = useState([]);
+    const [isExpanded, setIsExpanded] = useState(false);
 
-    // Fetch classes dynamically (simulate API call)
-    // useEffect(() => {
-        // Example: Replace with your actual API endpoint
-        // const fetchClasses = async () => {
-    //         try {
-    //             const response = await axios.get('http://localhost:3000/api/classes');
-    //             setClasses(response.data);
-    //         } catch (error) {
-    //             console.error('Error fetching classes:', error);
-    //         }
-    //     };
-    //     fetchClasses();
-    // }, []);
+    const toggleSidebar = () => {
+        setIsExpanded((prevState) => !prevState);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             await axios.post('http://localhost:3000/teacher/emergency', formData);
-            toast.success("Added succesfully")
+            toast.success("Added successfully");
             setFormData({ emergencyType: '', severity: '', location: '' });
         } catch (error) {
             console.error(error);
+            toast.error("Failed to submit alert.");
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white p-5 shadow-md ml-[25%] mt-[10%] rounded w-1/2">
-        
-            <h2 className="text-xl font-bold mb-4">Send Emergency Alert</h2>
-            <div className="mb-3">
-                <label className="block text-sm font-medium mb-1">Emergency Type</label>
-                <input
-                    type="text"
-                    value={formData.emergencyType}
-                    onChange={(e) =>
-                        setFormData({ ...formData, emergencyType: e.target.value })
-                    }
-                    className="w-full p-2 border rounded"
-                    required
-                />
+        <div className="flex min-h-screen bg-gray-100">
+            <TeacherLeftSideNavBar isExpanded={isExpanded} toggleSidebar={toggleSidebar} />
+            <div className={`flex-1 transition-all duration-300 ${isExpanded ? 'ml-64' : 'ml-16'} p-8`}>
+                <h1 className="text-3xl font-bold text-center mb-8">Send Emergency Alert</h1>
+                <div className="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-md">
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="emergencyType">
+                                Emergency Type:
+                            </label>
+                            <input
+                                type="text"
+                                name="emergencyType"
+                                value={formData.emergencyType}
+                                onChange={(e) =>
+                                    setFormData({ ...formData, emergencyType: e.target.value })
+                                }
+                                placeholder="e.g., Fire, Electrical Issue"
+                                required
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="severity">
+                                Severity:
+                            </label>
+                            <select
+                                name="severity"
+                                value={formData.severity}
+                                onChange={(e) =>
+                                    setFormData({ ...formData, severity: e.target.value })
+                                }
+                                required
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            >
+                                <option value="" disabled>
+                                    Select severity
+                                </option>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                                <option value="Critical">Critical</option>
+                            </select>
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">
+                                Class:
+                            </label>
+                            <select
+                                name="location"
+                                value={formData.location}
+                                onChange={(e) =>
+                                    setFormData({ ...formData, location: e.target.value })
+                                }
+                                required
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            >
+                                <option value="" disabled>
+                                    Select class
+                                </option>
+                                <option value="class1">Class1</option>
+                                <option value="class2">Class2</option>
+                                <option value="class3">Class3</option>
+                            </select>
+                        </div>
+                        <div className="flex items-center justify-between">
+                            <button
+                                type="submit"
+                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            >
+                                Send Alert
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div className="mb-3">
-                <label className="block text-sm font-medium mb-1">Severity</label>
-                <select
-                    value={formData.severity}
-                    onChange={(e) =>
-                        setFormData({ ...formData, severity: e.target.value })
-                    }
-                    className="w-full p-2 border rounded"
-                    required
-                >
-                    <option value="" disabled>
-                        Select severity
-                    </option>
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                    <option value="Critical">Critical</option>
-                </select>
-            </div>
-            <div className="mb-3    ">
-                <label className="block text-sm font-medium mb-1">Class</label>
-                <select
-                    value={formData.location}
-                    onChange={(e) =>
-                        setFormData({ ...formData, location: e.target.value })
-                    }
-                    className="w-full p-2 border rounded"
-                    required
-                >
-                    {/* <option value="" disabled>
-                        Select class
-                    </option>
-                    {classes.map((classItem) => (
-                        <option key={classItem.id} value={classItem.name}>
-                            {classItem.name}
-                        </option>
-                    ))} */}
-                    <option value="class1">Class1</option>
-                    <option value="class2">class2</option>
-
-                    <option value="class3">class3</option>
-
-                </select>
-            </div>
-            <button
-                type="submit"
-                className="bg-blue-500 text-white py-2 px-4 rounded"
-            >
-                Send Alert
-            </button>
-        </form>
+        </div>
     );
 }
 
