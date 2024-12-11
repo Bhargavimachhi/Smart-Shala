@@ -17,10 +17,14 @@ const ClassroomAnalytics = () => {
   useEffect(() => {
     const fetchClassroomData = async () => {
       setLoading(true);
-      const attendanceRes = await axios.get(`http://localhost:3000/classroom/${classroomId}/attendance`);
-      const performersRes = await axios.get(`http://localhost:3000/classroom/${classroomId}/top-performers`);
-      setAttendance(attendanceRes.data.average);
-      setTopPerformers(performersRes.data.topPerformers);
+      try {
+        const attendanceRes = await axios.get(`http://localhost:3000/classroom/${classroomId}/attendance`);
+        const performersRes = await axios.get(`http://localhost:3000/classroom/${classroomId}/top-performers`);
+        setAttendance(attendanceRes.data.average);
+        setTopPerformers(performersRes.data.topPerformers);
+      } catch (error) {
+        console.error("Error fetching classroom data:", error);
+      }
       setLoading(false);
     };
     fetchClassroomData();
@@ -71,7 +75,7 @@ const ClassroomAnalytics = () => {
                   </Typography>
                   <ul>
                     {topPerformers.map((student, index) => (
-                      <li key={index}>{student.name}</li>
+                      <li key={index}>{student.name} - {student.averageScore}</li>
                     ))}
                   </ul>
                 </CardContent>
