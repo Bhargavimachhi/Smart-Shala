@@ -4,16 +4,25 @@ import PerfComMain from '../Components/performanceRepoComponent/PerfComMain';
 import EvaluateTestComponent from '../Components/performanceRepoComponent/EvaluateTestComponent';
 import RightSideBar from '../Components/performanceRepoComponent/RightSideBar';
 import EvaluationGSA from '../Components/performanceRepoComponent/EvaluationGSA';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 const StudentPerformanceReport = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [activeTab, setActiveTab] = useState('overall performance');
+  const [submittedHomework, setSubmittedHomework] = useState([]);
+  const [activeTab, setActiveTab] = useState('evaluate test');
+  const savedAuth = JSON.parse(localStorage.getItem("auth"));
+  const [student, setStudent] = useState(null);
 
-  const uploadedFiles = [
-    { id: '1', name: '../Components/performanceRepoComponent/files/MPLC material.pdf' },
-    { id: '2', name: '../Documents/Homework.docx' },
-    { id: '3', name: '../Downloads/Sample Assignment.pdf' },
-  ];
+  useEffect(() => {
+    async function fetchStudent() {
+      const res = await axios.get(`http://localhost:3000/student/${savedAuth.id}`);
+      console.log(res.data);
+      setStudent(res.data.student);
+      setSubmittedHomework(res.data.student.submittedHomeworks);
+    }
+    fetchStudent();
+  },[])
 
   const handleToggleSidebar = () => {
     setIsExpanded((prevState) => !prevState);
@@ -32,19 +41,22 @@ const StudentPerformanceReport = () => {
             <PerfComMain activeTab={activeTab} setActiveTab={setActiveTab} />
            
             <div className="mt-6">
-              {activeTab === 'overall performance' && (
-                <h2 className="text-xl text-center">Overall Performance Section</h2>
-              )}
               {activeTab === 'evaluate test' && <EvaluateTestComponent />}
-             
-              {activeTab === 'test results' && (
-                <h2 className="text-xl text-center">Test Results Section</h2>
-              )} 
+              
               {activeTab === 'evaluate test' && (
                 <div className="block">
                   <EvaluationGSA />
                 </div>
               )}
+
+              {activeTab === 'overall performance' && (
+                <h2 className="text-xl text-center">Overall Performance Section</h2>
+              )}
+             
+              {activeTab === 'test results' && (
+                <h2 className="text-xl text-center">Test Results Section</h2>
+              )} 
+              
             </div>
           </div>
           <div className='block'> 
@@ -52,7 +64,7 @@ const StudentPerformanceReport = () => {
         
           {activeTab === 'evaluate test' && (
             <div className="w-1/4">
-              <RightSideBar uploadedFiles={uploadedFiles} />
+              <RightSideBar uploadedFiles={submittedHomework} />
             </div>
           )}
         </div>

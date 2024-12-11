@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
+import { storage } from '../../../../../firebase';
+import { ref, uploadBytes } from "firebase/storage";
 
 const EvaluateTestComponent = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [message, setMessage] = useState('');
 
-  const handleFileInput = (event) => {
+  const handleFileInput = async(event) => {
     const file = event.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-      setMessage('File uploaded successfully!');
-    } else {
-      setMessage('No file selected. Please try again.');
-    }
+    
+    const refoffile = ref(storage, `temp_file`);
+    await uploadBytes(refoffile, file);
+
+    const fileRef = ref(storage, `temp_file`);
+    const url = await getDownloadURL(fileRef);
+
+    const res = await axios.get(`http//localhost:3000/homework/analysis`, {url});
+    console.log(res.data);
   };
 
   const handleSubmit = () => {
