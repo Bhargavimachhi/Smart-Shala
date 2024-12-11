@@ -3,7 +3,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recha
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import SideNavbar from '../../../components/SideNavbar';
-
+import { Card, CardContent, Typography, Grid } from '@mui/material';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
@@ -37,33 +37,47 @@ const ClassroomAnalytics = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-        <SideNavbar />
+      <SideNavbar />
       <div className="flex-1 p-8">
         <button onClick={() => navigate(-1)} className="mb-4 p-2 bg-blue-500 text-white rounded">Back to Classrooms</button>
         <div className="mb-6">
           <h2 className="text-lg font-semibold mb-4">Classroom Analytics</h2>
-          <div className="mb-6">
-            <h3 className="text-md font-semibold mb-2">Average Attendance</h3>
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie data={attendanceData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label>
-                  {attendanceData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-          <div className="mb-6">
-            <h3 className="text-md font-semibold mb-2">Top 3 Performers</h3>
-            <ul>
-              {topPerformers.map((student, index) => (
-                <li key={index}>{student.name} - {student.averageScore}</li>
-              ))}
-            </ul>
-          </div>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" component="div">
+                    Average Attendance
+                  </Typography>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <PieChart>
+                      <Pie data={attendanceData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label>
+                        {attendanceData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                      <Legend />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" component="div">
+                    Top 3 Performers
+                  </Typography>
+                  <ul>
+                    {topPerformers.map((student, index) => (
+                      <li key={index}>{student.name}</li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
         </div>
       </div>
     </div>

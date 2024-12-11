@@ -25,6 +25,8 @@ import TeacherProfilePage from './Pages/Teacher/Pages/TeacherProfilePage';
 import MarkTeacherAttendance from './Pages/Teacher/Pages/MarkTeacherAttendance'; 
 import GenerateTeacherIssue from './Pages/Teacher/Pages/GenerateTeacherIssue'; 
 import ClassroomStudents from './Pages/Teacher/Pages/ClassroomStudents';
+import ManualAttendancePage from './Pages/Teacher/Pages/ManualAttendancePage';
+import ClassroomAttendancePage from './Pages/Teacher/Pages/ClassroomAttendancePage';
 
 import AdminForm from "./Pages/Admin/Pages/AdminSignup.jsx";
 import AddHomeworkPage from './Pages/Teacher/Pages/AddHomeworkPage';
@@ -91,6 +93,8 @@ function App() {
         <Route path="/teacher/classrooms" element={savedAuth && savedAuth.role == 'teacher' ? <TeachersClassroom/> : <LoginAlert />}/>
         <Route path='/teacher/generate-issue' element={savedAuth && savedAuth.role == 'teacher' ? <GenerateTeacherIssue /> : <LoginAlert />} />
         <Route path="/teacher/classrooms/:classroomId/students" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomStudents /> : <LoginAlert />} />
+        <Route path="/teacher/manual-attendance" element={savedAuth && savedAuth.role == 'teacher' ? <ManualAttendancePage /> : <LoginAlert />} />
+        <Route path="/teacher/classrooms/:classroomId/manual-attendance" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomAttendancePage /> : <LoginAlert />} />
         
         {/* SignUp Page Routes */}
         <Route path="/signup" element={<CommonSignup/>} />
