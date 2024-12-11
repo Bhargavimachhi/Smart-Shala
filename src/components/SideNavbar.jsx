@@ -33,8 +33,7 @@ const   SideNavbar = () => {
       role:""
     });
     localStorage.removeItem("token");
-    navigate("/");
-    //when logged out,go to homepage
+    navigate("/login");
   };
   const navItems = [
     { icon: HomeIcon, name: "Home", path: "/admin" },

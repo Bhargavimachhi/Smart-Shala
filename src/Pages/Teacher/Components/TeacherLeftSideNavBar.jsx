@@ -1,5 +1,5 @@
 import React from "react";
-import { FaAngleRight, FaAngleLeft, FaHome, FaBook, FaChalkboardTeacher, FaUser, FaCamera, FaRocketchat } from "react-icons/fa";
+import { FaAngleRight, FaAngleLeft, FaHome, FaBook, FaChalkboardTeacher, FaUser, FaCamera, FaRocketchat, FaFire } from "react-icons/fa";
 import { MdAssignment, MdNotificationsActive } from "react-icons/md";
 import { IoLogOut } from "react-icons/io5";
 import { Link } from 'react-router-dom';
@@ -67,6 +67,10 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
           <FaCamera className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">Check Attendance</span>}
         </Link>
+         <Link to="/teacher/emergency" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+          <FaFire className="text-xl textColor text-red-600 colorNavChange" />
+          {isExpanded && <span className="ml-4 textColor">Emergency Alert</span>}
+        </Link>
         <Link to="/login" className="colorNavChange flex items-center p-4 rounded cursor-pointer" onClick={handleLogout}>
         <IoLogOut className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">LogOut</span>}
@@ -76,4 +80,4 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
   );
 };
 
-export default TeacherLeftSideNavBar;
+export default TeacherLeftSideNavBar

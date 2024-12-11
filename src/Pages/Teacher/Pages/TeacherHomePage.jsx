@@ -62,7 +62,7 @@ const TeacherHomePage = () => {
       {/* Right Sidebar */}
       <div className=" w-64 p-4  border-2 border-gray-100 h-screen ">
       <div className="w-full h-20 bg-gray-300">
-<h2>Monica Johnson</h2>
+<h2>Teacher  </h2>
       </div>
 
 
