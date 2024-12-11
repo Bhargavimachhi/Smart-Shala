@@ -67,8 +67,8 @@ const MarkTeacherAttendance = () => {
             </button>
             {photo && (
               <div className="mt-4">
-                <h2 className="text-xl font-bold mb-2">Captured Photo:</h2>
-                <img src={photo} alt="Captured" className="w-full max-w-md" />
+                  <h2 className="text-xl font-bold mb-2">Captured Photo:</h2>
+                  <img src={photo} alt="Captured" className="w-full max-w-md" />
               </div>
             )}
             <div className="mt-4 text-center">
