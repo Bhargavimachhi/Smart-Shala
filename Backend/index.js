@@ -21,6 +21,10 @@ import {
   deleteTeacher,
   getClassroomsOfTeacher,
   getHomeworkAssignedByTeacher,
+  checkAttendanceAndSendEmails,
+  // sendEmailsToStudents,
+  getClassroomsAndLowAttendanceStudents,
+  sendEmailsToLowAttendanceStudents,
 } from "./Controller/teacher.js";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -37,6 +41,8 @@ import {
   getHomeworkOfClass,
   getStudentsOfClassroom,
   getAverageStudentAttendanceOfClassroom,
+  getTopPerformersOfClassroom,
+  getSubmittedHomeworksOfClassroom
 } from "./Controller/classroom.js";
 import {
   addAdmin,
@@ -67,6 +73,12 @@ import LoginTeacher from "./Controller/loginTeacher.js";
 import loginStudent from "./Controller/loginStudent.js";
 import analyzeImageFromFile from "./Controller/homeworkAnalysis.js";
 import { getHomework } from "./Controller/homework.js";
+import {createAlert} from './Controller/alertController.js'
+import { deleteAlert } from "./Controller/alertController.js";
+import { getAlerts } from "./Controller/alertController.js";
+import { 
+  addFaceOfStudent, 
+  recognizeFaceAndMarkPresent} from "./Controller/face.js";
 
 app.use(express.json());
 
@@ -95,6 +107,9 @@ app.get("/classroom/:cId/student/:sId/remove", removeStudentFromClassroom);
 app.get("/classroom/:id/homeworks", getHomeworkOfClass);
 app.get("/classroom/:id/students", getStudentsOfClassroom);
 app.get("/classroom/:id/attendance", getAverageStudentAttendanceOfClassroom);
+app.get("/classroom/:id/top-performers", getTopPerformersOfClassroom);
+app.get("/classroom/:id/submitted-homeworks", getSubmittedHomeworksOfClassroom);
+app.post("/classroom/:id/mark-attendance", recognizeFaceAndMarkPresent);
 
 // teacher routes
 app.post("/teacher/classrooms/:id/generate-issue", generateIssue);
@@ -103,6 +118,10 @@ app.get("/teacher/:id", getTeacher);
 app.post("/teacher/:id/assign-homework", assignHomeworkToClassroom);
 app.get("/teacher/:id/delete", deleteTeacher);
 app.get("/teacher/:id/homeworks", getHomeworkAssignedByTeacher);
+app.post("/teacher/:teacherId/check-attendance", checkAttendanceAndSendEmails);
+// app.post("/teacher/:teacherId/send-emails", sendEmailsToStudents);
+app.get("/teacher/:teacherId/classrooms-low-attendance", getClassroomsAndLowAttendanceStudents);
+app.post("/teacher/send-low-attendance-emails", sendEmailsToLowAttendanceStudents);
 
 // student routes
 app.get("/student/:id", getStudent);
@@ -112,6 +131,7 @@ app.get("/student/:id/attendance/absent", markAbsent);
 app.get("/student/:id/pending-homeworks", getPendingHomeworkOfStudent);
 app.get("/student/:id/submitted-homeworks", getSubmmitedHomeworkOfStudent);
 app.get("/student/:sId/homework/:hId/submit", submitHomeWorkOfStudent);
+app.get("/student/:id/add-face", addFaceOfStudent);
 
 // issue generation routes
 app.get("/issue/:id/delete", deleteIssue);
@@ -149,3 +169,8 @@ app.post("/login/admin", adminLogin);
 app.post("/signup/student", addStudent);
 app.post("/signup/teacher", addTeacher);
 app.post("/signup/admin", addAdmin);
+
+//emergency routes
+app.post("/teacher/emergency" , createAlert)
+app.get("/emergency/admin",getAlerts)
+app.delete('/emergency/admin/:id', deleteAlert); 

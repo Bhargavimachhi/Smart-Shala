@@ -1,130 +1,261 @@
-import { readdirSync, readFileSync } from 'fs';
-import { join } from 'path';
-import { put, post, get } from 'axios';
-import { createInterface } from 'readline';
-import { VideoCapture, imencode, Rect, Vec3, imshow, waitKey } from 'opencv4nodejs';
+import { AzureKeyCredential } from '@azure/core-auth';
+import { readFileSync, writeFileSync, existsSync, readFile } from 'fs';
+import axios from 'axios';
 
-// Variables
-const ENDPOINT = "https://roigirigh.cognitiveservices.azure.com/";
-const KEY = "1rFZEHp7MnAeLZsMxkqms4KG6oyoFQTWDJO2X3jppDYCYKiZireGJQQJ99ALACYeBjFXJ3w3AAAKACOGzxol";
+import createFaceClient from "@azure-rest/ai-vision-face";
+import { Student } from '../Models/Student.js';
+import { Classroom } from '../Models/Classroom.js';
 
+const endpoint = "https://roigirigh.cognitiveservices.azure.com/";
+const apikey = "1rFZEHp7MnAeLZsMxkqms4KG6oyoFQTWDJO2X3jppDYCYKiZireGJQQJ99ALACYeBjFXJ3w3AAAKACOGzxol";
+const credential = new AzureKeyCredential(apikey);
+const client = createFaceClient(endpoint, credential);
+const faceDataFile = './faceData.json';
 
-const faceApiUrl = `${ENDPOINT}/face/v1.0/detect`;
-const headers = { 'Content-Type': 'application/octet-stream', 'Ocp-Apim-Subscription-Key': KEY };
-const params = {
-  detectionModel: 'detection_01',
-  returnFaceId: 'true',
-  returnFaceRectangle: 'true',
-  returnFaceAttributes: 'age,gender,emotion'
-};
+async function fetchImageFromFirebase(firebaseUrl) {
+    const response = await axios.get(firebaseUrl, { responseType: 'arraybuffer' });
+    return Buffer.from(response.data); // Convert the downloaded data to a buffer
+}
 
-const GROUPS = [];
-const PEOPLE = [];
-const IDS = [];
+async function detectFaceUsingImageUrl(imagePath) {
+    const imageBuffer = await fetchImageFromFirebase(imagePath);
+    const response = await client.path('/detect').post({
+        contentType: 'application/octet-stream',
+        queryParameters: {
+            detectionModel: 'detection_03',
+            recognitionModel: 'recognition_04',
+            returnFaceLandmarks: true,
+            returnRecognitionModel: true,
+            faceIdTimeToLive: 120,
+            returnFaceAttributes: ['headPose', 'mask', 'qualityForRecognition'],
+            returnFaceId: false,
+        },
+        body: imageBuffer,
+    });
+   
 
-// Functions
-const createGroup = async (group) => {
-  try {
-    await put(`${ENDPOINT}/face/v1.0/persongroups/${group}`, { name: group }, { headers });
-    console.log(`Created group ${group}`);
-  } catch (error) {
-    console.error('Error creating group:', error);
-  }
-};
+    return response.body;
+}
+async function detectFaceUsingImageBuffer(imageBuffer) {
+  const response = await client.path('/detect').post({
+      contentType: 'application/octet-stream',
+      queryParameters: {
+          detectionModel: 'detection_03',
+          recognitionModel: 'recognition_04',
+          returnFaceLandmarks: true,
+          returnRecognitionModel: true,
+          faceIdTimeToLive: 120,
+          returnFaceAttributes: ['headPose', 'mask', 'qualityForRecognition'],
+          returnFaceId: false,
+      },
+      body: imageBuffer,
+  });
+ 
 
-const createPerson = async (person, group) => {
-  try {
-    const response = await post(
-      `${ENDPOINT}/face/v1.0/persongroups/${group}/persons`,
-      { name: person },
-      { headers }
-    );
-    const personId = response.data.personId;
-    console.log('Person ID:', personId);
-    IDS.push(personId);
-
-    const imageFiles = readdirSync(basePath).filter(file => file.startsWith(person) && file.endsWith('.jpg'));
-    for (const image of imageFiles) {
-      const imageData = readFileSync(join(basePath, image));
-      await post(
-        `${ENDPOINT}/face/v1.0/persongroups/${group}/persons/${personId}/persistedFaces`,
-        imageData,
-        { headers }
-      );
-      console.log(`Included photo ${image}`);
+  return response.body;
+}
+function storeFaceData(faceData) {
+    let storedData = [];
+    if (existsSync(faceDataFile)) {
+        storedData = JSON.parse(readFileSync(faceDataFile));
     }
-  } catch (error) {
-    console.error('Error creating person:', error);
-  }
-};
+    storedData.push(faceData);
+    writeFileSync(faceDataFile, JSON.stringify(storedData, null, 2));
+}
 
-const trainGroup = async (group) => {
-  try {
-    console.log(`Starting training for group ${group}`);
-    await post(`${ENDPOINT}/face/v1.0/persongroups/${group}/train`, null, { headers });
-    while (true) {
-      const response = await get(`${ENDPOINT}/face/v1.0/persongroups/${group}/training`, { headers });
-      const status = response.data.status;
-      console.log(`Training status for ${group}: ${status}`);
-      if (status === 'succeeded') break;
-      if (status === 'failed') {
-        throw new Error('Training failed');
-      }
-      await new Promise(resolve => setTimeout(resolve, 5000));
+async function checkAndAddFace(imagePath) {
+    const detectedFaces = await detectFaceUsingImageUrl(imagePath);
+
+    if (detectedFaces.length === 0) {
+        console.log('No face detected');
+        return;
     }
-  } catch (error) {
-    console.error('Error training group:', error);
-  }
-};
 
-const startProgram = async () => {
-  const rl = createInterface({ input: process.stdin, output: process.stdout });
+    console.log(detectedFaces);
+
+    const newFace = detectedFaces[0];
+    const newRatios = calculateRatios(newFace.faceLandmarks);
+
+    let storedFaces = [];
+    if (existsSync(faceDataFile)) {
+        storedFaces = JSON.parse(readFileSync(faceDataFile));
+    }
+
+    let faceExists = false;
+    for (const storedFace of storedFaces) {
+        const storedRatios = calculateRatios(storedFace.faceLandmarks);
+        if (compareRatios(newRatios, storedRatios)) {
+            faceExists = true;
+            break;
+        }
+    }
+
+    if (faceExists) {
+
+        console.log('Face already exists in the database');
+        return "Face already exists in the database";
+    } else {
+        storeFaceData(newFace);
+        console.log('Face added to the database');
+        return "Face added to the database";
+    }
+}
+function calculateRatios(faceLandmarks) {
+    const ratios = {};
+
+    // Example ratios
+    ratios.eyeDistance = calculateDistance(faceLandmarks.pupilLeft, faceLandmarks.pupilRight);
+    ratios.noseWidth = calculateDistance(faceLandmarks.noseLeftAlarTop, faceLandmarks.noseRightAlarTop);
+    ratios.noseHeight = calculateDistance(faceLandmarks.noseRootLeft, faceLandmarks.noseTip);
+    ratios.mouthWidth = calculateDistance(faceLandmarks.mouthLeft, faceLandmarks.mouthRight);
+
+    return ratios;
+}
+
+async function recognizeFace(imagePath) {
+    const detectedFaces = await detectFaceUsingImageUrl(imagePath);
+
+    if (detectedFaces.length === 0) {
+        console.log('No face detected');
+        return;
+    }
+
+    const newFace = detectedFaces[0];
+    const newRatios = calculateRatios(newFace.faceLandmarks);
+
+    let storedFaces = [];
+    if (existsSync(faceDataFile)) {
+      storedFaces = JSON.parse(readFileSync(faceDataFile));
+    }
+
+    let faceRecognized = false;
+    for (const storedFace of storedFaces) {
+        const storedRatios = calculateRatios(storedFace.faceLandmarks);
+        if (compareRatios(newRatios, storedRatios)) {
+            faceRecognized = true;
+            break;
+        }
+    }
+
+    if (faceRecognized) {
+        console.log('Face recognized');
+    } else {
+        console.log('Face not recognized');
+    }
+}
+function calculateDistance(point1, point2) {
+    return Math.sqrt(Math.pow(point1.x - point2.x, 2) + Math.pow(point1.y - point2.y, 2));
+}
+function compareRatios(newRatios, storedRatios, threshold = 0.44) {
+    let totalDifference = 0;
+    let count = 0;
+
+    for (const key in newRatios) {
+        if (newRatios.hasOwnProperty(key) && storedRatios.hasOwnProperty(key)) {
+            const difference = Math.abs(newRatios[key] - storedRatios[key]) / storedRatios[key];
+            totalDifference += difference;
+            count++;
+        }
+    }
+   
+
+    const averageDifference = totalDifference / count;
+    
+    
+    return averageDifference < threshold;
+}
+
+
+// Add the image to face here 
+async function main() {
+  const url = 'https://firebasestorage.googleapis.com/v0/b/videohosting-86bc3.appspot.com/o/Screenshot_20240726_005341_VLC.jpg?alt=media&token=d85daabd-8272-4536-9f50-c7da43f2ed33';
+  const res = await checkAndAddFace(url);  
+  if(res === "Face added to the database"){
+    console.log("Face not in database so not recongnized but added to database for future");
+  }
+
+    
+}
+
+export const addFaceOfStudent = async(req,res) => {
+  try {
+    const url = req.body.url;
+    const id = req.params.id;
+    const student = await Student.findById(id);
+
+    if(student == null) {
+      res.status(404).json({message : "Student does not exist"});
+      return;
+    }
+    const detectedFaces = await detectFaceUsingImageUrl(url);  
+
+    if (detectedFaces.length === 0) {
+      res.status(404).json({message : 'No face detected'});
+      return;
+    }
+    student.face = detectedFaces[0];
+    student.save().then(()=>{
+      res.status(200).json({ message: "success" });
+    }).catch((err)=>{
+        console.log(err);
+        res.send("Error Occurred !!!");
+    });
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({message : "Error occured"});
+  }
   
-  rl.question('Define the group name -> ', async (groupName) => {
-    const group = groupName.toLowerCase();
-    GROUPS.push(group);
-    await createGroup(group);
+}
 
-    while (true) {
-      const personName = await new Promise(resolve => rl.question("Enter a person's name to associate with the group or 'fim' to finish -> ", resolve));
-      if (personName.toLowerCase() === 'fim') break;
-      PEOPLE.push(personName);
-      await createPerson(personName, group);
-    }
+export const recognizeFaceAndMarkPresent = async(req, res) => {
+    try {
+        const id = req.params.id;
+        const classroom = await Classroom.findById(id);
+        const image = req.body.image;
 
-    await trainGroup(group);
-
-    const camera = new VideoCapture(0);
-    while (true) {
-      const frame = camera.read();
-      const image = imencode('.jpg', frame).toString('base64');
-      try {
-        const response = await post(faceApiUrl, Buffer.from(image, 'base64'), { headers, params });
-        const faces = response.data;
-
-        for (const face of faces) {
-          const rect = face.faceRectangle;
-          const { left, top, width, height } = rect;
-          const bottom = top + height;
-          const right = left + width;
-
-          frame.drawRectangle(new Rect(left, top, width, height), new Vec3(0, 255, 0), 2);
+        if(!classroom) {
+            res.status(404).json({message : "Classroom does not exist"});
+            return;
         }
 
-        imshow('Face Detection', frame);
-      } catch (error) {
-        console.error('Error during detection:', error);
-      }
+        if(!image) {
+            res.status(404).json({message : "Image not found"});
+            return;
+        }
 
-      const key = waitKey(1);
-      if (key === 27) {
-        console.log('Escape hit, closing...');
-        break;
-      }
+        const newFace = await detectFaceUsingImageBuffer(image);
+        console.log(newFace);
+        const newRatios = calculateRatios(newFace.faceLandmarks);
+        const students = classroom.students;
+
+        students.map((student) => {
+            const storedRatios = calculateRatios(student.face.faceLandmarks);
+            console.log(storedRatios);
+
+            if (compareRatios(newRatios, storedRatios)) {
+                //mark present
+                const index = student.absentDays.indexOf(date);
+                if(index > -1) {
+                    student.absentDays.splice(index, 1);
+                }
+
+                if(!student.presentDays.includes(date)) {
+                    student.presentDays.push(date);
+                }
+
+                student.save().then(()=>{
+                    res.status(200).json({ message: "success" , student});
+                }).catch((err)=>{
+                    console.log(err);
+                    res.status(400).json({message : "Error Occurred !!!"});
+                });
+            }
+        });
+        res.status(404).json({message: "Student face not matched"});
+    } catch(err) {
+        res.status(400).json({message : "Error occured"});
     }
+  
 
-    rl.close();
-  });
-};
-
-startProgram();
+}
