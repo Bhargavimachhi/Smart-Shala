@@ -26,22 +26,18 @@ export const addAdmin = async (req, res) => {
 };
 
 //get Admin
-export const getAdmin = async(req, res) => {
+export const getAdmin = async (req, res) => {
   const id = req.params.id;
-    try {
-        const admin = await Admin.findById(id);
-        if(admin == null) {
-            res.status(400).json({message:"Admin does not exist"});
-        }
-        else {
-            res.status(201).json({message:"success", admin});
-        }
-    } catch (err) {
-        //handle error
-        console.log(err);
-        res.status(500).json({message:"internal server error"});
-    }
-}
+  try {
+      const admin = await Admin.findById(id);
+      if (!admin) {
+          return res.status(404).json({ message: "Admin does not exist" });
+      }
+      res.status(200).json({ message: "success", admin });
+  } catch (err) {
+      res.status(500).json({ message: "internal server error", error: err });
+  }
+};
 
 //admin Login
 export const adminLogin = async (req, res) => {

@@ -66,6 +66,7 @@ import {
   markIssueAsNotResolved,
 } from "./Controller/issue.js";
 import { getAnswer } from "./Controller/Chatbot.js";
+import { addResource, getResources, requestResource, approveResourceRequest, getResourceRequests } from "./Controller/resource.js";
 
 // import  {requireSignIn}  from './middleware/requireSignIn.js';
 import { adminLogin } from "./Controller/admin.js";
@@ -73,11 +74,12 @@ import LoginTeacher from "./Controller/loginTeacher.js";
 import loginStudent from "./Controller/loginStudent.js";
 import analyzeImageFromFile from "./Controller/homeworkAnalysis.js";
 import { getHomework } from "./Controller/homework.js";
-import {createAlert} from './Controller/alertController.js'
+import { createAlert } from './Controller/alertController.js'
 import { deleteAlert } from "./Controller/alertController.js";
-import { getAlerts } from "./Controller/alertController.js";import { 
-  addFaceOfStudent, 
-  recognizeFaceAndMarkPresent} from "./Controller/face.js";
+import { getAlerts } from "./Controller/alertController.js"; import {
+  addFaceOfStudent,
+  recognizeFaceAndMarkPresent
+} from "./Controller/face.js";
 
 app.use(express.json());
 
@@ -170,6 +172,14 @@ app.post("/signup/teacher", addTeacher);
 app.post("/signup/admin", addAdmin);
 
 //emergency routes
-app.post("/teacher/emergency" , createAlert)
-app.get("/emergency/admin",getAlerts)
-app.delete('/emergency/admin/:id', deleteAlert); 
+app.post("/teacher/emergency", createAlert)
+app.get("/emergency/admin", getAlerts)
+app.delete('/emergency/admin/:id', deleteAlert);
+
+
+// Resource routes
+app.post("/resource", addResource);
+app.get("/resources", getResources);
+app.post("/request-resource", requestResource);
+app.get("/resource-requests", getResourceRequests);
+app.post("/resource-request/:id/approve", approveResourceRequest);

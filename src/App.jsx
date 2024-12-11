@@ -54,6 +54,9 @@ import ViewClassrooms from './Pages/Teacher/Pages/ViewClassrooms';
 import ClassroomSubmittedHomeworks from './Pages/Teacher/Pages/ClassroomSubmittedHomeworks';
 import ClassroomsLowAttendance from './Pages/Teacher/Pages/ClassroomsLowAttendance';
 
+import ResourceManagement from './Pages/Admin/Pages/ResourceManagement';
+import RequestResource from './Pages/Teacher/Pages/RequestResource';
+
 function App() {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
@@ -75,7 +78,8 @@ function App() {
         <Route path="/admin/data-analytics" element={savedAuth && savedAuth.role == 'admin' ? <Dataanalyticspage /> : <LoginAlert />} />
         <Route path='/admin/issues' element={savedAuth && savedAuth.role == 'admin' ? <Issuessection /> : <LoginAlert />} />
         <Route path="/admin/classrooms/:classroomId/analytics" element={savedAuth && savedAuth.role == 'admin' ? <ClassroomAnalytics /> : <LoginAlert />} />
-
+        <Route path="/admin/resources" element={savedAuth && savedAuth.role === 'admin' ? <ResourceManagement /> : <LoginAlert />} />
+      
         {/* Student Page Routes  */}
         <Route path='/student' element={savedAuth && savedAuth.role == 'student' ? <StudentHomePage /> : <LoginAlert />} />
         <Route path='/student/submit-homework' element={savedAuth && savedAuth.role == 'student' ? <SubmitHomework /> : <LoginAlert />} />
@@ -101,7 +105,8 @@ function App() {
         <Route path="/teacher/classroomsforHomework" element={savedAuth && savedAuth.role == 'teacher' ? <ViewClassrooms /> : <LoginAlert />} />
         <Route path="/teacher/classroom/:id/submitted-homeworks" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomSubmittedHomeworks /> : <LoginAlert />} />
         <Route path="/teacher/classrooms-low-attendance" element={<ClassroomsLowAttendance />} />
-
+        <Route path="/teacher/request-resource" element={savedAuth && savedAuth.role === 'teacher' ? <RequestResource /> : <LoginAlert />} />
+      
         {/* SignUp Page Routes */}
         <Route path='/signup/student' element={<AddStudent />} />
         <Route path='/signup/teacher' element={<AddTeacher />} />
