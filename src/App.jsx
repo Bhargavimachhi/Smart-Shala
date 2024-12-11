@@ -17,6 +17,7 @@ import SubmitHomework from "./Pages/Student/StudentPages/SubmitHomework.jsx";
 import StudentNotification from "./Pages/Student/StudentPages/StudentNotification.jsx";
 import Issuessection from "./Pages/Admin/Pages/Issuessection.jsx";
 import PendingHomeWork from "./Pages/Student/Components/submitHWComponent/PendingHomeWork.jsx";
+import ClassroomAnalytics from './Pages/Admin/Pages/ClassroomAnalytics';
 
 import TeacherHomePage from './Pages/Teacher/Pages/TeacherHomePage';
 import TeacherSignUpForm from './Pages/Teacher/Pages/TeacherSignUpForm';
@@ -66,7 +67,7 @@ function App() {
         <Route path="/admin/classrooms/:id" element={savedAuth && savedAuth.role == 'admin' ?<Classroom/>: <LoginAlert />} />
         <Route path="/admin/data-analytics" element={savedAuth && savedAuth.role == 'admin' ?<Dataanalyticspage />: <LoginAlert />} />
         <Route path='/admin/issues' element={savedAuth && savedAuth.role == 'admin' ?<Issuessection/>: <LoginAlert />} />
-
+        <Route path="/admin/classrooms/:classroomId/analytics" element={savedAuth && savedAuth.role == 'admin' ? <ClassroomAnalytics /> : <LoginAlert />} />
       
         {/* Student Page Routes  */}
         <Route path='/student' element={savedAuth && savedAuth.role == 'student' ? <StudentHomePage/> : <LoginAlert />}   /> 

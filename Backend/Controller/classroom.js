@@ -290,3 +290,16 @@ export const getAverageStudentAttendanceOfClassroom = async(req, res) => {
     average = (average/classroom.students.length)*100;
     res.status(200).json({message:"success", average : !average ? 0 : average});
 }
+
+// Get top 3 performers of a classroom
+export const getTopPerformersOfClassroom = async (req, res) => {
+    const id = req.params.id;
+    const classroom = await Classroom.findById(id).populate('students');
+
+    if (!classroom) {
+        return res.status(404).json({ message: "Classroom does not exist" });
+    }
+
+    const students = classroom.students.sort((a, b) => b.averageScore - a.averageScore).slice(0, 3);
+    res.status(200).json({ message: "success", topPerformers: students });
+};
