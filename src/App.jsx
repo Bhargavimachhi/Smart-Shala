@@ -52,6 +52,7 @@ import ClassroomAnalytics from './Pages/Admin/Pages/ClassroomAnalytics';
 
 import ViewClassrooms from './Pages/Teacher/Pages/ViewClassrooms';
 import ClassroomSubmittedHomeworks from './Pages/Teacher/Pages/ClassroomSubmittedHomeworks';
+import ClassroomsLowAttendance from './Pages/Teacher/Pages/ClassroomsLowAttendance';
 
 function App() {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -99,7 +100,8 @@ function App() {
         <Route path="/teacher/check-all-attendance" element={savedAuth && savedAuth.role == 'teacher' ? <CheckAllAttendance /> : <LoginAlert />} />
         <Route path="/teacher/classroomsforHomework" element={savedAuth && savedAuth.role == 'teacher' ? <ViewClassrooms /> : <LoginAlert />} />
         <Route path="/teacher/classroom/:id/submitted-homeworks" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomSubmittedHomeworks /> : <LoginAlert />} />
-                
+        <Route path="/teacher/classrooms-low-attendance" element={<ClassroomsLowAttendance />} />
+
         {/* SignUp Page Routes */}
         <Route path='/signup/student' element={<AddStudent />} />
         <Route path='/signup/teacher' element={<AddTeacher />} />
