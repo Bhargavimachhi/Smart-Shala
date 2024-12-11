@@ -38,7 +38,7 @@ function TeacherEmergencyForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white p-5 shadow-md rounded">
+        <form onSubmit={handleSubmit} className="bg-white p-5 shadow-md ml-[25%] mt-[10%] rounded w-1/2">
         
             <h2 className="text-xl font-bold mb-4">Send Emergency Alert</h2>
             <div className="mb-3">
@@ -72,7 +72,7 @@ function TeacherEmergencyForm() {
                     <option value="Critical">Critical</option>
                 </select>
             </div>
-            <div className="mb-3">
+            <div className="mb-3    ">
                 <label className="block text-sm font-medium mb-1">Class</label>
                 <select
                     value={formData.location}
