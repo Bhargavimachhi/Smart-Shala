@@ -46,6 +46,7 @@ import FilePreview from "./components/HomeworkReport.jsx";
 import Createclassroom from "./Pages/Admin/Components/Createclassroom.jsx";
 import HomeWorkManage from "./Pages/Teacher/Pages/HomeWorkManage.jsx";
 import HwSubmission from "./Pages/Teacher/Pages/HwSubmission.jsx";
+import CommonSignup from "./Pages/InitialPages/CommonSignup.jsx";
 
 function App() {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -92,6 +93,7 @@ function App() {
         <Route path="/teacher/classrooms/:classroomId/students" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomStudents /> : <LoginAlert />} />
         
         {/* SignUp Page Routes */}
+        <Route path="/signup" element={<CommonSignup/>} />
         <Route path='/signup/student' element={<AddStudent/>} />
         <Route path='/signup/teacher' element={<AddTeacher/>} />
         <Route path="/signup/admin" element={<AdminForm />} />
