@@ -1,6 +1,8 @@
 import {Teacher} from "../Models/Teacher.js"
 import { Classroom } from "../Models/Classroom.js";
 import { Homework } from "../Models/Homework.js";
+import {Student} from "../Models/Student.js";
+import nodemailer from 'nodemailer';
 
 export const addTeacher = async(req, res) => {
     let teacher = await Teacher.find({email : req.body.email});
@@ -106,3 +108,59 @@ export const getHomeworkAssignedByTeacher = async(req,res) => {
     }))
     res.status(200).json({homeworks});
 }
+
+export const checkAttendanceAndSendEmails = async (req, res) => {
+    console.log("Received request to check attendance");
+    const { teacherId } = req.params;
+    const teacher = await Teacher.findById(teacherId).populate('classrooms');
+  
+    if (!teacher) {
+      console.log("Teacher does not exist");
+      return res.status(404).json({ message: "Teacher does not exist" });
+    }
+  
+    const studentsToNotify = [];
+  
+    for (const classroom of teacher.classrooms) {
+      const classroomData = await Classroom.findById(classroom._id).populate('students');
+      for (const student of classroomData.students) {
+        const presentDays = student.presentDays.length;
+        const totalDays = presentDays + student.absentDays.length;
+        const attendancePercentage = (presentDays / totalDays) * 100;
+  
+        if (attendancePercentage < 75) {
+          studentsToNotify.push(student);
+        }
+      }
+    }
+  
+    console.log("Students fetched successfully", studentsToNotify);
+    res.status(200).json({ message: "Students fetched successfully", students: studentsToNotify });
+  };
+  
+import sgMail from '@sendgrid/mail';
+
+sgMail.setApiKey('your-sendgrid-api-key');
+
+export const sendEmailsToStudents = async (req, res) => {
+  const { students } = req.body;
+
+  const emailPromises = students.map(student => {
+    const msg = {
+      to: student.email,
+      from: 'thegoatiskrish2@example.com', // Use the email address or domain you verified with SendGrid
+      subject: 'Low Attendance Alert',
+      text: `Dear ${student.name}, your attendance is below 75%. Please ensure to attend more classes.`,
+    };
+
+    return sgMail.send(msg);
+  });
+
+  try {
+    await Promise.all(emailPromises);
+    res.status(200).json({ message: "Emails sent successfully" });
+  } catch (error) {
+    console.error("Error sending emails:", error);
+    res.status(500).json({ message: "Error sending emails", error });
+  }
+};
