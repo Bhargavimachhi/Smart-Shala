@@ -141,29 +141,57 @@ export const checkAttendanceAndSendEmails = async (req, res) => {
 import axios from 'axios';
 import FormData from 'form-data';
 
-export const sendEmailsToStudents = async (req, res) => {
-  const { students } = req.body;
+export const sendEmailsToLowAttendanceStudents = async (req, res) => {
+    const { students } = req.body;
 
-  const emailPromises = students.map(student => {
-    const form = new FormData();
-    form.append('from', 'smartshalaisthegoat@aol.com');
-    form.append('to', student.email);
-    form.append('subject', 'Low Attendance Alert');
-    form.append('text', `Dear ${student.name}, your attendance is below 75%. Please ensure to attend more classes.`);
+    const emailPromises = students.map(student => {
+        const form = new FormData();
+        form.append('from', 'smartshalaisthegoat@aol.com');
+        form.append('to', student.email);
+        form.append('subject', 'Low Attendance Alert');
+        form.append('text', `Dear ${student.name}, your attendance is below 75%. Please ensure to attend more classes.`);
 
-    return axios.post('https://9kz1y4.api.infobip.com/email/1/send', form, {
-      headers: {
-        ...form.getHeaders(),
-        'Authorization': `App 054cc80d46307a86aa5b2b7e69b81776-f209c347-73db-4e3e-9b68-66d9e0f7eee4`
-      }
+        return axios.post('https://9kz1y4.api.infobip.com/email/1/send', form, {
+            headers: {
+                ...form.getHeaders(),
+                'Authorization': `App 054cc80d46307a86aa5b2b7e69b81776-f209c347-73db-4e3e-9b68-66d9e0f7eee4`
+            }
+        });
     });
-  });
 
-  try {
-    await Promise.all(emailPromises);
-    res.status(200).json({ message: "Emails sent successfully" });
-  } catch (error) {
-    console.error("Error sending emails:", error.response ? error.response.data : error.message);
-    res.status(500).json({ message: "Error sending emails", error: error.response ? error.response.data : error.message });
-  }
+    try {
+        await Promise.all(emailPromises);
+        res.status(200).json({ message: "Emails sent successfully" });
+    } catch (error) {
+        console.error("Error sending emails:", error.response ? error.response.data : error.message);
+        res.status(500).json({ message: "Error sending emails", error: error.response ? error.response.data : error.message });
+    }
+};
+
+export const getClassroomsAndLowAttendanceStudents = async (req, res) => {
+    const { teacherId } = req.params;
+    const teacher = await Teacher.findById(teacherId).populate('classrooms');
+
+    if (!teacher) {
+        return res.status(404).json({ message: "Teacher does not exist" });
+    }
+
+    const classroomsData = [];
+
+    for (const classroom of teacher.classrooms) {
+        const classroomData = await Classroom.findById(classroom._id).populate('students');
+        const lowAttendanceStudents = classroomData.students.filter(student => {
+            const presentDays = student.presentDays.length;
+            const totalDays = presentDays + student.absentDays.length;
+            const attendancePercentage = (presentDays / totalDays) * 100;
+            return attendancePercentage < 75;
+        });
+
+        classroomsData.push({
+            classroom: classroomData,
+            lowAttendanceStudents
+        });
+    }
+
+    res.status(200).json({ message: "Data fetched successfully", classroomsData });
 };
