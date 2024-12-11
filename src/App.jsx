@@ -50,6 +50,9 @@ import AdminEmergencyAlert from "./Pages/Admin/Pages/AdminEmergencyAlert.jsx";
 import CheckAllAttendance from './Pages/Teacher/Pages/CheckAllAttendance';
 import ClassroomAnalytics from './Pages/Admin/Pages/ClassroomAnalytics';
 
+import ViewClassrooms from './Pages/Teacher/Pages/ViewClassrooms';
+import ClassroomSubmittedHomeworks from './Pages/Teacher/Pages/ClassroomSubmittedHomeworks';
+
 function App() {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
@@ -94,7 +97,9 @@ function App() {
         <Route path='/teacher/generate-issue' element={savedAuth && savedAuth.role == 'teacher' ? <GenerateTeacherIssue /> : <LoginAlert />} />
         <Route path="/teacher/classrooms/:classroomId/students" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomStudents /> : <LoginAlert />} />
         <Route path="/teacher/check-all-attendance" element={savedAuth && savedAuth.role == 'teacher' ? <CheckAllAttendance /> : <LoginAlert />} />
-
+        <Route path="/teacher/classroomsforHomework" element={savedAuth && savedAuth.role == 'teacher' ? <ViewClassrooms /> : <LoginAlert />} />
+        <Route path="/teacher/classroom/:id/submitted-homeworks" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomSubmittedHomeworks /> : <LoginAlert />} />
+                
         {/* SignUp Page Routes */}
         <Route path='/signup/student' element={<AddStudent />} />
         <Route path='/signup/teacher' element={<AddTeacher />} />
