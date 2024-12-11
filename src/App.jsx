@@ -45,6 +45,10 @@ import FilePreview from "./components/HomeworkReport.jsx";
 import Createclassroom from "./Pages/Admin/Components/Createclassroom.jsx";
 import HomeWorkManage from "./Pages/Teacher/Pages/HomeWorkManage.jsx";
 import HwSubmission from "./Pages/Teacher/Pages/HwSubmission.jsx";
+import PendingList from "./Pages/Student/Components/submitHWComponent/PendingList.jsx"; 
+import StudentPerformanceReport from "./Pages/Student/StudentPages/StudentPerformanceReport.jsx";
+import FilePreviewComponenent from "./Pages/Student/Components/performanceRepoComponent/FilePreviewComponent.jsx";
+import FilePreviewMain from "./Pages/Student/Components/performanceRepoComponent/FilePreviewMain.jsx";
 
 function App() {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -73,9 +77,10 @@ function App() {
         <Route path='/student/submit-homework' element={savedAuth && savedAuth.role == 'student' ? <SubmitHomework/> : <LoginAlert />}/> 
         <Route path='/student/notification' element={savedAuth && savedAuth.role == 'student' ? <StudentNotification/> : <LoginAlert />}   /> 
         <Route path='/student/doubts' element={savedAuth && savedAuth.role == 'student' ? <StudentChatbot/> : <LoginAlert />}   /> 
-        <Route path='/student/:id/pending-homework' element={savedAuth && savedAuth.role == 'student' ? <PendingHomeWork/> : <LoginAlert />}   /> 
+        <Route path='/student/:id/pending-homework' element={savedAuth && savedAuth.role == 'student' ? <PendingList/> : <LoginAlert />}   /> 
         <Route path='/student/attendance' element={savedAuth && savedAuth.role == 'student' ? <StudentAttendancePage/> : <LoginAlert />}   />
-        <Route path="/student/homework/:id/preview" element={savedAuth && savedAuth.role == 'student' ? <FilePreview /> : <LoginAlert />}/>
+        <Route path="/student/homework/preview" element={savedAuth && savedAuth.role == 'student' ? <FilePreviewMain/> : <LoginAlert />}/>
+        <Route path='/student/performance' element={savedAuth && savedAuth.role == 'student' ? <StudentPerformanceReport/> : <LoginAlert />}   /> 
   
         {/* Teacher Page Routes */}
         <Route path='/teacher' element={savedAuth && savedAuth.role == 'teacher' ? <TeacherHomePage /> : <LoginAlert />} />
