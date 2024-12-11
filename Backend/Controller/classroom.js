@@ -274,15 +274,14 @@ export const getStudentsOfClassroom = async (req, res) => {
 // get average student attendance of a classroom
 export const getAverageStudentAttendanceOfClassroom = async(req, res) => {
     const id = req.params.id;
-    const classroom = await Classroom.findById(id);
+    const classroom = await Classroom.findById(id).populate('students');
 
     if(!classroom) {
         res.status(404).json({message : "Classroom does not exist"});
         return;
     }
     let average = 0;
-    await Promise.all(classroom.students.map(async(studentId) => {
-        const student = await Student.findById(studentId);
+    await Promise.all(classroom.students.map(async(student) => {
         const presentDays = student.presentDays.length;
         const total = student.absentDays.length + presentDays;
         average += presentDays / total;
