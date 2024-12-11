@@ -291,7 +291,7 @@ export const getAverageStudentAttendanceOfClassroom = async(req, res) => {
     res.status(200).json({message:"success", average : !average ? 0 : average});
 }
 
-// Get top 3 performers of a classroom
+// Get top 3 performers of a classroom based on attendance
 export const getTopPerformersOfClassroom = async (req, res) => {
     const id = req.params.id;
     const classroom = await Classroom.findById(id).populate('students');
@@ -300,6 +300,11 @@ export const getTopPerformersOfClassroom = async (req, res) => {
         return res.status(404).json({ message: "Classroom does not exist" });
     }
 
-    const students = classroom.students.sort((a, b) => b.averageScore - a.averageScore).slice(0, 3);
+    const students = classroom.students.sort((a, b) => {
+        const aAttendance = (a.presentDays.length / (a.presentDays.length + a.absentDays.length)) || 0;
+        const bAttendance = (b.presentDays.length / (b.presentDays.length + b.absentDays.length)) || 0;
+        return bAttendance - aAttendance;
+    }).slice(0, 3);
+
     res.status(200).json({ message: "success", topPerformers: students });
 };
