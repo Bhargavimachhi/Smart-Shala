@@ -21,6 +21,8 @@ import {
   deleteTeacher,
   getClassroomsOfTeacher,
   getHomeworkAssignedByTeacher,
+  checkAttendanceAndSendEmails,
+  sendEmailsToStudents,
 } from "./Controller/teacher.js";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -70,7 +72,10 @@ import analyzeImageFromFile from "./Controller/homeworkAnalysis.js";
 import { getHomework } from "./Controller/homework.js";
 import {createAlert} from './Controller/alertController.js'
 import { deleteAlert } from "./Controller/alertController.js";
-import { getAlerts } from "./Controller/alertController.js";
+import { getAlerts } from "./Controller/alertController.js";import { 
+  addFaceOfStudent, 
+  recognizeFaceAndMarkPresent} from "./Controller/face.js";
+
 app.use(express.json());
 
 app.use(cors());
@@ -107,6 +112,8 @@ app.get("/teacher/:id", getTeacher);
 app.post("/teacher/:id/assign-homework", assignHomeworkToClassroom);
 app.get("/teacher/:id/delete", deleteTeacher);
 app.get("/teacher/:id/homeworks", getHomeworkAssignedByTeacher);
+app.post("/teacher/:teacherId/check-attendance", checkAttendanceAndSendEmails);
+app.post("/teacher/:teacherId/send-emails", sendEmailsToStudents);
 
 // student routes
 app.get("/student/:id", getStudent);
@@ -116,6 +123,8 @@ app.get("/student/:id/attendance/absent", markAbsent);
 app.get("/student/:id/pending-homeworks", getPendingHomeworkOfStudent);
 app.get("/student/:id/submitted-homeworks", getSubmmitedHomeworkOfStudent);
 app.get("/student/:sId/homework/:hId/submit", submitHomeWorkOfStudent);
+app.get("/student/:id/add-face", addFaceOfStudent);
+app.get("/student/:id/mark-attendance", recognizeFaceAndMarkPresent);
 
 // issue generation routes
 app.get("/issue/:id/delete", deleteIssue);

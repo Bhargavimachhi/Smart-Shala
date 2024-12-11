@@ -47,6 +47,7 @@ import HomeWorkManage from "./Pages/Teacher/Pages/HomeWorkManage.jsx";
 import HwSubmission from "./Pages/Teacher/Pages/HwSubmission.jsx";
 import TeacherEmergencyForm from "./Pages/Teacher/Pages/TeacherEmergencyForm.jsx";
 import AdminEmergencyAlert from "./Pages/Admin/Pages/AdminEmergencyAlert.jsx";
+import CheckAllAttendance from './Pages/Teacher/Pages/CheckAllAttendance';
 
 function App() {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -91,7 +92,8 @@ function App() {
         <Route path="/teacher/classrooms" element={savedAuth && savedAuth.role == 'teacher' ? <TeachersClassroom/> : <LoginAlert />}/>
         <Route path='/teacher/generate-issue' element={savedAuth && savedAuth.role == 'teacher' ? <GenerateTeacherIssue /> : <LoginAlert />} />
         <Route path="/teacher/classrooms/:classroomId/students" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomStudents /> : <LoginAlert />} />
-        
+        <Route path="/teacher/check-all-attendance" element={savedAuth && savedAuth.role == 'teacher' ? <CheckAllAttendance /> : <LoginAlert />} />
+                
         {/* SignUp Page Routes */}
         <Route path='/signup/student' element={<AddStudent/>} />
         <Route path='/signup/teacher' element={<AddTeacher/>} />
