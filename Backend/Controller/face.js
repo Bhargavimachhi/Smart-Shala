@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import createFaceClient from "@azure-rest/ai-vision-face";
 import { Student } from '../Models/Student.js';
+import { Classroom } from '../Models/Classroom.js';
 
 const endpoint = "https://roigirigh.cognitiveservices.azure.com/";
 const apikey = "1rFZEHp7MnAeLZsMxkqms4KG6oyoFQTWDJO2X3jppDYCYKiZireGJQQJ99ALACYeBjFXJ3w3AAAKACOGzxol";
@@ -201,49 +202,60 @@ export const addFaceOfStudent = async(req,res) => {
     });
 
   } catch (err) {
+    console.log(err);
     res.status(500).json({message : "Error occured"});
   }
   
 }
 
 export const recognizeFaceAndMarkPresent = async(req, res) => {
-  const id = req.params.id;
-  const date = new Date().toISOString().split('T')[0];
-  const student = await Student.findById(id);
-  const image = req.body.image;
+    try {
+        const id = req.params.id;
+        const classroom = await Classroom.findById(id);
+        const image = req.body.image;
 
-  if(student == null) {
-    res.status(404).json({message : "Student does not exist"});
-    return;
-  }
+        if(!classroom) {
+            res.status(404).json({message : "Classroom does not exist"});
+            return;
+        }
 
-  if(!image) {
-    res.status(404).json({message : "Image not found"});
-    return;
-  }
-  const newFace = await detectFaceUsingImageBuffer(image);
-  const newRatios = calculateRatios(newFace.faceLandmarks);
-  const storedRatios = calculateRatios(student.face.faceLandmarks);
+        if(!image) {
+            res.status(404).json({message : "Image not found"});
+            return;
+        }
 
-  if (!compareRatios(newRatios, storedRatios)) {
-    res.status(404).json({message : "Face not matched"});
-    return;
-  }
+        const newFace = await detectFaceUsingImageBuffer(image);
+        console.log(newFace);
+        const newRatios = calculateRatios(newFace.faceLandmarks);
+        const students = classroom.students;
 
-  //mark present
-  const index = student.absentDays.indexOf(date);
-  if(index > -1) {
-      student.absentDays.splice(index, 1);
-  }
+        students.map((student) => {
+            const storedRatios = calculateRatios(student.face.faceLandmarks);
+            console.log(storedRatios);
 
-  if(!student.presentDays.includes(date)) {
-      student.presentDays.push(date);
-  }
+            if (compareRatios(newRatios, storedRatios)) {
+                //mark present
+                const index = student.absentDays.indexOf(date);
+                if(index > -1) {
+                    student.absentDays.splice(index, 1);
+                }
 
-  student.save().then(()=>{
-      res.status(200).json({ message: "success" });
-  }).catch((err)=>{
-      console.log(err);
-      res.send("Error Occurred !!!");
-  });
+                if(!student.presentDays.includes(date)) {
+                    student.presentDays.push(date);
+                }
+
+                student.save().then(()=>{
+                    res.status(200).json({ message: "success" , student});
+                }).catch((err)=>{
+                    console.log(err);
+                    res.status(400).json({message : "Error Occurred !!!"});
+                });
+            }
+        });
+        res.status(404).json({message: "Student face not matched"});
+    } catch(err) {
+        res.status(400).json({message : "Error occured"});
+    }
+  
+
 }

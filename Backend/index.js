@@ -76,10 +76,10 @@ import analyzeImageFromFile from "./Controller/homeworkAnalysis.js";
 import { getHomework } from "./Controller/homework.js";
 import { createAlert } from './Controller/alertController.js'
 import { deleteAlert } from "./Controller/alertController.js";
-import { getAlerts } from "./Controller/alertController.js"; import {
-  addFaceOfStudent,
-  recognizeFaceAndMarkPresent
-} from "./Controller/face.js";
+import { getAlerts } from "./Controller/alertController.js";
+import { 
+  addFaceOfStudent, 
+  recognizeFaceAndMarkPresent} from "./Controller/face.js";
 
 app.use(express.json());
 
@@ -110,6 +110,7 @@ app.get("/classroom/:id/students", getStudentsOfClassroom);
 app.get("/classroom/:id/attendance", getAverageStudentAttendanceOfClassroom);
 app.get("/classroom/:id/top-performers", getTopPerformersOfClassroom);
 app.get("/classroom/:id/submitted-homeworks", getSubmittedHomeworksOfClassroom);
+app.post("/classroom/:id/mark-attendance", recognizeFaceAndMarkPresent);
 
 // teacher routes
 app.post("/teacher/classrooms/:id/generate-issue", generateIssue);
@@ -132,7 +133,6 @@ app.get("/student/:id/pending-homeworks", getPendingHomeworkOfStudent);
 app.get("/student/:id/submitted-homeworks", getSubmmitedHomeworkOfStudent);
 app.get("/student/:sId/homework/:hId/submit", submitHomeWorkOfStudent);
 app.get("/student/:id/add-face", addFaceOfStudent);
-app.get("/student/:id/mark-attendance", recognizeFaceAndMarkPresent);
 
 // issue generation routes
 app.get("/issue/:id/delete", deleteIssue);

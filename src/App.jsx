@@ -53,6 +53,12 @@ import ClassroomAnalytics from './Pages/Admin/Pages/ClassroomAnalytics';
 import ViewClassrooms from './Pages/Teacher/Pages/ViewClassrooms';
 import ClassroomSubmittedHomeworks from './Pages/Teacher/Pages/ClassroomSubmittedHomeworks';
 import ClassroomsLowAttendance from './Pages/Teacher/Pages/ClassroomsLowAttendance';
+import PendingList from "./Pages/Student/Components/submitHWComponent/PendingList.jsx"; 
+import StudentPerformanceReport from "./Pages/Student/StudentPages/StudentPerformanceReport.jsx";
+import FilePreviewComponenent from "./Pages/Student/Components/performanceRepoComponent/FilePreviewComponent.jsx";
+import FilePreviewMain from "./Pages/Student/Components/performanceRepoComponent/FilePreviewMain.jsx";
+import ManualAttendancePage from "./Pages/Teacher/Pages/ManualAttendancePage.jsx";
+import ClassroomAttendancePage from "./Pages/Teacher/Pages/ClassroomAttendancePage.jsx";
 
 import ResourceManagement from './Pages/Admin/Pages/ResourceManagement';
 import RequestResource from './Pages/Teacher/Pages/RequestResource';
@@ -85,9 +91,10 @@ function App() {
         <Route path='/student/submit-homework' element={savedAuth && savedAuth.role == 'student' ? <SubmitHomework /> : <LoginAlert />} />
         <Route path='/student/notification' element={savedAuth && savedAuth.role == 'student' ? <StudentNotification /> : <LoginAlert />} />
         <Route path='/student/doubts' element={savedAuth && savedAuth.role == 'student' ? <StudentChatbot /> : <LoginAlert />} />
-        <Route path='/student/:id/pending-homework' element={savedAuth && savedAuth.role == 'student' ? <PendingHomeWork /> : <LoginAlert />} />
+        <Route path='/student/:id/pending-homework' element={savedAuth && savedAuth.role == 'student' ? <PendingList /> : <LoginAlert />} />
         <Route path='/student/attendance' element={savedAuth && savedAuth.role == 'student' ? <StudentAttendancePage /> : <LoginAlert />} />
-        <Route path="/student/homework/:id/preview" element={savedAuth && savedAuth.role == 'student' ? <FilePreview /> : <LoginAlert />} />
+        <Route path="/student/homework/preview" element={savedAuth && savedAuth.role == 'student' ? <FilePreviewMain/> : <LoginAlert />} />
+        <Route path='/student/performance' element={savedAuth && savedAuth.role == 'student' ? <StudentPerformanceReport/> : <LoginAlert />}   /> 
 
         {/* Teacher Page Routes */}
         <Route path='/teacher' element={savedAuth && savedAuth.role == 'teacher' ? <TeacherHomePage /> : <LoginAlert />} />
@@ -105,8 +112,7 @@ function App() {
         <Route path="/teacher/classroomsforHomework" element={savedAuth && savedAuth.role == 'teacher' ? <ViewClassrooms /> : <LoginAlert />} />
         <Route path="/teacher/classroom/:id/submitted-homeworks" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomSubmittedHomeworks /> : <LoginAlert />} />
         <Route path="/teacher/classrooms-low-attendance" element={<ClassroomsLowAttendance />} />
-        <Route path="/teacher/request-resource" element={savedAuth && savedAuth.role === 'teacher' ? <RequestResource /> : <LoginAlert />} />
-      
+
         {/* SignUp Page Routes */}
         <Route path='/signup/student' element={<AddStudent />} />
         <Route path='/signup/teacher' element={<AddTeacher />} />
