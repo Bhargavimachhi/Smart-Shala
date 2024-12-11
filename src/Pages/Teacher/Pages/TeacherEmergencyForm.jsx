@@ -30,12 +30,14 @@ function TeacherEmergencyForm() {
         e.preventDefault();
         try {
             await axios.post('http://localhost:3000/teacher/emergency', formData);
-            toast.success("Added succesfully")
+            toast.success("Added successfully");
             setFormData({ emergencyType: '', severity: '', location: '' });
+            // Notify the admin (if needed) by triggering a signal on the backend or using a WebSocket here
         } catch (error) {
             console.error(error);
         }
     };
+    
 
     return (
         <form onSubmit={handleSubmit} className="bg-white p-5 shadow-md ml-[25%] mt-[10%] rounded w-1/2">
