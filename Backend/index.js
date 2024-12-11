@@ -70,7 +70,9 @@ import LoginTeacher from "./Controller/loginTeacher.js";
 import loginStudent from "./Controller/loginStudent.js";
 import analyzeImageFromFile from "./Controller/homeworkAnalysis.js";
 import { getHomework } from "./Controller/homework.js";
-import { 
+import {createAlert} from './Controller/alertController.js'
+import { deleteAlert } from "./Controller/alertController.js";
+import { getAlerts } from "./Controller/alertController.js";import { 
   addFaceOfStudent, 
   recognizeFaceAndMarkPresent} from "./Controller/face.js";
 
@@ -160,3 +162,8 @@ app.post("/login/admin", adminLogin);
 app.post("/signup/student", addStudent);
 app.post("/signup/teacher", addTeacher);
 app.post("/signup/admin", addAdmin);
+
+//emergency routes
+app.post("/teacher/emergency" , createAlert)
+app.get("/emergency/admin",getAlerts)
+app.delete('/emergency/admin/:id', deleteAlert); 

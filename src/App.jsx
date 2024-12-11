@@ -17,7 +17,6 @@ import SubmitHomework from "./Pages/Student/StudentPages/SubmitHomework.jsx";
 import StudentNotification from "./Pages/Student/StudentPages/StudentNotification.jsx";
 import Issuessection from "./Pages/Admin/Pages/Issuessection.jsx";
 import PendingHomeWork from "./Pages/Student/Components/submitHWComponent/PendingHomeWork.jsx";
-import ClassroomAnalytics from './Pages/Admin/Pages/ClassroomAnalytics';
 
 import TeacherHomePage from './Pages/Teacher/Pages/TeacherHomePage';
 import TeacherSignUpForm from './Pages/Teacher/Pages/TeacherSignUpForm';
@@ -25,8 +24,6 @@ import TeacherProfilePage from './Pages/Teacher/Pages/TeacherProfilePage';
 import MarkTeacherAttendance from './Pages/Teacher/Pages/MarkTeacherAttendance'; 
 import GenerateTeacherIssue from './Pages/Teacher/Pages/GenerateTeacherIssue'; 
 import ClassroomStudents from './Pages/Teacher/Pages/ClassroomStudents';
-import ManualAttendancePage from './Pages/Teacher/Pages/ManualAttendancePage';
-import ClassroomAttendancePage from './Pages/Teacher/Pages/ClassroomAttendancePage';
 
 import AdminForm from "./Pages/Admin/Pages/AdminSignup.jsx";
 import AddHomeworkPage from './Pages/Teacher/Pages/AddHomeworkPage';
@@ -48,7 +45,8 @@ import FilePreview from "./components/HomeworkReport.jsx";
 import Createclassroom from "./Pages/Admin/Components/Createclassroom.jsx";
 import HomeWorkManage from "./Pages/Teacher/Pages/HomeWorkManage.jsx";
 import HwSubmission from "./Pages/Teacher/Pages/HwSubmission.jsx";
-import CommonSignup from "./Pages/InitialPages/CommonSignup.jsx";
+import TeacherEmergencyForm from "./Pages/Teacher/Pages/TeacherEmergencyForm.jsx";
+import AdminEmergencyAlert from "./Pages/Admin/Pages/AdminEmergencyAlert.jsx";
 import CheckAllAttendance from './Pages/Teacher/Pages/CheckAllAttendance';
 
 function App() {
@@ -71,7 +69,7 @@ function App() {
         <Route path="/admin/classrooms/:id" element={savedAuth && savedAuth.role == 'admin' ?<Classroom/>: <LoginAlert />} />
         <Route path="/admin/data-analytics" element={savedAuth && savedAuth.role == 'admin' ?<Dataanalyticspage />: <LoginAlert />} />
         <Route path='/admin/issues' element={savedAuth && savedAuth.role == 'admin' ?<Issuessection/>: <LoginAlert />} />
-        <Route path="/admin/classrooms/:classroomId/analytics" element={savedAuth && savedAuth.role == 'admin' ? <ClassroomAnalytics /> : <LoginAlert />} />
+
       
         {/* Student Page Routes  */}
         <Route path='/student' element={savedAuth && savedAuth.role == 'student' ? <StudentHomePage/> : <LoginAlert />}   /> 
@@ -94,12 +92,9 @@ function App() {
         <Route path="/teacher/classrooms" element={savedAuth && savedAuth.role == 'teacher' ? <TeachersClassroom/> : <LoginAlert />}/>
         <Route path='/teacher/generate-issue' element={savedAuth && savedAuth.role == 'teacher' ? <GenerateTeacherIssue /> : <LoginAlert />} />
         <Route path="/teacher/classrooms/:classroomId/students" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomStudents /> : <LoginAlert />} />
-        <Route path="/teacher/manual-attendance" element={savedAuth && savedAuth.role == 'teacher' ? <ManualAttendancePage /> : <LoginAlert />} />
-        <Route path="/teacher/classrooms/:classroomId/manual-attendance" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomAttendancePage /> : <LoginAlert />} />
-        <Route path="/teacher/check-all-attendance" element={<CheckAllAttendance />} />
+        <Route path="/teacher/check-all-attendance" element={savedAuth && savedAuth.role == 'teacher' ? <CheckAllAttendance /> : <LoginAlert />} />
                 
         {/* SignUp Page Routes */}
-        <Route path="/signup" element={<CommonSignup/>} />
         <Route path='/signup/student' element={<AddStudent/>} />
         <Route path='/signup/teacher' element={<AddTeacher/>} />
         <Route path="/signup/admin" element={<AdminForm />} />
@@ -112,6 +107,10 @@ function App() {
 
         
 
+{/* emergency alert routes */}
+
+<Route path="/teacher/emergency" element={<TeacherEmergencyForm/>} />
+<Route path="/admin/emergency" element={<AdminEmergencyAlert/>}/>
 
 
         <Route path="*" element={<PageNotFound />}/>
