@@ -10,6 +10,7 @@ const GenerateTeacherIssue = () => {
   const [classroomId, setClassroomId] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
   const [classrooms, setClassrooms] = useState([]);
+  const [loading, setLoading] = useState(true);
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
   const toggleSidebar = () => {
@@ -38,9 +39,14 @@ const GenerateTeacherIssue = () => {
     async function fetchClassrooms() {
       const res = await axios.get(`http://localhost:3000/teacher/${savedAuth.id}/classrooms`);
       setClassrooms(res.data.classrooms);
+      setLoading(false);
     }
     fetchClassrooms();
-  },[])
+  },[]);
+
+  if(loading) {
+    return <div className="text-center mt-8">Loading ...</div>;
+  }
 
   return (
     <div className="flex min-h-screen bg-gray-100">
