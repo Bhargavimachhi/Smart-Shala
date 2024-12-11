@@ -72,4 +72,4 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
   );
 };
 
-export default TeacherLeftSideNavBar;
+export default TeacherLeftSideNavBar
