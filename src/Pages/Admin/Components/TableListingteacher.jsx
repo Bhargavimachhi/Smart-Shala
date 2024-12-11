@@ -98,4 +98,4 @@ const TableListingteacher = ({ id }) => {
   );
 };
 
-export default TableListingteacher;
+export default TableListingteacher
