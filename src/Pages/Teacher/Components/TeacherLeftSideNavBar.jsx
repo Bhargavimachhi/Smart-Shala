@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import '../css/HoLeftNavBar.css';
 import { useAuth } from "../../../context/auth.jsx";
 
+
 const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
   const [auth, setAuth] = useAuth();
   const handleLogout = () => {

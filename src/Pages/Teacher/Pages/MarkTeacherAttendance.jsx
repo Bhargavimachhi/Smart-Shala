@@ -20,11 +20,11 @@ const MarkTeacherAttendance = () => {
   };
 
   const capturePhoto = () => {
-    const screenshot = webcamRef.current.getScreenshot();
+    const screenshot = webcamRef.current.getScreenshot({ format: 'jpeg' });
     setPhoto(screenshot);
   };
 
-  const handleManualAttendance = () => {
+  const handleManualAttendance = () => {``
     navigate('/teacher/manual-attendance');
   };
 
