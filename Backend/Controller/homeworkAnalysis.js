@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import createClient from '@azure-rest/ai-vision-image-analysis';
 import { AzureKeyCredential } from '@azure/core-auth';
-import { Homeworkanaylsisfunction } from '../ChatbotFunction.js';
+import { spellingAnaylsisfunction, grammerAnaylsisfunction, correctnessAnaylsisfunction } from '../ChatbotFunction.js';
 import fs from 'fs';
 import {PdfToImg} from 'pdftoimg-js';
 import axios from 'axios';
@@ -47,7 +47,11 @@ async function getcontentfromonepage(page,i){
         });
     });
 
-    const res = await Homeworkanaylsisfunction(fullText.trim());
+    const res = {
+      "grammer" : await grammerAnaylsisfunction(fullText.trim()),
+      "spelling" : await spellingAnaylsisfunction(fullText.trim()),
+      "correct" : await correctnessAnaylsisfunction(fullText.trim())
+    }
     return res;
   }
 }
