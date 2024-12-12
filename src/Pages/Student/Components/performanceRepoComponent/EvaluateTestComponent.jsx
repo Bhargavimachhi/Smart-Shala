@@ -40,17 +40,17 @@ const EvaluateTestComponent = () => {
         <input
           type="file"
           accept=".pdf, .doc, .docx"
-          className="mb-4 block content-center p-2 bg-blue-500"
+          className="mb-4 block content-center p-2 border-2"
           onChange={handleFileInput} 
         />
         <button
           onClick={handleSubmit}
-          className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+          className="px-4 py-2 bg-sky-700 text-white rounded-lg hover:bg-sky-700"
         >
           Submit
         </button>
       </div>
-      {message && <p className="mt-4 text-blue-600">{message}</p>}
+      {message && <p className="mt-4 text-sky-700">{message}</p>}
     </div>
     { url && <div className="block">
                 <EvaluationGSA url = {url}/>

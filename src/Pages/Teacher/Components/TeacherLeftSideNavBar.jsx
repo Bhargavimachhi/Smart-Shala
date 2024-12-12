@@ -5,8 +5,10 @@ import { IoLogOut } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 import '../css/HoLeftNavBar.css';
 import { useAuth } from "../../../context/auth.jsx";
-
-
+import { GoTools } from "react-icons/go";
+import { FaRunning } from "react-icons/fa";
+import { BsFileEarmarkCheckFill } from "react-icons/bs";
+import { MdPlaylistAddCheck } from "react-icons/md";
 const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
   const [auth, setAuth] = useAuth();
   const handleLogout = () => {
@@ -25,60 +27,80 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
     >
       <button
         onClick={toggleSidebar}
-        className="p-4 focus:outline-none text-xl textColor colorNavChange w-full"
+        className="p-4 focus:outline-none text-xl textColor w-full"
       >
-        {isExpanded ? <FaAngleLeft className="text-blue-600 colorNavChange" /> : <FaAngleRight className="text-blue-600 colorNavChange" />}
+        {isExpanded ? <FaAngleLeft className="                  " /> : <FaAngleRight className="                  e" />}
       </button>
 
       <ul className="mt-4">
-        <Link to="/teacher" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-          <FaHome className="text-xl textColor text-blue-600 colorNavChange" />
-          {isExpanded && <span className="ml-4 textColor">Home</span>}
+         <li className="bGcolor "> 
+         <Link to="/teacher" className="flex items-center p-4 rounded cursor-pointerr">
+             <FaHome className="text-xl textColor " />
+             {isExpanded && <span className="ml-4 textColor font-normal">Home</span> }
+          </Link>
+          </li>
+       
+         <li className="bGcolor ">
+         <Link to="/teacher/profile" className=" e flex items-center p-4 rounded cursor-pointer">
+          <FaUser className="text-xl textColor                  " />
+          {isExpanded && <span className="ml-4 textColor font-normal">Profile</span>}
         </Link>
-        <Link to="/teacher/profile" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-          <FaUser className="text-xl textColor text-blue-600 colorNavChange" />
-          {isExpanded && <span className="ml-4 textColor">Profile</span>}
+          </li>
+         <li className="bGcolor ">
+         <Link to="/teacher/classrooms" className="  flex items-center p-4 rounded cursor-pointer">
+          <FaChalkboardTeacher className="text-xl textColor               " />
+          {isExpanded && <span className="ml-4 textColor font-normal">My Classrooms</span>}
         </Link>
-        <Link to="/teacher/classrooms" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-          <FaChalkboardTeacher className="text-xl textColor text-blue-600 colorNavChange" />
-          {isExpanded && <span className="ml-4 textColor">My Classrooms</span>}
+          </li>
+         <li className="bGcolor ">
+         <Link to="/teacher/add-homework" className="  flex items-center p-4 rounded cursor-pointer">
+          <MdAssignment className="text-xl                 hover:                " />
+          {isExpanded && <span className="ml-4 textColor font-normal">Add Homework</span>}
         </Link>
-        <Link to="/teacher/add-homework" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-          <MdAssignment className="text-xl textColor text-blue-600 colorNavChange" />
-          {isExpanded && <span className="ml-4 textColor">Add Homework</span>}
+          </li>
+        <li className="bGcolor ">
+        <Link to="/teacher/classroomsforHomework" className="    flex items-center p-4 rounded cursor-pointer">
+          <MdPlaylistAddCheck  className="text-xl textColor                 " />
+          {isExpanded && <span className="ml-4 textColor font-normal">Check Homework</span>}
         </Link>
-        <Link to="/teacher/classroomsforHomework" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-          <FaCamera className="text-xl textColor text-blue-600 colorNavChange" />
-          {isExpanded && <span className="ml-4 textColor">Check Homework</span>}
-        </Link>
-        <Link to="/teacher/notifications" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-          <MdNotificationsActive className="text-xl textColor text-blue-600 colorNavChange" />
-          {isExpanded && <span className="ml-4 textColor">Notifications</span>}
-        </Link>
-        <Link to="/teacher/mark-attendance" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-          <FaCamera className="text-xl textColor text-blue-600 colorNavChange" />
+        </li> 
+       
+       <li className="bGcolor ">
+         <Link to="/teacher/mark-attendance" className="   flex items-center p-4 rounded cursor-pointer">
+          <BsFileEarmarkCheckFill className="text-xl textColor                   " />
           {isExpanded && <span className="ml-4 textColor">Mark Attendance</span>}
+         </Link>
+        </li> 
+        <li className="bGcolor ">
+         <Link to="/teacher/classrooms-low-attendance" className="   flex items-center p-4 rounded cursor-pointer">
+          <FaCamera className="text-xl textColor                 " />
+          {isExpanded && <span className="ml-4 textColor font-normal">Check Attendance</span>}
+         </Link>
+        </li>
+         <li className="bGcolor ">
+         <Link to="/teacher/generate-issue" className="   flex items-center p-4 rounded cursor-pointer">
+          <FaBook className="text-xl textColor                   " />
+          {isExpanded && <span className="ml-4 textColor font-normal">Generate Issue</span>}
         </Link>
-        <Link to="/teacher/classrooms-low-attendance" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-          <FaCamera className="text-xl textColor text-blue-600 colorNavChange" />
-          {isExpanded && <span className="ml-4 textColor">Check Attendance</span>}
+          </li>
+         <li className="bGcolor ">
+          <Link to="/teacher/emergency" className="   flex items-center p-4 rounded cursor-pointer">
+          <FaFire className="text-xl textColor text-sky-800   " />
+          {isExpanded && <span className="ml-4 textColor font-normal">Emergency Alert</span>}
         </Link>
-        <Link to="/teacher/generate-issue" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-          <FaBook className="text-xl textColor text-blue-600 colorNavChange" />
-          {isExpanded && <span className="ml-4 textColor">Generate Issue</span>}
-        </Link>
-        <Link to="/teacher/emergency" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-          <FaFire className="text-xl textColor text-red-600 colorNavChange" />
-          {isExpanded && <span className="ml-4 textColor">Emergency Alert</span>}
-        </Link>
-        <Link to="/teacher/request-resource" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-          <FaFire className="text-xl textColor text-red-600 colorNavChange" />
-          {isExpanded && <span className="ml-4 textColor">Request Resource</span>}
-        </Link>
-        <Link to="/login" className="colorNavChange flex items-center p-4 rounded cursor-pointer" onClick={handleLogout}>
-          <IoLogOut className="text-xl textColor text-blue-600 colorNavChange" />
+          </li>
+        <li className="bGcolor ">
+        <Link to="/teacher/request-resource" className="   flex items-center p-4 rounded cursor-pointer">
+          <GoTools className="text-xl textColor                   " />
+          {isExpanded && <span className="ml-4 textColor font-normal">Request Resource</span>}
+          </Link>
+          </li>
+        <li className="bGcolor ">
+         <Link to="/login" className="   flex items-center p-4 rounded cursor-pointer" onClick={handleLogout}>
+          <IoLogOut className="text-xl textColor                   " />
           {isExpanded && <span className="ml-4 textColor">LogOut</span>}
-        </Link>
+         </Link>
+        </li> 
       </ul>
     </div>
   );

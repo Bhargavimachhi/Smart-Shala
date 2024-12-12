@@ -2,12 +2,12 @@ import React from 'react';
 
 const PerfComMain = ({ activeTab, setActiveTab }) => {
   return (
-    <div className="p-4 rounded-lg shadow-md flex gap-4">
+    <div className="p-4 flex gap-4 border-b-2">
       <button
         onClick={() => setActiveTab('overall performance')}
         className={`cursor-pointer px-4 py-2 text-lg ${
           activeTab === 'overall performance'
-            ? 'text-blue-600 border-2 border-blue-600'
+            ? 'text-sky-800 border-b-2 border-sky-800'
             : 'text-gray-600'
         }`}
       >
@@ -17,7 +17,7 @@ const PerfComMain = ({ activeTab, setActiveTab }) => {
         onClick={() => setActiveTab('evaluate test')}
         className={`cursor-pointer px-4 py-2 text-lg ${
           activeTab === 'evaluate test'
-            ? 'text-blue-600 border-2 border-blue-600'
+            ? 'text-sky-800 border-b-2 border-sky-800'
             : 'text-gray-600'
         }`}
       >
@@ -27,7 +27,7 @@ const PerfComMain = ({ activeTab, setActiveTab }) => {
         onClick={() => setActiveTab('test results')}
         className={`cursor-pointer px-4 py-2 text-lg ${
           activeTab === 'test results'
-            ? 'text-blue-600 border-2 border-blue-600'
+            ? 'text-sky-800 border-b-2 border-sky-800'
             : 'text-gray-600'
         }`}
       >
