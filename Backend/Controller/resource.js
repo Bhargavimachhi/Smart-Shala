@@ -25,20 +25,21 @@ export const getResources = async (req, res) => {
         res.status(500).json({ message: "Internal server error", error: err });
     }
 };
+
 // Request a resource
 export const requestResource = async (req, res) => {
     const { teacherId, resourceId, quantity } = req.body;
 
     try {
         const resource = await Resource.findById(resourceId);
-        if (!resource || resource.quantity < quantity) {
+        if (!resource || resource.quantity < Number(quantity)) {
             return res.status(400).json({ message: "Resource not available or insufficient quantity" });
         }
-
+        
         const request = new ResourceRequest({
-            teacher: mongoose.Types.ObjectId(teacherId),
-            resource: mongoose.Types.ObjectId(resourceId),
-            quantity,
+            teacher: teacherId,
+            resource: resourceId,
+            quantity: Number(quantity),
         });
 
         await request.save();
@@ -52,7 +53,7 @@ export const requestResource = async (req, res) => {
 // Get all resource requests
 export const getResourceRequests = async (req, res) => {
     try {
-        const requests = await ResourceRequest.find({}).populate('teacher resource');
+        const requests = await ResourceRequest.find({}).populate(['teacher','resource']);
         res.status(200).json({ message: "Success", requests });
     } catch (err) {
         res.status(500).json({ message: "Internal server error", error: err });
