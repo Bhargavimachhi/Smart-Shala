@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import '../css/HoLeftNavBar.css';
 import { useAuth } from "../../../context/auth.jsx";
 
+
 const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
   const [auth, setAuth] = useAuth();
   const handleLogout = () => {
@@ -69,6 +70,10 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
         <Link to="/teacher/emergency" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
           <FaFire className="text-xl textColor text-red-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">Emergency Alert</span>}
+        </Link>
+        <Link to="/teacher/request-resource" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+          <FaFire className="text-xl textColor text-red-600 colorNavChange" />
+          {isExpanded && <span className="ml-4 textColor">Request Resource</span>}
         </Link>
         <Link to="/login" className="colorNavChange flex items-center p-4 rounded cursor-pointer" onClick={handleLogout}>
           <IoLogOut className="text-xl textColor text-blue-600 colorNavChange" />

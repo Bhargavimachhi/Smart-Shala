@@ -1,8 +1,35 @@
 // EvaluationGSA.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const EvaluationGSA = () => {
+const EvaluationGSA = (params) => {
   const [selectedTab, setSelectedTab] = useState('grammar mistakes');
+  const [grammerMistakes, setGrammerMistakes] = useState('');
+  const [spellingMistakes, setSpellingMistakes] = useState('');
+  const [answerCorrectness, setAnswerCorrectness] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchAnalysis() {
+      try{
+        const res = await axios.post(`http://localhost:3000/homework/analysis`, {url : params.url});
+        console.log(res.data);
+        setGrammerMistakes(res.data.answer[0].grammer);
+        setSpellingMistakes(res.data.answer[0].spelling);
+        setAnswerCorrectness(res.data.answer[0].correct);
+        setLoading(false);
+      } catch(err) {
+        console.log(err);
+      }
+      
+    }
+    fetchAnalysis();
+    
+  });
+
+  if(loading) {
+    return <div className="text-center mt-8">Generating Report ...</div>;
+  }
 
   return (
     <> 
@@ -48,17 +75,17 @@ const EvaluationGSA = () => {
       ">
         {selectedTab === 'grammar mistakes' && (
           <p className="text-gray-700 text-lg">
-            This section displays detailed information about grammar mistakes in the text.
+            {grammerMistakes}
           </p>
         )}
         {selectedTab === 'spelling mistakes' && (
           <p className="text-gray-700 text-lg">
-            This section highlights spelling mistakes and suggests corrections.
+            {spellingMistakes}
           </p>
         )}
         {selectedTab === 'answer evaluation' && (
           <p className="text-gray-700 text-lg">
-            This section evaluates the answers and provides feedback for improvement.
+            {answerCorrectness}
           </p>
         )}
       </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import AudioSiren from './SoundExport';
 
 function AdminEmergencyAlert() {
     const [alerts, setAlerts] = useState([]);
@@ -58,7 +59,7 @@ function AdminEmergencyAlert() {
             <h2 className="text-2xl font-bold mb-5">Emergency Notifications</h2>
 
             {/* Add the audio element */}
-            <audio ref={audioRef} src="./Siren1.mp3" preload="auto" />
+            <audio ref={audioRef} src={AudioSiren} preload="auto" />
 
             <div className="grid grid-cols-1 gap-4">
                 {alerts.map((alert) => (
