@@ -1,5 +1,5 @@
 import React from "react";
-import { FaAngleRight, FaAngleLeft, FaHome, FaBook, FaChalkboardTeacher, FaUser, FaCamera, FaRocketchat, FaFire } from "react-icons/fa";
+import { FaAngleRight, FaAngleLeft, FaHome, FaUser, FaChalkboardTeacher, FaClipboardList, FaCheckCircle, FaBell, FaExclamationTriangle, FaBookOpen, FaBoxOpen } from "react-icons/fa";
 import { MdAssignment, MdNotificationsActive } from "react-icons/md";
 import { IoLogOut } from "react-icons/io5";
 import { Link } from 'react-router-dom';
@@ -57,47 +57,36 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
           <MdAssignment className="text-xl                 hover:                " />
           {isExpanded && <span className="ml-4 textColor font-normal">Add Homework</span>}
         </Link>
-          </li>
-        <li className="bGcolor ">
-        <Link to="/teacher/classroomsforHomework" className="    flex items-center p-4 rounded cursor-pointer">
-          <MdPlaylistAddCheck  className="text-xl textColor                 " />
-          {isExpanded && <span className="ml-4 textColor font-normal">Check Homework</span>}
+        <Link to="/teacher/classroomsforHomework" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+          <FaClipboardList className="text-xl textColor text-blue-600 colorNavChange" />
+          {isExpanded && <span className="ml-4 textColor">Check Homework</span>}
         </Link>
-        </li> 
-       
-       <li className="bGcolor ">
-         <Link to="/teacher/mark-attendance" className="   flex items-center p-4 rounded cursor-pointer">
-          <BsFileEarmarkCheckFill className="text-xl textColor                   " />
+        <Link to="/teacher/notifications" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+          <MdNotificationsActive className="text-xl textColor text-blue-600 colorNavChange" />
+          {isExpanded && <span className="ml-4 textColor">Notifications</span>}
+        </Link>
+        <Link to="/teacher/mark-attendance" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+          <FaCheckCircle className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">Mark Attendance</span>}
-         </Link>
-        </li> 
-        <li className="bGcolor ">
-         <Link to="/teacher/classrooms-low-attendance" className="   flex items-center p-4 rounded cursor-pointer">
-          <FaCamera className="text-xl textColor                 " />
-          {isExpanded && <span className="ml-4 textColor font-normal">Check Attendance</span>}
-         </Link>
-        </li>
-         <li className="bGcolor ">
-         <Link to="/teacher/generate-issue" className="   flex items-center p-4 rounded cursor-pointer">
-          <FaBook className="text-xl textColor                   " />
-          {isExpanded && <span className="ml-4 textColor font-normal">Generate Issue</span>}
         </Link>
-          </li>
-         <li className="bGcolor ">
-          <Link to="/teacher/emergency" className="   flex items-center p-4 rounded cursor-pointer">
-          <FaFire className="text-xl textColor text-sky-800   " />
-          {isExpanded && <span className="ml-4 textColor font-normal">Emergency Alert</span>}
+        <Link to="/teacher/classrooms-low-attendance" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+          <FaBell className="text-xl textColor text-blue-600 colorNavChange" />
+          {isExpanded && <span className="ml-4 textColor">Check Attendance</span>}
         </Link>
-          </li>
-        <li className="bGcolor ">
-        <Link to="/teacher/request-resource" className="   flex items-center p-4 rounded cursor-pointer">
-          <GoTools className="text-xl textColor                   " />
-          {isExpanded && <span className="ml-4 textColor font-normal">Request Resource</span>}
-          </Link>
-          </li>
-        <li className="bGcolor ">
-         <Link to="/login" className="   flex items-center p-4 rounded cursor-pointer" onClick={handleLogout}>
-          <IoLogOut className="text-xl textColor                   " />
+        <Link to="/teacher/generate-issue" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+          <FaExclamationTriangle className="text-xl textColor text-blue-600 colorNavChange" />
+          {isExpanded && <span className="ml-4 textColor">Generate Issue</span>}
+        </Link>
+        <Link to="/teacher/emergency" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+          <FaExclamationTriangle className="text-xl textColor text-red-600 colorNavChange" />
+          {isExpanded && <span className="ml-4 textColor">Emergency Alert</span>}
+        </Link>
+        <Link to="/teacher/request-resource" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+          <FaBoxOpen className="text-xl textColor text-red-600 colorNavChange" />
+          {isExpanded && <span className="ml-4 textColor">Request Resource</span>}
+        </Link>
+        <Link to="/login" className="colorNavChange flex items-center p-4 rounded cursor-pointer" onClick={handleLogout}>
+          <IoLogOut className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">LogOut</span>}
          </Link>
         </li> 
@@ -106,4 +95,4 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
   );
 };
 
-export default TeacherLeftSideNavBar
+export default TeacherLeftSideNavBar;

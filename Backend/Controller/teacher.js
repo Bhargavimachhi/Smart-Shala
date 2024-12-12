@@ -230,3 +230,24 @@ export const getClassroomsAndLowAttendanceStudents = async (req, res) => {
 
     res.status(200).json({ message: "Data fetched successfully", classroomsData });
 };
+
+
+//-----------------------------------------------------------------------------------------
+export const sendSMSToLowAttendanceStudents = async (req, res) => {
+    const { students } = req.body;
+    // console.log(students);
+    const smsPromises = students.map(student => {
+        return axios.post('http://localhost:3000/send-sms', {
+            to: student, // Assuming student object has a phone property
+            body: `Dear ${student.name}, your attendance is below 75%. Please ensure to attend more classes.`,
+        });
+    });
+
+    try {
+        await Promise.all(smsPromises);
+        res.status(200).json({ message: "SMS sent successfully" });
+    } catch (error) {
+        console.error("Error sending SMS:", error.response ? error.response.data : error.message);
+        res.status(500).json({ message: "Error sending SMS", error: error.response ? error.response.data : error.message });
+    }
+};
