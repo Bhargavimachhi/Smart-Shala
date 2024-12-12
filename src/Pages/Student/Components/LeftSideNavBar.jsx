@@ -41,7 +41,7 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
     <ul className="mt-4"> 
       <li className="bGcolor ">
       <Link to="/student" className=" flex items-center p-4 rounded cursor-pointer">
-        <FaHome className="text-xl textColor " />
+        <FaHome className="text-xl text " />
         {isExpanded && <span className="ml-4 textColor font-normal">Home</span>}
       </Link> 
       </li> 

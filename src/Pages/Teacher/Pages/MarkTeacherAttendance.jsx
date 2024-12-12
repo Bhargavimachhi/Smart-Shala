@@ -36,7 +36,7 @@ const MarkTeacherAttendance = () => {
         {!hasPermission ? (
           <div className='flex flex-col items-center'>
             <button
-              className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
+              className="bg-sky-800-500 text-white py-2 px-4 rounded-lg hover:bg-sky-800-600 transition"
               onClick={requestCameraPermission}
             >
               Request Camera Permission
@@ -60,7 +60,7 @@ const MarkTeacherAttendance = () => {
               className="w-full max-w-md mb-4"
             />
             <button
-              className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
+              className="bg-sky-800-500 text-white py-2 px-4 rounded-lg hover:bg-sky-800-600 transition"
               onClick={capturePhoto}
             >
               Capture Photo

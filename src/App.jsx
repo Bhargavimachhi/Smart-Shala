@@ -79,7 +79,6 @@ function App() {
         <Route path="/admin/data-analytics" element={savedAuth && savedAuth.role == 'admin' ? <Dataanalyticspage /> : <LoginAlert />} />
         <Route path='/admin/issues' element={savedAuth && savedAuth.role == 'admin' ? <Issuessection /> : <LoginAlert />} />
         <Route path="/admin/classrooms/:classroomId/analytics" element={savedAuth && savedAuth.role == 'admin' ? <ClassroomAnalytics /> : <LoginAlert />} />
-
         {/* Student Page Routes  */}
         <Route path='/student' element={savedAuth && savedAuth.role == 'student' ? <StudentHomePage /> : <LoginAlert />} />
         <Route path='/student/submit-homework' element={savedAuth && savedAuth.role == 'student' ? <SubmitHomework /> : <LoginAlert />} />
@@ -97,7 +96,6 @@ function App() {
         <Route path='/teacher/add-homework' element={savedAuth && savedAuth.role == 'teacher' ? <HomeWorkManage /> : <LoginAlert />} />
         <Route path="/teacher/add-homework/form" element={savedAuth && savedAuth.role == 'teacher' ? <AddHomeworkPage /> : <LoginAlert />} />
         <Route path="/teacher/:id/homework/:hId/submissions" element={savedAuth && savedAuth.role == 'teacher' ? <HwSubmission /> : <LoginAlert />} />
-
         <Route path='/teacher/mark-attendance' element={savedAuth && savedAuth.role == 'teacher' ? <MarkTeacherAttendance /> : <LoginAlert />} />
         <Route path="/teacher/classrooms" element={savedAuth && savedAuth.role == 'teacher' ? <TeachersClassroom /> : <LoginAlert />} />
         <Route path='/teacher/generate-issue' element={savedAuth && savedAuth.role == 'teacher' ? <GenerateTeacherIssue /> : <LoginAlert />} />
@@ -130,7 +128,6 @@ function App() {
 
       </Routes>
       <Toaster />
-
     </>
   )
 }

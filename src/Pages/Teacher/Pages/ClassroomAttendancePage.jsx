@@ -40,7 +40,7 @@ const ClassroomAttendancePage = () => {
     <div className="flex min-h-screen bg-gray-100">
       <TeacherLeftSideNavBar isExpanded={isExpanded} toggleSidebar={toggleSidebar} />
       <div className={`flex-1 p-8 transition-all duration-300 ${isExpanded ? 'ml-64' : 'ml-16'}`}>
-        <button onClick={() => navigate(-1)} className="mb-4 p-2 bg-blue-500 text-white rounded">Back to Classrooms</button>
+        <button onClick={() => navigate(-1)} className="mb-4 p-2 bg-indigo-950 text-white rounded">Back to Classrooms</button>
         <div className="mb-6">
           <h2 className="text-lg font-semibold mb-4">Classroom Attendance</h2>
           <Grid container spacing={3}>
