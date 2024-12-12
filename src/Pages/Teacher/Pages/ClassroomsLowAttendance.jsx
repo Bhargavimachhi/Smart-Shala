@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import TeacherLeftSideNavBar from '../Components/TeacherLeftSideNavBar';
 
@@ -9,6 +9,7 @@ const ClassroomsLowAttendance = () => {
     const teacherId = savedAuth ? savedAuth.id : null;
     const [isExpanded, setIsExpanded] = useState(false);
     const [selectedStudents, setSelectedStudents] = useState({});
+    const audioRef = useRef(null); // Reference for audio element
 
     const toggleSidebar = () => {
         setIsExpanded(!isExpanded);
@@ -54,9 +55,26 @@ const ClassroomsLowAttendance = () => {
         try {
             const response = await axios.post(`http://localhost:3000/teacher/send-low-attendance-emails`, { students: studentsToSendEmails });
             setMessage(response.data.message);
+            playSound(); // Play sound on successful email sending
         } catch (error) {
             console.error("Error sending emails:", error);
             setMessage('Error sending emails');
+        }
+    };
+
+    // Function to play the sound
+    const playSound = () => {
+        if (audioRef.current) {
+            audioRef.current.currentTime = 0; // Reset audio to start
+            audioRef.current.play().catch((error) => {
+                console.error('Error playing sound:', error);
+            });
+
+            // Stop the audio after 5 seconds
+            setTimeout(() => {
+                audioRef.current.pause();
+                audioRef.current.currentTime = 0; // Reset audio
+            }, 5000); // Play sound for 5 seconds
         }
     };
 
@@ -99,6 +117,8 @@ const ClassroomsLowAttendance = () => {
                     Send Emails
                 </button>
             </div>
+            {/* Audio element to play the sound */}
+            <audio ref={audioRef} src="https://upload.wikimedia.org/wikipedia/commons/8/81/Alarm_or_siren.ogg" />
         </div>
     );
 };
