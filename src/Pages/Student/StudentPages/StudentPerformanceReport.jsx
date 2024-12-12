@@ -3,7 +3,6 @@ import LeftSideNavbar from '../Components/LeftSideNavBar';
 import PerfComMain from '../Components/performanceRepoComponent/PerfComMain';
 import EvaluateTestComponent from '../Components/performanceRepoComponent/EvaluateTestComponent';
 import RightSideBar from '../Components/performanceRepoComponent/RightSideBar';
-import EvaluationGSA from '../Components/performanceRepoComponent/EvaluationGSA';
 import axios from 'axios';
 import { useEffect } from 'react';
 
@@ -42,12 +41,6 @@ const StudentPerformanceReport = () => {
            
             <div className="mt-6">
               {activeTab === 'evaluate test' && <EvaluateTestComponent />}
-              
-              {activeTab === 'evaluate test' && (
-                <div className="block">
-                  <EvaluationGSA />
-                </div>
-              )}
 
               {activeTab === 'overall performance' && (
                 <h2 className="text-xl text-center">Overall Performance Section</h2>
