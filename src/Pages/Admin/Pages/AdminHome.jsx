@@ -15,6 +15,10 @@ import CardWithPopUp from "../Components/CardWithPopUp.jsx";
 
     const AdminHome = () => {
       const [alerts, setAlerts] = useState([]);
+      const PlaySound = ()=>{
+        const audio = new Audio("https://upload.wikimedia.org/wikipedia/commons/8/81/Alarm_or_siren.ogg");
+        audio.play()
+      }
 
       // Fetch alerts from the backend
       const fetchAlerts = async () => {
@@ -91,7 +95,7 @@ import CardWithPopUp from "../Components/CardWithPopUp.jsx";
                   </div>
                 </div>
 
-                <div id="middle-right" className="bg-black shadow-xl ">
+                <div onClick={PlaySound} id="middle-right" className="bg-black shadow-xl ">
                 <div className=" h-full overflow-hidden flex flex-col bg-gray-500 min-h-screen w-full p-6">
   <h2 className="text-3xl font-bold text-gray-800 mb-6">
     Emergency Notifications
@@ -127,10 +131,6 @@ import CardWithPopUp from "../Components/CardWithPopUp.jsx";
     ))}
   </div>
 </div>
-
-
-
-
 
                 </div>
               </div>
