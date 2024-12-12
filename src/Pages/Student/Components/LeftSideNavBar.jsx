@@ -41,7 +41,7 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
     <ul className="mt-4"> 
       <li className="bGcolor ">
       <Link to="/student" className=" flex items-center p-4 rounded cursor-pointer">
-        <FaHome className="text-xl text " />
+        <FaHome className="text-xl textColor " />
         {isExpanded && <span className="ml-4 textColor font-normal">Home</span>}
       </Link> 
       </li> 
@@ -67,12 +67,7 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
       </Link>
       </li>
      
-      <li className="bGcolor ">
-      <Link to="/student/notifications" className=" flex items-center p-4 rounded cursor-pointer">
-        <MdNotificationsActive className="text-xl textColor " />
-        {isExpanded && <span className="ml-4 textColor font-normal">Notifications</span>}
-      </Link> 
-      </li>
+     
       <li className="bGcolor ">
       <Link to="/student/doubts" className=" flex items-center p-4 rounded cursor-pointer">
       <FaRocketchat className="text-xl textColor " />

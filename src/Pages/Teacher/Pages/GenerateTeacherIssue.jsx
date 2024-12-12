@@ -91,7 +91,7 @@ const GenerateTeacherIssue = () => {
               }
             </select>
           </div>
-          <button type="submit" className="w-full bg-indigo-950 text-white p-2 rounded">Generate Issue</button>
+          <button type="submit" className="w-full bg-sky-800 text-white p-2 rounded">Generate Issue</button>
         </form>
       </div>
     </div>
