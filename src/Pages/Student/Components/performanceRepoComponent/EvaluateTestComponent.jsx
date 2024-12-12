@@ -35,7 +35,7 @@ const EvaluateTestComponent = () => {
   return (
     <>
     <div className="bg-white p-6 rounded-lg border-2 border-2">
-      <h2 className="text-2xl font-bold mb-4">Upload Test Paper</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center ">Upload Test Paper</h2>
       <div className="border-2 border-dashed bloc border-blue-500 p-8 rounded-lg justify-center justify-items-center">
         <input
           type="file"
