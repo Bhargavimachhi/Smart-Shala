@@ -95,17 +95,70 @@ import CardWithPopUp from "../Components/CardWithPopUp.jsx";
                   </div>
                 </div>
 
-                <div onClick={PlaySound} id="middle-right" className="bg-black shadow-xl ">
-                <div className=" h-full overflow-hidden flex flex-col bg-gray-500 min-h-screen w-full p-6">
-  <h2 className="text-3xl font-bold text-gray-800 mb-6">
+                <div id="middle-right" className="bg-black shadow-xl ">
+                <div className=" h-full overflow-hidden flex flex-col bg-white min-h-screen w-full p-6">
+  <h2 className="text-xl font-bold text-red-500 mb-6">
     Emergency Notifications
+<button type="button" className="bg-blue-300
+
+ text-gray-500 px-5 mt-5 border-none rounded-lg  py-1">Inform Parents </button>
   </h2>
-  <div className="grid grid-cols-1 gap-6">
+
+<div className="h-96 w-full mx-1 rounded p-2 flex flex-col items-center shadow-lg">
+ 
+  <div className=" bg-red-100 rounded-full w-20 h-20 mb-5">
+  <img onClick={PlaySound}  src="https://cdn-icons-png.flaticon.com/128/2014/2014825.png"></img>
+  </div>
+
+
+
+  {
+    alerts.map((alert)=>
+      (
+        <>
+        <div className="h-22rounded-md bg-white rounded  shadow-2xl border-blue-500    border sha flex justify-between w-full items-center mb-2">
+  
+  <div className="p-2 w-full h-full flex flex-col">
+  
+  <p className="text-sm   text-gray-600">
+            <strong className="font-medium text-gray-800">Type:</strong> {alert.emergencyType}
+          </p>
+          <p className="text-sm text-gray-600">
+            <strong className="font-medium text-gray-800">Severity:</strong> {alert.severity}
+          </p>
+          <p className="text-sm text-gray-600">
+            <strong className="font-medium text-gray-800">Location:</strong> {alert.location}
+          </p>
+          
+  
+  </div>
+  <div className="pr-1 w-5/4 flex items-center justify-center h-full">
+  <button
+          onClick={() => handleDelete(alert._id)}
+          className="bg-red-500 text-white text-sm font-medium px-2 py-1 rounded-lg shadow hover:bg-red-600 transition-colors duration-200"
+        >
+          Delete
+        </button>
+  </div>
+   </div>
+        </>
+      )
+      
+
+  )}
+</div>
+
+
+
+
+
+
+  {/* <div className="grid grid-cols-1 gap-6">
     {alerts.map((alert) => (
       <div
         key={alert._id}
-        className="p-5 bg-white shadow-lg rounded-lg flex justify-between items-center border border-gray-200"
-      >
+        className="p-5 shadow-lg rounded-lg flex justify-between items-center border border-gray-200"
+      >     
         <div className="space-y-2">
           <p className="text-sm text-gray-600">
             <strong className="font-medium text-gray-800">Type:</strong> {alert.emergencyType}
@@ -129,7 +182,7 @@ import CardWithPopUp from "../Components/CardWithPopUp.jsx";
         </button>
       </div>
     ))}
-  </div>
+  </div> */}
 </div>
 
                 </div>
