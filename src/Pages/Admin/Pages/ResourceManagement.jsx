@@ -70,7 +70,7 @@ const ResourceManagement = () => {
                             type="number"
                             placeholder="Quantity"
                             value={newResource.quantity}
-                            onChange={(e) => setNewResource({ ...newResource, quantity: e.target.value })}
+                            onChange={(e) => setNewResource({ ...newResource, quantity: Number(e.target.value) })}
                             className="w-full p-2 mb-4 border rounded"
                         />
                         <input
@@ -99,7 +99,8 @@ const ResourceManagement = () => {
                         <ul>
                             {requests.map(request => (
                                 <li key={request._id} className="mb-2">
-                                    {request.teacher.name} requested {request.quantity} of {request.resource.name}
+                                    {/* <h1>{request.teacher}</h1> */}
+                                    {request.teacher?.name || 'Unknown Teacher'} requested {request.quantity} of {request.resource?.name || 'Unknown Resource'}
                                     <button onClick={() => approveRequest(request._id)} className="ml-2 bg-green-500 text-white p-1 rounded">Approve</button>
                                 </li>
                             ))}

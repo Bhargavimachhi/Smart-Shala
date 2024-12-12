@@ -112,6 +112,7 @@ function App() {
         <Route path="/teacher/classroomsforHomework" element={savedAuth && savedAuth.role == 'teacher' ? <ViewClassrooms /> : <LoginAlert />} />
         <Route path="/teacher/classroom/:id/submitted-homeworks" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomSubmittedHomeworks /> : <LoginAlert />} />
         <Route path="/teacher/classrooms-low-attendance" element={<ClassroomsLowAttendance />} />
+        <Route path="/teacher/request-resource" element={<RequestResource />} />
 
         {/* SignUp Page Routes */}
         <Route path='/signup/student' element={<AddStudent />} />
