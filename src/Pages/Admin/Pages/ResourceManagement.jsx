@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SideNavbar from '../../../components/SideNavbar'; // Adjust the import path as needed
+import toast, { Toaster } from 'react-hot-toast';
 
 const ResourceManagement = () => {
     const [resources, setResources] = useState([]);
@@ -19,6 +20,7 @@ const ResourceManagement = () => {
             setResources(res.data.resources);
         } catch (error) {
             console.error('Error fetching resources:', error);
+            toast.error('Error fetching resources');
         }
     };
 
@@ -29,6 +31,7 @@ const ResourceManagement = () => {
             setRequests(res.data.requests);
         } catch (error) {
             console.error('Error fetching requests:', error);
+            toast.error('Error fetching requests');
         }
     };
 
@@ -37,8 +40,10 @@ const ResourceManagement = () => {
             await axios.post('http://localhost:3000/resource', newResource);
             fetchResources();
             setNewResource({ name: '', quantity: 0, description: '' });
+            toast.success('Resource added successfully');
         } catch (error) {
             console.error('Error adding resource:', error);
+            toast.error('Error adding resource');
         }
     };
 
@@ -47,8 +52,10 @@ const ResourceManagement = () => {
             await axios.post(`http://localhost:3000/resource-request/${id}/approve`);
             fetchRequests();
             fetchResources();
+            toast.success('Request approved successfully');
         } catch (error) {
             console.error('Error approving request:', error);
+            toast.error('Error approving request');
         }
     };
 
@@ -56,6 +63,7 @@ const ResourceManagement = () => {
         <div className="flex">
             <SideNavbar />
             <div className="flex-1 p-6">
+                <Toaster />
                 <h1 className="text-3xl font-bold mb-6">Resource Management</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div className="bg-white p-6 rounded-lg shadow-md">

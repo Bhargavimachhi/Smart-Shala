@@ -6,9 +6,14 @@ import mongoose from 'mongoose';
 // Add a new resource
 export const addResource = async (req, res) => {
     const { name, quantity, description } = req.body;
-    const resource = new Resource({ name, quantity, description });
 
     try {
+        const existingResource = await Resource.findOne({ name });
+        if (existingResource) {
+            return res.status(400).json({ message: "Resource with this name already exists" });
+        }
+
+        const resource = new Resource({ name, quantity, description });
         await resource.save();
         res.status(201).json({ message: "Resource added successfully", resource });
     } catch (err) {
