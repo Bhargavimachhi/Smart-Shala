@@ -20,6 +20,8 @@ import {
   getAllTeachers,
   deleteTeacher,
   getClassroomsOfTeacher,
+  getClassroomsOfTeacher2,
+  getStudentsOfClassroom2,
   getHomeworkAssignedByTeacher,
   checkAttendanceAndSendEmails,
   // sendEmailsToStudents,
@@ -123,6 +125,8 @@ app.post("/teacher/:teacherId/check-attendance", checkAttendanceAndSendEmails);
 // app.post("/teacher/:teacherId/send-emails", sendEmailsToStudents);
 app.get("/teacher/:teacherId/classrooms-low-attendance", getClassroomsAndLowAttendanceStudents);
 app.post("/teacher/send-low-attendance-emails", sendEmailsToLowAttendanceStudents);
+app.get("/teacher/:teacherId/manual-attendance", getClassroomsOfTeacher2);
+app.get("/teacher/:teacherId/classrooms/:classroomId/manual-attendance", getStudentsOfClassroom2);
 
 // student routes
 app.get("/student/:id", getStudent);

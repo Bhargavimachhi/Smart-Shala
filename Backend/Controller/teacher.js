@@ -89,6 +89,41 @@ export const getClassroomsOfTeacher = async (req, res) => {
     }
 }
 
+// Fetch all classrooms under the current teacher
+export const getClassroomsOfTeacher2 = async (req, res) => {
+    let id = req.params.teacherId;
+    let teacher = await Teacher.findById(id);
+
+    if (teacher == null) {
+        res.status(404).json({ "message": "Teacher does not exist" });
+    } else {
+        let classrooms = [];
+
+        for (let i = 0; i < teacher.classrooms.length; i++) {
+            let classroom = await Classroom.findById(teacher.classrooms[i]);
+            if (classroom) {
+                classrooms.push(classroom);
+            }
+        }
+        res.status(201).json({ message: "success", classrooms });
+    }
+}
+
+
+export const getStudentsOfClassroom2 = async (req, res) => {
+    const classroomId = req.params.classroomId;
+
+    try {
+        const classroom = await Classroom.findById(classroomId).populate('students');
+        if (!classroom) {
+            return res.status(404).json({ message: "Classroom does not exist" });
+        }
+        res.status(200).json({ students: classroom.students });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
 //get assigned homeworks of teacher
 export const getHomeworkAssignedByTeacher = async (req, res) => {
     const id = req.params.id;
