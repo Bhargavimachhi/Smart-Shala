@@ -33,7 +33,7 @@ const ClassroomAttendancePage = () => {
     const url = status === 'present' ? 
       `http://localhost:3000/student/${studentId}/attendance/present` : 
       `http://localhost:3000/student/${studentId}/attendance/absent`;
-    await axios.post(url);
+    await axios.get(url);
     alert(`Student marked ${status}`);
   };
 
