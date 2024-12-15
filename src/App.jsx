@@ -1,67 +1,74 @@
 import "./index.css";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import TeacherListingpage from './Pages/Admin/Pages/TeacherListing';
-import StudentListingpage from './Pages/Admin/Pages/StudentListing';
-import Dataanalyticspage from './Pages/Admin/Pages/Dataanalyticspage';
-import Teacherloginportal from './Teacherloginportal';
-import AdminLoginpage from './Pages/Admin/Pages/AdminLoginPage';
-
-import StudentHomePage from './Pages/Student/StudentPages/StudentHomePage.jsx';
-import AdminHome from './Pages/Admin/Pages/AdminHome';
-import AddStudent from "./Pages/Student/StudentPages/StudentSignUpForm.jsx";
-import AddTeacher from "./Pages/Teacher/Pages/TeacherSignUpForm.jsx";
 import { Toaster } from "react-hot-toast";
-import ClassroomListingpage from "./Pages/Admin/Pages/ClassroomListing.jsx";
-import Classroom from "./Pages/Admin/Pages/Classroom.jsx";
-import SubmitHomework from "./Pages/Student/StudentPages/SubmitHomework.jsx";
-import StudentNotification from "./Pages/Student/StudentPages/StudentNotification.jsx";
-import Issuessection from "./Pages/Admin/Pages/Issuessection.jsx";
-import PendingHomeWork from "./Pages/Student/Components/submitHWComponent/PendingHomeWork.jsx";
-
-import TeacherHomePage from './Pages/Teacher/Pages/TeacherHomePage';
-import TeacherSignUpForm from './Pages/Teacher/Pages/TeacherSignUpForm';
-import TeacherProfilePage from './Pages/Teacher/Pages/TeacherProfilePage';
-import MarkTeacherAttendance from './Pages/Teacher/Pages/MarkTeacherAttendance';
-import GenerateTeacherIssue from './Pages/Teacher/Pages/GenerateTeacherIssue';
-import ClassroomStudents from './Pages/Teacher/Pages/ClassroomStudents';
-
-import AdminForm from "./Pages/Admin/Pages/AdminSignup.jsx";
-import AddHomeworkPage from './Pages/Teacher/Pages/AddHomeworkPage';
-import StudentChatbot from "./Pages/Student/StudentPages/StudentChatbot.jsx";
-import TeachersClassroom from "./Pages/Teacher/Pages/TeachersClassroom.jsx";
-
-import StudentAttendancePage from "./Pages/Student/StudentPages/StudentAttendancePage.jsx";
-import Initial from "./Pages/InitialPages/Initial.jsx";
-import CommonLogin from "./Pages/InitialPages/CommonLogin.jsx";
-import TeacherLogin from "./Pages/InitialPages/TeacherLogin.jsx";
-import StudentLogin from "./Pages/InitialPages/StudentLogin.jsx";
 import { useEffect } from "react";
-import LoginAlert from "./components/LoginAlert.jsx";
-import PageNotFound from "./components/PageNotFound.jsx"
 
-import LandingPage from './Pages/InitialPages/LandingPage.jsx';
+//ADMIN PAGES
+import {
+  TeacherListingpage,
+  StudentListingpage,
+  Dataanalyticspage,
+  AdminLoginpage,
+  AdminHome,
+  ClassroomListingpage,
+  Classroom,
+  Issuessection,
+  AdminForm,
+  AdminEmergencyAlert,
+  ResourceManagement,
+  ClassroomAnalytics,
+  Createclassroom
+} from './Pages/Admin/Pages';
 
-import FilePreview from "./components/HomeworkReport.jsx";
-import Createclassroom from "./Pages/Admin/Components/Createclassroom.jsx";
-import HomeWorkManage from "./Pages/Teacher/Pages/HomeWorkManage.jsx";
-import HwSubmission from "./Pages/Teacher/Pages/HwSubmission.jsx";
-import TeacherEmergencyForm from "./Pages/Teacher/Pages/TeacherEmergencyForm.jsx";
-import AdminEmergencyAlert from "./Pages/Admin/Pages/AdminEmergencyAlert.jsx";
-import CheckAllAttendance from './Pages/Teacher/Pages/CheckAllAttendance';
-import ClassroomAnalytics from './Pages/Admin/Pages/ClassroomAnalytics';
+//STUDENT PAGES
+import {
+  StudentHomePage,
+  AddStudent,
+  SubmitHomework,
+  StudentNotification,
+  StudentChatbot,
+  StudentAttendancePage,
+  StudentPerformanceReport,
+  PendingList,
+  FilePreviewMain
+} from './Pages/Student/StudentPages';
 
-import ViewClassrooms from './Pages/Teacher/Pages/ViewClassrooms';
-import ClassroomSubmittedHomeworks from './Pages/Teacher/Pages/ClassroomSubmittedHomeworks';
-import ClassroomsLowAttendance from './Pages/Teacher/Pages/ClassroomsLowAttendance';
-import PendingList from "./Pages/Student/Components/submitHWComponent/PendingList.jsx"; 
-import StudentPerformanceReport from "./Pages/Student/StudentPages/StudentPerformanceReport.jsx";
-import FilePreviewComponenent from "./Pages/Student/Components/performanceRepoComponent/FilePreviewComponent.jsx";
-import FilePreviewMain from "./Pages/Student/Components/performanceRepoComponent/FilePreviewMain.jsx";
-import ManualAttendancePage from "./Pages/Teacher/Pages/ManualAttendancePage.jsx";
-import ClassroomAttendancePage from "./Pages/Teacher/Pages/ClassroomAttendancePage.jsx";
+//TEACHER PAGES
+import {
+  TeacherHomePage,
+  TeacherSignUpForm,
+  TeacherProfilePage,
+  MarkTeacherAttendance,
+  GenerateTeacherIssue,
+  ClassroomStudents,
+  AddHomeworkPage,
+  HomeWorkManage,
+  HwSubmission,
+  CheckAllAttendance,
+  ViewClassrooms,
+  ClassroomSubmittedHomeworks,
+  ClassroomsLowAttendance,
+  ManualAttendancePage,
+  ClassroomAttendancePage,
+  RequestResource,
+  TeacherEmergencyForm
+} from './Pages/Teacher/Pages';
 
-import ResourceManagement from './Pages/Admin/Pages/ResourceManagement';
-import RequestResource from './Pages/Teacher/Pages/RequestResource';
+//INITIAL PAGES
+import {
+  Initial,
+  CommonLogin,
+  TeacherLogin,
+  StudentLogin,
+  LandingPage
+} from './Pages/InitialPages';
+
+//OTHER COMPONENTS
+import {
+  LoginAlert,
+  PageNotFound,
+  FilePreview
+} from './components';
 
 function App() {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -69,7 +76,6 @@ function App() {
   // Routers page
   return (
     <>
-
       <Routes>
         {/* Landing Page Route */}
         <Route path="/" element={<LandingPage />} />
@@ -85,7 +91,7 @@ function App() {
         <Route path='/admin/issues' element={savedAuth && savedAuth.role == 'admin' ? <Issuessection /> : <LoginAlert />} />
         <Route path="/admin/classrooms/:classroomId/analytics" element={savedAuth && savedAuth.role == 'admin' ? <ClassroomAnalytics /> : <LoginAlert />} />
         <Route path="/admin/resources" element={savedAuth && savedAuth.role === 'admin' ? <ResourceManagement /> : <LoginAlert />} />
-      
+
         {/* Student Page Routes  */}
         <Route path='/student' element={savedAuth && savedAuth.role == 'student' ? <StudentHomePage /> : <LoginAlert />} />
         <Route path='/student/submit-homework' element={savedAuth && savedAuth.role == 'student' ? <SubmitHomework /> : <LoginAlert />} />
@@ -93,8 +99,8 @@ function App() {
         <Route path='/student/doubts' element={savedAuth && savedAuth.role == 'student' ? <StudentChatbot /> : <LoginAlert />} />
         <Route path='/student/:id/pending-homework' element={savedAuth && savedAuth.role == 'student' ? <PendingList /> : <LoginAlert />} />
         <Route path='/student/attendance' element={savedAuth && savedAuth.role == 'student' ? <StudentAttendancePage /> : <LoginAlert />} />
-        <Route path="/student/homework/:id/preview" element={savedAuth && savedAuth.role == 'student' ? <FilePreviewMain/> : <LoginAlert />} />
-        <Route path='/student/performance' element={savedAuth && savedAuth.role == 'student' ? <StudentPerformanceReport/> : <LoginAlert />}   /> 
+        <Route path="/student/homework/:id/preview" element={savedAuth && savedAuth.role == 'student' ? <FilePreviewMain /> : <LoginAlert />} />
+        <Route path='/student/performance' element={savedAuth && savedAuth.role == 'student' ? <StudentPerformanceReport /> : <LoginAlert />} />
 
         {/* Teacher Page Routes */}
         <Route path='/teacher' element={savedAuth && savedAuth.role == 'teacher' ? <TeacherHomePage /> : <LoginAlert />} />
@@ -126,20 +132,15 @@ function App() {
         <Route path="/login/teacher" element={<TeacherLogin />} />
         <Route path="/login/student" element={<StudentLogin />} />
 
-
-
         {/* emergency alert routes */}
-
         <Route path="/teacher/emergency" element={<TeacherEmergencyForm />} />
         <Route path="/admin/emergency" element={<AdminEmergencyAlert />} />
 
-
         <Route path="*" element={<PageNotFound />} />
-
       </Routes>
       <Toaster />
     </>
   )
 }
 
-export default App
+export default App;

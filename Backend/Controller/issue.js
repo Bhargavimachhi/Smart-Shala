@@ -10,11 +10,7 @@ export const generateIssue = async(req, res) => {
         return;
     }
 
-    let issue = new Issue({
-        description : req.body.description,
-        severity : req.body.severity,
-        classroom : classroom._id
-    });
+    let issue = new Issue(req.body);
 
     classroom.issues.push(issue._id);
 
