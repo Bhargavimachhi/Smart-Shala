@@ -1,8 +1,11 @@
 import express from "express";
-const app = express();
-const PORT = 3000;
 import twilio from 'twilio';
 import nodemailer from 'nodemailer';
+import mongoose from "mongoose";
+import cors from "cors";
+
+const app = express();
+const PORT = 3000;
 
 // Twilio credentials
 const accountSid = 'AC251fd490ae65ab13ffc34b4e68a82dfe'; // Replace with your Twilio SID
@@ -10,7 +13,7 @@ const authToken = '3285c20633da693813a73bc6872d2abe';     // Replace with your T
 const messagingServiceSid = 'MG54ac2806b8f292653839aee69c108a21'; // Replace with your Twilio Messaging Service SID
 const client = twilio(accountSid, authToken);
 
-
+//STUDENT ROUTES
 import {
   addStudent,
   getStudent,
@@ -23,6 +26,9 @@ import {
   submitHomeWorkOfStudent,
   getPresentDaysAttendance,
 } from "./Controller/student.js";
+
+
+//TEACHER ROUTES
 import {
   addTeacher,
   getTeacher,
@@ -33,13 +39,13 @@ import {
   getStudentsOfClassroom2,
   getHomeworkAssignedByTeacher,
   checkAttendanceAndSendEmails,
-  // sendEmailsToStudents,
   getClassroomsAndLowAttendanceStudents,
   sendEmailsToLowAttendanceStudents,
   sendSMSToLowAttendanceStudents,
 } from "./Controller/teacher.js";
-import mongoose from "mongoose";
-import cors from "cors";
+
+
+//CLASSROOM ROUTES
 import {
   getAllClassrooms,
   getClassroom,
@@ -56,6 +62,9 @@ import {
   getTopPerformersOfClassroom,
   getSubmittedHomeworksOfClassroom
 } from "./Controller/classroom.js";
+
+
+//ADMIN ROUTES
 import {
   addAdmin,
   addClassroomToAdmin,
@@ -69,7 +78,11 @@ import {
   deleteClassroomOfAdmin,
   getAdmin,
   getAttendanceOfClassroomsOfAdmin,
+  adminLogin
 } from "./Controller/admin.js";
+
+
+//ISSUE ROUTES
 import {
   generateIssue,
   deleteIssue,
@@ -77,27 +90,23 @@ import {
   getIssue,
   markIssueAsNotResolved,
 } from "./Controller/issue.js";
+
+//OTHER ROUTES
 import { getAnswer } from "./Controller/Chatbot.js";
 import { addResource, getResources, requestResource, approveResourceRequest, getResourceRequests } from "./Controller/resource.js";
-
-// import  {requireSignIn}  from './middleware/requireSignIn.js';
-import { adminLogin } from "./Controller/admin.js";
 import LoginTeacher from "./Controller/loginTeacher.js";
 import loginStudent from "./Controller/loginStudent.js";
 import analyzeImageFromFile from "./Controller/homeworkAnalysis.js";
 import { getHomework } from "./Controller/homework.js";
-import { createAlert } from './Controller/alertController.js'
-import { deleteAlert } from "./Controller/alertController.js";
-import { getAlerts } from "./Controller/alertController.js";
+import { createAlert, deleteAlert, getAlerts } from './Controller/alertController.js';
 import {
   addFaceOfStudent,
   recognizeFaceAndMarkPresent
 } from "./Controller/face.js";
 
+
 app.use(express.json());
-
 app.use(cors());
-
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
@@ -133,7 +142,6 @@ app.post("/teacher/:id/assign-homework", assignHomeworkToClassroom);
 app.get("/teacher/:id/delete", deleteTeacher);
 app.get("/teacher/:id/homeworks", getHomeworkAssignedByTeacher);
 app.post("/teacher/:teacherId/check-attendance", checkAttendanceAndSendEmails);
-// app.post("/teacher/:teacherId/send-emails", sendEmailsToStudents);
 app.get("/teacher/:teacherId/classrooms-low-attendance", getClassroomsAndLowAttendanceStudents);
 app.post("/teacher/send-low-attendance-emails", sendEmailsToLowAttendanceStudents);
 app.get("/teacher/:teacherId/manual-attendance", getClassroomsOfTeacher2);
@@ -188,10 +196,9 @@ app.post("/signup/teacher", addTeacher);
 app.post("/signup/admin", addAdmin);
 
 //emergency routes
-app.post("/teacher/emergency", createAlert)
-app.get("/emergency/admin", getAlerts)
+app.post("/teacher/emergency", createAlert);
+app.get("/emergency/admin", getAlerts);
 app.delete('/emergency/admin/:id', deleteAlert);
-
 
 // Resource routes
 app.post("/resource", addResource);
@@ -200,7 +207,6 @@ app.post("/request-resource", requestResource);
 app.get("/resource-requests", getResourceRequests);
 app.post("/resource-request/:id/approve", approveResourceRequest);
 
-//---------------------------------------------------------------------------------
 // Route to send SMS
 app.post('/send-sms', async (req, res) => {
   const { to, body } = req.body;
@@ -222,8 +228,8 @@ app.post('/send-sms', async (req, res) => {
     res.status(500).send({ success: false, error: error.message });
   }
 });
-//--------------------------------------------------------------------------------------
-//route to send email
+
+// Route to send email
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   port: 465,
@@ -270,24 +276,12 @@ app.get("/mail", async (req, res) => {
     text: "Hello world?", // plain text body
     html: "<b>Hello world?</b>", // html body
   }
-  // const info = await transporter.sendMail({
-  //   from: 'siddharthakk3704@gmail.com', // sender address
-  //   to: "abhaysc7778@gmail.com", // list of receivers
-  //   subject: "Hello ✔", // Subject line
-  //   text: "Hello world?", // plain text body
-  //   html: "<b>Hello world?</b>", // html body
-  // });
   transporter.sendMail(mailInfo, (error, info) => {
     if (error) {
       console.log(error);
-
-    }
-    else {
+    } else {
       console.log("email sent ", info.response);
-
     }
   })
   res.send("im ready")
-})
-
-
+});
