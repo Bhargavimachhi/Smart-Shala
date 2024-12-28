@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import TeacherLeftSideNavBar from '../Components/TeacherLeftSideNavBar';
-import TeacherProfile from '../Components/TeacherProfile';
+import TeacherProfile from '../Components/ProfilePageComponents/TeacherProfile';
 import axios from 'axios';
 
 const TeacherProfilePage = () => {

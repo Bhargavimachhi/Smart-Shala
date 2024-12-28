@@ -1,8 +1,6 @@
 import SideNavbar from "../../../components/SideNavbar";
 import { useState,useEffect } from "react";
 import axios from "axios";
-import Teacherprofile from "../Components/Teacherprofile";
-import { SavedSearch } from "@mui/icons-material";
 import {
   Card,
   CardContent,

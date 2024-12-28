@@ -1,17 +1,12 @@
-import NoticeBoard from "../Components/NoticeBoard.jsx";
-    import TopPerformer from "../Components/TopPerformer.jsx";
+import NoticeBoard from "../Components/HomePageComponents/NoticeBoard.jsx";
+    import TopPerformer from "../Components/HomePageComponents/TopPerformer.jsx";
 
-    import UpperNavbar from "../Components/UpperNavbar.jsx";
     import SideNavbar from "../../../components/SideNavbar.jsx";
-    import DataCard from "../Components/DataCard.jsx";
-    import AttendanceGraph from "../Components/AttendanceGraph.jsx";
-    import "./AdminHome.css";
-    import { useAuth } from "../../../context/auth.jsx";
+    import DataCard from "../Components/HomePageComponents/DataCard.jsx";
+    import "../css/AdminHome.css";
     import { useEffect, useState } from "react";
-    import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
-import CardWithPopUp from "../Components/CardWithPopUp.jsx";
 import { useGlobalContext } from '../../../context/GlobalProvider.jsx';
 
 

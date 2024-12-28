@@ -1,9 +1,8 @@
 import "./index.css";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import TeacherListingpage from './Pages/Admin/Pages/TeacherListing';
 import StudentListingpage from './Pages/Admin/Pages/StudentListing';
 import Dataanalyticspage from './Pages/Admin/Pages/Dataanalyticspage';
-import Teacherloginportal from './Teacherloginportal';
 import AdminLoginpage from './Pages/Admin/Pages/AdminLoginPage';
 
 import StudentHomePage from './Pages/Student/StudentPages/StudentHomePage.jsx';
@@ -12,11 +11,10 @@ import AddStudent from "./Pages/Student/StudentPages/StudentSignUpForm.jsx";
 import AddTeacher from "./Pages/Teacher/Pages/TeacherSignUpForm.jsx";
 import { Toaster } from "react-hot-toast";
 import ClassroomListingpage from "./Pages/Admin/Pages/ClassroomListing.jsx";
-import Classroom from "./Pages/Admin/Pages/Classroom.jsx";
+import Classroom from "./Pages/Admin/Components/ClassroomsListingPageComponents/Classroom.jsx";
 import SubmitHomework from "./Pages/Student/StudentPages/SubmitHomework.jsx";
 import StudentNotification from "./Pages/Student/StudentPages/StudentNotification.jsx";
 import Issuessection from "./Pages/Admin/Pages/Issuessection.jsx";
-import PendingHomeWork from "./Pages/Student/Components/submitHWComponent/PendingHomeWork.jsx";
 
 import TeacherHomePage from './Pages/Teacher/Pages/TeacherHomePage';
 import TeacherSignUpForm from './Pages/Teacher/Pages/TeacherSignUpForm';
@@ -26,36 +24,31 @@ import GenerateTeacherIssue from './Pages/Teacher/Pages/GenerateTeacherIssue';
 import ClassroomStudents from './Pages/Teacher/Pages/ClassroomStudents';
 
 import AdminForm from "./Pages/Admin/Pages/AdminSignup.jsx";
-import AddHomeworkPage from './Pages/Teacher/Pages/AddHomeworkPage';
+import AddHomeworkPage from './Pages/Teacher/Components/HomeworkComponents/AddHomeworkPage.jsx';
 import StudentChatbot from "./Pages/Student/StudentPages/StudentChatbot.jsx";
 import TeachersClassroom from "./Pages/Teacher/Pages/TeachersClassroom.jsx";
 
 import StudentAttendancePage from "./Pages/Student/StudentPages/StudentAttendancePage.jsx";
-import Initial from "./Pages/InitialPages/Initial.jsx";
 import CommonLogin from "./Pages/InitialPages/CommonLogin.jsx";
 import TeacherLogin from "./Pages/InitialPages/TeacherLogin.jsx";
 import StudentLogin from "./Pages/InitialPages/StudentLogin.jsx";
-import { useEffect } from "react";
 import LoginAlert from "./components/LoginAlert.jsx";
 import PageNotFound from "./components/PageNotFound.jsx"
 
 import LandingPage from './Pages/InitialPages/LandingPage.jsx';
 
-import FilePreview from "./components/HomeworkReport.jsx";
-import Createclassroom from "./Pages/Admin/Components/Createclassroom.jsx";
+import Createclassroom from "./Pages/Admin/Components/ClassroomsListingPageComponents/Createclassroom.jsx";
 import HomeWorkManage from "./Pages/Teacher/Pages/HomeWorkManage.jsx";
 import HwSubmission from "./Pages/Teacher/Pages/HwSubmission.jsx";
 import TeacherEmergencyForm from "./Pages/Teacher/Pages/TeacherEmergencyForm.jsx";
-import AdminEmergencyAlert from "./Pages/Admin/Pages/AdminEmergencyAlert.jsx";
 import CheckAllAttendance from './Pages/Teacher/Pages/CheckAllAttendance';
-import ClassroomAnalytics from './Pages/Admin/Pages/ClassroomAnalytics';
+import ClassroomAnalytics from './Pages/Admin/Components/DataAnalyticsPageComponents/ClassroomAnalytics.jsx';
 
 import ViewClassrooms from './Pages/Teacher/Pages/ViewClassrooms';
 import ClassroomSubmittedHomeworks from './Pages/Teacher/Pages/ClassroomSubmittedHomeworks';
 import ClassroomsLowAttendance from './Pages/Teacher/Pages/ClassroomsLowAttendance';
 import PendingList from "./Pages/Student/Components/submitHWComponent/PendingList.jsx"; 
 import StudentPerformanceReport from "./Pages/Student/StudentPages/StudentPerformanceReport.jsx";
-import FilePreviewComponenent from "./Pages/Student/Components/performanceRepoComponent/FilePreviewComponent.jsx";
 import FilePreviewMain from "./Pages/Student/Components/performanceRepoComponent/FilePreviewMain.jsx";
 import ManualAttendancePage from "./Pages/Teacher/Pages/ManualAttendancePage.jsx";
 import ClassroomAttendancePage from "./Pages/Teacher/Pages/ClassroomAttendancePage.jsx";
@@ -131,7 +124,6 @@ function App() {
         {/* emergency alert routes */}
 
         <Route path="/teacher/emergency" element={<TeacherEmergencyForm />} />
-        <Route path="/admin/emergency" element={<AdminEmergencyAlert />} />
 
 
         <Route path="*" element={<PageNotFound />} />

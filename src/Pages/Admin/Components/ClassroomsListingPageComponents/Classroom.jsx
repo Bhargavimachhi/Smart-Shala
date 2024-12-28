@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import SideNavbar from "../../../components/SideNavbar";
+import SideNavbar from "../../../../components/SideNavbar";
 import {
   Box,
   Typography,
@@ -19,10 +19,10 @@ import {
 } from "@mui/material";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import TableListingstudent from "../Components/TableListingstudent";
-import TableListingteacher from "../Components/TableListingteacher";
-import Addstudenttoclassroom from "../Components/Addstudenttoclassroom";
-import Addteachertoclassroom from "../Components/Addteachertoclassroom";
+import TableListingstudent from "../StudentsListingPageComponents/TableListingstudent";
+import TableListingteacher from "../TeachersListingPageComponents/TableListingteacher";
+import Addstudenttoclassroom from "../StudentsListingPageComponents/Addstudenttoclassroom";
+import Addteachertoclassroom from "../TeachersListingPageComponents/Addteachertoclassroom";
 import toast from "react-hot-toast";
 
 const Classroom = () => {

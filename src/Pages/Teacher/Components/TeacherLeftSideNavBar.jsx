@@ -57,39 +57,55 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
           <MdAssignment className="text-xl                 hover:                " />
           {isExpanded && <span className="ml-4 textColor font-normal">Add Homework</span>}
         </Link>
-        <Link to="/teacher/classroomsforHomework" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+        </li>
+        <li className="bGcolor">
+          <Link to="/teacher/classroomsforHomework" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
           <FaClipboardList className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">Check Homework</span>}
         </Link>
-        <Link to="/teacher/notifications" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+        </li>
+        <li className="bGcolor">
+          <Link to="/teacher/notifications" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
           <MdNotificationsActive className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">Notifications</span>}
         </Link>
-        <Link to="/teacher/mark-attendance" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+        </li>
+        <li className="bGcolor">
+          <Link to="/teacher/mark-attendance" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
           <FaCheckCircle className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">Mark Attendance</span>}
         </Link>
-        <Link to="/teacher/classrooms-low-attendance" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+        </li>
+        <li className="bGcolor">
+          <Link to="/teacher/classrooms-low-attendance" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
           <FaBell className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">Check Attendance</span>}
         </Link>
-        <Link to="/teacher/generate-issue" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+        </li>
+        <li className="bGcolor">
+          <Link to="/teacher/generate-issue" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
           <FaExclamationTriangle className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">Generate Issue</span>}
         </Link>
-        <Link to="/teacher/emergency" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+        </li>
+        <li className="bGcolor">
+            <Link to="/teacher/emergency" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
           <FaExclamationTriangle className="text-xl textColor text-red-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">Emergency Alert</span>}
         </Link>
-        <Link to="/teacher/request-resource" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+        </li>   
+        <li className="bGcolor">
+          <Link to="/teacher/request-resource" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
           <FaBoxOpen className="text-xl textColor text-red-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">Request Resource</span>}
         </Link>
-        <Link to="/login" className="colorNavChange flex items-center p-4 rounded cursor-pointer" onClick={handleLogout}>
+        </li>
+        <li className="bGcolor">
+          <Link to="/login" className="colorNavChange flex items-center p-4 rounded cursor-pointer" onClick={handleLogout}>
           <IoLogOut className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">LogOut</span>}
          </Link>
-        </li> 
+        </li>
       </ul>
     </div>
   );

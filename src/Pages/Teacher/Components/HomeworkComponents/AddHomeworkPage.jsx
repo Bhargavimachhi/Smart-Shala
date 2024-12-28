@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import TeacherLeftSideNavBar from '../Components/TeacherLeftSideNavBar';
+import TeacherLeftSideNavBar from '../TeacherLeftSideNavBar';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { getStorage, ref,uploadBytes,getDownloadURL } from "firebase/storage";
-import { storage } from "../../../../firebase";
+import { storage } from "../../../../../firebase";
 
 const AddHomeworkPage = () => {
   const [isExpanded, setIsExpanded] = useState(false);

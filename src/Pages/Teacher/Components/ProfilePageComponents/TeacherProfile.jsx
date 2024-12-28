@@ -1,6 +1,6 @@
 import React from 'react';
 import { DialogContent, Typography, List, ListItem, ListItemText } from '@mui/material';
-import '../css/style.css'
+import '../../css/style.css'
 
 const TeacherProfile = ({ teacher }) => {
   return (

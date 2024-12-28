@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import SideNavbar from '../../../components/SideNavbar';
+import SideNavbar from '../../../../components/SideNavbar';
 import { Card, CardContent, Typography, Grid } from '@mui/material';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];

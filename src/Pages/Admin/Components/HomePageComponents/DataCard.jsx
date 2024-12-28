@@ -1,5 +1,5 @@
-import { TeacherIcon } from "../Icons/NavIcon";
-import { StudentIcon } from "../Icons/NavIcon";
+import { TeacherIcon } from "../../Icons/NavIcon";
+import { StudentIcon } from "../../Icons/NavIcon";
 import { useState, useEffect } from "react";
 import axios from "axios";
 const DataCard = () => {
