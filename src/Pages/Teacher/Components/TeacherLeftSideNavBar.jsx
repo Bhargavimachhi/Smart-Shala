@@ -39,13 +39,6 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
              {isExpanded && <span className="ml-4 textColor font-normal">Home</span> }
           </Link>
           </li>
-       
-         <li className="bGcolor ">
-         <Link to="/teacher/profile" className=" e flex items-center p-4 rounded cursor-pointer">
-          <FaUser className="text-xl textColor   text-blue-600               " />
-          {isExpanded && <span className="ml-4 textColor font-normal">Profile</span>}
-        </Link>
-          </li>
          <li className="bGcolor ">
          <Link to="/teacher/classrooms" className="  flex items-center p-4 rounded cursor-pointer">
           <FaChalkboardTeacher className="text-xl textColor   text-blue-600            " />

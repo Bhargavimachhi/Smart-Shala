@@ -38,7 +38,6 @@ import PageNotFound from "./components/PageNotFound.jsx"
 import LandingPage from './Pages/InitialPages/LandingPage.jsx';
 
 import Createclassroom from "./Pages/Admin/Components/ClassroomsListingPageComponents/Createclassroom.jsx";
-import HomeWorkManage from "./Pages/Teacher/Pages/HomeWorkManage.jsx";
 import HwSubmission from "./Pages/Teacher/Pages/HwSubmission.jsx";
 import TeacherEmergencyForm from "./Pages/Teacher/Pages/TeacherEmergencyForm.jsx";
 import CheckAllAttendance from './Pages/Teacher/Pages/CheckAllAttendance';
@@ -92,7 +91,6 @@ function App() {
         {/* Teacher Page Routes */}
         <Route path='/teacher' element={savedAuth && savedAuth.role == 'teacher' ? <TeacherHomePage /> : <LoginAlert />} />
         <Route path='/teacher/signup' element={savedAuth && savedAuth.role == 'teacher' ? <TeacherSignUpForm /> : <LoginAlert />} />
-        <Route path='/teacher/profile' element={savedAuth && savedAuth.role == 'teacher' ? <TeacherProfilePage /> : <LoginAlert />} />
         <Route path="/teacher/add-homework/form" element={savedAuth && savedAuth.role == 'teacher' ? <AddHomeworkPage /> : <LoginAlert />} />
         <Route path="/teacher/:id/homework/:hId/submissions" element={savedAuth && savedAuth.role == 'teacher' ? <HwSubmission /> : <LoginAlert />} />
         <Route path='/teacher/mark-attendance' element={savedAuth && savedAuth.role == 'teacher' ? <MarkTeacherAttendance /> : <LoginAlert />} />
@@ -102,10 +100,10 @@ function App() {
         <Route path="/teacher/check-all-attendance" element={savedAuth && savedAuth.role == 'teacher' ? <CheckAllAttendance /> : <LoginAlert />} />
         <Route path="/teacher/classroomsforHomework" element={savedAuth && savedAuth.role == 'teacher' ? <ViewClassrooms /> : <LoginAlert />} />
         <Route path="/teacher/classroom/:id/submitted-homeworks" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomSubmittedHomeworks /> : <LoginAlert />} />
-        <Route path="/teacher/classrooms-low-attendance" element={<ClassroomsLowAttendance />} />
-        <Route path="/teacher/request-resource" element={<RequestResource />} />
-        <Route path="/teacher/manual-attendance" element={<ManualAttendancePage />} />
-        <Route path="/teacher/classrooms/:classroomId/manual-attendance" element={<ClassroomAttendancePage />} />
+        <Route path="/teacher/classrooms-low-attendance" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomsLowAttendance /> : <LoginAlert />} />
+        <Route path="/teacher/request-resource" element={savedAuth && savedAuth.role == 'teacher' ? <RequestResource /> : <LoginAlert />} />
+        <Route path="/teacher/manual-attendance" element={savedAuth && savedAuth.role == 'teacher' ? <ManualAttendancePage /> : <LoginAlert />} />
+        <Route path="/teacher/classrooms/:classroomId/manual-attendance" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomAttendancePage /> : <LoginAlert />} />
 
         {/* SignUp Page Routes */}
         <Route path='/signup/student' element={<AddStudent />} />
@@ -122,7 +120,7 @@ function App() {
 
         {/* emergency alert routes */}
 
-        <Route path="/teacher/emergency" element={<TeacherEmergencyForm />} />
+        <Route path="/teacher/emergency" element={savedAuth && savedAuth.role == 'teacher' ? <TeacherEmergencyForm /> : <LoginAlert />} />
 
 
         <Route path="*" element={<PageNotFound />} />

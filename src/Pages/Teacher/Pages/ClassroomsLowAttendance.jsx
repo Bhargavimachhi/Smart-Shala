@@ -117,10 +117,11 @@ const ClassroomsLowAttendance = () => {
                 </div>
                 <button
                     onClick={handleSendEmails}
-                    className="mt-8 bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition"
+                    className="mt-8 bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition mr-5"
                 >
                     Send Emails
                 </button>
+                
                 <button
                     onClick={handleSendSMS}
                     className="mt-8 bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-600 transition"
