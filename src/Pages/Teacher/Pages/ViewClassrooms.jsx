@@ -35,8 +35,19 @@ const ViewClassrooms = () => {
     return (
         <div className="flex min-h-screen bg-gray-100">
             <TeacherLeftSideNavBar isExpanded={isExpanded} toggleSidebar={toggleSidebar} />
-            <div className={`flex-1 transition-width duration-300 ml-${isExpanded ? "64" : "16"} p-8`}>
-                <h1 className="text-3xl font-bold text-center mb-8 bg-sky-800 p-6 text-white">Classrooms</h1>
+                <div className={`flex-1 transition-width duration-300 ml-${isExpanded ? "64" : "16"} p-8`}>
+                    <div className="flex justify-between items-center mb-6">
+                    <h1 className="font-semibold text-xl">Add Homework</h1>
+                    <button
+                    onClick={()=>{navigate("/teacher/add-homework/form")}}
+                    type="button"
+                    className="bg-sky-800 text-white font-bold text-base px-8 py-3 rounded shadow-md hover:shadow-lg  transition duration-150"
+                    >
+                    Add Homework +
+                    </button>
+                </div>
+                <hr className="mb-10" />
+                <h1 className="font-semibold text-xl">Check Homework Of Classrooms</h1><br />
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {classrooms.map(classroom => (
                         <div

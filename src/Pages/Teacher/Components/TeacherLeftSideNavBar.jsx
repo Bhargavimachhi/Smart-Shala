@@ -35,29 +35,23 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
       <ul className="mt-4">
          <li className="bGcolor "> 
          <Link to="/teacher" className="flex items-center p-4 rounded cursor-pointerr">
-             <FaHome className="text-xl textColor " />
+             <FaHome className="text-xl textColor text-blue-600" />
              {isExpanded && <span className="ml-4 textColor font-normal">Home</span> }
           </Link>
           </li>
        
          <li className="bGcolor ">
          <Link to="/teacher/profile" className=" e flex items-center p-4 rounded cursor-pointer">
-          <FaUser className="text-xl textColor                  " />
+          <FaUser className="text-xl textColor   text-blue-600               " />
           {isExpanded && <span className="ml-4 textColor font-normal">Profile</span>}
         </Link>
           </li>
          <li className="bGcolor ">
          <Link to="/teacher/classrooms" className="  flex items-center p-4 rounded cursor-pointer">
-          <FaChalkboardTeacher className="text-xl textColor               " />
+          <FaChalkboardTeacher className="text-xl textColor   text-blue-600            " />
           {isExpanded && <span className="ml-4 textColor font-normal">My Classrooms</span>}
         </Link>
           </li>
-         <li className="bGcolor ">
-         <Link to="/teacher/add-homework" className="  flex items-center p-4 rounded cursor-pointer">
-          <MdAssignment className="text-xl                 hover:                " />
-          {isExpanded && <span className="ml-4 textColor font-normal">Add Homework</span>}
-        </Link>
-        </li>
         <li className="bGcolor">
           <Link to="/teacher/classroomsforHomework" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
           <FaClipboardList className="text-xl textColor text-blue-600 colorNavChange" />
