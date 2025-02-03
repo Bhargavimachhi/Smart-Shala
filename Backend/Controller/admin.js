@@ -86,7 +86,7 @@ export const addClassroomToAdmin = async (req, res) => {
     res.status(404).json({ message: "Admin does not exist" });
     return;
   }
-  let classroom = new Classroom(req.body);
+  let classroom = new Classroom({admin : admin._id, ...req.body});
   classroom
     .save()
     .then(() => {
