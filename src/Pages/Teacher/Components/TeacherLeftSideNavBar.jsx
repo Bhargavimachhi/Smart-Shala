@@ -90,7 +90,7 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
         </li>   
         <li className="bGcolor">
           <Link to="/teacher/request-resource" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-          <FaBoxOpen className="text-xl textColor text-red-600 colorNavChange" />
+          <FaBoxOpen className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">Request Resource</span>}
         </Link>
         </li>

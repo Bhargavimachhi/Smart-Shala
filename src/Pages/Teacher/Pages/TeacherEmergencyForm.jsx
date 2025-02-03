@@ -3,6 +3,7 @@ import axios from 'axios';
 import TeacherLeftSideNavBar from '../Components/TeacherLeftSideNavBar';
 import toast from 'react-hot-toast';
 import { useGlobalContext } from '../../../context/GlobalProvider.jsx';
+import { Button } from '@mui/material';
 
 
 function TeacherEmergencyForm() {
@@ -85,33 +86,8 @@ function TeacherEmergencyForm() {
                                 <option value="Critical">Critical</option>
                             </select>
                         </div>
-                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">
-                                Class:
-                            </label>
-                            <select
-                                name="location"
-                                value={formData.location}
-                                onChange={(e) =>
-                                    setFormData({ ...formData, location: e.target.value })
-                                }
-                                required
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            >
-                                <option value="" disabled>
-                                    Select class
-                                </option>
-                                <option value="class1">Class1</option>
-                                <option value="class2">Class2</option>
-                                <option value="class3">Class3</option>
-                            </select>
-                        </div>
                         <div className="flex items-center justify-between">
-                            <button
-                                type="submit"
-                                className="bg-sky-800-500 hover:bg-sky-800-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                Send Alert
-                            </button>
+                            <Button variant="contained" color="error">Send Alert</Button>
                         </div>
                     </form>
                 </div>
