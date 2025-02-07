@@ -19,6 +19,11 @@ const GenerateTeacherIssue = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!e.target.value) {
+      toast.error("Please Select a Classroom");
+      return;
+    }
+    
     try {
       const response = await axios.post(`http://localhost:3000/teacher/classrooms/${classroomId}/generate-issue`, {
         description,
@@ -78,15 +83,16 @@ const GenerateTeacherIssue = () => {
             </select>
           </div>
           <div className="mb-4">
-            <label for="classrooms">Select Classroom:</label>
+            <label htmlFor="classrooms">Select Classroom:</label>
             <select
-              onChange={(e) => setClassroomId(e.target.value)}
+              onChange={(e) => {setClassroomId(e.target.value);}}
               className="w-full p-2 border border-gray-300 rounded mt-1"
               required
             >
+              <option value={"Select Option"} >Select Option</option>
               {
                 classrooms.map((classroom) => (
-                  <option value={classroom._id} name={classroom.name}>{classroom.name}</option>
+                  <option key={classroom._id} value={classroom._id} name={classroom.name}>{classroom.name}</option>
                 ))
               }
             </select>
