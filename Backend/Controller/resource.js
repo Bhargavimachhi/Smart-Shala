@@ -1,20 +1,19 @@
-import { Resource } from "../Models/Resource.js";
-import { Teacher } from "../Models/Teacher.js";
-import { ResourceRequest } from "../Models/ResourceRequest.js";
-import mongoose from 'mongoose';
+import { Admin } from "../Models/Admin.js";
 
 // Add a new resource
 export const addResource = async (req, res) => {
-    const { name, quantity, description } = req.body;
+    const { name, quantity } = req.body;
+    const {id} = req.params;
 
     try {
-        const existingResource = await Resource.findOne({ name });
-        if (existingResource) {
-            return res.status(400).json({ message: "Resource with this name already exists" });
+        const admin = await Admin.findById(id);
+
+        if(!admin) {
+            return res.status(404).json({message:"Admin does not exist"});
         }
 
-        const resource = new Resource({ name, quantity, description });
-        await resource.save();
+        admin.resources.push({name : name, quantity : quantity});
+        await admin.save();
         res.status(201).json({ message: "Resource added successfully", resource });
     } catch (err) {
         res.status(500).json({ message: "Internal server error", error: err });
@@ -24,7 +23,13 @@ export const addResource = async (req, res) => {
 // Get all resources
 export const getResources = async (req, res) => {
     try {
-        const resources = await Resource.find({});
+        const {id} = req.params;
+        const admin = await Admin.findById(id);
+
+        if(!admin) {
+            return res.status(404).json({message:"Admin does not exist"});
+        }
+        const resources = admin.resources;
         res.status(200).json({ message: "Success", resources });
     } catch (err) {
         res.status(500).json({ message: "Internal server error", error: err });
@@ -33,21 +38,18 @@ export const getResources = async (req, res) => {
 
 // Request a resource
 export const requestResource = async (req, res) => {
-    const { teacherId, resourceId, quantity } = req.body;
+    const { teacherId, resource, quantity } = req.body;
+    const {id} = req.params;
 
     try {
-        const resource = await Resource.findById(resourceId);
-        if (!resource || resource.quantity < Number(quantity)) {
-            return res.status(400).json({ message: "Resource not available or insufficient quantity" });
+        const admin = await Admin.findById(id);
+
+        if(!admin) {
+            return res.status(404).json({message:"Admin does not exist"});
         }
         
-        const request = new ResourceRequest({
-            teacher: teacherId,
-            resource: resourceId,
-            quantity: Number(quantity),
-        });
-
-        await request.save();
+        admin.resources.push({name:resource, quantity:quantity, requestedBy:teacherId});
+        await admin.save();
 
         res.status(201).json({ message: "Resource requested successfully", request });
     } catch (err) {
@@ -58,35 +60,14 @@ export const requestResource = async (req, res) => {
 // Get all resource requests
 export const getResourceRequests = async (req, res) => {
     try {
-        const requests = await ResourceRequest.find({}).populate(['teacher','resource']);
+        const {id} = req.params;
+        const admin = await Admin.findById(id);
+
+        if(!admin) {
+            return res.status(404).json({message:"Admin does not exist"});
+        }
+        const requests = admin.requests;
         res.status(200).json({ message: "Success", requests });
-    } catch (err) {
-        res.status(500).json({ message: "Internal server error", error: err });
-    }
-};
-
-// Approve a resource request
-export const approveResourceRequest = async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        const request = await ResourceRequest.findById(id).populate('resource');
-        if (!request) {
-            return res.status(404).json({ message: "Request not found" });
-        }
-
-        const resource = request.resource;
-        if (resource.quantity < request.quantity) {
-            return res.status(400).json({ message: "Insufficient resource quantity" });
-        }
-
-        resource.usedQuantity += request.quantity;
-        request.status = "Approved";
-
-        await resource.save();
-        await request.save();
-
-        res.status(200).json({ message: "Resource request approved", request });
     } catch (err) {
         res.status(500).json({ message: "Internal server error", error: err });
     }

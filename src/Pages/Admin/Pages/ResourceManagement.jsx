@@ -6,7 +6,8 @@ import toast, { Toaster } from 'react-hot-toast';
 const ResourceManagement = () => {
     const [resources, setResources] = useState([]);
     const [requests, setRequests] = useState([]);
-    const [newResource, setNewResource] = useState({ name: '', quantity: 0, description: '' });
+    const [newResource, setNewResource] = useState({ name: '', quantity: 0});
+    const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
     useEffect(() => {
         fetchResources();
@@ -15,7 +16,7 @@ const ResourceManagement = () => {
 
     const fetchResources = async () => {
         try {
-            const res = await axios.get('http://localhost:3000/resources');
+            const res = await axios.get(`http://localhost:3000/${savedAuth.id}/resources`);
             console.log('Resources:', res.data.resources); // Debug log
             setResources(res.data.resources);
         } catch (error) {
@@ -26,7 +27,7 @@ const ResourceManagement = () => {
 
     const fetchRequests = async () => {
         try {
-            const res = await axios.get('http://localhost:3000/resource-requests');
+            const res = await axios.get(`http://localhost:3000/${savedAuth.id}/resource-requests`);
             console.log('Requests:', res.data.requests); // Debug log
             setRequests(res.data.requests);
         } catch (error) {
@@ -37,9 +38,9 @@ const ResourceManagement = () => {
 
     const handleAddResource = async () => {
         try {
-            await axios.post('http://localhost:3000/resource', newResource);
+            await axios.post(`http://localhost:3000/${savedAuth.id}/add-resource`, newResource);
             fetchResources();
-            setNewResource({ name: '', quantity: 0, description: '' });
+            setNewResource({ name: '', quantity: 0});
             toast.success('Resource added successfully');
         } catch (error) {
             console.error('Error adding resource:', error);
@@ -48,15 +49,15 @@ const ResourceManagement = () => {
     };
 
     const approveRequest = async (id) => {
-        try {
-            await axios.post(`http://localhost:3000/resource-request/${id}/approve`);
-            fetchRequests();
-            fetchResources();
-            toast.success('Request approved successfully');
-        } catch (error) {
-            console.error('Error approving request:', error);
-            toast.error('Error approving request');
-        }
+        // try {
+        //     await axios.post(`http://localhost:3000/resource-request/${id}/approve`);
+        //     fetchRequests();
+        //     fetchResources();
+        //     toast.success('Request approved successfully');
+        // } catch (error) {
+        //     console.error('Error approving request:', error);
+        //     toast.error('Error approving request');
+        // }
     };
 
     return (
@@ -82,13 +83,6 @@ const ResourceManagement = () => {
                             onChange={(e) => setNewResource({ ...newResource, quantity: Number(e.target.value) })}
                             className="w-full p-2 mb-4 border rounded"
                         />
-                        <input
-                            type="text"
-                            placeholder="Description"
-                            value={newResource.description}
-                            onChange={(e) => setNewResource({ ...newResource, description: e.target.value })}
-                            className="w-full p-2 mb-4 border rounded"
-                        />
                         <button onClick={handleAddResource} className="w-full bg-blue-500 text-white p-2 rounded">Add Resource</button>
                     </div>
 
@@ -99,17 +93,7 @@ const ResourceManagement = () => {
                                 <li key={resource._id} className="mb-4">
                                     <div className="flex justify-between items-center mb-2">
                                         <span className="font-semibold">{resource.name}</span>
-                                        <span>{resource.quantity - resource.usedQuantity} remaining</span>
-                                    </div>
-                                    <div className="flex justify-between items-center mb-2">
-                                        <span className="font-semibold">Used:</span>
-                                        <span>{resource.usedQuantity}</span>
-                                    </div>
-                                    <div className="w-full bg-gray-200 rounded-full h-4">
-                                        <div
-                                            className="bg-blue-500 h-4 rounded-full"
-                                            style={{ width: `${(resource.usedQuantity / resource.quantity) * 100}%` }}
-                                        ></div>
+                                        <span>{resource.quantity} remaining</span>
                                     </div>
                                 </li>
                             ))}

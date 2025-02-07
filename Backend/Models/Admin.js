@@ -25,7 +25,26 @@ let adminSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Student',
         default: []
-    }]
+    }],
+    resources: {
+        type: [
+            {
+                name: { type: String, required: true },
+                quantity: { type: Number, required: true }
+            }
+        ],
+        default: []
+    },
+    requests: {
+        type: [
+            {
+                name: { type: String, required: true },
+                quantity: { type: Number, required: true },
+                requestedBy : {type: mongoose.Schema.Types.ObjectId, ref: 'Teacher', required: true}
+            }
+        ],
+        default: []
+    }
 });
 
 export const Admin = mongoose.model("Admin", adminSchema);

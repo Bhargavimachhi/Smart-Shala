@@ -78,7 +78,7 @@ import {
   markIssueAsNotResolved,
 } from "./Controller/issue.js";
 import { getAnswer } from "./Controller/Chatbot.js";
-import { addResource, getResources, requestResource, approveResourceRequest, getResourceRequests } from "./Controller/resource.js";
+import { addResource, getResources, requestResource, getResourceRequests } from "./Controller/resource.js";
 
 // import  {requireSignIn}  from './middleware/requireSignIn.js';
 import { adminLogin } from "./Controller/admin.js";
@@ -194,11 +194,11 @@ app.delete('/emergency/admin/:id', deleteAlert);
 
 
 // Resource routes
-app.post("/resource", addResource);
-app.get("/resources", getResources);
-app.post("/request-resource", requestResource);
-app.get("/resource-requests", getResourceRequests);
-app.post("/resource-request/:id/approve", approveResourceRequest);
+app.post("/:id/add-resource", addResource);
+app.get("/:id/resources", getResources);
+app.post("/:id/request-resource", requestResource);
+app.get("/:id/resource-requests", getResourceRequests);
+// app.post("/resource-request/:id/approve", approveResourceRequest);
 
 //---------------------------------------------------------------------------------
 // Route to send SMS
