@@ -36,26 +36,6 @@ export const getResources = async (req, res) => {
     }
 };
 
-// Request a resource
-export const requestResource = async (req, res) => {
-    const { teacherId, resource, quantity } = req.body;
-    const {id} = req.params;
-
-    try {
-        const admin = await Admin.findById(id);
-
-        if(!admin) {
-            return res.status(404).json({message:"Admin does not exist"});
-        }
-        
-        admin.resources.push({name:resource, quantity:quantity, requestedBy:teacherId});
-        await admin.save();
-
-        res.status(201).json({ message: "Resource requested successfully", request });
-    } catch (err) {
-        res.status(500).json({ message: "Internal server error", error: err });
-    }
-};
 
 // Get all resource requests
 export const getResourceRequests = async (req, res) => {
@@ -72,3 +52,23 @@ export const getResourceRequests = async (req, res) => {
         res.status(500).json({ message: "Internal server error", error: err });
     }
 };
+
+// Request Resources
+export const requestResource = async(req, res) => {
+    try {
+        const {id} = req.params;
+        const admin = await Admin.findById(id);
+        const {name, quantity, teacherId} = req.body;
+
+        if(!admin) {
+            return res.status(404).json({message:"Admin does not exist"});
+        }
+        admin.requests.push({name : name, quantity : quantity, requestedBy: teacherId});
+        await admin.save();
+        res.status(201).json({ message: "Resource requested successfully"});
+    }
+    catch(err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal server error", error: err });
+    }
+}

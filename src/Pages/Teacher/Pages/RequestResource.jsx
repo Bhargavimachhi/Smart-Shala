@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TeacherLeftSideNavBar from '../Components/TeacherLeftSideNavBar';
+import { useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const RequestResource = () => {
     const [resources, setResources] = useState([]);
@@ -8,35 +10,47 @@ const RequestResource = () => {
     const [quantity, setQuantity] = useState(1);
     const savedAuth = JSON.parse(localStorage.getItem("auth"));
     const [isExpanded, setIsExpanded] = useState(false);
+    const [classroom, setClassroom] = useState("");
     const toggleSidebar = () => {
         setIsExpanded((prevState) => !prevState);
     };
+    const {id} = useParams();
 
     useEffect(() => {
-        fetchResources();
-    }, []);
-
-    const fetchResources = async () => {
-        try {
-            const res = await axios.get('http://localhost:3000/resources');
-            setResources(res.data.resources);
-        } catch (error) {
-            console.error('Error fetching resources:', error);
+        async function fetchClassroom() {
+            try {
+                const res = await axios.get(`http://localhost:3000/classroom/${id}`);
+                setClassroom(res.data.classroom);
+                fetchResources(res.data.classroom.admin);
+            } catch (error) {
+                toast.error('Classroom does not exist');
+            }
         }
-    };
+    
+        async function fetchResources (id){
+            try {
+                const res = await axios.get(`http://localhost:3000/${id}/resources`);
+                setResources(res.data.resources);
+            } catch (error) {
+                toast.error('Error fetching resources:', error);
+            }
+        };
+
+        fetchClassroom();
+    }, []);
 
     const handleRequest = async () => {
         // console.log("request-rersource fucntion called");
         try {
-            await axios.post('http://localhost:3000/request-resource', {
+            await axios.post(`http://localhost:3000/${classroom.admin}/request-resource`, {
                 teacherId: savedAuth.id,
-                resourceId: selectedResource,
+                name: selectedResource,
                 quantity:Number(quantity),
             });
-            alert('Resource requested successfully');
+            toast.success('Resource requested successfully');
         } catch (error) {
             console.error('Error requesting resource:', error);
-            alert('Failed to request resource');
+            toast.error('Failed to request resource');
         }
     };
 
@@ -47,6 +61,7 @@ const RequestResource = () => {
                 <h1 className="text-3xl font-bold mb-6 bg-sky-800 text-white text-center w-full p-6 ">Request Resource</h1>
                 <div className="bg-white p-6 rounded-lg shadow-md">
                     <h2 className="text-2xl font-bold mb-4 text-center">Select Resource</h2>
+                    <h5 className="text-2xl font-bold mb-4">Classroom Name : {classroom.name}</h5>
                     <select
                         value={selectedResource}
                         onChange={(e) => setSelectedResource(e.target.value)}
@@ -54,7 +69,7 @@ const RequestResource = () => {
                     >
                         <option value="" change="ResourceMan">Select Resource</option>
                         {resources.map(resource => (
-                            <option key={resource._id} value={resource._id}>{resource.name}</option>
+                            <option key={resource._id} value={resource.name}>{resource.name}</option>
                         ))}
                     </select>
                     <input

@@ -51,6 +51,7 @@ import StudentPerformanceReport from "./Pages/Student/StudentPages/StudentPerfor
 import FilePreviewMain from "./Pages/Student/Components/performanceRepoComponent/FilePreviewMain.jsx";
 import ManualAttendancePage from "./Pages/Teacher/Pages/ManualAttendancePage.jsx";
 import ClassroomAttendancePage from "./Pages/Teacher/Pages/ClassroomAttendancePage.jsx";
+import SelectClassroom from "./Pages/Teacher/Components/SelectClassroomPage.jsx";
 
 import ResourceManagement from './Pages/Admin/Pages/ResourceManagement';
 import RequestResource from './Pages/Teacher/Pages/RequestResource';
@@ -101,7 +102,8 @@ function App() {
         <Route path="/teacher/classroomsforHomework" element={savedAuth && savedAuth.role == 'teacher' ? <ViewClassrooms /> : <LoginAlert />} />
         <Route path="/teacher/classroom/:id/submitted-homeworks" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomSubmittedHomeworks /> : <LoginAlert />} />
         <Route path="/teacher/classrooms-low-attendance" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomsLowAttendance /> : <LoginAlert />} />
-        <Route path="/teacher/request-resource" element={savedAuth && savedAuth.role == 'teacher' ? <RequestResource /> : <LoginAlert />} />
+        <Route path="/teacher/request-resource" element={savedAuth && savedAuth.role == 'teacher' ? <SelectClassroom /> : <LoginAlert />} />
+        <Route path="/teacher/:id/request-resource" element={savedAuth && savedAuth.role == 'teacher' ? <RequestResource /> : <LoginAlert />} />
         <Route path="/teacher/manual-attendance" element={savedAuth && savedAuth.role == 'teacher' ? <ManualAttendancePage /> : <LoginAlert />} />
         <Route path="/teacher/classrooms/:classroomId/manual-attendance" element={savedAuth && savedAuth.role == 'teacher' ? <ClassroomAttendancePage /> : <LoginAlert />} />
 
