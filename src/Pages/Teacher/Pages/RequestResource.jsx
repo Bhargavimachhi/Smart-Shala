@@ -46,6 +46,7 @@ const RequestResource = () => {
                 teacherId: savedAuth.id,
                 name: selectedResource,
                 quantity:Number(quantity),
+                classroomId: classroom._id
             });
             toast.success('Resource requested successfully');
         } catch (error) {

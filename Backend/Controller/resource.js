@@ -58,7 +58,7 @@ export const requestResource = async(req, res) => {
     try {
         const {id} = req.params;
         const admin = await Admin.findById(id);
-        const {name, quantity, teacherId} = req.body;
+        const {name, quantity, teacherId, classroomId} = req.body;
 
         if(!admin) {
             return res.status(404).json({message:"Admin does not exist"});
@@ -67,12 +67,11 @@ export const requestResource = async(req, res) => {
         if(quantity <= 0) {
             return res.status(404).json({message:"Invalid quantity entered"});
         }
-        admin.requests.push({name : name, quantity : quantity, requestedBy: teacherId});
+        admin.requests.push({name : name, quantity : quantity, requestedBy: teacherId, requestedFor : classroomId});
         await admin.save();
         res.status(201).json({ message: "Resource requested successfully"});
     }
     catch(err) {
-        console.log(err);
         res.status(500).json({ message: "Internal server error", error: err });
     }
 }
