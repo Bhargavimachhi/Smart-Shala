@@ -50,7 +50,7 @@ const RequestResource = () => {
             toast.success('Resource requested successfully');
         } catch (error) {
             console.error('Error requesting resource:', error);
-            toast.error('Failed to request resource');
+            toast.error(error.response.data.message);
         }
     };
 

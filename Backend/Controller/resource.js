@@ -14,7 +14,7 @@ export const addResource = async (req, res) => {
 
         admin.resources.push({name : name, quantity : quantity});
         await admin.save();
-        res.status(201).json({ message: "Resource added successfully", resource });
+        res.status(201).json({ message: "Resource added successfully"});
     } catch (err) {
         res.status(500).json({ message: "Internal server error", error: err });
     }
@@ -62,6 +62,10 @@ export const requestResource = async(req, res) => {
 
         if(!admin) {
             return res.status(404).json({message:"Admin does not exist"});
+        }
+
+        if(quantity <= 0) {
+            return res.status(404).json({message:"Invalid quantity entered"});
         }
         admin.requests.push({name : name, quantity : quantity, requestedBy: teacherId});
         await admin.save();

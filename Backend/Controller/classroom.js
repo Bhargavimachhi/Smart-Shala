@@ -240,6 +240,38 @@ export const removeStudentFromClassroom = async(req, res) => {
     });
 }
 
+// delete teacher from classroom
+export const removeTeacherFromClassroom = async(req, res) => {
+    const teacher = await Teacher.findById(req.params.tId);
+    const classroom = await Classroom.findById(req.params.cId);
+
+    if(!teacher) {
+        res.status(404).json({message : "Teacher does not exist"});
+        return;
+    }
+
+    if(!classroom) {
+        res.status(404).json({message : "Classroom does not exist"});
+        return;
+    }
+
+    if(!classroom.teachers.includes(teacher._id)) {
+        res.status(404).json({message : "Classroom does not contain teacher"});
+        return;
+    }
+    
+    classroom.teachers = classroom.teachers.filter((t)=> t._id != teacher.id);
+    teacher.classrooms = teacher.classrooms.filter((c)=> c._id != classroom.id);
+
+    classroom.save().then(()=>{
+        teacher.save();
+        res.status(200).json({ message: "Teacher Deleted from Classroom Successfully"});
+    }).catch((err)=>{
+        console.log(err);
+        res.send("Error Occurred !!!");
+    });
+}
+
 // get Homework associated to classroom
 export const getHomeworkOfClass = async(req, res) => {
     const id = req.params.id;

@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 
-const TableListingteacher = ({ id }) => {
+const TableListingteacher = ({ id, cId }) => {
   const [teacher, setTeacher] = useState('');
   const [open, setOpen] = useState(false); 
   const [isDeleting, setIsDeleting] = useState(false);
@@ -43,7 +43,7 @@ const TableListingteacher = ({ id }) => {
     setIsDeleting(true);
     try {
       await axios.get(
-        `http://localhost:3000/classroom/${teacher.classroom}/teacher/${teacher._id}/remove`
+        `http://localhost:3000/classroom/${cId}/teacher/${teacher._id}/remove`
       );
       window.location.reload(); 
     } catch (error) {

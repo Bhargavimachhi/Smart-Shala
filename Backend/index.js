@@ -54,7 +54,8 @@ import {
   getStudentsOfClassroom,
   getAverageStudentAttendanceOfClassroom,
   getTopPerformersOfClassroom,
-  getSubmittedHomeworksOfClassroom
+  getSubmittedHomeworksOfClassroom,
+  removeTeacherFromClassroom
 } from "./Controller/classroom.js";
 import {
   addAdmin,
@@ -118,6 +119,7 @@ app.get("/classroom/:id", getClassroom);
 app.post("/classroom/:id/assign-student", assignStudentToClassroom);
 app.post("/classroom/:id/assign-teacher", assignTeacherToClassroom);
 app.get("/classroom/:cId/student/:sId/remove", removeStudentFromClassroom);
+app.get("/classroom/:cId/teacher/:tId/remove", removeTeacherFromClassroom);
 app.get("/classroom/:id/homeworks", getHomeworkOfClass);
 app.get("/classroom/:id/students", getStudentsOfClassroom);
 app.get("/classroom/:id/attendance", getAverageStudentAttendanceOfClassroom);

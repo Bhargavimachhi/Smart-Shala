@@ -231,7 +231,7 @@ const Classroom = () => {
                     </TableHead>
                     <TableBody>
                       {classroom.teachers.map((teacher) => (
-                        <TableListingteacher id={teacher} />
+                        <TableListingteacher id={teacher} cId={classroom._id}/>
                       ))}
                     </TableBody>
                   </Table>
