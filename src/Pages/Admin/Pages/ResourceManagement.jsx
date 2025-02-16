@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SideNavbar from '../../../components/SideNavbar'; // Adjust the import path as needed
 import toast, { Toaster } from 'react-hot-toast';
+import {
+    Card,
+    CardContent,
+    Typography
+  } from "@mui/material";
 
 const ResourceManagement = () => {
     const [resources, setResources] = useState([]);
@@ -48,21 +53,21 @@ const ResourceManagement = () => {
         }
     };
 
-    const approveRequest = async (id) => {
-        console.log(id);
-        // try {
-        //     await axios.post(`http://localhost:3000/resource-request/${id}/approve`);
-        //     fetchRequests();
-        //     fetchResources();
-        //     toast.success('Request approved successfully');
-        // } catch (error) {
-        //     console.error('Error approving request:', error);
-        //     toast.error('Error approving request');
-        // }
+    const approveRequest = async (i) => {
+        try {
+            await axios.post(`http://localhost:3000/${savedAuth.id}/resource-request/${i}/approve`);
+            fetchRequests();
+            fetchResources();
+            toast.success('Request approved successfully');
+        } catch (error) {
+            console.error('Error approving request:', error);
+            toast.error('Error approving request');
+        }
     };
 
     return (
-        <div className="flex">
+        <>
+        <div className="flex min-h-screen bg-gray-200">
             <SideNavbar />
             <div className="flex-1 p-6">
                 <Toaster />
@@ -101,22 +106,34 @@ const ResourceManagement = () => {
                         </ul>
                     </div>
                     <br />
-                    <div className="bg-white p-6 rounded-lg shadow-md">
+                    <div className="bg-white p-6 shadow-md">
                         <h2 className="text-2xl font-bold mb-4">Requests</h2>
-                        <ul>
-                            {requests.map(request => (
-                                <li key={request._id} className="mb-2">
-                                    {request.teacher?.name || 'Unknown Teacher'} requested {request.quantity} of {request.name || 'Unknown Resource'}
-                                    <button onClick={() => approveRequest(request._id)} className="ml-2 bg-green-500 text-white p-1 rounded">Approve</button>
-                                </li>
+                        <div className='mt-4'>
+                            {requests.map((request,i) => (
+                                // <li key={request._id} className="mb-2">
+                                //     {request?.requestedBy || 'Unknown Teacher'} requested {request.quantity} {request.name || 'Unknown Resource'} for Classroom {request.requestedFor || 'Unknown Resource'}
+                                    
+                                // </li>
+                                <Card className='mt-4'>
+                                <CardContent>
+                                  {/* <Typography variant="h6" gutterBottom>
+                                    {student.name}
+                                  </Typography> */}
+                                  <Typography color="textSecondary">Resourses Needed: {request.quantity} {request.name}</Typography>
+                                  <Typography color="textSecondary">Requested By {request.requestedBy} </Typography> 
+                                  <Typography color="textSecondary">Requested For Classroon {request.requestedFor}</Typography>
+                                  <Typography color="textSecondary"><button onClick={() => approveRequest(i)} className="ml-2 bg-green-500 text-white p-1 rounded">Approve</button></Typography>
+                                </CardContent>
+                              </Card>
                             ))}
-                        </ul>
+                        </div>
                     </div>
                     <br />
                     
                 </div>
             </div>
         </div>
+        </>
     );
 };
 

@@ -79,7 +79,7 @@ import {
   markIssueAsNotResolved,
 } from "./Controller/issue.js";
 import { getAnswer } from "./Controller/Chatbot.js";
-import { addResource, getResources, requestResource, getResourceRequests } from "./Controller/resource.js";
+import { addResource, getResources, requestResource, getResourceRequests, approveResourceRequest } from "./Controller/resource.js";
 
 // import  {requireSignIn}  from './middleware/requireSignIn.js';
 import { adminLogin } from "./Controller/admin.js";
@@ -200,7 +200,7 @@ app.post("/:id/add-resource", addResource);
 app.get("/:id/resources", getResources);
 app.post("/:id/request-resource", requestResource);
 app.get("/:id/resource-requests", getResourceRequests);
-// app.post("/resource-request/:id/approve", approveResourceRequest);
+app.post("/:id/resource-request/:idx/approve", approveResourceRequest);
 
 //---------------------------------------------------------------------------------
 // Route to send SMS

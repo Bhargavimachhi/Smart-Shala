@@ -75,3 +75,41 @@ export const requestResource = async(req, res) => {
         res.status(500).json({ message: "Internal server error", error: err });
     }
 }
+
+//approve request
+export const approveResourceRequest = async(req,res) => {
+    try {
+        const {idx, id} = req.params;
+        const admin = await Admin.findById(id);
+
+        if(!admin) {
+            return res.status(404).json({message:"Admin does not exist"});
+        }
+        const requests = admin.requests;
+
+        if(requests.length <= idx) {
+            return res.status(404).json({message:"Request Does not exist"});
+        }
+        
+        const request = requests[idx];
+        admin.requests.splice(idx, 1);
+        var resourceFound = false;
+        for(var i=0; i<admin.resources.length; i++) {
+            const resource = admin.resources[i];
+            if(resource.name === request.name && resource.quantity >= request.quantity) {
+                admin.resources[i] = {name : resource.name, quantity : resource.quantity - request.quantity};
+                resourceFound = true;
+                break;
+            }
+        }
+
+        if(!resourceFound) {
+            return res.status(404).json({message:"Resource Not available for the request"});
+        }
+        await admin.save();
+        res.status(200).json({ message: "Success", requests });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal server error", error: err });
+    }
+}

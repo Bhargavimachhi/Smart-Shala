@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 
 const RequestResource = () => {
     const [resources, setResources] = useState([]);
+    const [teacher, setTeacher] = useState(null);
     const [selectedResource, setSelectedResource] = useState('');
     const [quantity, setQuantity] = useState(1);
     const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -36,17 +37,27 @@ const RequestResource = () => {
             }
         };
 
+        async function fetchTeacher () {
+            try {
+                const res = await axios.get(`http://localhost:3000/teacher/${savedAuth.id}`);
+                setTeacher(res.data.teacher);
+            } catch (error) {
+                toast.error('Error fetching resources:', error);
+            }
+        };
+
         fetchClassroom();
+        fetchTeacher();
     }, []);
 
     const handleRequest = async () => {
         // console.log("request-rersource fucntion called");
         try {
             await axios.post(`http://localhost:3000/${classroom.admin}/request-resource`, {
-                teacherId: savedAuth.id,
+                teacherId: teacher.name,
                 name: selectedResource,
                 quantity:Number(quantity),
-                classroomId: classroom._id
+                classroomId: classroom.name
             });
             toast.success('Resource requested successfully');
         } catch (error) {

@@ -40,8 +40,8 @@ let adminSchema = new mongoose.Schema({
             {
                 name: { type: String, required: true },
                 quantity: { type: Number, required: true },
-                requestedBy : {type: mongoose.Schema.Types.ObjectId, ref: 'Teacher', required: true},
-                requestedFor : {type: mongoose.Schema.Types.ObjectId, ref: 'Classroom', required: true},
+                requestedBy : {type: String, required: true},
+                requestedFor : {type: String, required: true},
             }
         ],
         default: []
