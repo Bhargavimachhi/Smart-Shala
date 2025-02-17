@@ -53,7 +53,8 @@ let studentSchema = new mongoose.Schema({
         default : [],
     },
     submittedHomeworks : [{
-        type : String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Homework',
         default:[]
     }],
     face : {

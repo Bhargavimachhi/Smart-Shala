@@ -55,6 +55,7 @@ import SelectClassroom from "./Pages/Teacher/Components/SelectClassroomPage.jsx"
 
 import ResourceManagement from './Pages/Admin/Pages/ResourceManagement';
 import RequestResource from './Pages/Teacher/Pages/RequestResource';
+import SubmitHWmainBox from "./Pages/Student/Components/submitHWComponent/submitHWMainCompoent.jsx";
 
 function App() {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -84,7 +85,7 @@ function App() {
         <Route path='/student/submit-homework' element={savedAuth && savedAuth.role == 'student' ? <SubmitHomework /> : <LoginAlert />} />
         <Route path='/student/notification' element={savedAuth && savedAuth.role == 'student' ? <StudentNotification /> : <LoginAlert />} />
         <Route path='/student/doubts' element={savedAuth && savedAuth.role == 'student' ? <StudentChatbot /> : <LoginAlert />} />
-        <Route path='/student/:id/pending-homework' element={savedAuth && savedAuth.role == 'student' ? <PendingList /> : <LoginAlert />} />
+        <Route path='/student/:id/pending-homework' element={savedAuth && savedAuth.role == 'student' ? <SubmitHWmainBox /> : <LoginAlert />} />
         <Route path='/student/attendance' element={savedAuth && savedAuth.role == 'student' ? <StudentAttendancePage /> : <LoginAlert />} />
         <Route path="/student/homework/:id/preview" element={savedAuth && savedAuth.role == 'student' ? <FilePreviewMain/> : <LoginAlert />} />
         <Route path='/student/performance' element={savedAuth && savedAuth.role == 'student' ? <StudentPerformanceReport/> : <LoginAlert />}   /> 
