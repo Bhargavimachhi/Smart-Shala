@@ -70,11 +70,13 @@ const SubmitHWmainBox = () => {
 
   return (
     <div className="rounded-lg p-6 mt-10 bg-white border-2 border-gray-100">
-      
+      <LeftSideNavbar isExpanded={isExpanded} toggleSidebar={handleToggleSidebar} />
 
       {/* Upload Section */}
       <div>
-      <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-10 mb-4">
+      <div className={`flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-10 mb-4 flex-1 transition-width duration-300 ml-${
+          isExpanded ? "64" : "16"
+        } p-6 mr-50 overflow-x-auto`}>
         <h1 className="text-2xl font-bold mb-6">Submit Homework</h1>
         <label htmlFor="file-upload" className="cursor-pointer">
           <div className="flex flex-col items-center">
@@ -92,7 +94,7 @@ const SubmitHWmainBox = () => {
         {selectedFile && (
           <p className="text-green-600 mt-2">{selectedFile.name} uploaded successfully!</p>
         )}
-      </div>
+      
 
       {/* Submit Button */}
       <button
@@ -102,6 +104,7 @@ const SubmitHWmainBox = () => {
         Submit
       </button>
       {message && <p className="mt-4 text-sky-700">{message}</p>}
+      </div>
     </div>
     </div>
   );
