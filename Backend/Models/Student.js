@@ -44,6 +44,13 @@ let studentSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    grades : {
+        type : [{
+            quizId : mongoose.Schema.Types.ObjectId,
+            percentage : Number,
+        }],
+        default : []
+    },
     absentDays: {
         type: [String],
         default : [],

@@ -45,7 +45,12 @@ let classRoomSchema = new mongoose.Schema({
     endingDate: {
         type: Date,
         default: Date.now
-    }
+    },
+    quizes: [{
+        type : mongoose.Schema.Types.ObjectId,
+        ref: 'Quiz',
+        default:[]
+    }]
 });
 
 export const Classroom = mongoose.model("Classroom", classRoomSchema);

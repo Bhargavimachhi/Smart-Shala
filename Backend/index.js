@@ -94,6 +94,7 @@ import {
   addFaceOfStudent,
   recognizeFaceAndMarkPresent
 } from "./Controller/face.js";
+import { addQuizToClassroom, assignMarksOfQuizToStudent, getQuizesOfClassroom } from "./Controller/quiz.js";
 
 app.use(express.json());
 
@@ -201,6 +202,11 @@ app.get("/:id/resources", getResources);
 app.post("/:id/request-resource", requestResource);
 app.get("/:id/resource-requests", getResourceRequests);
 app.post("/:id/resource-request/:idx/approve", approveResourceRequest);
+
+// Quiz Routes
+app.post("/classroom/:id/create-quiz", addQuizToClassroom);
+app.get("/classroom/:id/quizes", getQuizesOfClassroom);
+app.post("/student/:id/assign-marks", assignMarksOfQuizToStudent);
 
 //---------------------------------------------------------------------------------
 // Route to send SMS
