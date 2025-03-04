@@ -19,10 +19,6 @@ const GenerateTeacherIssue = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!e.target.value) {
-      toast.error("Please Select a Classroom");
-      return;
-    }
     
     try {
       const response = await axios.post(`http://localhost:3000/teacher/classrooms/${classroomId}/generate-issue`, {

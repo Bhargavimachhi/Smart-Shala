@@ -1,40 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import TeacherLeftSideNavBar from '../TeacherLeftSideNavBar';
-import axios from 'axios';
-import toast from 'react-hot-toast';
-import { getStorage, ref,uploadBytes,getDownloadURL } from "firebase/storage";
+import React, { useState, useEffect } from "react";
+import TeacherLeftSideNavBar from "../TeacherLeftSideNavBar";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../../../../firebase";
 
 const AddHomeworkPage = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [classrooms, setClassrooms] = useState([]);
-  const [selectedClassroom, setSelectedClassroom] = useState('');
-  const [homeworkTitle, setHomeworkTitle] = useState('');
-  const [homeworkDescription, setHomeworkDescription] = useState('');
-  const [dueDate, setDueDate] = useState('');
-  const [subject, setSubject] = useState('');
+  const [selectedClassroom, setSelectedClassroom] = useState("");
+  const [homeworkTitle, setHomeworkTitle] = useState("");
+  const [homeworkDescription, setHomeworkDescription] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [subject, setSubject] = useState("");
   const [file, setFile] = useState(null);
-
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
   };
-  const handleFileSelect =  (event) => {
+  const handleFileSelect = (event) => {
     const file = event.target.files[0];
     console.log("File selected:", file);
     setFile(file);
   };
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
-
   useEffect(() => {
     // Fetch classrooms from the server
     async function fetchClassrooms() {
       try {
-        const response = await axios.get(`http://localhost:3000/teacher/${savedAuth.id}/classrooms`);
+        const response = await axios.get(
+          `http://localhost:3000/teacher/${savedAuth.id}/classrooms`
+        );
         setClassrooms(response.data.classrooms);
       } catch (error) {
-        console.error('Error fetching classrooms:', error);
+        console.error("Error fetching classrooms:", error);
       }
     }
     fetchClassrooms();
@@ -44,13 +44,16 @@ const AddHomeworkPage = () => {
     e.preventDefault();
     try {
       const formData = {
-        "title" : homeworkTitle,
-        "description" : homeworkDescription,
-        "dueDate" : dueDate,
-        "subject" : subject,
-        "id" : selectedClassroom
-      }
-      const res = await axios.post(`http://localhost:3000/teacher/${savedAuth.id}/assign-homework`, formData);
+        title: homeworkTitle,
+        description: homeworkDescription,
+        dueDate: dueDate,
+        subject: subject,
+        id: selectedClassroom,
+      };
+      const res = await axios.post(
+        `http://localhost:3000/teacher/${savedAuth.id}/assign-homework`,
+        formData
+      );
       console.log(res.data);
 
       const homworkid = res.data.homework._id;
@@ -58,61 +61,58 @@ const AddHomeworkPage = () => {
 
       const fileType = file?.type;
 
-      if(fileType === "application/pdf"){
+      if (fileType === "application/pdf") {
         const toastId = toast.loading("Uploading your  teacher homework...");
-  
-       
-  
+
         try {
-          
-       
-        
-  
-        
-       
           const refoffile = ref(storage, `homeworks/${homworkid}/teachersfile`);
           uploadBytes(refoffile, file).then((snapshot) => {
             console.log("Uploaded teacher homework!", snapshot);
             toast.dismiss(toastId);
             toast.success("Homework uploaded successfully!");
-            
+
             setFile(null);
           });
-          
         } catch (error) {
-  
           console.log(error);
           toast.dismiss(toastId);
           toast.error("Failed to upload homework!");
-        
+
           setFile(null);
         }
-  
-  
       }
 
-     toast.success("Homework assigned to classroom");
+      toast.success("Homework assigned to classroom");
       // Reset form fields
-      setHomeworkTitle('');
-      setHomeworkDescription('');
-      setDueDate('');
-      setSubject('');
-      setSelectedClassroom('');
+      setHomeworkTitle("");
+      setHomeworkDescription("");
+      setDueDate("");
+      setSubject("");
+      setSelectedClassroom("");
       setFile(null);
     } catch (error) {
-      console.error('Error assigning homework:', error);
-      alert('Failed to assign homework');
+      console.error("Error assigning homework:", error);
+      alert("Failed to assign homework");
     }
   };
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <TeacherLeftSideNavBar isExpanded={isExpanded} toggleSidebar={toggleSidebar} />
+      <TeacherLeftSideNavBar
+        isExpanded={isExpanded}
+        toggleSidebar={toggleSidebar}
+      />
       <div className="flex-1 p-8">
         <h1 className="text-2xl font-bold text-center mb-8">Assign Homework</h1>
-        <form onSubmit={handleSubmit} className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <form
+          onSubmit={handleSubmit}
+          className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg"
+        >
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="classroom">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="classroom"
+            >
               Classroom
             </label>
             <select
@@ -131,7 +131,10 @@ const AddHomeworkPage = () => {
             </select>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="title"
+            >
               Homework Title
             </label>
             <input
@@ -144,7 +147,10 @@ const AddHomeworkPage = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="subject">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="subject"
+            >
               Subject
             </label>
             <input
@@ -157,7 +163,10 @@ const AddHomeworkPage = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="description"
+            >
               Homework Description
             </label>
             <textarea
@@ -169,7 +178,10 @@ const AddHomeworkPage = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="dueDate">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="dueDate"
+            >
               Due Date
             </label>
             <input
@@ -182,7 +194,10 @@ const AddHomeworkPage = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="file">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="file"
+            >
               Upload File
             </label>
             <input
