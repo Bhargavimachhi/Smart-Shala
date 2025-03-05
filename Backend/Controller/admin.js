@@ -110,23 +110,23 @@ export const addClassroomToAdmin = async (req, res) => {
 //add teacher to admin portal
 export const addTeacherToAdmin = async (req, res) => {
   let admin = await Admin.findById(req.params.id);
-  let teachers = await Teacher.find({ email: req.body.email });
+  let teacher = await Teacher.findOne({ email: req.body.email });
 
   if (admin == null) {
     res.status(404).json({ message: "Admin does not exist" });
     return;
   }
-  if (!teachers || teachers.length == 0) {
+  if (!teacher) {
     res.status(404).json({ message: "Teacher does not exist" });
     return;
   }
-  if (admin.teachers.includes(teachers[0]._id)) {
+  if (admin.teachers.includes(teacher._id)) {
     res
       .status(404)
       .json({ message: "Teacher Already exists in your institute" });
     return;
   }
-  admin.teachers.push(teachers[0]._id);
+  admin.teachers.push(teacher._id);
 
   admin
     .save()
@@ -141,23 +141,27 @@ export const addTeacherToAdmin = async (req, res) => {
 //add student to admin portal
 export const addStudentToAdmin = async (req, res) => {
   let admin = await Admin.findById(req.params.id);
-  let students = await Student.find({ email: req.body.email });
+  let student = await Student.findOne({ email: req.body.email });
 
   if (admin == null) {
     res.status(404).json({ message: "Admin does not exist" });
     return;
   }
-  if (!students || students.length == 0) {
+  if (!student) {
     res.status(404).json({ message: "Student does not exist" });
     return;
   }
-  if (admin.students.includes(students[0]._id)) {
+  
+  if (admin.students.includes(student._id)) {
     res
       .status(404)
       .json({ message: "Student Already exists in your institute" });
     return;
   }
-  admin.students.push(students[0]._id);
+  if(student.classroom) {
+    return res.status(400).json({message : "Student already part of some institute"});
+  }
+  admin.students.push(student._id);
 
   admin
     .save()

@@ -1,9 +1,29 @@
-import React, { useState } from 'react';
-import { Typography, Button, TableContainer, Table, TableHead, TableRow, TableCell, Paper, Dialog, DialogTitle, DialogContent, DialogActions, List, ListItem, ListItemText, Checkbox } from '@mui/material';
+import React, { useState } from "react";
+import {
+  Typography,
+  Button,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  Paper,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  List,
+  ListItem,
+  ListItemText,
+  Checkbox,
+} from "@mui/material";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const addteachertoclassroom = ({ teachers, onAddTeacher, classroom }) => {
   const [openTeacherDialog, setOpenTeacherDialog] = useState(false);
-  const [selectedTeachers, setSelectedTeachers] = useState([]);
+  const [teacherEmail, setTeacherEmail] = useState(null);
+  const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
   const handleOpenTeacherDialog = () => {
     setOpenTeacherDialog(true);
@@ -13,48 +33,70 @@ const addteachertoclassroom = ({ teachers, onAddTeacher, classroom }) => {
     setOpenTeacherDialog(false);
   };
 
-  const handleToggleTeacher = (teacher) => () => {
-    const currentIndex = selectedTeachers.indexOf(teacher);
-    const newSelectedTeachers = [...selectedTeachers];
-
-    if (currentIndex === -1) {
-      newSelectedTeachers.push(teacher);
-    } else {
-      newSelectedTeachers.splice(currentIndex, 1);
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent form default behavior
+    if (!teacherEmail) {
+      toast.error("Please enter a valid email.");
+      return;
     }
 
-    setSelectedTeachers(newSelectedTeachers);
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/admin/${savedAuth.id}/assign-teacher`,
+        { email: teacherEmail }
+      );
+      toast.success("Teacher added successfully!");
+      setTeacherEmail(null);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   };
 
   return (
     <>
-      <div className='flex justify-between'>
-        <Typography variant="h5" className="mb-4">Teachers</Typography>
-        <Button variant="contained" color="primary" className='mb-4' onClick={handleOpenTeacherDialog}>
+      <div className="flex justify-between">
+        <Typography variant="h5" className="mb-4">
+          Teachers
+        </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          className="mb-4"
+          onClick={handleOpenTeacherDialog}
+        >
           Add Teachers
         </Button>
       </div>
-    
 
-     
-      <Dialog open={openTeacherDialog} onClose={handleCloseTeacherDialog} maxWidth="sm" fullWidth>
-        <DialogTitle>Select Teachers</DialogTitle>
+      <Dialog
+        open={openTeacherDialog}
+        onClose={handleCloseTeacherDialog}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogTitle>Add Teacher</DialogTitle>
         <DialogContent>
-          <List>
-            {teachers.map((teacher) => !teacher.classrooms.includes(classroom._id) && (
-              <ListItem key={teacher.id} button onClick={handleToggleTeacher(teacher)}>
-                <Checkbox checked={selectedTeachers.indexOf(teacher) !== -1} />
-                <ListItemText primary={teacher.name} />
-                <ListItemText primary={teacher.email} />
-              </ListItem>
-            ))}
-          </List>
+          <form className="flex flex-col gap-5">
+            <input
+              type="email"
+              value={teacherEmail}
+              onChange={(e) => setTeacherEmail(e.target.value)}
+              className="border px-4 py-5 mb-5 rounded-md"
+              placeholder="Enter Email"
+            />
+          </form>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseTeacherDialog} color="primary">
             Cancel
           </Button>
-          <Button onClick={() => { onAddTeacher(selectedTeachers); handleCloseTeacherDialog(); }} color="primary">
+          <Button
+            onClick={(e) => {
+              handleSubmit(e);
+              handleCloseTeacherDialog();
+            }}
+            color="primary"
+          >
             Add
           </Button>
         </DialogActions>
