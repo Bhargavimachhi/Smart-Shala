@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { StudentRegistrationImage } from "../../Admin/Icons/NavIcon.jsx";
 import axios from "axios";
-import { Password } from "@mui/icons-material";
 import toast from "react-hot-toast";
 
 const StudentForm = () => {
@@ -12,11 +11,9 @@ const StudentForm = () => {
   const [parentName, setParentName] = useState("");
   const [parentContact, setParentContact] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
 
   const HandleStudentSubmit = async (e) => {
     e.preventDefault();
-
     const studentFormData = {
       name,
       email,
@@ -34,20 +31,12 @@ const StudentForm = () => {
       toast.error("Parent number must be 10 digits.");
       return;
     }
-
     if (studentFormData.password.length < 6) {
-      toast.error("Password must be atleast 6 charcater long");
+      toast.error("Password must be at least 6 characters long");
       return;
     }
-
     try {
-      const responce = await axios.post(
-        "http://localhost:3000/signup/student",
-        studentFormData
-      );
-
-      console.log(responce.data);
-
+      await axios.post("http://localhost:3000/signup/student", studentFormData);
       window.location.href = window.location.origin + "/login";
     } catch (error) {
       toast.error(error.response.data.message);
@@ -55,208 +44,133 @@ const StudentForm = () => {
   };
 
   return (
-    <>
-      <div>
-        {/* method='post' action='/signupstudent' */}
-        <form className="w-full max-w-lg" onSubmit={HandleStudentSubmit}>
-          <h2 className=" -ml-5">Student Details</h2>
-          <hr className="mb-4 -ml-5"></hr>
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-first-name"
-              >
-                Name
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                id="grid-first-name"
-                type="text"
-                placeholder="Jane"
-                value={name}
-                required
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
-              />
-
-              {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
-            </div>
-
-            {/* Phone  */}
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-phone"
-              >
-                Phone/Mo.
-              </label>
-              <input
-                value={contact}
-                required
-                onChange={(e) => {
-                  setContact(e.target.value);
-                }}
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                id="grid-phone"
-                type="number"
-                placeholder="+91   "
-              />
-              {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
-            </div>
-
-            {/* Email  */}
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-phone"
-              >
-                Email
-              </label>
-              <input
-                required
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-                value={email}
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                id="grid-email"
-                type="email"
-                placeholder="abc@gmail.com   "
-              />
-              {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
-            </div>
-
-            {/* Password */}
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-phone"
-              >
-                Password
-              </label>
-              <input
-                required
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-                value={password}
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                id="grid-password"
-                type="password"
-              />
-              {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
-            </div>
-          </div>
-
-          <div className="flex flex-wrap -mx-3 mb-2">
-            <div className="w-full p-5  h-auto flex items-center ">
-              <div className="w-full">
-                <label
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="grid-address"
-                >
-                  Address
-                </label>
-
-                <input
-                  value={address}
-                  required
-                  onChange={(e) => {
-                    setAddress(e.target.value);
-                  }}
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-last-name"
-                  type="text"
-                  placeholder="Apartment , Area , City ,District"
-                />
-              </div>
-            </div>
-          </div>
-          <h2 className="-ml-5">Parent's Details</h2>
-          <hr className="mb-4 -ml-5"></hr>
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-first-name"
-              >
-                Parent Name
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                id="grid-first-name"
-                type="text"
-                placeholder="Jane"
-                required
-                onChange={(e) => {
-                  setParentName(e.target.value);
-                }}
-              />
-              {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
-            </div>
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-phone"
-              >
-                Phone/Mo.
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                id="grid-phone"
-                type="number"
-                placeholder="+91   "
-                required
-                onChange={(e) => {
-                  setParentContact(e.target.value);
-                }}
-              />
-              {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
-            </div>
-          </div>
-          <button
-            type="submit"
-            className="before:ease relative h-12 w-40 overflow-hidden border rounded-md border-green-500 bg-blue-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-gray-500 hover:before:-translate-x-40"
-          >
-            submit
-          </button>
-        </form>
+    <form
+      className="w-full max-w-lg space-y-4 bg-white sm:p-6"
+      onSubmit={HandleStudentSubmit}
+    >
+      <h2 className="text-xl font-semibold text-text">Student Details</h2>
+      <hr className="border-border" />
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="flex flex-col gap-2">
+          <label className="block">Name :</label>
+          <input
+            type="text"
+            className="p-1 pl-2 border rounded-md border-text input-field focus:ring focus-visible:outline-none focus-visible:ring-1"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Ex. Jane Doe"
+            required
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="block">Phone/Mo. :</label>
+          <input
+            type="number"
+            className="p-1 pl-2 border rounded-md border-text input-field focus:ring focus-visible:outline-none focus-visible:ring-1"
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
+            placeholder="Ex. 12345-67890"
+            required
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="block">Email :</label>
+          <input
+            type="email"
+            className="p-1 pl-2 border rounded-md border-text input-field focus:ring focus-visible:outline-none focus-visible:ring-1"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Ex. student@gmail.com"
+            required
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="block">Password :</label>
+          <input
+            type="password"
+            className="p-1 pl-2 border rounded-md border-text input-field focus:ring focus-visible:outline-none focus-visible:ring-1"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Ex. $12@123"
+            required
+          />
+        </div>
       </div>
-    </>
+      <div className="flex flex-col gap-2">
+        <label className="block">Address :</label>
+        <input
+          type="text"
+          className="p-1 pl-2 border rounded-md border-text input-field focus:ring focus-visible:outline-none focus-visible:ring-1"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          placeholder="Ex. Apartment, Area, City, District"
+          required
+        />
+      </div>
+
+      <h2 className="text-xl font-semibold text-text">Parent's Details</h2>
+      <hr className="border-border" />
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="flex flex-col gap-2">
+          <label className="block">Parent Name :</label>
+          <input
+            type="text"
+            className="p-1 pl-2 border rounded-md border-text input-field focus:ring focus-visible:outline-none focus-visible:ring-1"
+            value={parentName}
+            onChange={(e) => setParentName(e.target.value)}
+            placeholder="Ex. John Doe"
+            required
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="block">Phone/Mo. :</label>
+          <input
+            type="number"
+            className="p-1 pl-2 border rounded-md border-text input-field focus:ring focus-visible:outline-none focus-visible:ring-1"
+            value={parentContact}
+            onChange={(e) => setParentContact(e.target.value)}
+            placeholder="Ex. 12345-67890"
+            required
+          />
+        </div>
+      </div>
+      <button
+        type="submit"
+        className="px-6 py-2 text-white transition-all rounded-md bg-btn"
+      >
+        Submit
+      </button>
+    </form>
   );
 };
 
 const AddStudent = () => {
   return (
-    <>
-      <div className="flex min-h-screen bg-gray-200">
-        <div id="main" className="w-full bg-red h-screen p-5">
-          <div
-            className="bg-gray-100 h-full flex rounded-sm flex-col justify-center align-middle shadow-lg"
-            id="form-container"
-          >
-            <h1 className="text-4xl font-bold flex align-middle m-3">
-              Student Registration
-            </h1>
-            <div className=" h-full p-5 w-full  grid grid-cols-2 pt-20 -mt-5   ">
-              <div className="w-full  flex justify-center -mt-5 ">
-                <StudentForm />
-              </div>
-              <div className="w-full p-5  ">
-                <img
-                  className="rounded h-9/12"
-                  src={StudentRegistrationImage}
-                  width={"100%"}
-                ></img>
-              </div>
-            </div>
-          </div>
+    <div className="min-h-screen p-5 bg-gray-100 ">
+      <div className="mb-2 font-semibold text-center">
+        <h1 className="text-2xl text-text">Student Registration Form</h1>
+      </div>
+      <div className="flex flex-col w-full mx-auto bg-white rounded-md shadow-xl max-w-7xl md:flex-row">
+        <div className="flex items-center justify-center w-full p-5 md:w-1/2">
+          <StudentForm />
+        </div>
+        <div className="relative flex items-center justify-center w-full p-5 abso md:w-1/2">
+          <h1 className="absolute text-xl sm:text-4xl font-bold sm:top-[37%] sm:left-[10%] text-helper top-[30%] left-[10%]">
+            SmartShala
+          </h1>
+          <img
+            src={StudentRegistrationImage}
+            alt="Student Registration"
+            className="rounded-md shadow-md"
+          />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
 export default AddStudent;
+
+// Tailwind Classes
+// .input-field { className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" }
+// .btn-primary { className="w-full py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600" }
