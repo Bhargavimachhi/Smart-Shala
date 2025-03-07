@@ -59,6 +59,8 @@ import SelectClassroom from "./Pages/Teacher/Components/SelectClassroomPage.jsx"
 import ResourceManagement from "./Pages/Admin/Pages/ResourceManagement";
 import RequestResource from "./Pages/Teacher/Pages/RequestResource";
 import SubmitHWmainBox from "./Pages/Student/Components/submitHWComponent/submitHWMainCompoent.jsx";
+import SchoolListingPage from "./Pages/Admin/Pages/SchoolListing.jsx";
+import AddSchools from "./Pages/Admin/Components/SchoolListingPageComponents/AddSchools.jsx";
 
 const App = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -77,6 +79,27 @@ const App = () => {
             element={
               savedAuth && savedAuth.role == "admin" ? (
                 <AdminHome />
+              ) : (
+                <LoginAlert />
+              )
+            }
+          />
+
+          <Route
+            path="/admin/schools"
+            element={
+              savedAuth && savedAuth.role == "admin" ? (
+                <SchoolListingPage />
+              ) : (
+                <LoginAlert />
+              )
+            }
+          />
+          <Route
+            path="/admin/add-school"
+            element={
+              savedAuth && savedAuth.role == "admin" ? (
+                <AddSchools />
               ) : (
                 <LoginAlert />
               )

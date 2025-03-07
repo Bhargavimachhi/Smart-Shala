@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { IoSchoolSharp } from "react-icons/io5";
 import {
   TeacherIcon,
   HomeIcon,
@@ -12,7 +12,7 @@ import { useAuth } from "../context/auth.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const   SideNavbar = () => {
+const SideNavbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [auth, setAuth] = useAuth();
@@ -21,24 +21,27 @@ const   SideNavbar = () => {
 
   useEffect(() => {
     async function getAdmin() {
-      const res = await axios.get(`http://localhost:3000/admin/${savedAuth.id}`);
+      const res = await axios.get(
+        `http://localhost:3000/admin/${savedAuth.id}`
+      );
       setAdmin(res.data.admin);
     }
     getAdmin();
-  },[]);
+  }, []);
   const handleLogout = () => {
     setAuth({
       _id: null,
       token: "",
-      role:""
+      role: "",
     });
     localStorage.removeItem("token");
     navigate("/login");
   };
   const navItems = [
     { icon: HomeIcon, name: "Home", path: "/admin" },
-    { icon: StudentIcon, name: "Students", path: "/admin/students" },
-    { icon: TeacherIcon, name: "Teachers", path: "/admin/teachers" },
+    // { icon: StudentIcon, name: "Students", path: "/admin/students" },
+    // { icon: TeacherIcon, name: "Teachers", path: "/admin/teachers" },
+    { icon: TeacherIcon, name: "Schools", path: "/admin/schools" },
     { icon: StudentIcon, name: "Classrooms", path: "/admin/classrooms" },
     { icon: DataIcon, name: "Data Analytics", path: "/admin/data-analytics" },
     { icon: MeetingIcon, name: "Meeting", path: "/admin/meeting" },
@@ -47,10 +50,10 @@ const   SideNavbar = () => {
   ];
 
   return (
-    <div className="w-64  bg-white shadow-lg p-4 space-y-4  ">
-      <div className="flex items-center gap-2 p-2  ">
-        <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
-          <span className="text-white text-sm">{admin && admin.email[0]}</span>
+    <div className="w-64 p-4 space-y-4 bg-white border border-r-border">
+      <div className="flex items-center gap-2 p-2 ">
+        <div className="flex items-center justify-center w-8 h-8 bg-blue-500 rounded-full">
+          <span className="text-sm text-white">{admin && admin.email[0]}</span>
         </div>
         <div>
           <p className="text-sm font-medium">Admin</p>
@@ -86,7 +89,7 @@ const   SideNavbar = () => {
 
       <button
         onClick={handleLogout}
-        className="w-full flex items-center gap-2 p-2 text-gray-600 hover:bg-gray-100 rounded-lg mt-auto"
+        className="flex items-center w-full gap-2 p-2 mt-auto text-gray-600 rounded-lg hover:bg-gray-100"
       >
         <svg
           className="w-5 h-5"

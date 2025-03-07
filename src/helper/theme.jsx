@@ -15,6 +15,7 @@ export const theme = {
     cardbg: "#0449dc", // Soft Blue for cards
     hr: "#D1E3FF", // Soft blue for dividers
     border: "rgba(0, 123, 255, 0.5)", // Blue border
+    bgBlue: "#075985",
     gradient:
       "linear-gradient(0deg, rgb(132, 170, 255) 0%, rgb(98, 189, 252) 100%)", // Blue gradient
     shadow:
