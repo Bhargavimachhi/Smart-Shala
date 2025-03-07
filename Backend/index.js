@@ -39,6 +39,7 @@ import {
   sendSMSToLowAttendanceStudents,
   markTeacherAbsent,
   markTeacherPresent,
+  getPresentDaysAttendanceOfTeacher,
 } from "./Controller/teacher.js";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -97,7 +98,7 @@ import {
   recognizeFaceAndMarkPresent
 } from "./Controller/face.js";
 import { addQuizToClassroom, assignMarksOfQuizToStudent, getQuizesOfClassroom } from "./Controller/quiz.js";
-import { addAuthority, addSchoolToAuthority, getSchoolsOfAuthority } from "./Controller/authority.js";
+import { addAuthority, addSchoolToAuthority, getAverageAttendanceOfSchoolsOfAuthority, getSchoolsOfAuthority } from "./Controller/authority.js";
 
 app.use(express.json());
 
@@ -147,6 +148,7 @@ app.get("/teacher/:teacherId/classrooms/:classroomId/manual-attendance", getStud
 app.post("/teacher/send-low-attendance-sms", sendSMSToLowAttendanceStudents);
 app.get("/teacher/:id/attendance/present", markTeacherPresent);
 app.get("/teacher/:id/attendance/absent", markTeacherAbsent);
+app.get("/teacher/:id/attendance", getPresentDaysAttendanceOfTeacher);
 
 // student routes
 app.get("/student/:id", getStudent);
@@ -182,6 +184,7 @@ app.post("/addAdmin", addAdmin);
 app.post("/add-authority", addAuthority);
 app.get("/authority/:id/schools", getSchoolsOfAuthority);
 app.post("/authority/:id/add-school", addSchoolToAuthority);
+app.get("/authority/:id/attendance", getAverageAttendanceOfSchoolsOfAuthority);
 
 //homework routes
 app.post("/homework/analysis", analyzeImageFromFile);

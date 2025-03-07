@@ -2,6 +2,10 @@ import mongoose from 'mongoose';
 import joi from 'joi';
 
 let adminSchema = new mongoose.Schema({
+    name : {
+        type: String,
+        default: "Government School of Bhavnagar"
+    },
     email :{
         type : String,
         required : true,

@@ -1,5 +1,7 @@
 import { Admin } from "../Models/Admin.js";
 import { Authority } from "../Models/Authority.js";
+import { Student } from "../Models/Student.js";
+import { Classroom } from "../Models/Classroom.js";
 import JWT from "jsonwebtoken";
 //add Admin
 export const JWT_SECRET = "asbcdefgh123";
@@ -74,4 +76,49 @@ export const getSchoolsOfAuthority = async (req, res) => {
     schools.push(school);
   }
   return res.status(200).json({ message: "success", schools });
+};
+
+//get average attendance of schools of authority
+export const getAverageAttendanceOfSchoolsOfAuthority = async (req, res) => {
+  let { id } = req.params;
+  let authority = await Authority.findById(id);
+
+  if (!authority) {
+    return res.status(404).json({ message: "Authority Doesnot exist" });
+  }
+  let attendance = [];
+  for (let i = 0; i < authority.schools.length; i++) {
+    let admin = await Admin.findById(authority.schools[i]);
+
+    if (!admin) {
+      continue;
+    }
+    let data = [];
+    await Promise.all(
+      admin.classrooms.map(async (classroomId) => {
+        let average = 0;
+        const classroom = await Classroom.findById(classroomId);
+        if (classroom) {
+          await Promise.all(
+            classroom.students.map(async (studentId) => {
+              const student = await Student.findById(studentId);
+              const presentDays = student.presentDays.length;
+              const total = student.absentDays.length + presentDays;
+              average += presentDays / total;
+            })
+          );
+          average = (average / classroom.students.length) * 100;
+          data.push({
+            name: classroom.name,
+            value: !average ? 0 : average,
+          });
+        }
+      })
+    );
+    attendance.push({
+      school : admin.name,
+      average : data
+    });
+  }
+  return res.status(200).json({message:"success", attendance});
 };
