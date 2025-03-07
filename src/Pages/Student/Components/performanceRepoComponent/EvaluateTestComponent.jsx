@@ -34,18 +34,18 @@ const EvaluateTestComponent = () => {
 
   return (
     <>
-    <div className="bg-white p-6 rounded-lg border-2 border-2">
-      <h2 className="text-2xl font-bold mb-4 text-center ">Upload Test Paper</h2>
-      <div className="border-2 border-dashed bloc border-blue-500 p-8 rounded-lg justify-center justify-items-center">
+    <div className="p-6 bg-white border-2 rounded-lg">
+      <h2 className="mb-4 text-2xl font-bold text-center ">Upload Test Paper</h2>
+      <div className="justify-center p-8 border-2 border-blue-500 border-dashed rounded-lg bloc justify-items-center">
         <input
           type="file"
           accept=".pdf, .doc, .docx"
-          className="mb-4 block content-center p-2 border-2"
+          className="content-center block p-2 mb-4 border-2"
           onChange={handleFileInput} 
         />
         <button
           onClick={handleSubmit}
-          className="px-4 py-2 bg-sky-700 text-white rounded-lg hover:bg-sky-700"
+          className="px-4 py-2 text-white rounded-lg bg-sky-700 hover:bg-sky-700"
         >
           Submit
         </button>

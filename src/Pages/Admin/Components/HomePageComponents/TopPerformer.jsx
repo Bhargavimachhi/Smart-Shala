@@ -36,33 +36,33 @@ const TopPerformersTable = () => {
 
   return (
     <>
-      <div className="container mx-auto p-4 -mt-5 no-scrollbar">
+      <div className="container p-3 mx-auto no-scrollbar">
         {topStudents.map(({ className, topThree }) => (
-          <div key={className} className="mb-6  ">
-            <h2 className="text-lg font-semibold mb-2 ">Class: {className}</h2>
-            <table className="w-full shadow-sm rounded-md ">
+          <div key={className} className="mb-2">
+            <h2 className="mb-2 text-lg font-semibold ">Class: {className}</h2>
+            <table className="w-full border rounded-lg border-text">
               <thead>
                 <tr className="bg-gray-100">
-                  <th className="py-2 px-4 text-left">Photo</th>
-                  <th className="py-2 px-4 text-left">Name</th>
-                  <th className="py-2 px-4 text-left">Roll No</th>
-                  <th className="py-2 px-4 text-left">Std</th>
-                  <th className="py-2 px-4 text-left">Attendance</th>
+                  <th className="px-4 py-2 text-left">Photo</th>
+                  <th className="px-4 py-2 text-left">Name</th>
+                  <th className="px-4 py-2 text-left">Roll No</th>
+                  <th className="px-4 py-2 text-left">Std</th>
+                  <th className="px-4 py-2 text-left">Attendance</th>
                 </tr>
               </thead>
               <tbody>
                 {topThree.map((student) => (
                   <tr
                     key={student.id}
-                    className="hover:bg-gray-200 transition duration-150"
+                    className="transition duration-150 hover:bg-gray-200"
                   >
-                    <td className="py-2 px-4">
+                    <td className="px-4 py-2">
                       <img src={student.photo} alt={student.name} className="w-10 h-10 rounded-full" />
                     </td>
-                    <td className="py-2 px-4">{student.name}</td>
-                    <td className="py-2 px-4">{student.rollNo}</td>
-                    <td className="py-2 px-4">{student.class}</td>
-                    <td className="py-2 px-4">{student.attendance}%</td>
+                    <td className="px-4 py-2">{student.name}</td>
+                    <td className="px-4 py-2">{student.rollNo}</td>
+                    <td className="px-4 py-2">{student.class}</td>
+                    <td className="px-4 py-2">{student.attendance}%</td>
                   </tr>
                 ))}
               </tbody>

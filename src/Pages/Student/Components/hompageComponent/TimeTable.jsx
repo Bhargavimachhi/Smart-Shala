@@ -34,32 +34,28 @@ const TimeTable = () => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg  mt-6">
-      <table className="w-full ">
-        <thead>
-          <tr>
-            <th className="px-4 py-2 border ">Day</th>
-            <th className="px-4 py-2 border ">Subject</th>
-            <th className="px-4 py-2 border ">Time</th>
+    <div className="p-4 mt-6 overflow-x-auto bg-white rounded-lg">
+      <table className="w-full min-w-max">
+        <thead className="text-btn">
+          <tr className="">
+            <th className="px-4 py-2 border text-start">Day</th>
+            <th className="px-4 py-2 border text-start">Subject</th>
+            <th className="px-4 py-2 border text-start">Time</th>
           </tr>
         </thead>
         <tbody>
           {Object.entries(timetable).map(([day, classes]) => (
             <tr key={day}>
-              <td className="px-4 py-2 border font-semibold">{day}</td>
+              <td className="px-4 py-2 font-semibold border">{day}</td>
               <td className="px-4 py-2 border">
-                <ul>
-                  {classes.map((cls, index) => (
-                    <li key={index}>{cls.subject}</li>
-                  ))}
-                </ul>
+                {classes.map((cls, index) => (
+                  <div key={index}>{cls.subject}</div>
+                ))}
               </td>
               <td className="px-4 py-2 border">
-                <ul>
-                  {classes.map((cls, index) => (
-                    <li key={index}>{cls.time}</li>
-                  ))}
-                </ul>
+                {classes.map((cls, index) => (
+                  <div key={index}>{cls.time}</div>
+                ))}
               </td>
             </tr>
           ))}

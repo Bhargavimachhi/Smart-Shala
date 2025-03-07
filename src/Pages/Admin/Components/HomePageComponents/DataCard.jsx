@@ -17,11 +17,11 @@ const DataCard = () => {
   }, []);
 
   return (
-    <div className="flex flex-wrap ">
-      <div className="w-64 h-18 bg-white rounded-lg shadow-lg flex items-center justify-between p-4 mr-10">
+    <div className="flex flex-wrap">
+      <div className="flex items-center justify-between w-64 p-2 mr-10 bg-white rounded-lg shadow-lg h-18">
         <div>
-          <p className="text-gray-500 font-medium">Students</p>
-          <p className="text-blue-600 text-3xl font-bold">
+          <p className="font-medium text-gray-500">Students</p>
+          <p className="text-3xl font-bold text-blue-600">
             {admin && admin.students.length}
           </p>
         </div>
@@ -29,14 +29,14 @@ const DataCard = () => {
           <img
             src={StudentIcon}
             alt={`Students Icon`}
-            className="h-12 w-12 text-blue-600"
+            className="w-12 h-12 text-blue-600"
           />
         </div>
       </div>
-      <div className="w-64 h-18 bg-white rounded-lg shadow-lg flex items-center justify-between p-4 mr-10">
+      <div className="flex items-center justify-between w-64 p-4 mr-10 bg-white rounded-lg shadow-lg h-18">
         <div>
-          <p className="text-gray-500 font-medium">Teachers</p>
-          <p className="text-blue-600 text-3xl font-bold">
+          <p className="font-medium text-gray-500">Teachers</p>
+          <p className="text-3xl font-bold text-blue-600">
             {admin && admin.teachers.length}
           </p>
         </div>
@@ -44,14 +44,14 @@ const DataCard = () => {
           <img
             src={TeacherIcon}
             alt={`Techears Icon`}
-            className="h-12 w-12 text-blue-600"
+            className="w-12 h-12 text-blue-600"
           />
         </div>
       </div>
-      <div className="w-64 h-18 bg-white rounded-lg shadow-lg flex items-center justify-between p-4">
+      <div className="flex items-center justify-between w-64 p-4 bg-white rounded-lg shadow-lg h-18">
         <div>
-          <p className="text-gray-500 font-medium">Classrooms</p>
-          <p className="text-blue-600 text-3xl font-bold">
+          <p className="font-medium text-gray-500">Classrooms</p>
+          <p className="text-3xl font-bold text-blue-600">
             {admin && admin.classrooms.length}
           </p>
         </div>
@@ -59,7 +59,7 @@ const DataCard = () => {
           <img
             src={StudentIcon}
             alt={`Classroom Icon`}
-            className="h-12 w-12 text-blue-600"
+            className="w-12 h-12 text-blue-600"
           />
         </div>
       </div>
