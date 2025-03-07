@@ -97,6 +97,7 @@ import {
   recognizeFaceAndMarkPresent
 } from "./Controller/face.js";
 import { addQuizToClassroom, assignMarksOfQuizToStudent, getQuizesOfClassroom } from "./Controller/quiz.js";
+import { addAuthority, addSchoolToAuthority, getSchoolsOfAuthority } from "./Controller/authority.js";
 
 app.use(express.json());
 
@@ -176,6 +177,11 @@ app.post("/admin/:id/assign-teacher", addTeacherToAdmin);
 app.post("/admin/:id/assign-student", addStudentToAdmin);
 app.get("/admin/:id/classrooms/attendance", getAttendanceOfClassroomsOfAdmin);
 app.post("/addAdmin", addAdmin);
+
+// authority routes
+app.post("/add-authority", addAuthority);
+app.get("/authority/:id/schools", getSchoolsOfAuthority);
+app.post("/authority/:id/add-school", addSchoolToAuthority);
 
 //homework routes
 app.post("/homework/analysis", analyzeImageFromFile);
