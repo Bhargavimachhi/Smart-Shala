@@ -39,6 +39,14 @@ let teacherSchema = new mongoose.Schema({
         type : String,
         default : null
     },
+    absentDays: {
+        type: [String],
+        default : [],
+    },
+    presentDays: {
+        type: [String],
+        default : [],
+    },
 });
 
 export const Teacher = mongoose.model("Teacher", teacherSchema);

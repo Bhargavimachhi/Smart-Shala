@@ -251,3 +251,63 @@ export const sendSMSToLowAttendanceStudents = async (req, res) => {
         res.status(500).json({ message: "Error sending SMS", error: error.response ? error.response.data : error.message });
     }
 };
+
+//mark attendance as present
+export const markTeacherPresent = async(req, res) => {
+    const id = req.params.id;
+    const date = new Date().toISOString().split('T')[0]; // Get the current date in YYYY-MM-DD format
+    const teacher = await Teacher.findById(id);
+
+    if(!teacher) {
+        res.status(404).json({message : "Teacher does not exist"});
+        return;
+    }
+
+    // Remove the date from absentDays if it exists
+    const absentIndex = teacher.absentDays.indexOf(date);
+    if(absentIndex > -1) {
+        teacher.absentDays.splice(absentIndex, 1);
+    }
+
+    // Add the date to presentDays if it doesn't already exist
+    if(!teacher.presentDays.includes(date)) {
+        teacher.presentDays.push(date);
+    }
+
+    teacher.save().then(()=>{
+        res.status(200).json({ message: "Teacher marked present successfully" });
+    }).catch((err)=>{
+        console.log(err);
+        res.status(500).json({ message: "Error occurred while marking present" });
+    });
+}
+
+//mark attendance as absent
+export const markTeacherAbsent = async(req, res) => {
+    const id = req.params.id;
+    const date = new Date().toISOString().split('T')[0]; // Get the current date in YYYY-MM-DD format
+    const teacher = await Teacher.findById(id);
+
+    if(!teacher) {
+        res.status(404).json({message : "Student does not exist"});
+        return;
+    }
+
+    // Remove the date from presentDays if it exists
+    const presentIndex = teacher.presentDays.indexOf(date);
+    if(presentIndex > -1) {
+        teacher.presentDays.splice(presentIndex, 1);
+    }
+
+    // Add the date to absentDays if it doesn't already exist
+    if(!teacher.absentDays.includes(date)) {
+        teacher.absentDays.push(date);
+    }
+
+    teacher.save().then(() => {
+        res.status(200).json({ message: "Teacher marked absent successfully" });
+    }).catch((err)=>{
+        console.log(err);
+        res.status(500).json({ message: "Error occurred while marking absent" });
+    });
+}

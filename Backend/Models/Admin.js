@@ -45,7 +45,15 @@ let adminSchema = new mongoose.Schema({
             }
         ],
         default: []
-    }
+    },
+    absentDays: {
+        type: [String],
+        default : [],
+    },
+    presentDays: {
+        type: [String],
+        default : [],
+    },
 });
 
 export const Admin = mongoose.model("Admin", adminSchema);

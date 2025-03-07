@@ -37,6 +37,8 @@ import {
   getClassroomsAndLowAttendanceStudents,
   sendEmailsToLowAttendanceStudents,
   sendSMSToLowAttendanceStudents,
+  markTeacherAbsent,
+  markTeacherPresent,
 } from "./Controller/teacher.js";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -142,6 +144,8 @@ app.post("/teacher/send-low-attendance-emails", sendEmailsToLowAttendanceStudent
 app.get("/teacher/:teacherId/manual-attendance", getClassroomsOfTeacher2);
 app.get("/teacher/:teacherId/classrooms/:classroomId/manual-attendance", getStudentsOfClassroom2);
 app.post("/teacher/send-low-attendance-sms", sendSMSToLowAttendanceStudents);
+app.get("/teacher/:id/attendance/present", markTeacherPresent);
+app.get("/teacher/:id/attendance/absent", markTeacherAbsent);
 
 // student routes
 app.get("/student/:id", getStudent);
