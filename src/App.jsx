@@ -61,6 +61,8 @@ import RequestResource from "./Pages/Teacher/Pages/RequestResource";
 import SubmitHWmainBox from "./Pages/Student/Components/submitHWComponent/submitHWMainCompoent.jsx";
 import SchoolListingPage from "./Pages/Admin/Pages/SchoolListing.jsx";
 import AddSchools from "./Pages/Admin/Components/SchoolListingPageComponents/AddSchools.jsx";
+import GenerateQuiz from "./Pages/Teacher/Pages/GenerateQuiz.jsx";
+import StudentQuiz from "./Pages/Student/StudentPages/StudentQuiz.jsx"
 
 const App = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -277,6 +279,16 @@ const App = () => {
               )
             }
           />
+          <Route
+            path="/student/quizzes"
+            element={
+              savedAuth && savedAuth.role == "student" ? (
+                <StudentQuiz />
+              ) : (
+                <LoginAlert />
+              )
+            }
+          />
 
           {/* Teacher Page Routes */}
           <Route
@@ -434,6 +446,16 @@ const App = () => {
             element={
               savedAuth && savedAuth.role == "teacher" ? (
                 <ClassroomAttendancePage />
+              ) : (
+                <LoginAlert />
+              )
+            }
+          />
+          <Route
+            path="/teacher/classroom/:id/generate-quiz"
+            element={
+              savedAuth && savedAuth.role == "teacher" ? (
+                <GenerateQuiz />
               ) : (
                 <LoginAlert />
               )
