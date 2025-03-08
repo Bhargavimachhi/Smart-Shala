@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../InitialPages/Loader";
 
 const SCHOOLS = [
   {
@@ -173,7 +174,7 @@ const SchoolListingPage = () => {
               </Grid>
             </>
           ) : (
-            <div className="mt-8 text-center">No School found</div>
+            <Loader text={"Loading Schools"} />
           )}
         </div>
       </div>

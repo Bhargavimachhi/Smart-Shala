@@ -1,9 +1,9 @@
+import React, { useEffect, useState } from "react";
+import "../css/AdminHome.css";
 import NoticeBoard from "../Components/HomePageComponents/NoticeBoard.jsx";
 import TopPerformer from "../Components/HomePageComponents/TopPerformer.jsx";
 import SideNavbar from "../../../components/SideNavbar.jsx";
 import DataCard from "../Components/HomePageComponents/DataCard.jsx";
-import "../css/AdminHome.css";
-import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useGlobalContext } from "../../../context/GlobalProvider.jsx";
@@ -11,7 +11,8 @@ import { useGlobalContext } from "../../../context/GlobalProvider.jsx";
 const AdminHome = () => {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
-
+  const [SMSstatus, SMSsetStatus] = useState("");
+  const [SMSloading, SMSsetLoading] = useState(false);
   const [alerts, setAlerts] = useState([]);
   const { trigger, playSound } = useGlobalContext();
 
@@ -46,8 +47,6 @@ const AdminHome = () => {
       setLoading(false);
     }
   };
-  const [SMSstatus, SMSsetStatus] = useState("");
-  const [SMSloading, SMSsetLoading] = useState(false);
 
   const sendSMS = async () => {
     SMSsetLoading(true);
@@ -104,6 +103,7 @@ const AdminHome = () => {
       alert("Failed to delete alert");
     }
   };
+
   return (
     <>
       <div className="w-screen h-screen" id="main-home-window">
@@ -120,10 +120,7 @@ const AdminHome = () => {
                 </div>
               </div> */}
           <div id="main-container" className="">
-            <div
-              id="middle-left"
-              className="max-h-screen p-3 bg-white"
-            >
+            <div id="middle-left" className="max-h-screen p-3 bg-white">
               <DataCard />
 
               <div className="flex flex-col w-full" id="top-performer">
@@ -178,7 +175,7 @@ const AdminHome = () => {
                   Emergency Notifications
                   <button
                     type="button"
-                    className="px-5 py-1 mt-5 text-gray-500 bg-blue-300 border-none rounded-lg"
+                    className="px-5 py-1 mt-5 bg-blue-300 border-none rounded-lg text-text"
                     onClick={sendMail}
                   >
                     Inform Parents{" "}
@@ -187,7 +184,7 @@ const AdminHome = () => {
 
                 <div className="flex flex-col items-center w-full p-2 mx-1 rounded shadow-lg h-96">
                   <div className="w-20 h-20 mb-5 bg-red-100 rounded-full ">
-                    <img src="https://cdn-icons-png.flaticon.com/128/2014/2014825.png"></img>
+                    <img src="https://cdn-icons-png.flaticon.com/128/2014/2014825.png" />
                   </div>
 
                   {alerts.map((alert) => (
