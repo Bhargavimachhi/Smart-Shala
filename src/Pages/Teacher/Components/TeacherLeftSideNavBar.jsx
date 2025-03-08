@@ -10,6 +10,10 @@ import { FaRunning } from "react-icons/fa";
 import { BsFileEarmarkCheckFill } from "react-icons/bs";
 import { MdPlaylistAddCheck } from "react-icons/md";
 const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
+  const savedAuth = JSON.parse(localStorage.getItem("auth"));
+
+  const id = savedAuth.id;
+  const quizLink = `/teacher/classroom/${id}/create-quiz`
   const [auth, setAuth] = useAuth();
   const handleLogout = () => {
     setAuth({
@@ -85,6 +89,12 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
           <Link to="/teacher/request-resource" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
           <FaBoxOpen className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">Request Resource</span>}
+        </Link>
+        </li>
+        <li className="bGcolor">
+          <Link to={quizLink}  className="colorNavChange flex items-center p-4 rounded cursor-pointer">
+          <FaBoxOpen className="text-xl textColor text-blue-600 colorNavChange" />
+          {isExpanded && <span className="ml-4 textColor">Create Quiz</span>}
         </Link>
         </li>
         <li className="bGcolor">
