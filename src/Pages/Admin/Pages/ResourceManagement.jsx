@@ -71,98 +71,92 @@ const ResourceManagement = () => {
   };
 
   return (
-    <>
-      <div className="flex min-h-screen bg-gray-200">
-        <SideNavbar />
-        <div className="flex-1 p-6">
-          <Toaster />
-          <h1 className="mb-6 text-3xl font-bold">Resource Management</h1>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <div className="p-6 bg-white rounded-lg shadow-md">
-              <h2 className="mb-4 text-2xl font-bold">Add New Resource</h2>
-              <input
-                type="text"
-                placeholder="Name"
-                value={newResource.name}
-                onChange={(e) =>
-                  setNewResource({ ...newResource, name: e.target.value })
-                }
-                className="w-full p-2 mb-4 border rounded"
-              />
-              <input
-                type="number"
-                placeholder="Quantity"
-                value={newResource.quantity}
-                onChange={(e) =>
-                  setNewResource({
-                    ...newResource,
-                    quantity: Number(e.target.value),
-                  })
-                }
-                className="w-full p-2 mb-4 border rounded"
-              />
-              <button
-                onClick={handleAddResource}
-                className="w-full p-2 text-white bg-blue-500 rounded"
-              >
-                Add Resource
-              </button>
-            </div>
+   <>
+  <div className="flex min-h-screen bg-gray-100">
+    {/* Sidebar */}
+    <SideNavbar />
+    
+    {/* Main Content */}
+    <div className="flex-1 p-8">
+      <Toaster />
+      <h1 className="mb-8 text-4xl font-bold text-gray-800">Resource Management</h1>
+      
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {/* Add Resource Section */}
+        <div className="p-6 bg-white rounded-lg shadow-lg">
+          <h2 className="mb-6 text-2xl font-semibold text-gray-700">Add New Resource</h2>
+          <div className="space-y-4">
+            <input
+              type="text"
+              placeholder="Resource Name"
+              value={newResource.name}
+              onChange={(e) => setNewResource({ ...newResource, name: e.target.value })}
+              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <input
+              type="number"
+              placeholder="Quantity"
+              value={newResource.quantity}
+              onChange={(e) => setNewResource({ ...newResource, quantity: Number(e.target.value) })}
+              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <button
+              onClick={handleAddResource}
+              className="w-full px-6 py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              Add Resource
+            </button>
+          </div>
+        </div>
 
-            <div className="p-6 bg-white rounded-lg shadow-md">
-              <h2 className="mb-4 text-2xl font-bold">Resources</h2>
-              <ul>
-                {resources.map((resource) => (
-                  <li key={resource._id} className="mb-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-semibold">{resource.name}</span>
-                      <span>{resource.quantity} remaining</span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <br />
-            <div className="p-6 bg-white shadow-md">
-              <h2 className="mb-4 text-2xl font-bold">Requests</h2>
-              <div className="mt-4">
-                {requests.map((request, i) => (
-                  // <li key={request._id} className="mb-2">
-                  //     {request?.requestedBy || 'Unknown Teacher'} requested {request.quantity} {request.name || 'Unknown Resource'} for Classroom {request.requestedFor || 'Unknown Resource'}
+        {/* Resources List */}
+        <div className="p-6 bg-white rounded-lg shadow-lg">
+          <h2 className="mb-6 text-2xl font-semibold text-gray-700">Available Resources</h2>
+          <ul className="space-y-4">
+            {resources.map((resource) => (
+              <li key={resource._id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                <div>
+                  <span className="font-medium text-gray-800">{resource.name}</span>
+                  <span className="ml-2 text-sm text-gray-500">({resource.quantity} available)</span>
+                </div>
+                <span className="px-3 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full">
+                  In Stock
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-                  // </li>
-                  <Card className="mt-4">
-                    <CardContent>
-                      {/* <Typography variant="h6" gutterBottom>
-                                    {student.name}
-                                  </Typography> */}
-                      <Typography color="textSecondary">
-                        Resourses Needed: {request.quantity} {request.name}
-                      </Typography>
-                      <Typography color="textSecondary">
-                        Requested By {request.requestedBy}{" "}
-                      </Typography>
-                      <Typography color="textSecondary">
-                        Requested For Classroon {request.requestedFor}
-                      </Typography>
-                      <Typography color="textSecondary">
-                        <button
-                          onClick={() => approveRequest(i)}
-                          className="p-1 ml-2 text-white bg-green-500 rounded"
-                        >
-                          Approve
-                        </button>
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                ))}
+        {/* Requests Section */}
+        <div className="p-6 bg-white rounded-lg shadow-lg">
+          <h2 className="mb-6 text-2xl font-semibold text-gray-700">Pending Requests</h2>
+          <div className="space-y-4">
+            {requests.map((request, index) => (
+              <div key={request._id} className="p-4 bg-gray-50 rounded-lg">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-medium text-gray-800">{request.name}</span>
+                  <span className="text-sm text-gray-500">Qty: {request.quantity}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="text-sm text-gray-600">
+                    <p>Requested by: {request.requestedBy}</p>
+                    <p>For Classroom: {request.requestedFor}</p>
+                  </div>
+                  <button
+                    onClick={() => approveRequest(index)}
+                    className="px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  >
+                    Approve
+                  </button>
+                </div>
               </div>
-            </div>
-            <br />
+            ))}
           </div>
         </div>
       </div>
-    </>
+    </div>
+  </div>
+</>
   );
 };
 
