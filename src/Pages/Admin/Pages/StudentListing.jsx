@@ -13,6 +13,7 @@ import {
   FormControl,
 } from "@mui/material";
 import toast from "react-hot-toast";
+import Loader from "../../InitialPages/Loader";
 
 const StudentListingpage = () => {
   const [students, setStudents] = useState([]);
@@ -66,7 +67,7 @@ const StudentListingpage = () => {
   }, []);
 
   if (loading) {
-    return <div className="text-center mt-8">Loading Students...</div>;
+    return <Loader text={"Loading Students..."} />;
   }
 
   const filteredStudents = students
@@ -81,8 +82,8 @@ const StudentListingpage = () => {
     <>
       <div className="flex min-h-screen bg-gray-200">
         <SideNavbar />
-        <div className="flex-1 p-8 bg-white rounded m-5 w-screen">
-          <div className="flex justify-between items-center mb-6">
+        <div className="flex-1 w-screen p-8 m-5 bg-white rounded">
+          <div className="flex items-center justify-between mb-6">
             <h1 className="text-2xl font-bold">Students</h1>
           </div>
 
@@ -158,7 +159,7 @@ const StudentListingpage = () => {
               </Grid>
             </>
           ) : (
-            <div className="text-center mt-8">No student found</div>
+            <div className="mt-8 text-center">No student found</div>
           )}
         </div>
       </div>

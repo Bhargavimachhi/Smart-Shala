@@ -13,6 +13,7 @@ import {
   FormControl,
 } from "@mui/material";
 import toast from "react-hot-toast";
+import Loader from "../../InitialPages/Loader";
 
 const TeacherListingpage = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -76,7 +77,7 @@ const TeacherListingpage = () => {
     });
 
   if (loading) {
-    return <div className="text-center mt-8">Loading Teachers...</div>;
+    return <Loader text={"Loading Teachers..."} />;
   }
 
   return (
@@ -84,7 +85,7 @@ const TeacherListingpage = () => {
       <div className="flex min-h-screen bg-gray-100">
         <SideNavbar />
         <div className="flex-1 p-8">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center justify-between mb-6">
             <h1 className="text-2xl font-bold">Teachers</h1>
           </div>
 
@@ -144,7 +145,7 @@ const TeacherListingpage = () => {
               </Grid>
             </>
           ) : (
-            <div className="text-center mt-8">No teacher found</div>
+            <div className="mt-8 text-center">No teacher found</div>
           )}
         </div>
       </div>

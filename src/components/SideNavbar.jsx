@@ -1,16 +1,8 @@
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { IoSchoolSharp } from "react-icons/io5";
-import {
-  TeacherIcon,
-  HomeIcon,
-  DataIcon,
-  MeetingIcon,
-  StudentIcon,
-} from "../Pages/Admin/Icons/NavIcon.jsx";
-import { CircleCheckBig } from "lucide-react";
 import { useAuth } from "../context/auth.jsx";
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { ICONS } from "../Pages/Admin/Icons/icons.jsx";
 
 const SideNavbar = () => {
   const location = useLocation();
@@ -38,26 +30,54 @@ const SideNavbar = () => {
     navigate("/login");
   };
   const navItems = [
-    { icon: HomeIcon, name: "Home", path: "/admin" },
-    // { icon: StudentIcon, name: "Students", path: "/admin/students" },
-    // { icon: TeacherIcon, name: "Teachers", path: "/admin/teachers" },
-    { icon: TeacherIcon, name: "Schools", path: "/admin/schools" },
-    { icon: StudentIcon, name: "Classrooms", path: "/admin/classrooms" },
-    { icon: DataIcon, name: "Data Analytics", path: "/admin/data-analytics" },
-    { icon: MeetingIcon, name: "Meeting", path: "/admin/meeting" },
-    { icon: MeetingIcon, name: "Issues", path: "/admin/issues" },
-    { icon: DataIcon, name: "Resources", path: "/admin/resources" },
+    { icon: <ICONS.HOME size={20} />, name: "Home", path: "/admin" },
+    // {
+    //   icon: <ICONS.STUDENTS size={20} />,
+    //   name: "Students",
+    //   path: "/admin/students",
+    // },
+    // {
+    //   icon: <ICONS.TEACHERS size={20} />,
+    //   name: "Teachers",
+    //   path: "/admin/teachers",
+    // },
+    {
+      icon: <ICONS.SCHOOLS size={20} />,
+      name: "Schools",
+      path: "/admin/schools",
+    },
+    {
+      icon: <ICONS.CLASSROOMS size={20} />,
+      name: "Classrooms",
+      path: "/admin/classrooms",
+    },
+    {
+      icon: <ICONS.DATA_ANALYTICS size={20} />,
+      name: "Data Analytics",
+      path: "/admin/data-analytics",
+    },
+    {
+      icon: <ICONS.MEETING size={20} />,
+      name: "Meeting",
+      path: "/admin/meeting",
+    },
+    { icon: <ICONS.ISSUES size={20} />, name: "Issues", path: "/admin/issues" },
+    {
+      icon: <ICONS.RESOUECE size={20} />,
+      name: "Resources",
+      path: "/admin/resources",
+    },
   ];
 
   return (
-    <div className="w-64 p-4 space-y-4 bg-white border border-r-border">
+    <div className="w-auto p-4 space-y-4 bg-white border border-r-border">
       <div className="flex items-center gap-2 p-2 ">
-        <div className="flex items-center justify-center w-8 h-8 bg-blue-500 rounded-full">
+        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-btn">
           <span className="text-sm text-white">{admin && admin.email[0]}</span>
         </div>
         <div>
           <p className="text-sm font-medium">Admin</p>
-          <p className="text-xs text-gray-500">{admin && admin.email}</p>
+          <p className="text-xs text-text">{admin && admin.email}</p>
         </div>
       </div>
 
@@ -68,20 +88,18 @@ const SideNavbar = () => {
             onClick={() => navigate(item.path)}
             className={`w-44 flex items-center gap-2 p-2 rounded-lg ${
               location.pathname === item.path
-                ? "text-white bg-blue-500 "
-                : "text-gray-600 hover:bg-gray-100"
+                ? "text-white bg-btn"
+                : "text-text hover:bg-bg"
             }`}
           >
-            <img
-              src={item.icon}
-              width={25}
+            <div
               className={`transition-colors duration-300 ${
-                location.pathname === item.path
-                  ? "filter invert"
-                  : "filter grayscale"
+                location.pathname === item.path ? "filter" : "filter grayscale"
               }`}
               alt={item.name}
-            />
+            >
+              <span>{item.icon}</span>
+            </div>
             {item.name}
           </button>
         ))}
@@ -89,21 +107,11 @@ const SideNavbar = () => {
 
       <button
         onClick={handleLogout}
-        className="flex items-center w-full gap-2 p-2 mt-auto text-gray-600 rounded-lg hover:bg-gray-100"
+        className="flex items-center w-full gap-2 p-2 mt-auto rounded-lg text-text hover:bg-bg"
       >
-        <svg
-          className="w-5 h-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-          />
-        </svg>
+        <span>
+          <ICONS.LOGOUT size={25} />
+        </span>
         Logout
       </button>
     </div>

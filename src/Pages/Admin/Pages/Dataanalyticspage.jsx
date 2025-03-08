@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import SideNavbar from '../../../components/SideNavbar';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import SideNavbar from "../../../components/SideNavbar";
+import axios from "axios";
+import Loader from "../../InitialPages/Loader";
 
 const Dataanalyticspage = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -11,7 +12,9 @@ const Dataanalyticspage = () => {
 
   useEffect(() => {
     async function fetchClassrooms() {
-      const res = await axios.get(`http://localhost:3000/admin/${savedAuth.id}/classrooms`);
+      const res = await axios.get(
+        `http://localhost:3000/admin/${savedAuth.id}/classrooms`
+      );
       setClassrooms(res.data.classrooms);
       setLoading(false);
     }
@@ -23,7 +26,7 @@ const Dataanalyticspage = () => {
   };
 
   if (loading) {
-    return <div className="text-center mt-8">Loading ...</div>;
+    return <Loader text={"Loading..."} />;
   }
 
   return (
@@ -31,18 +34,22 @@ const Dataanalyticspage = () => {
       <SideNavbar />
       <div className="flex-1 p-8">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold mb-2">Class Analytics</h1>
-          <p className="text-gray-600">Comprehensive overview of student performance metrics</p>
+          <h1 className="mb-2 text-2xl font-bold">Class Analytics</h1>
+          <p className="text-gray-600">
+            Comprehensive overview of student performance metrics
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {classrooms.map((classroom) => (
             <div
               key={classroom._id}
-              className="bg-white p-6 rounded-lg shadow cursor-pointer"
+              className="p-6 bg-white rounded-lg shadow cursor-pointer"
               onClick={() => handleClassroomClick(classroom._id)}
             >
-              <h2 className="text-lg font-semibold mb-4">Class: {classroom.name}</h2>
+              <h2 className="mb-4 text-lg font-semibold">
+                Class: {classroom.name}
+              </h2>
             </div>
           ))}
         </div>
