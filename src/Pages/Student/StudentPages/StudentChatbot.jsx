@@ -109,8 +109,8 @@ const StudentChatbot = () => {
         toggleSidebar={handleToggleSidebar}
       />
       <div
-        className={`flex-1 transition-all duration-300 ml-${
-          isExpanded ? "64" : "16"
+        className={`flex-1 transition-all duration-300 ${
+          isExpanded ? "ml-56" : "ml-16"
         } p-2 mr-50 overflow-x-auto`}
       >
         <Box className="flex max-h-[97.5vh] min-h-[97.5vh]">

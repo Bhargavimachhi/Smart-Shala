@@ -17,16 +17,14 @@ const StudentNotification = () => {
         toggleSidebar={handleToggleSidebar}
       />
       <div
-        className={`flex-1 transition-all duration-300 ml-${
-          isExpanded ? "64" : "16"
+        className={`flex-1 transition-all duration-300 ${
+          isExpanded ? "ml-56" : "ml-16"
         } p-6 mr-50 overflow-x-auto`}
-      > 
-
-{/* Main Content */}
-   <div className="justify-between gap-6">
-   <MainNavNotifyCompo/>
-  </div>
-
+      >
+        {/* Main Content */}
+        <div className="justify-between gap-6">
+          <MainNavNotifyCompo />
+        </div>
       </div>
     </div>
   );

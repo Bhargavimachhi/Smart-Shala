@@ -31,16 +31,16 @@ const SideNavbar = () => {
   };
   const navItems = [
     { icon: <ICONS.HOME size={20} />, name: "Home", path: "/admin" },
-    // {
-    //   icon: <ICONS.STUDENTS size={20} />,
-    //   name: "Students",
-    //   path: "/admin/students",
-    // },
-    // {
-    //   icon: <ICONS.TEACHERS size={20} />,
-    //   name: "Teachers",
-    //   path: "/admin/teachers",
-    // },
+    {
+      icon: <ICONS.STUDENTS size={20} />,
+      name: "Students",
+      path: "/admin/students",
+    },
+    {
+      icon: <ICONS.TEACHERS size={20} />,
+      name: "Teachers",
+      path: "/admin/teachers",
+    },
     {
       icon: <ICONS.SCHOOLS size={20} />,
       name: "Schools",

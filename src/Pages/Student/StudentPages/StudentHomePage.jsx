@@ -7,7 +7,6 @@ import RightSidebar from "../Components/hompageComponent/RightSidebar";
 import { useAuth } from "../../../context/auth";
 import { useNavigate } from "react-router-dom";
 import { ICONS } from "../Icons/icons";
-
 const StudentHomePage = () => {
   const [studentAuth] = useAuth();
   const [isExpanded, setIsExpanded] = useState(false);
@@ -43,8 +42,8 @@ const StudentHomePage = () => {
 
         {/* Main Content */}
         <div
-          className={`flex-1 p-4 ml-${
-            isExpanded ? "64" : "16"
+          className={`flex-1 p-4 ${
+            isExpanded ? "ml-56" : "ml-16"
           } transition-all duration-300`}
         >
           <div className="flex flex-col items-center justify-between p-2 shadow-sm md:flex-row">
@@ -68,6 +67,7 @@ const StudentHomePage = () => {
               <ICONS.USER className="text-5xl text-blue-600 rounded-full cursor-pointer hover:bg-bgBlue hover:text-white" />
             </div>
             <div className="grid grid-cols-1 gap-4 text-start md:grid-cols-2 text-text">
+             
               <p>
                 <span className="font-bold">Name : </span> {studentInfo.name}
               </p>
@@ -88,7 +88,7 @@ const StudentHomePage = () => {
                 {studentInfo.gender}
               </p>
               <p>
-                <span className="font-bold">Brthdate : </span>
+                <span className="font-bold">Birthdate : </span>
                 {studentInfo.birthdate}
               </p>
             </div>
