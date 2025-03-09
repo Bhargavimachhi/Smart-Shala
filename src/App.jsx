@@ -62,7 +62,12 @@ import SubmitHWmainBox from "./Pages/Student/Components/submitHWComponent/submit
 import SchoolListingPage from "./Pages/Admin/Pages/SchoolListing.jsx";
 import AddSchools from "./Pages/Admin/Components/SchoolListingPageComponents/AddSchools.jsx";
 import GenerateQuiz from "./Pages/Teacher/Pages/GenerateQuiz.jsx";
-import StudentQuiz from "./Pages/Student/StudentPages/StudentQuiz.jsx"
+import StudentQuiz from "./Pages/Student/StudentPages/StudentQuiz.jsx";
+//Super Admin
+import SuperAdminLayout from "./Pages/SuperAdmin/Layouts/SuperAdminLayout";
+import Schools from "./Pages/SuperAdmin/Pages/Schools";
+import Home from "./Pages/SuperAdmin/Pages/Home";
+import DataAnalytics from "./Pages/SuperAdmin/Pages/DataAnalytics";
 import { AttemptQuiz } from "./Pages/Student/Components/attemptQuiz/attemptQuiz.jsx";
 
 const App = () => {
@@ -198,6 +203,13 @@ const App = () => {
               )
             }
           />
+          {/* SuperAdmin Page Routse */}
+
+          <Route path="/authority" element={<SuperAdminLayout />}>
+            <Route path="" element={<Home />} />
+            <Route path="schools" element={<Schools />} />
+            <Route path="data-analytics" element={<DataAnalytics />} />
+          </Route>
 
           {/* Student Page Routes  */}
           <Route

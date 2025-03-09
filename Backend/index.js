@@ -1,15 +1,14 @@
 import express from "express";
 const app = express();
 const PORT = 3000;
-import twilio from 'twilio';
-import nodemailer from 'nodemailer';
+import twilio from "twilio";
+import nodemailer from "nodemailer";
 
 // Twilio credentials
-const accountSid = 'AC251fd490ae65ab13ffc34b4e68a82dfe'; // Replace with your Twilio SID
-const authToken = '3285c20633da693813a73bc6872d2abe';     // Replace with your Twilio Auth Token
-const messagingServiceSid = 'MG54ac2806b8f292653839aee69c108a21'; // Replace with your Twilio Messaging Service SID
+const accountSid = "AC251fd490ae65ab13ffc34b4e68a82dfe"; // Replace with your Twilio SID
+const authToken = "3285c20633da693813a73bc6872d2abe"; // Replace with your Twilio Auth Token
+const messagingServiceSid = "MG54ac2806b8f292653839aee69c108a21"; // Replace with your Twilio Messaging Service SID
 const client = twilio(accountSid, authToken);
-
 
 import {
   addStudent,
@@ -58,7 +57,7 @@ import {
   getAverageStudentAttendanceOfClassroom,
   getTopPerformersOfClassroom,
   getSubmittedHomeworksOfClassroom,
-  removeTeacherFromClassroom
+  removeTeacherFromClassroom,
 } from "./Controller/classroom.js";
 import {
   addAdmin,
@@ -82,7 +81,13 @@ import {
   markIssueAsNotResolved,
 } from "./Controller/issue.js";
 import { getAnswer } from "./Controller/Chatbot.js";
-import { addResource, getResources, requestResource, getResourceRequests, approveResourceRequest } from "./Controller/resource.js";
+import {
+  addResource,
+  getResources,
+  requestResource,
+  getResourceRequests,
+  approveResourceRequest,
+} from "./Controller/resource.js";
 
 // import  {requireSignIn}  from './middleware/requireSignIn.js';
 import { adminLogin } from "./Controller/admin.js";
@@ -90,20 +95,29 @@ import LoginTeacher from "./Controller/loginTeacher.js";
 import loginStudent from "./Controller/loginStudent.js";
 import analyzeImageFromFile from "./Controller/homeworkAnalysis.js";
 import { getHomework } from "./Controller/homework.js";
-import { createAlert } from './Controller/alertController.js'
+import { createAlert } from "./Controller/alertController.js";
 import { deleteAlert } from "./Controller/alertController.js";
 import { getAlerts } from "./Controller/alertController.js";
 import {
   addFaceOfStudent,
-  recognizeFaceAndMarkPresent
+  recognizeFaceAndMarkPresent,
 } from "./Controller/face.js";
-import { addQuizToClassroom, assignMarksOfQuizToStudent, getQuiz, getQuizesOfClassroom } from "./Controller/quiz.js";
-import { addAuthority, addSchoolToAuthority, getAverageAttendanceOfSchoolsOfAuthority, getSchoolsOfAuthority } from "./Controller/authority.js";
+import {
+  addQuizToClassroom,
+  assignMarksOfQuizToStudent,
+  getQuiz,
+  getQuizesOfClassroom,
+} from "./Controller/quiz.js";
+import {
+  addAuthority,
+  addSchoolToAuthority,
+  getAverageAttendanceOfSchoolsOfAuthority,
+  getSchoolsOfAuthority,
+} from "./Controller/authority.js";
 
 app.use(express.json());
 
 app.use(cors());
-
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
@@ -116,7 +130,7 @@ app.listen(PORT, () => {
     });
 });
 
-// classroom routes 
+// classroom routes
 app.get("/classroom/:id/delete", deleteClassroom);
 app.post("/classroom/:id/edit", editClassroom);
 app.post("/classroom/:id/initiate-attendance", initiateAttendance);
@@ -141,10 +155,19 @@ app.get("/teacher/:id/delete", deleteTeacher);
 app.get("/teacher/:id/homeworks", getHomeworkAssignedByTeacher);
 app.post("/teacher/:teacherId/check-attendance", checkAttendanceAndSendEmails);
 // app.post("/teacher/:teacherId/send-emails", sendEmailsToStudents);
-app.get("/teacher/:teacherId/classrooms-low-attendance", getClassroomsAndLowAttendanceStudents);
-app.post("/teacher/send-low-attendance-emails", sendEmailsToLowAttendanceStudents);
+app.get(
+  "/teacher/:teacherId/classrooms-low-attendance",
+  getClassroomsAndLowAttendanceStudents
+);
+app.post(
+  "/teacher/send-low-attendance-emails",
+  sendEmailsToLowAttendanceStudents
+);
 app.get("/teacher/:teacherId/manual-attendance", getClassroomsOfTeacher2);
-app.get("/teacher/:teacherId/classrooms/:classroomId/manual-attendance", getStudentsOfClassroom2);
+app.get(
+  "/teacher/:teacherId/classrooms/:classroomId/manual-attendance",
+  getStudentsOfClassroom2
+);
 app.post("/teacher/send-low-attendance-sms", sendSMSToLowAttendanceStudents);
 app.get("/teacher/:id/attendance/present", markTeacherPresent);
 app.get("/teacher/:id/attendance/absent", markTeacherAbsent);
@@ -204,10 +227,9 @@ app.post("/signup/teacher", addTeacher);
 app.post("/signup/admin", addAdmin);
 
 //emergency routes
-app.post("/teacher/emergency", createAlert)
-app.get("/emergency/admin", getAlerts)
-app.delete('/emergency/admin/:id', deleteAlert);
-
+app.post("/teacher/emergency", createAlert);
+app.get("/emergency/admin", getAlerts);
+app.delete("/emergency/admin/:id", deleteAlert);
 
 // Resource routes
 app.post("/:id/add-resource", addResource);
@@ -224,35 +246,37 @@ app.post("/student/:id/assign-marks", assignMarksOfQuizToStudent);
 
 //---------------------------------------------------------------------------------
 // Route to send SMS
-app.post('/send-sms', async (req, res) => {
+app.post("/send-sms", async (req, res) => {
   const { to, body } = req.body;
 
   if (!to || !body) {
-    return res.status(400).send({ success: false, error: 'Missing "to" or "body" in request.' });
+    return res
+      .status(400)
+      .send({ success: false, error: 'Missing "to" or "body" in request.' });
   }
 
   try {
     const message = await client.messages.create({
-      to,                      // Recipient phone number
-      body,                    // Message content
-      messagingServiceSid,     // Messaging Service SID
+      to, // Recipient phone number
+      body, // Message content
+      messagingServiceSid, // Messaging Service SID
     });
 
     res.status(200).send({ success: true, message });
   } catch (error) {
-    console.error('Error sending SMS:', error);
+    console.error("Error sending SMS:", error);
     res.status(500).send({ success: false, error: error.message });
   }
 });
 //--------------------------------------------------------------------------------------
 //route to send email
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: "gmail",
   port: 465,
   secure: true, // true for port 465, false for other ports
   auth: {
-    user: 'siddharthakk3704@gmail.com',
-    pass: 'faoposrnmavclrjc'
+    user: "siddharthakk3704@gmail.com",
+    pass: "faoposrnmavclrjc",
   },
 });
 
@@ -260,12 +284,14 @@ app.post("/send-emails", async (req, res) => {
   const { students } = req.body;
 
   if (!students || students.length === 0) {
-    return res.status(400).send({ success: false, error: 'No students provided.' });
+    return res
+      .status(400)
+      .send({ success: false, error: "No students provided." });
   }
 
-  const emailPromises = students.map(student => {
+  const emailPromises = students.map((student) => {
     const mailInfo = {
-      from: 'siddharthakk3704@gmail.com', // sender address
+      from: "siddharthakk3704@gmail.com", // sender address
       to: student,
       subject: "Low Attendance Alert",
       text: "Your attendance is below 75%. Please ensure to attend more classes.",
@@ -277,7 +303,9 @@ app.post("/send-emails", async (req, res) => {
 
   try {
     await Promise.all(emailPromises);
-    res.status(200).send({ success: true, message: "Emails sent successfully" });
+    res
+      .status(200)
+      .send({ success: true, message: "Emails sent successfully" });
   } catch (error) {
     console.error("Error sending emails:", error);
     res.status(500).send({ success: false, error: error.message });
@@ -286,12 +314,12 @@ app.post("/send-emails", async (req, res) => {
 
 app.get("/mail", async (req, res) => {
   var mailInfo = {
-    from: 'siddharthakk3704@gmail.com', // sender address
+    from: "siddharthakk3704@gmail.com", // sender address
     to,
     subject: "Hello ✔",
     text: "Hello world?", // plain text body
     html: "<b>Hello world?</b>", // html body
-  }
+  };
   // const info = await transporter.sendMail({
   //   from: 'siddharthakk3704@gmail.com', // sender address
   //   to: "abhaysc7778@gmail.com", // list of receivers
@@ -302,14 +330,9 @@ app.get("/mail", async (req, res) => {
   transporter.sendMail(mailInfo, (error, info) => {
     if (error) {
       console.log(error);
-
-    }
-    else {
+    } else {
       console.log("email sent ", info.response);
-
     }
-  })
-  res.send("im ready")
-})
-
-
+  });
+  res.send("im ready");
+});
