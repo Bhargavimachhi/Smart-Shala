@@ -81,7 +81,7 @@ const GenerateQuiz = () => {
           classroom: id,
           title: title,
           totalMarks: totalMarks,
-          title: title
+          // title: title
         }
       );
 
@@ -111,14 +111,14 @@ const GenerateQuiz = () => {
           isExpanded ? "ml-64" : "ml-16"
         }`}
       >
-        <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
+        <div className="max-w-4xl p-6 mx-auto bg-white rounded-lg shadow-md">
+          <h2 className="mb-6 text-2xl font-bold text-center text-gray-800">
             Create Quiz for Classroom
           </h2>
 
           <form onSubmit={handleSubmit}>
-            <div className="mb-5 w-full flex mt-5">
-              <label className="block text-gray-700 font-medium mb-2 mr-1">
+            <div className="flex w-full mt-5 mb-5">
+              <label className="block mb-2 mr-1 font-medium text-gray-700">
                 Name of Quiz
               </label>
               <input
@@ -132,11 +132,11 @@ const GenerateQuiz = () => {
             {questions.map((q, qIndex) => (
               <div
                 key={qIndex}
-                className="mb-6 p-4 border rounded-lg bg-gray-50"
+                className="p-4 mb-6 border rounded-lg bg-gray-50"
               >
                 <div className="flex items-center justify-between">
-                  <div className="mb-4 w-full">
-                    <label className="block text-gray-700 font-medium mb-2">
+                  <div className="w-full mb-4">
+                    <label className="block mb-2 font-medium text-gray-700">
                       Question {qIndex + 1}
                     </label>
                     <input
@@ -148,7 +148,7 @@ const GenerateQuiz = () => {
                     />
                   </div>
                   <div className="mb-4 w-[100px] ml-5">
-                    <label className="block text-gray-700 font-medium mb-2">
+                    <label className="block mb-2 font-medium text-gray-700">
                       Mark
                     </label>
                     <input
@@ -164,7 +164,7 @@ const GenerateQuiz = () => {
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   {q.options.map((option, oIndex) => (
                     <div key={oIndex}>
-                      <label className="block text-gray-600 mb-1">
+                      <label className="block mb-1 text-gray-600">
                         Option {String.fromCharCode(65 + oIndex)}
                       </label>
                       <input
@@ -179,7 +179,7 @@ const GenerateQuiz = () => {
                 </div>
 
                 <div className="mb-4">
-                  <label className="block text-gray-700 font-medium mb-2">
+                  <label className="block mb-2 font-medium text-gray-700">
                     Correct Answer
                   </label>
                   <select
@@ -203,24 +203,24 @@ const GenerateQuiz = () => {
                 <button
                   type="button"
                   onClick={() => handleDeleteQuestion(qIndex)}
-                  className="text-red-500 hover:text-red-700 font-medium"
+                  className="font-medium text-red-500 hover:text-red-700"
                 >
                   Delete Question
                 </button>
               </div>
             ))}
 
-            <div className="flex justify-between items-center mt-8">
+            <div className="flex items-center justify-between mt-8">
               <button
                 type="button"
                 onClick={handleAddQuestion}
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+                className="px-4 py-2 text-white transition bg-blue-500 rounded-lg hover:bg-blue-600"
               >
                 Add Question
               </button>
               <button
                 type="submit"
-                className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+                className="px-6 py-2 text-white transition bg-green-500 rounded-lg hover:bg-green-600"
               >
                 Submit Quiz
               </button>
