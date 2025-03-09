@@ -56,11 +56,6 @@ const SideNavbar = () => {
       name: "Data Analytics",
       path: "/admin/data-analytics",
     },
-    {
-      icon: <ICONS.MEETING size={20} />,
-      name: "Meeting",
-      path: "/admin/meeting",
-    },
     { icon: <ICONS.ISSUES size={20} />, name: "Issues", path: "/admin/issues" },
     {
       icon: <ICONS.RESOUECE size={20} />,

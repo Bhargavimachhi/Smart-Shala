@@ -97,7 +97,6 @@ const App = () => {
             <Route path="issues" element={<Issuessection />} />
             <Route path="classrooms/:classroomId/analytics" element={<ClassroomAnalytics />} />
             <Route path="resources" element={<ResourceManagement />} />
-            <Route path="" element={<AdminHome />} />
           </Route>
 
           {/* SuperAdmin Page Routse */}

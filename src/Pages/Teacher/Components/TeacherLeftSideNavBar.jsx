@@ -52,12 +52,6 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
         </Link>
         </li>
         <li className="bGcolor">
-          <Link to="/teacher/notifications" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-          <MdNotificationsActive className="text-xl textColor text-blue-600 colorNavChange" />
-          {isExpanded && <span className="ml-4 textColor">Notifications</span>}
-        </Link>
-        </li>
-        <li className="bGcolor">
           <Link to="/teacher/mark-attendance" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
           <FaCheckCircle className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">Mark Attendance</span>}
@@ -73,12 +67,6 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
           <Link to="/teacher/generate-issue" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
           <FaExclamationTriangle className="text-xl textColor text-blue-600 colorNavChange" />
           {isExpanded && <span className="ml-4 textColor">Generate Issue</span>}
-        </Link>
-        </li>
-        <li className="bGcolor">
-            <Link to="/teacher/emergency" className="colorNavChange flex items-center p-4 rounded cursor-pointer">
-          <FaExclamationTriangle className="text-xl textColor text-red-600 colorNavChange" />
-          {isExpanded && <span className="ml-4 textColor">Emergency Alert</span>}
         </Link>
         </li>   
         <li className="bGcolor">
