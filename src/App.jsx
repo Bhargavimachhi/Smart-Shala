@@ -69,6 +69,8 @@ import Schools from "./Pages/SuperAdmin/Pages/Schools";
 import Home from "./Pages/SuperAdmin/Pages/Home";
 import DataAnalytics from "./Pages/SuperAdmin/Pages/DataAnalytics";
 import { AttemptQuiz } from "./Pages/Student/Components/attemptQuiz/attemptQuiz.jsx";
+import StudentLayout from "./layouts/Layout"
+import Layout from "./layouts/Layout";
 
 const App = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -82,408 +84,64 @@ const App = () => {
           <Route path="/" element={<LandingPage />} />
 
           {/* Admin Page Routes */}
-          <Route
-            path="/admin"
-            element={
-              savedAuth && savedAuth.role == "admin" ? (
-                <AdminHome />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
+          <Route path="/admin" element={savedAuth && savedAuth.role == "admin" ? <Layout /> : <LoginAlert />}>
+            <Route path="" element={<AdminHome />} />
+            <Route path="schools" element={<SchoolListingPage />} />
+            <Route path="add-school" element={<AddSchools />} />
+            <Route path="students" element={<StudentListingpage />} />
+            <Route path="teachers" element={<TeacherListingpage />} />
+            <Route path="classrooms" element={<ClassroomListingpage />} />
+            <Route path="create-classroom" element={<Createclassroom />} />
+            <Route path="classrooms/:id" element={<Classroom />} />
+            <Route path="data-analytics" element={<Dataanalyticspage />} />
+            <Route path="issues" element={<Issuessection />} />
+            <Route path="classrooms/:classroomId/analytics" element={<ClassroomAnalytics />} />
+            <Route path="resources" element={<ResourceManagement />} />
+            <Route path="" element={<AdminHome />} />
+          </Route>
 
-          <Route
-            path="/admin/schools"
-            element={
-              savedAuth && savedAuth.role == "admin" ? (
-                <SchoolListingPage />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/admin/add-school"
-            element={
-              savedAuth && savedAuth.role == "admin" ? (
-                <AddSchools />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/admin/students"
-            element={
-              savedAuth && savedAuth.role == "admin" ? (
-                <StudentListingpage />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/admin/teachers"
-            element={
-              savedAuth && savedAuth.role == "admin" ? (
-                <TeacherListingpage />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/admin/classrooms"
-            element={
-              savedAuth && savedAuth.role == "admin" ? (
-                <ClassroomListingpage />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/admin/create-classroom"
-            element={
-              savedAuth && savedAuth.role == "admin" ? (
-                <Createclassroom />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/admin/classrooms/:id"
-            element={
-              savedAuth && savedAuth.role == "admin" ? (
-                <Classroom />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/admin/data-analytics"
-            element={
-              savedAuth && savedAuth.role == "admin" ? (
-                <Dataanalyticspage />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/admin/issues"
-            element={
-              savedAuth && savedAuth.role == "admin" ? (
-                <Issuessection />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/admin/classrooms/:classroomId/analytics"
-            element={
-              savedAuth && savedAuth.role == "admin" ? (
-                <ClassroomAnalytics />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/admin/resources"
-            element={
-              savedAuth && savedAuth.role === "admin" ? (
-                <ResourceManagement />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
           {/* SuperAdmin Page Routse */}
-
           <Route path="/authority" element={<SuperAdminLayout />}>
             <Route path="" element={<Home />} />
             <Route path="schools" element={<Schools />} />
             <Route path="data-analytics" element={<DataAnalytics />} />
           </Route>
 
-          {/* Student Page Routes  */}
-          <Route
-            path="/student"
-            element={
-              savedAuth && savedAuth.role == "student" ? (
-                <StudentHomePage />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/student/submit-homework"
-            element={
-              savedAuth && savedAuth.role == "student" ? (
-                <SubmitHomework />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/student/notification"
-            element={
-              savedAuth && savedAuth.role == "student" ? (
-                <StudentNotification />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/student/doubts"
-            element={
-              savedAuth && savedAuth.role == "student" ? (
-                <StudentChatbot />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/student/:id/pending-homework"
-            element={
-              savedAuth && savedAuth.role == "student" ? (
-                <SubmitHWmainBox />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/student/attendance"
-            element={
-              savedAuth && savedAuth.role == "student" ? (
-                <StudentAttendancePage />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/student/homework/:id/preview"
-            element={
-              savedAuth && savedAuth.role == "student" ? (
-                <FilePreviewMain />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/student/performance"
-            element={
-              savedAuth && savedAuth.role == "student" ? (
-                <StudentPerformanceReport />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/student/quizzes"
-            element={
-              savedAuth && savedAuth.role == "student" ? (
-                <StudentQuiz />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/student/attempt-quiz/:id"
-            element={
-              savedAuth && savedAuth.role == "student" ? (
-                <AttemptQuiz />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
+            {/* Student Page Routes */}
+          <Route path="/student" element={savedAuth && savedAuth.role == "student" ? <Layout /> : <LoginAlert />}>
+            <Route path="" element={<StudentHomePage />} />
+            <Route path="submit-homework" element={<SubmitHomework />} />
+            <Route path="notification" element={<StudentNotification />} />
+            <Route path="doubts" element={<StudentChatbot />} />
+            <Route path=":id/pending-homework" element={<SubmitHWmainBox />} />
+            <Route path="attendance" element={<StudentAttendancePage />} />
+            <Route path="performance" element={<StudentPerformanceReport />} />
+            <Route path="quizzes" element={<StudentQuiz />} />
+            <Route path="attempt-quiz/:id" element={<AttemptQuiz />} />
+            <Route path="homework/:id/preview" element={<FilePreviewMain />} />
+          </Route>
 
           {/* Teacher Page Routes */}
-          <Route
-            path="/teacher"
-            element={
-              savedAuth && savedAuth.role == "teacher" ? (
-                <TeacherHomePage />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/teacher/signup"
-            element={
-              savedAuth && savedAuth.role == "teacher" ? (
-                <TeacherSignUpForm />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/teacher/add-homework/form"
-            element={
-              savedAuth && savedAuth.role == "teacher" ? (
-                <AddHomeworkPage />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/teacher/:id/homework/:hId/submissions"
-            element={
-              savedAuth && savedAuth.role == "teacher" ? (
-                <HwSubmission />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/teacher/mark-attendance"
-            element={
-              savedAuth && savedAuth.role == "teacher" ? (
-                <MarkTeacherAttendance />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/teacher/classrooms"
-            element={
-              savedAuth && savedAuth.role == "teacher" ? (
-                <TeachersClassroom />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/teacher/generate-issue"
-            element={
-              savedAuth && savedAuth.role == "teacher" ? (
-                <GenerateTeacherIssue />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/teacher/classrooms/:classroomId/students"
-            element={
-              savedAuth && savedAuth.role == "teacher" ? (
-                <ClassroomStudents />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/teacher/check-all-attendance"
-            element={
-              savedAuth && savedAuth.role == "teacher" ? (
-                <CheckAllAttendance />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/teacher/classroomsforHomework"
-            element={
-              savedAuth && savedAuth.role == "teacher" ? (
-                <ViewClassrooms />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/teacher/classroom/:id/submitted-homeworks"
-            element={
-              savedAuth && savedAuth.role == "teacher" ? (
-                <ClassroomSubmittedHomeworks />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/teacher/classrooms-low-attendance"
-            element={
-              savedAuth && savedAuth.role == "teacher" ? (
-                <ClassroomsLowAttendance />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/teacher/request-resource"
-            element={
-              savedAuth && savedAuth.role == "teacher" ? (
-                <SelectClassroom />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/teacher/:id/request-resource"
-            element={
-              savedAuth && savedAuth.role == "teacher" ? (
-                <RequestResource />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/teacher/manual-attendance"
-            element={
-              savedAuth && savedAuth.role == "teacher" ? (
-                <ManualAttendancePage />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/teacher/classrooms/:classroomId/manual-attendance"
-            element={
-              savedAuth && savedAuth.role == "teacher" ? (
-                <ClassroomAttendancePage />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
-          <Route
-            path="/teacher/classroom/:id/generate-quiz"
-            element={
-              savedAuth && savedAuth.role == "teacher" ? (
-                <GenerateQuiz />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
+          <Route path="/teacher" element={savedAuth && savedAuth.role == "teacher" ? <Layout /> : <LoginAlert />}>
+            <Route path="" element={<TeacherHomePage />} />
+            <Route path="signup" element={<TeacherSignUpForm />} />
+            <Route path="add-homework/form" element={<AddHomeworkPage />} />
+            <Route path=":id/homework/:hId/submissions" element={<HwSubmission />} />
+            <Route path="mark-attendance" element={<MarkTeacherAttendance />} />
+            <Route path="classrooms" element={<TeachersClassroom />} />
+            <Route path="generate-issue" element={<GenerateTeacherIssue />} />
+            <Route path="classrooms/:classroomId/students" element={<ClassroomStudents />} />
+            <Route path="check-all-attendance" element={<CheckAllAttendance />} />
+            <Route path="classroomsforHomework" element={<ViewClassrooms />} />
+            <Route path="classroom/:id/submitted-homeworks" element={<ClassroomSubmittedHomeworks />} />
+            <Route path="classrooms-low-attendance" element={<ClassroomsLowAttendance />} />
+            <Route path="request-resource" element={<SelectClassroom />} />
+            <Route path=":id/request-resource" element={<RequestResource />} />
+            <Route path="manual-attendance" element={<ManualAttendancePage />} />
+            <Route path="classrooms/:classroomId/manual-attendance" element={<ClassroomAttendancePage />} />
+            <Route path="classroom/:id/generate-quiz" element={<GenerateQuiz />} />
+            <Route path="classroom/:id/generate-quiz" element={<GenerateQuiz />} />
+          </Route>
 
           {/* SignUp Page Routes */}
           <Route path="/signup/student" element={<AddStudent />} />
@@ -495,19 +153,6 @@ const App = () => {
           <Route path="/login/admin" element={<AdminLoginpage />} />
           <Route path="/login/teacher" element={<TeacherLogin />} />
           <Route path="/login/student" element={<StudentLogin />} />
-
-          {/* emergency alert routes */}
-
-          <Route
-            path="/teacher/emergency"
-            element={
-              savedAuth && savedAuth.role == "teacher" ? (
-                <TeacherEmergencyForm />
-              ) : (
-                <LoginAlert />
-              )
-            }
-          />
 
           <Route path="*" element={<PageNotFound />} />
         </Routes>
