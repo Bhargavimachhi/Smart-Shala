@@ -3,10 +3,12 @@ import "../css/HoLeftNavBar.css";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../../context/auth.jsx";
 import { ICONS } from "../Icons/icons";
+import { useUserContext } from "@/context/userContext";
 
 const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
   const [auth, setAuth] = useAuth();
   const location = useLocation();
+  const { userData } = useUserContext();
   const handleLogout = () => {
     setAuth({
       _id: null,
@@ -57,6 +59,18 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
       >
         {isExpanded ? <ICONS.LEFT /> : <ICONS.RIGHT />}
       </button>
+
+      {isExpanded && (
+        <div className="flex items-center gap-2 p-2 ">
+          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-btn">
+            <span className="text-sm text-white">{userData?.name[0]}</span>
+          </div>
+          <div>
+            <p className="text-sm font-medium">Hello {userData?.name}</p>
+            <p className="text-xs text-text">{userData?.email}</p>
+          </div>
+        </div>
+      )}
 
       <ul className={`${isExpanded ? "p-2" : "p-1"} mt-4`}>
         {StudentNavLinks.map((item, index) => {

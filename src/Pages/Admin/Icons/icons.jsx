@@ -9,6 +9,7 @@ import { FaChalkboardTeacher, FaUsers } from "react-icons/fa";
 import { PiStudentBold } from "react-icons/pi";
 import { SiGooglemeet } from "react-icons/si";
 import { GrResources } from "react-icons/gr";
+import { SiGoogleclassroom } from "react-icons/si";
 
 export const ICONS = {
   ISSUES: AiOutlineIssuesClose,
@@ -16,7 +17,7 @@ export const ICONS = {
   LOGOUT: IoLogOutOutline,
   HOME: IoHomeSharp,
   STUDENTS: FaUsers,
-  CLASSROOMS: PiStudentBold,
+  CLASSROOMS: SiGoogleclassroom,
   DATA_ANALYTICS: IoAnalytics,
   MEETING: SiGooglemeet,
   RESOUECE: GrResources,
