@@ -1,11 +1,9 @@
 // StudentQuiz.jsx
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
 import { useUserContext } from "../../../context/userContext";
 import axios from "axios";
 import Loader from "../../InitialPages/Loader";
 import { AttemptQuiz } from "../Components/attemptQuiz/attemptQuiz.jsx";
-import toast from "react-hot-toast";
 import LeftSideNavbar from "../Components/LeftSideNavBar.jsx";
 import {
   Card,
@@ -17,11 +15,14 @@ import {
   InputAdornment,
 } from "@mui/material";
 import { Search } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+
 const StudentQuiz = () => {
   const [quizzes, setQuizzes] = useState([]);
   // const [filteredQuizzes, setFilteredQuizzes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const { userData } = useUserContext();
 
@@ -36,7 +37,6 @@ const StudentQuiz = () => {
         const response = await axios.get(
           `http://localhost:3000/classroom/${userData?.classroom}/quizes`
         );
-        console.log(response);
         setQuizzes(response.data.quizes);
       } catch (err) {
         console.log(err);
@@ -106,7 +106,7 @@ const StudentQuiz = () => {
                   <Card
                     className="relative h-48 mb-8 cursor-pointer hover-card"
                     key={quiz._id}
-                    onClick={() => console.log("quiz selected : " + quiz.title)}
+                    onClick={() => {navigate(`/student/attempt-quiz/${quiz._id}`)}}
                     style={{ cursor: "pointer" }}
                   >
                     <CardContent className="relative flex flex-col items-center justify-center h-full">

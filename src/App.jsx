@@ -63,6 +63,7 @@ import SchoolListingPage from "./Pages/Admin/Pages/SchoolListing.jsx";
 import AddSchools from "./Pages/Admin/Components/SchoolListingPageComponents/AddSchools.jsx";
 import GenerateQuiz from "./Pages/Teacher/Pages/GenerateQuiz.jsx";
 import StudentQuiz from "./Pages/Student/StudentPages/StudentQuiz.jsx"
+import { AttemptQuiz } from "./Pages/Student/Components/attemptQuiz/attemptQuiz.jsx";
 
 const App = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -284,6 +285,16 @@ const App = () => {
             element={
               savedAuth && savedAuth.role == "student" ? (
                 <StudentQuiz />
+              ) : (
+                <LoginAlert />
+              )
+            }
+          />
+          <Route
+            path="/student/attempt-quiz/:id"
+            element={
+              savedAuth && savedAuth.role == "student" ? (
+                <AttemptQuiz />
               ) : (
                 <LoginAlert />
               )

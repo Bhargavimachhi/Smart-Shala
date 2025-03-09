@@ -80,8 +80,7 @@ const GenerateQuiz = () => {
           createdBy: savedAuth.id,
           classroom: id,
           title: title,
-          totalMarks: totalMarks,
-          title: title
+          totalMarks: totalMarks
         }
       );
 

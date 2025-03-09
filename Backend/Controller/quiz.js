@@ -2,6 +2,22 @@ import { Quiz } from "../Models/Quiz.js";
 import { Classroom } from "../Models/Classroom.js";
 import { Student } from "../Models/Student.js";
 
+export const getQuiz = async(req, res) => {
+  try {
+    const { id } = req.params;
+
+    const quiz = await Quiz.findById(id);
+
+    if (!quiz) {
+      return res.status(403).json({ message: "Quiz does not exist" });
+    }
+    return res.status(200).json({ message: "success", quiz });
+  }
+  catch (err) {
+    return res.status(500).json({ message: "Internal Server Error", err });
+  }
+}
+
 export const addQuizToClassroom = async (req, res) => {
   try {
     const { id } = req.params;
@@ -54,7 +70,7 @@ export const getQuizesOfClassroom = async (req, res) => {
 export const assignMarksOfQuizToStudent = async (req, res) => {
   try {
     const { id } = req.params;
-    const { quizId, marks } = req.body;
+    const { quizId, marks, answers } = req.body;
     const student = await Student.findById(id);
     const quiz = await Quiz.findById(quizId);
 
@@ -66,11 +82,9 @@ export const assignMarksOfQuizToStudent = async (req, res) => {
       return res.status(400).json({ message: "Quiz does not exist" });
     }
 
-    if (!marks) {
+    if (!marks && marks != 0) {
       return res.status(400).json({ message: "Value of marks is Invalid" });
     }
-
-    console.log(student.grades);
 
     let ans = false;
     for (let i = 0; i < student.grades.length; i++) {
@@ -78,13 +92,14 @@ export const assignMarksOfQuizToStudent = async (req, res) => {
       if (obj.quizId == quizId) {
         return res
           .status(400)
-          .json({ message: "Marks of this quiz has already been assigned" });
+          .json({ message: "Marks of this quiz has already been assigned" , percentage : obj.percentage});
       }
     }
 
     student.grades.push({
       quizId: quizId,
       percentage: (marks * 100) / quiz.totalMarks,
+      answers: answers
     });
     await student.save().then(() => {
       res.status(200).json({ message: "success" });

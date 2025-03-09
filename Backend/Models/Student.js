@@ -47,6 +47,7 @@ let studentSchema = new mongoose.Schema({
     grades : {
         type : [{
             quizId : mongoose.Schema.Types.ObjectId,
+            answers: [String],
             percentage : Number,
         }],
         default : []

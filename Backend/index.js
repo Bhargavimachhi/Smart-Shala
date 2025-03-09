@@ -97,7 +97,7 @@ import {
   addFaceOfStudent,
   recognizeFaceAndMarkPresent
 } from "./Controller/face.js";
-import { addQuizToClassroom, assignMarksOfQuizToStudent, getQuizesOfClassroom } from "./Controller/quiz.js";
+import { addQuizToClassroom, assignMarksOfQuizToStudent, getQuiz, getQuizesOfClassroom } from "./Controller/quiz.js";
 import { addAuthority, addSchoolToAuthority, getAverageAttendanceOfSchoolsOfAuthority, getSchoolsOfAuthority } from "./Controller/authority.js";
 
 app.use(express.json());
@@ -217,6 +217,7 @@ app.get("/:id/resource-requests", getResourceRequests);
 app.post("/:id/resource-request/:idx/approve", approveResourceRequest);
 
 // Quiz Routes
+app.get("/quiz/:id", getQuiz);
 app.post("/classroom/:id/create-quiz", addQuizToClassroom);
 app.get("/classroom/:id/quizes", getQuizesOfClassroom);
 app.post("/student/:id/assign-marks", assignMarksOfQuizToStudent);
