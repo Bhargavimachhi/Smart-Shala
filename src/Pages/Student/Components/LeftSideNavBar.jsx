@@ -29,6 +29,11 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
       path: "/student/performance",
     },
     {
+      name: "Quizzes",
+      icon: <ICONS.QUIZ size={20} />,
+      path: "/student/quizzes",
+    },
+    {
       name: "Attendence",
       icon: <ICONS.INFO size={20} />,
       path: "/student/attendance",

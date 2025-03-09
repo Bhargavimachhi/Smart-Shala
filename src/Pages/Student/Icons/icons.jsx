@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 import { IoIosDocument } from "react-icons/io";
 import { IoLogOut } from "react-icons/io5";
+import { MdQuiz } from "react-icons/md";
 
 export const ICONS = {
   //mui/icons-material
@@ -26,4 +27,5 @@ export const ICONS = {
   RIGHT: FaAngleRight,
   LOGOUT: IoLogOut,
   DOCUMENT: IoIosDocument,
+  QUIZ : MdQuiz
 };
