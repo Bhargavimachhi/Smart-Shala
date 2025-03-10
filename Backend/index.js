@@ -227,6 +227,7 @@ app.post("/login/authority", loginAuthority);
 app.post("/signup/student", addStudent);
 app.post("/signup/teacher", addTeacher);
 app.post("/signup/admin", addAdmin);
+app.post("/signup/authority", addAuthority);
 
 //emergency routes
 app.post("/teacher/emergency", createAlert);

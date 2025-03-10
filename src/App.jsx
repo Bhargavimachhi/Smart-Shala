@@ -73,6 +73,7 @@ import StudentLayout from "./layouts/Layout";
 import Layout from "./layouts/Layout";
 import AddSchool from "./Pages/SuperAdmin/Pages/AddSchool";
 import AuthorityLoginpage from "./Pages/SuperAdmin/Pages/AuthorityLoginPage";
+import AuthoritySignupPage from "./Pages/SuperAdmin/Pages/AuthoritySignupPage";
 
 const App = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -206,6 +207,7 @@ const App = () => {
           <Route path="/signup/student" element={<AddStudent />} />
           <Route path="/signup/teacher" element={<AddTeacher />} />
           <Route path="/signup/admin" element={<AdminForm />} />
+          <Route path="/signup/authority" element={<AuthoritySignupPage />} />
 
           {/* Login Page Routes */}
           <Route path="/login" element={<CommonLogin />} />
