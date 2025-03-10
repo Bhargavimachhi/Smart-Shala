@@ -6,9 +6,9 @@ import AdminSidebar from "../Components/AdminSidebar";
 const SuperAdminLayout = () => {
   return (
     <SidebarProvider>
-      <div className="flex">
+      <div className="flex w-full">
         <AdminSidebar />
-        <div className="flex-1 p-6">
+        <div className="flex-1 p-4">
           <Outlet />
         </div>
       </div>
