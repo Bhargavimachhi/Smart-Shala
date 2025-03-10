@@ -72,6 +72,7 @@ import { AttemptQuiz } from "./Pages/Student/Components/attemptQuiz/attemptQuiz.
 import StudentLayout from "./layouts/Layout";
 import Layout from "./layouts/Layout";
 import AddSchool from "./Pages/SuperAdmin/Pages/AddSchool";
+import AuthorityLoginpage from "./Pages/SuperAdmin/Pages/AuthorityLoginPage";
 
 const App = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -113,7 +114,7 @@ const App = () => {
           </Route>
 
           {/* SuperAdmin Page Routse */}
-          <Route path="/authority" element={<SuperAdminLayout />}>
+          <Route path="/authority" element={savedAuth && savedAuth.role == "authority" ? <SuperAdminLayout /> : <LoginAlert />}>
             <Route path="" element={<Home />} />
             <Route path="schools" element={<Schools />} />
             <Route path="data-analytics" element={<DataAnalytics />} />
@@ -208,6 +209,7 @@ const App = () => {
 
           {/* Login Page Routes */}
           <Route path="/login" element={<CommonLogin />} />
+          <Route path="/login/authority" element={<AuthorityLoginpage />} />
           <Route path="/login/admin" element={<AdminLoginpage />} />
           <Route path="/login/teacher" element={<TeacherLogin />} />
           <Route path="/login/student" element={<StudentLogin />} />

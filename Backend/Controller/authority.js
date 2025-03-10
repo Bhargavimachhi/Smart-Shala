@@ -25,6 +25,37 @@ export const addAuthority = async (req, res) => {
     });
 };
 
+export const loginAuthority = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(404).send({
+        success: false,
+        message: "Enter email or password",
+      });
+    }
+
+    const authority = await Authority.findOne({ email: email });
+    if (!authority) {
+      return res.status(404).json({ message: "email not registered" });
+    }
+
+    if (password != authority.password) {
+      return res.status(404).json({ message: "Password is incorrect" });
+    }
+    const jwt_token = JWT.sign({ _id: authority._id }, JWT_SECRET, {
+      expiresIn: "10d",
+    });
+    res.status(200).json({
+      message: "success",
+      authority,
+      jwt_token,
+    });
+  } catch (error) {
+    console.log("error in login", error);
+  }
+};
+
 //add school to authority
 export const addSchoolToAuthority = async (req, res) => {
   let { id } = req.params;
@@ -116,9 +147,9 @@ export const getAverageAttendanceOfSchoolsOfAuthority = async (req, res) => {
       })
     );
     attendance.push({
-      school : admin.name,
-      average : data
+      school: admin.name,
+      average: data,
     });
   }
-  return res.status(200).json({message:"success", attendance});
+  return res.status(200).json({ message: "success", attendance });
 };

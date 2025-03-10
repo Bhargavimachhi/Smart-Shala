@@ -42,11 +42,6 @@ const SideNavbar = () => {
       path: "/admin/teachers",
     },
     {
-      icon: <ICONS.SCHOOLS size={20} />,
-      name: "Schools",
-      path: "/admin/schools",
-    },
-    {
       icon: <ICONS.CLASSROOMS size={20} />,
       name: "Classrooms",
       path: "/admin/classrooms",

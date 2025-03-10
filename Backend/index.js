@@ -113,6 +113,7 @@ import {
   addSchoolToAuthority,
   getAverageAttendanceOfSchoolsOfAuthority,
   getSchoolsOfAuthority,
+  loginAuthority,
 } from "./Controller/authority.js";
 
 app.use(express.json());
@@ -220,6 +221,7 @@ app.post("/getAnswer", getAnswer);
 app.post("/login/teacher", LoginTeacher);
 app.post("/login/student", loginStudent);
 app.post("/login/admin", adminLogin);
+app.post("/login/authority", loginAuthority);
 
 //signup routes
 app.post("/signup/student", addStudent);

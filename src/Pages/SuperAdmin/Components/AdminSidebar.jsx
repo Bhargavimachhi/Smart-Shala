@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -10,11 +10,24 @@ import {
 import { Sidebar } from "@/components/ui/sidebar";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ICONS } from "../Icons/icons";
+import { useAuth } from "@/context/auth";
 
 const AdminSidebar = () => {
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(!isMobile);
   const location = useLocation();
+  const [auth, setAuth] = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setAuth({
+      _id: null,
+      token: "",
+      role: "",
+    });
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   const toggleSidebar = () => setOpen((prev) => !prev);
 
@@ -107,6 +120,7 @@ const AdminSidebar = () => {
             <Button
               variant="default"
               className="flex items-center justify-between w-full"
+              onClick={handleLogout}
             >
               <span>Logout</span>
               <ICONS.LOGOUT size={20} />
