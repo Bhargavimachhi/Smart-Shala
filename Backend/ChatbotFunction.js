@@ -4,10 +4,10 @@ import { PromptTemplate } from "@langchain/core/prompts";
 
 
 const llm = new ChatGoogleGenerativeAI({
-    model: "gemini-1.0-pro",
+    model: "gemini-2.0-flash",
     temperature: 0,
     maxRetries: 2,
-    apiKey: "AIzaSyDMqL2RR58KE9NFl3EnpAnc7tE4Ahv-z08",
+    apiKey: "AIzaSyC2gyx56kfwrWEjPEeq_YR2yWKQLg2YLrA",
   });
 
   
