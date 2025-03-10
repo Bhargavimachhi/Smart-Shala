@@ -19,25 +19,7 @@ import axios from "axios";
 
 const AddSchool = () => {
   const [schoolName, setSchoolName] = useState("");
-  //   const [subjects, setSubjects] = useState([]);
-  //   const [equipments, setEquipments] = useState([]);
-  //   const [subjectInput, setSubjectInput] = useState("");
-  //   const [equipmentInput, setEquipmentInput] = useState("");
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
-
-  //   const handleAddSubject = () => {
-  //     if (subjectInput.trim() !== "") {
-  //       setSubjects([...subjects, subjectInput]);
-  //       setSubjectInput("");
-  //     }
-  //   };
-
-  //   const handleAddEquipment = () => {
-  //     if (equipmentInput.trim() !== "") {
-  //       setEquipments([...equipments, equipmentInput]);
-  //       setEquipmentInput("");
-  //     }
-  //   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -67,7 +49,7 @@ const AddSchool = () => {
       <SideNavbar />
 
       {/* Main content */}
-      <Container maxWidth="sm" sx={{ marginLeft: "250px", padding: 4 }}>
+      <Container maxWidth="sm" className="p-4">
         <Box
           component="form"
           className="form-container"
@@ -86,54 +68,6 @@ const AddSchool = () => {
             fullWidth
             required
           />
-
-          {/* Subjects */}
-          {/* <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <TextField
-              label="Add Subject"
-              variant="outlined"
-              value={subjectInput}
-              onChange={(e) => setSubjectInput(e.target.value)}
-              fullWidth
-            />
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleAddSubject}
-            >
-              Add
-            </Button>
-          </Box> */}
-          {/* <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
-            <h1>Subjects Added : </h1>
-            {subjects.map((subject, index) => (
-              <Chip key={index} label={subject} />
-            ))}
-          </Box> */}
-
-          {/* Equipments */}
-          {/* <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <TextField
-              label="Add Equipment"
-              variant="outlined"
-              value={equipmentInput}
-              onChange={(e) => setEquipmentInput(e.target.value)}
-              fullWidth
-            />
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleAddEquipment}
-            >
-              Add
-            </Button>
-          </Box> */}
-          {/* <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
-            <h1>Equipments Added : </h1>
-            {equipments.map((equipment, index) => (
-              <Chip key={index} label={equipment} />
-            ))}
-          </Box> */}
 
           {/* Submit Button */}
           <Button
