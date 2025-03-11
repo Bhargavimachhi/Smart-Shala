@@ -50,34 +50,41 @@ const Profile = () => {
           >
             <Card className="bg-white p-6 rounded-2xl shadow-lg mt-7">
               <div className="flex flex-col items-center text-center">
-                {/* <Avatar className="w-24 h-24 rounded-full mb-4" src={userData.avatar} /> */}
                 <h2 className="text-2xl font-bold">{userData.name}</h2>
                 <p className="text-gray-500">{userData.email}</p>
-                {/* <p className="mt-2 text-gray-700">{userData.bio}</p>
-            <p className="text-sm text-gray-600">📍 {userData.location}</p> */}
+                {userData?.contact && (
+                  <p className="text-gray-500">+91 {userData.contact}</p>
+                )}
+                {userData?.address && (
+                  <p className="text-gray-500">{userData.address}</p>
+                )}
               </div>
-              {role == "admin" && (
-                <div className="mt-4 flex justify-around mt-5">
+              <div className="mt-4 flex justify-around mt-5">
+                {userData?.students && (
                   <div className="text-center">
                     <p className="text-lg font-semibold">
                       {userData?.students?.length}
                     </p>
                     <p className="text-sm text-gray-500">Students</p>
                   </div>
+                )}
+                {userData?.teachers && (
                   <div className="text-center">
                     <p className="text-lg font-semibold">
                       {userData?.teachers?.length}
                     </p>
                     <p className="text-sm text-gray-500">Teachers</p>
                   </div>
+                )}
+                {userData?.classrooms && (
                   <div className="text-center">
                     <p className="text-lg font-semibold">
                       {userData?.classrooms?.length}
                     </p>
                     <p className="text-sm text-gray-500">Classrooms</p>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </Card>
 
             <div className="bg-white p-6 rounded-2xl shadow-lg mt-6">
