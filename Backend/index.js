@@ -21,6 +21,7 @@ import {
   getSubmmitedHomeworkOfStudent,
   submitHomeWorkOfStudent,
   getPresentDaysAttendance,
+  getPresentDaysPercentageAttendance,
 } from "./Controller/student.js";
 import {
   addTeacher,
@@ -72,6 +73,7 @@ import {
   deleteClassroomOfAdmin,
   getAdmin,
   getAttendanceOfClassroomsOfAdmin,
+  getPresentDaysOfAdmin,
 } from "./Controller/admin.js";
 import {
   generateIssue,
@@ -177,6 +179,7 @@ app.get("/teacher/:id/attendance", getPresentDaysAttendanceOfTeacher);
 // student routes
 app.get("/student/:id", getStudent);
 app.get("/student/:id/attendance", getPresentDaysAttendance);
+app.get("/student/:id/attendance-percentage", getPresentDaysPercentageAttendance);
 app.get("/student/:id/attendance/present", markPresent);
 app.get("/student/:id/attendance/absent", markAbsent);
 app.get("/student/:id/pending-homeworks", getPendingHomeworkOfStudent);
@@ -192,6 +195,7 @@ app.get("/issue/:id/refuse", markIssueAsNotResolved);
 
 // admin routes
 app.get("/admin/:id", getAdmin);
+app.get("/admin/:id/attendance", getPresentDaysOfAdmin);
 app.get("/admin/:id/classrooms", getClassroomsOfAdmin);
 app.get("/admin/:id/students", getStudentsOfAdmin);
 app.get("/admin/:id/teachers", getTeachersOfAdmin);

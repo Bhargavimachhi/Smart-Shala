@@ -75,6 +75,7 @@ import AddSchool from "./Pages/SuperAdmin/Pages/AddSchool";
 import AuthorityLoginpage from "./Pages/SuperAdmin/Pages/AuthorityLoginPage";
 import AuthoritySignupPage from "./Pages/SuperAdmin/Pages/AuthoritySignupPage";
 import ClassroomSuperAnalytics from "./Pages/SuperAdmin/Pages/ClassroomAnalytics";
+import Profile from "./components/Profile";
 
 const App = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -86,6 +87,8 @@ const App = () => {
         <Routes>
           {/* Landing Page Route */}
           <Route path="/" element={<LandingPage />} />
+
+          <Route path="/profile/:role/:id" element={<Profile />} />
 
           {/* Admin Page Routes */}
           <Route

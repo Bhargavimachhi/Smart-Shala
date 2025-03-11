@@ -325,3 +325,18 @@ export const getAttendanceOfClassroomsOfAdmin = async(req, res) => {
   }))
   res.status(200).json({message:"success", attendance});
 }
+
+// get percentage of present days 
+export const getPresentDaysOfAdmin = async(req, res) => {
+    const id = req.params.id;
+    const admin = await Admin.findById(id);
+
+    if(!admin) {
+        res.status(404).json({message : "Admin does not exist"});
+        return;
+    }
+
+    const presentDays = admin.presentDays;
+
+    res.status(200).json({message:"success", presentDays : admin.presentDays});
+}

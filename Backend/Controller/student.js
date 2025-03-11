@@ -212,8 +212,23 @@ export const submitHomeWorkOfStudent = async(req, res) => {
     });
 }
 
-// get percentage of present days 
+// get present days of student 
 export const getPresentDaysAttendance = async(req, res) => {
+    const id = req.params.id;
+    const student = await Student.findById(id);
+
+    if(!student) {
+        res.status(404).json({message : "Student does not exist"});
+        return;
+    }
+
+    const presentDays = student.presentDays;
+
+    res.status(200).json({message:"success", presentDays});
+}
+
+// get percentage of present days 
+export const getPresentDaysPercentageAttendance = async(req, res) => {
     const id = req.params.id;
     const student = await Student.findById(id);
 
