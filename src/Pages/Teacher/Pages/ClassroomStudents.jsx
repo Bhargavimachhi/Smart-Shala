@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField, MenuItem, Select, InputLabel, FormControl, Box } from '@mui/material';
 import TeacherLeftSideNavBar from '../Components/TeacherLeftSideNavBar';
+import Loader from '@/Pages/InitialPages/Loader';
+import { Button } from '@/components/ui/button';
 
 const ClassroomStudents = () => {
     const { classroomId } = useParams();
@@ -11,6 +13,7 @@ const ClassroomStudents = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchCategory, setSearchCategory] = useState('name');
     const [isExpanded, setIsExpanded] = useState(false);
+    const navigate = useNavigate();
 
     const toggleSidebar = () => {
         setIsExpanded(!isExpanded);
@@ -41,7 +44,7 @@ const ClassroomStudents = () => {
     });
 
     if (loading) {
-        return <div className="text-center mt-8">Loading Students....</div>;
+        return <Loader text="Loading Students.." />;
     }
 
     return (
@@ -81,6 +84,7 @@ const ClassroomStudents = () => {
                                     <TableCell>Name</TableCell>
                                     <TableCell>Email</TableCell>
                                     <TableCell>Contact</TableCell>
+                                    <TableCell></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -89,6 +93,7 @@ const ClassroomStudents = () => {
                                         <TableCell>{student.name}</TableCell>
                                         <TableCell>{student.email}</TableCell>
                                         <TableCell>{student.contact}</TableCell>
+                                        <TableCell><Button onClick={() => { navigate(`/profile/student/${student._id}`)}}> View </Button></TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

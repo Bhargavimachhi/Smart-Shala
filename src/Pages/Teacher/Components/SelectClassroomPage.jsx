@@ -6,6 +6,7 @@ import { Card, CardContent, Typography, TextField, InputAdornment } from '@mui/m
 import { Search } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import "../../../components/hover.css";
+import Loader from '@/Pages/InitialPages/Loader';
 
 const SelectClassroom = () => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -39,7 +40,7 @@ const SelectClassroom = () => {
     );
 
     if (loading) {
-        return <div className="text-center mt-8">Loading Classrooms...</div>;
+        return <Loader text="Loading Classrooms..." />;
     }
 
     return (

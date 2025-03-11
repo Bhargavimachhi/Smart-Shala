@@ -4,6 +4,7 @@ import axios from 'axios';
 import TeacherLeftSideNavBar from '../Components/TeacherLeftSideNavBar';
 import { TableCell, TableRow, TableBody, TableContainer, Paper, Table, TableHead, Checkbox } from '@mui/material';
 import toast from 'react-hot-toast';
+import Loader from '@/Pages/InitialPages/Loader';
 
 const ClassroomAttendancePage = () => {
   const { classroomId } = useParams();
@@ -39,7 +40,7 @@ const ClassroomAttendancePage = () => {
   };
 
   if (loading) {
-    return <div className="text-center mt-8">Loading ...</div>;
+    return <Loader text="Loading ..." />;
   }
 
   return (

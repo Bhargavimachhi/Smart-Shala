@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import TeacherLeftSideNavBar from '../Components/TeacherLeftSideNavBar';
+import Loader from '@/Pages/InitialPages/Loader';
 
 const ManualAttendancePage = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -32,7 +33,7 @@ const ManualAttendancePage = () => {
   };
 
   if (loading) {
-    return <div className="text-center mt-8">Loading ...</div>;
+    return <Loader text="Loading ..." />;
   }
 
   return (

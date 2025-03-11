@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 import TeacherLeftSideNavBar from '../Components/TeacherLeftSideNavBar';
+import Loader from '@/Pages/InitialPages/Loader';
 
 const storage = getStorage();
 
@@ -47,7 +48,7 @@ const ClassroomSubmittedHomeworks = () => {
     }, [id, savedAuth.id]);
 
     if (loading) {
-        return <div className="text-center mt-8">Loading...</div>;
+        return <Loader text="Loading ..." />;
     }
 
     return (

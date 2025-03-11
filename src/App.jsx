@@ -214,10 +214,6 @@ const App = () => {
               path="classroom/:id/generate-quiz"
               element={<GenerateQuiz />}
             />
-            <Route
-              path="classroom/:id/generate-quiz"
-              element={<GenerateQuiz />}
-            />
           </Route>
 
           {/* SignUp Page Routes */}

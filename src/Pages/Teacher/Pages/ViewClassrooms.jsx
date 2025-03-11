@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import TeacherLeftSideNavBar from '../Components/TeacherLeftSideNavBar';
+import Loader from '@/Pages/InitialPages/Loader';
 
 const ViewClassrooms = () => {
     const [classrooms, setClassrooms] = useState([]);
@@ -29,7 +30,7 @@ const ViewClassrooms = () => {
     }, [savedAuth.id]);
 
     if (loading) {
-        return <div className="text-center mt-8">Loading...</div>;
+        return <Loader text="Loading ..." />;
     }
 
     return (
