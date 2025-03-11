@@ -1,8 +1,9 @@
-import React from 'react';
+import React from "react";
+import { ICONS } from "../../Icons/icons";
 
 const PerfComMain = ({ activeTab, setActiveTab }) => {
   return (
-    <div className="p-4 flex gap-4 border-b-2">
+    <div className="flex gap-4 p-2 border-b-2">
       {/* <button
         onClick={() => setActiveTab('overall performance')}
         className={`cursor-pointer px-4 py-2 text-lg ${
@@ -14,14 +15,17 @@ const PerfComMain = ({ activeTab, setActiveTab }) => {
         Overall Performance
       </button> */}
       <button
-        onClick={() => setActiveTab('evaluate test')}
-        className={`cursor-pointer px-4 py-2 text-lg ${
-          activeTab === 'evaluate test'
-            ? 'text-sky-800 border-b-2 border-sky-800 font-bold text-2xl'
-            : 'text-gray-600'
+        onClick={() => setActiveTab("evaluate test")}
+        className={`cursor-pointer p-2 justify-start flex items-center gap-2 text-2xl text-text font-semibold ${
+          activeTab === "evaluate test"
+            ? "text-sky-800 border-b-2 border-btn font-bold text-2xl"
+            : "text-text"
         }`}
       >
-        Evaluate 
+        <span>Evaluate</span>
+        <span>
+          <ICONS.DOCUMENT size={25} />
+        </span>
       </button>
       {/* <button
         onClick={() => setActiveTab('test results')}
