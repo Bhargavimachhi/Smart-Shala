@@ -76,6 +76,7 @@ import AuthorityLoginpage from "./Pages/SuperAdmin/Pages/AuthorityLoginPage";
 import AuthoritySignupPage from "./Pages/SuperAdmin/Pages/AuthoritySignupPage";
 import ClassroomSuperAnalytics from "./Pages/SuperAdmin/Pages/ClassroomAnalytics";
 import Profile from "./components/Profile";
+import SelectClassroomForQuiz from "./Pages/Teacher/Pages/SelectClassroomForQuiz";
 
 const App = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -209,6 +210,10 @@ const App = () => {
             <Route
               path="classrooms/:classroomId/manual-attendance"
               element={<ClassroomAttendancePage />}
+            />
+            <Route
+              path="generate-quiz"
+              element={<SelectClassroomForQuiz />}
             />
             <Route
               path="classroom/:id/generate-quiz"

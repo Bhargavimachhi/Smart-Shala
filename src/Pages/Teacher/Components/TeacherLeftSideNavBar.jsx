@@ -59,6 +59,11 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
       path: "/teacher/classrooms-low-attendance",
     },
     {
+      name: "Generate Quiz",
+      icon: <ICONS.QUIZ size={20} />,
+      path: "/teacher/generate-quiz",
+    },
+    {
       name: "Generate Issue",
       icon: <FaExclamationTriangle size={20} />,
       path: "/teacher/generate-issue",
