@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   TableRow,
   TableCell,
@@ -8,13 +8,15 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from '@mui/material';
-import axios from 'axios';
+} from "@mui/material";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const TableListingteacher = ({ id, cId }) => {
-  const [teacher, setTeacher] = useState('');
-  const [open, setOpen] = useState(false); 
+  const [teacher, setTeacher] = useState("");
+  const [open, setOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getTeachers() {
@@ -22,7 +24,7 @@ const TableListingteacher = ({ id, cId }) => {
         const res = await axios.get(`http://localhost:3000/teacher/${id}`);
         setTeacher(res.data.teacher);
       } catch (error) {
-        console.error('Error fetching teacher:', error);
+        console.error("Error fetching teacher:", error);
       }
     }
     getTeachers();
@@ -45,12 +47,12 @@ const TableListingteacher = ({ id, cId }) => {
       await axios.get(
         `http://localhost:3000/classroom/${cId}/teacher/${teacher._id}/remove`
       );
-      window.location.reload(); 
+      window.location.reload();
     } catch (error) {
-      console.error('Error deleting teacher:', error);
+      console.error("Error deleting teacher:", error);
     } finally {
       setIsDeleting(false);
-      setOpen(false); 
+      setOpen(false);
     }
   };
 
@@ -61,12 +63,24 @@ const TableListingteacher = ({ id, cId }) => {
         <TableCell>{teacher.email}</TableCell>
         <TableCell>{teacher.contact}</TableCell>
         <TableCell>
-          <Button variant="contained" color="primary" size="small">
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            onClick={() => {
+              navigate(`/profile/teacher/${teacher._id}`);
+            }}
+          >
             View
           </Button>
         </TableCell>
         <TableCell>
-          <Button variant="outlined" color="error" size="small" onClick={handleOpen}>
+          <Button
+            variant="outlined"
+            color="error"
+            size="small"
+            onClick={handleOpen}
+          >
             Delete
           </Button>
         </TableCell>
@@ -77,8 +91,9 @@ const TableListingteacher = ({ id, cId }) => {
         <DialogTitle>Confirm Deletion</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete{' '}
-            <strong>{teacher.name || 'this teacher'}</strong>? This action cannot be undone.
+            Are you sure you want to delete{" "}
+            <strong>{teacher.name || "this teacher"}</strong>? This action
+            cannot be undone.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -90,7 +105,7 @@ const TableListingteacher = ({ id, cId }) => {
             color="error"
             disabled={isDeleting} // Disable button during deletion
           >
-            {isDeleting ? 'Deleting...' : 'Delete'}
+            {isDeleting ? "Deleting..." : "Delete"}
           </Button>
         </DialogActions>
       </Dialog>
@@ -98,4 +113,4 @@ const TableListingteacher = ({ id, cId }) => {
   );
 };
 
-export default TableListingteacher
+export default TableListingteacher;

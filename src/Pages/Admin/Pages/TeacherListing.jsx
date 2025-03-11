@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import toast from "react-hot-toast";
 import Loader from "../../InitialPages/Loader";
+import { useNavigate } from "react-router-dom";
 
 const TeacherListingpage = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -25,6 +26,7 @@ const TeacherListingpage = () => {
 
   const [isVisible, setIsVisible] = useState(false);
   const [teacherEmail, setTeacherEmail] = useState("");
+  const navigate = useNavigate();
 
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
@@ -123,7 +125,9 @@ const TeacherListingpage = () => {
               <Grid container spacing={3}>
                 {filteredTeachers.map((teacher) => (
                   <Grid item xs={12} sm={6} md={4} key={teacher._id}>
-                    <Card elevation={3}>
+                    <Card elevation={3} className="cursor-pointer hover-card" onClick={() => {
+                      navigate(`/profile/teacher/${teacher._id}`)
+                    }}>
                       <CardContent>
                         <Typography variant="h6" gutterBottom>
                           {teacher.name}

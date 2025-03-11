@@ -10,11 +10,13 @@ import {
   DialogTitle,
 } from "@mui/material";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const TableListingstudent = ({ id }) => {
   const [student, setStudent] = useState("");
   const [open, setOpen] = useState(false); // For controlling the modal
   const [isDeleting, setIsDeleting] = useState(false); // For managing delete state
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getstudents() {
@@ -55,10 +57,17 @@ const TableListingstudent = ({ id }) => {
     <>
       <TableRow key={student}>
         <TableCell>{student.name}</TableCell>
-        <TableCell>{student.rollno}</TableCell>
         <TableCell>{student.email}</TableCell>
+        <TableCell>{student.contact}</TableCell>
         <TableCell>
-          <Button variant="contained" color="primary" size="small">
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            onClick={() => {
+              navigate(`/profile/student/${student._id}`);
+            }}
+          >
             View
           </Button>
         </TableCell>

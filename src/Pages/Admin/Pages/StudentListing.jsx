@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import toast from "react-hot-toast";
 import Loader from "../../InitialPages/Loader";
+import { useNavigate } from "react-router-dom";
 
 const StudentListingpage = () => {
   const [students, setStudents] = useState([]);
@@ -21,6 +22,7 @@ const StudentListingpage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("name");
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
+  const navigate = useNavigate();
 
   // Student Form handleres
   const [isVisible, setIsVisible] = useState(false);
@@ -121,8 +123,10 @@ const StudentListingpage = () => {
 
               <Grid container spacing={3}>
                 {filteredStudents.map((student) => (
-                  <Grid item xs={12} sm={6} md={4} key={student._id}>
-                    <Card elevation={3}>
+                  <Grid item xs={12} sm={6} md={4} key={student._id} onClick={() => {
+                    navigate(`/profile/student/${student._id}`);
+                  }}>
+                    <Card elevation={3} className="cursor-pointer hover-card">
                       <CardContent>
                         <Typography variant="h6" gutterBottom>
                           {student.name}
