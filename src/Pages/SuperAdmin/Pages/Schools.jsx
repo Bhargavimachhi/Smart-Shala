@@ -52,8 +52,8 @@ const Schools = () => {
 
   return (
     <>
-      <div className="min-h-screen">
-        <div className="bg-white rounded">
+      <div className="">
+        <div className="bg-white">
           <div className="flex items-center justify-between pb-3 mb-6 border-b border-btn">
             <div className="flex items-center gap-2 text-text">
               <span>
@@ -65,7 +65,6 @@ const Schools = () => {
               variant="contained"
               color="primary"
               type="submit"
-              sx={{ marginTop: 2 }}
               onClick={() => navigate("/authority/schools/add-school")}
             >
               Add School

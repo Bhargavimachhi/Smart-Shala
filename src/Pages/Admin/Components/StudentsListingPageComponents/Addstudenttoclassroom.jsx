@@ -67,7 +67,7 @@ const Addstudenttoclassroom = ({ students, onAddStudent }) => {
         <Button
           variant="contained"
           color="primary"
-          className="mb-4 text-white bg-[rgb(45,132,239)] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2"
+          className="text-white bg-[rgb(45,132,239)] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2"
           onClick={handleOpenStudentDialog}
         >
           Add Students
@@ -87,7 +87,7 @@ const Addstudenttoclassroom = ({ students, onAddStudent }) => {
               type="email"
               value={studentEmail}
               onChange={(e) => setStudentEmail(e.target.value)}
-              className="border px-4 py-5 mb-5 rounded-md"
+              className="px-4 py-5 mb-5 border rounded-md"
               placeholder="Enter Email"
             />
           </form>

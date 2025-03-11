@@ -10,6 +10,7 @@ import { PiStudentBold } from "react-icons/pi";
 import { SiGooglemeet } from "react-icons/si";
 import { GrResources } from "react-icons/gr";
 import { LuPanelLeftOpen } from "react-icons/lu";
+import { IoIosArrowBack } from "react-icons/io";
 
 export const ICONS = {
   ISSUES: AiOutlineIssuesClose,
@@ -23,4 +24,5 @@ export const ICONS = {
   RESOUECE: GrResources,
   TEACHERS: FaChalkboardTeacher,
   PANEL_LEFT: LuPanelLeftOpen,
+  BACK: IoIosArrowBack,
 };
