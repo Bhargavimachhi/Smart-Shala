@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import TeacherLeftSideNavBar from '../Components/TeacherLeftSideNavBar';
-import Loader from '@/Pages/InitialPages/Loader';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ICONS } from "../Icons/icons";
+import { Button, Card } from "@mui/material";
+import TeacherLoader from "../Components/TeacherLoader";
 
 const ManualAttendancePage = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -11,20 +12,18 @@ const ManualAttendancePage = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
 
-  const toggleSidebar = () => {
-    setIsExpanded(!isExpanded);
-  };
-
   useEffect(() => {
-    async function fetchClassrooms() {
+    const fetchClassrooms = async () => {
       if (savedAuth && savedAuth.id) {
-        const res = await axios.get(`http://localhost:3000/teacher/${savedAuth.id}/manual-attendance`);
+        const res = await axios.get(
+          `http://localhost:3000/teacher/${savedAuth.id}/manual-attendance`
+        );
         setClassrooms(res.data.classrooms);
         setLoading(false);
       } else {
         setLoading(false);
       }
-    }
+    };
     fetchClassrooms();
   }, [savedAuth]);
 
@@ -33,30 +32,59 @@ const ManualAttendancePage = () => {
   };
 
   if (loading) {
-    return <Loader text="Loading ..." />;
+    return <TeacherLoader text="Loading Classrooms..." />;
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      <TeacherLeftSideNavBar isExpanded={isExpanded} toggleSidebar={toggleSidebar} />
-      <div className={`flex-1 p-8 transition-all duration-300 ${isExpanded ? 'ml-64' : 'ml-16'}`}>
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold mb-2">Manual Attendance</h1>
-          <p className="text-gray-600">Select a classroom to mark attendance</p>
+    <main>
+      <div className="bg-white">
+        {/* Header */}
+        <div className="flex items-center justify-between pb-3 mb-6 border-b border-btn">
+          <div className="flex items-center gap-2 text-text">
+            <span>
+              <ICONS.STUDENT size={30} />
+            </span>
+            <h1 className="font-semibold md:text-2xl">
+              Manual Classrooms Attendance
+            </h1>
+          </div>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            onClick={() => navigate(-1)}
+          >
+            <span>
+              <ICONS.BACK size={20} />
+            </span>
+            <span>Back</span>
+          </Button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {classrooms.map((classroom) => (
-            <div
-              key={classroom._id}
-              className="bg-white p-6 rounded-lg shadow cursor-pointer"
-              onClick={() => handleClassroomClick(classroom._id)}
-            >
-              <h2 className="text-lg font-semibold mb-4">Class: {classroom.name}</h2>
-            </div>
-          ))}
+        <div className="w-full">
+          <p className="mb-6 text-base text-center text-text md:text-lg">
+            Select a classroom to mark attendance
+          </p>
+
+          <div className="grid grid-cols-1 gap-6 px-4 md:grid-cols-2 lg:grid-cols-3 md:px-8">
+            {classrooms.map((classroom) => (
+              <Card
+                key={classroom._id}
+                onClick={() => handleClassroomClick(classroom._id)}
+                className="p-6 transition-all duration-300 transform border border-gray-200 shadow-md cursor-pointer rounded-xl bg-gradient-to-br from-white to-blue-50 hover:from-blue-50 hover:to-blue-100 hover:-translate-y-1 hover:shadow-lg"
+              >
+                <h2 className="mb-2 text-xl font-bold text-center text-btn">
+                  Class : {classroom.name}
+                </h2>
+
+                <p className="text-sm text-center text-text">
+                  Click to mark attendance
+                </p>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

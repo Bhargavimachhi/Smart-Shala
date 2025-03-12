@@ -19,7 +19,6 @@ import SubmitHomework from "./Pages/Student/StudentPages/SubmitHomework.jsx";
 import StudentNotification from "./Pages/Student/StudentPages/StudentNotification.jsx";
 import Issuessection from "./Pages/Admin/Pages/Issuessection.jsx";
 
-import TeacherHomePage from "./Pages/Teacher/Pages/TeacherHomePage";
 import TeacherSignUpForm from "./Pages/Teacher/Pages/TeacherSignUpForm";
 import TeacherProfilePage from "./Pages/Teacher/Pages/TeacherProfilePage";
 import MarkTeacherAttendance from "./Pages/Teacher/Pages/MarkTeacherAttendance";
@@ -80,6 +79,8 @@ import SelectClassroomForQuiz from "./Pages/Teacher/Pages/SelectClassroomForQuiz
 import MarkStudentAttendance from "./Pages/Teacher/Pages/MarkStudentAttendance";
 import Dashboard from "./Pages/SuperAdmin/Pages/ReportCardPage";
 import StudentQuizResults from "./Pages/Student/StudentPages/StudentQuizResults";
+import TeacherLayout from "./Pages/Teacher/Layouts/TeacherLayout";
+import TeacherHome from "./Pages/Teacher/Pages/TeacherHome";
 
 const App = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -94,7 +95,6 @@ const App = () => {
 
           <Route path="/profile/:role/:id" element={<Profile />} />
 
-      
           <Route
             path="/admin"
             element={
@@ -142,7 +142,7 @@ const App = () => {
               element={<ClassroomSuperAnalytics />}
             />
           </Route>
-          <Route path="/report" element={<Dashboard/>}/>
+          <Route path="/report" element={<Dashboard />} />
 
           {/* Student Page Routes */}
           <Route
@@ -173,13 +173,13 @@ const App = () => {
             path="/teacher"
             element={
               savedAuth && savedAuth.role == "teacher" ? (
-                <Layout />
+                <TeacherLayout />
               ) : (
                 <LoginAlert />
               )
             }
           >
-            <Route path="" element={<TeacherHomePage />} />
+            <Route path="" element={<TeacherHome />} />
             <Route path="signup" element={<TeacherSignUpForm />} />
             <Route path="add-homework/form" element={<AddHomeworkPage />} />
             <Route
@@ -187,7 +187,10 @@ const App = () => {
               element={<HwSubmission />}
             />
             <Route path="mark-attendance" element={<MarkTeacherAttendance />} />
-            <Route path="mark-student-attendance" element={<MarkStudentAttendance />} />
+            <Route
+              path="mark-student-attendance"
+              element={<MarkStudentAttendance />}
+            />
             <Route path="classrooms" element={<TeachersClassroom />} />
             <Route path="generate-issue" element={<GenerateTeacherIssue />} />
             <Route
@@ -217,10 +220,7 @@ const App = () => {
               path="classrooms/:classroomId/manual-attendance"
               element={<ClassroomAttendancePage />}
             />
-            <Route
-              path="generate-quiz"
-              element={<SelectClassroomForQuiz />}
-            />
+            <Route path="generate-quiz" element={<SelectClassroomForQuiz />} />
             <Route
               path="classroom/:id/generate-quiz"
               element={<GenerateQuiz />}

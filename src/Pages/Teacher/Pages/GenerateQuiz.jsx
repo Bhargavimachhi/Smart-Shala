@@ -1,17 +1,14 @@
-// GenerateQuiz.jsx
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import TeacherLeftSideNavBar from "../Components/TeacherLeftSideNavBar";
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
-const savedAuth = JSON.parse(localStorage.getItem("auth"));
-const GenerateQuiz = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const toggleSidebar = () => {
-    setIsExpanded(!isExpanded);
-  };
+import { ICONS } from "../Icons/icons";
+import { Button } from "@mui/material";
 
+const GenerateQuiz = () => {
+  const savedAuth = JSON.parse(localStorage.getItem("auth"));
   const { id } = useParams();
+  const [title, setTitle] = useState("");
   const [questions, setQuestions] = useState([
     {
       question: "",
@@ -20,7 +17,7 @@ const GenerateQuiz = () => {
       correctAnswer: "",
     },
   ]);
-  const [title, setTitle] = useState("");
+  const navigate = useNavigate();
 
   const handleQuestionChange = (index, e) => {
     const newQuestions = [...questions];
@@ -80,7 +77,7 @@ const GenerateQuiz = () => {
           createdBy: savedAuth.id,
           classroom: id,
           title: title,
-          totalMarks: totalMarks
+          totalMarks: totalMarks,
         }
       );
 
@@ -100,41 +97,56 @@ const GenerateQuiz = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      <TeacherLeftSideNavBar
-        isExpanded={isExpanded}
-        toggleSidebar={toggleSidebar}
-      />
-      <div
-        className={`flex-1 p-8 transition-all duration-300 ${
-          isExpanded ? "ml-64" : "ml-16"
-        }`}
-      >
-        <div className="max-w-4xl p-6 mx-auto bg-white rounded-lg shadow-md">
-          <h2 className="mb-6 text-2xl font-bold text-center text-gray-800">
-            Create Quiz for Classroom
-          </h2>
-
-          <form onSubmit={handleSubmit}>
-            <div className="flex w-full mt-5 mb-5">
-              <label className="block mb-2 mr-1 font-medium text-gray-700">
+    <main>
+      <div className="bg-white">
+        {/* Header */}
+        <div className="flex items-center justify-between pb-3 mb-6 border-b border-btn">
+          <div className="flex items-center gap-2 text-text">
+            <span>
+              <ICONS.QUIZ size={30} />
+            </span>
+            <h1 className="font-semibold md:text-2xl">
+              Create Quiz for Classroom
+            </h1>
+          </div>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            onClick={() => navigate(-1)}
+          >
+            <span>
+              <ICONS.BACK size={20} />
+            </span>
+            <span>Back</span>
+          </Button>
+        </div>
+        <div className="p-4 mx-auto bg-white shadow-lg rounded-xl max-w-7xl">
+          <form onSubmit={handleSubmit} className="space-y-8">
+            {/* Quiz Title */}
+            <div className="w-full">
+              <label className="block mb-2 text-lg font-semibold text-sky-800">
                 Name of Quiz
               </label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full px-3 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 transition border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                placeholder="Enter quiz title"
                 required
               />
             </div>
+
+            {/* Questions Section */}
             {questions.map((q, qIndex) => (
               <div
                 key={qIndex}
-                className="p-4 mb-6 border rounded-lg bg-gray-50"
+                className="p-6 space-y-6 transition border border-gray-200 rounded-lg shadow-sm bg-gradient-to-br from-blue-50 to-white hover:shadow-md"
               >
-                <div className="flex items-center justify-between">
-                  <div className="w-full mb-4">
+                {/* Question Header */}
+                <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
+                  <div className="flex-1">
                     <label className="block mb-2 font-medium text-gray-700">
                       Question {qIndex + 1}
                     </label>
@@ -142,25 +154,30 @@ const GenerateQuiz = () => {
                       type="text"
                       value={q.question}
                       onChange={(e) => handleQuestionChange(qIndex, e)}
-                      className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500"
+                      placeholder="Enter your question"
                       required
                     />
                   </div>
-                  <div className="mb-4 w-[100px] ml-5">
+
+                  {/* Marks Input */}
+                  <div className="w-full md:w-[120px] md:ml-6">
                     <label className="block mb-2 font-medium text-gray-700">
                       Mark
                     </label>
                     <input
-                      type="Number"
+                      type="number"
                       value={q.mark}
                       onChange={(e) => handleMarkChange(qIndex, e)}
-                      className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500"
+                      placeholder="0"
                       required
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 mb-4">
+                {/* Options Inputs */}
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   {q.options.map((option, oIndex) => (
                     <div key={oIndex}>
                       <label className="block mb-1 text-gray-600">
@@ -170,21 +187,25 @@ const GenerateQuiz = () => {
                         type="text"
                         value={option}
                         onChange={(e) => handleOptionChange(qIndex, oIndex, e)}
-                        className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500"
+                        placeholder={`Enter option ${String.fromCharCode(
+                          65 + oIndex
+                        )}`}
                         required
                       />
                     </div>
                   ))}
                 </div>
 
-                <div className="mb-4">
+                {/* Correct Answer Selector */}
+                <div>
                   <label className="block mb-2 font-medium text-gray-700">
                     Correct Answer
                   </label>
                   <select
                     value={q.correctAnswer}
                     onChange={(e) => handleCorrectAnswerChange(qIndex, e)}
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500"
                     required
                   >
                     <option value="">Select Correct Answer</option>
@@ -199,27 +220,31 @@ const GenerateQuiz = () => {
                   </select>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => handleDeleteQuestion(qIndex)}
-                  className="font-medium text-red-500 hover:text-red-700"
-                >
-                  Delete Question
-                </button>
+                {/* Delete Button */}
+                <div className="flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteQuestion(qIndex)}
+                    className="px-4 py-2 text-sm font-medium text-red-600 transition border border-red-200 rounded-lg bg-red-50 hover:bg-red-100 hover:text-red-800"
+                  >
+                    Delete Question
+                  </button>
+                </div>
               </div>
             ))}
 
-            <div className="flex items-center justify-between mt-8">
+            {/* Add Question & Submit Buttons */}
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <button
                 type="button"
                 onClick={handleAddQuestion}
-                className="px-4 py-2 text-white transition bg-blue-500 rounded-lg hover:bg-blue-600"
+                className="w-full px-6 py-3 font-semibold text-white transition rounded-lg shadow md:w-auto bg-sky-600 hover:bg-sky-700"
               >
                 Add Question
               </button>
               <button
                 type="submit"
-                className="px-6 py-2 text-white transition bg-green-500 rounded-lg hover:bg-green-600"
+                className="w-full px-8 py-3 font-semibold text-white transition bg-green-600 rounded-lg shadow md:w-auto hover:bg-green-700"
               >
                 Submit Quiz
               </button>
@@ -227,7 +252,7 @@ const GenerateQuiz = () => {
           </form>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 
