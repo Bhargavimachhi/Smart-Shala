@@ -1,6 +1,7 @@
 import {Student} from "../Models/Student.js"
 import {Classroom} from "../Models/Classroom.js"
 import { Homework } from "../Models/Homework.js";
+import { Quiz } from "../Models/Quiz.js";
 
 //add Student
 export const addStudent = async(req, res) => {
@@ -242,4 +243,33 @@ export const getPresentDaysPercentageAttendance = async(req, res) => {
     const percentage = (presentDays / total) * 100;
 
     res.status(200).json({message:"success", percentage});
+}
+
+//get Quizzes Result of Student
+export const getQuizResultOfStudent = async(req, res) => {
+    try {
+        const { id } = req.params;
+        const student = await Student.findById(id);
+
+        if(!student) {
+            res.status(404).json({message : "Student does not exist"});
+            return;
+        }
+
+        let result = [];
+        
+        await Promise.all(student.grades.map(async(grade) => {
+            let quiz = await Quiz.findById(grade.quizId);
+            result.push({
+                quiz : quiz,
+                answers : grade.answers,
+                percentage: grade.percentage
+            });
+        }));
+        return res.status(200).json({message:"success", result});
+
+    }
+    catch (err) {
+
+    }
 }

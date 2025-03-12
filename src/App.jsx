@@ -79,6 +79,7 @@ import Profile from "./components/Profile";
 import SelectClassroomForQuiz from "./Pages/Teacher/Pages/SelectClassroomForQuiz";
 import MarkStudentAttendance from "./Pages/Teacher/Pages/MarkStudentAttendance";
 import Dashboard from "./Pages/SuperAdmin/Pages/ReportCardPage";
+import StudentQuizResults from "./Pages/Student/StudentPages/StudentQuizResults";
 
 const App = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -162,6 +163,7 @@ const App = () => {
             <Route path="attendance" element={<StudentAttendancePage />} />
             <Route path="performance" element={<StudentPerformanceReport />} />
             <Route path="quizzes" element={<StudentQuiz />} />
+            <Route path="quiz-results" element={<StudentQuizResults />} />
             <Route path="attempt-quiz/:id" element={<AttemptQuiz />} />
             <Route path="homework/:id/preview" element={<FilePreviewMain />} />
           </Route>

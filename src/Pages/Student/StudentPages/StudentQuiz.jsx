@@ -78,13 +78,16 @@ const StudentQuiz = () => {
               color="primary"
               type="submit"
               sx={{ marginTop: 2 }}
+              onClick={() => {
+                navigate('/student/quiz-results')
+              }}
             >
               Check Your Results
             </Button>
           </div>
 
           <TextField
-            label="Search Classrooms"
+            label="Search Quizzes"
             variant="outlined"
             fullWidth
             value={searchTerm}
@@ -106,7 +109,9 @@ const StudentQuiz = () => {
                   <Card
                     className="relative h-48 mb-8 cursor-pointer hover-card"
                     key={quiz._id}
-                    onClick={() => {navigate(`/student/attempt-quiz/${quiz._id}`)}}
+                    onClick={() => {
+                      navigate(`/student/attempt-quiz/${quiz._id}`);
+                    }}
                     style={{ cursor: "pointer" }}
                   >
                     <CardContent className="relative flex flex-col items-center justify-center h-full">
