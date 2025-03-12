@@ -13,7 +13,11 @@ import { IoIosArrowBack } from "react-icons/io";
 import { IoHomeSharp, IoLogOutOutline } from "react-icons/io5";
 import { LuPanelLeftOpen } from "react-icons/lu";
 import { MdCoPresent, MdOutlineQuiz } from "react-icons/md";
-import { SiGoogleclassroom, SiWelcometothejungle } from "react-icons/si";
+import {
+  SiBookstack,
+  SiGoogleclassroom,
+  SiWelcometothejungle,
+} from "react-icons/si";
 
 import SchoolIcon from "@mui/icons-material/School";
 import PeopleIcon from "@mui/icons-material/People";
@@ -37,6 +41,7 @@ export const ICONS = {
   WELCOME: SiWelcometothejungle,
   SEARCH: FaSearch,
   ADD: FaPlus,
+  BOOK: SiBookstack,
 
   //@mui-material-icons
   STUDENT: PeopleIcon,
