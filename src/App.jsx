@@ -77,6 +77,7 @@ import AuthoritySignupPage from "./Pages/SuperAdmin/Pages/AuthoritySignupPage";
 import ClassroomSuperAnalytics from "./Pages/SuperAdmin/Pages/ClassroomAnalytics";
 import Profile from "./components/Profile";
 import SelectClassroomForQuiz from "./Pages/Teacher/Pages/SelectClassroomForQuiz";
+import MarkStudentAttendance from "./Pages/Teacher/Pages/MarkStudentAttendance";
 
 const App = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -182,6 +183,7 @@ const App = () => {
               element={<HwSubmission />}
             />
             <Route path="mark-attendance" element={<MarkTeacherAttendance />} />
+            <Route path="mark-student-attendance" element={<MarkStudentAttendance />} />
             <Route path="classrooms" element={<TeachersClassroom />} />
             <Route path="generate-issue" element={<GenerateTeacherIssue />} />
             <Route

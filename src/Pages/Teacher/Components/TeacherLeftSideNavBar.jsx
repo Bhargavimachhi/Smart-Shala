@@ -49,9 +49,14 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
       path: "/teacher/classroomsforHomework",
     },
     {
-      name: "Mark Attendance",
-      icon: <FaCheckCircle size={20} />,
+      name: "Mark Your Attendance",
+      icon: <ICONS.PRESENT size={20} />,
       path: "/teacher/mark-attendance",
+    },
+    {
+      name: "Mark Student Attendance",
+      icon: <FaCheckCircle size={20} />,
+      path: "/teacher/mark-student-attendance",
     },
     {
       name: "Check Attendance",

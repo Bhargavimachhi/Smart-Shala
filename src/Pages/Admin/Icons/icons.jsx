@@ -11,6 +11,7 @@ import { SiGooglemeet } from "react-icons/si";
 import { GrResources } from "react-icons/gr";
 import { SiGoogleclassroom } from "react-icons/si";
 import { MdOutlineQuiz } from "react-icons/md";
+import { MdCoPresent } from "react-icons/md";
 
 export const ICONS = {
   ISSUES: AiOutlineIssuesClose,
@@ -23,5 +24,6 @@ export const ICONS = {
   MEETING: SiGooglemeet,
   RESOUECE: GrResources,
   TEACHERS: FaChalkboardTeacher,
-  QUIZ: MdOutlineQuiz
+  QUIZ: MdOutlineQuiz,
+  PRESENT: MdCoPresent
 };

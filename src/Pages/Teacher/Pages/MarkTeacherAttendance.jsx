@@ -6,12 +6,10 @@ import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import { storage } from "../../../../firebase";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { Download } from "lucide-react";
+
 const MarkTeacherAttendance = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [hasPermission, setHasPermission] = useState(false);
-  const [photo, setPhoto] = useState(null);
-  const [error, setError] = useState("");
   const webcamRef = useRef(null);
   const navigate = useNavigate();
 
@@ -26,7 +24,7 @@ const MarkTeacherAttendance = () => {
 
   const capturePhoto = async () => {
     const screenshot = webcamRef.current.getScreenshot({ format: "jpeg" });
-    setPhoto(screenshot);
+    
     if (screenshot) {
       const imageRef = ref(storage, `Attendance/current/1`);
       const refimageref = ref(storage, `Attendance/Reference/image.jpg`);
@@ -36,30 +34,21 @@ const MarkTeacherAttendance = () => {
         await uploadString(imageRef, screenshot, "data_url");
         const downloadURL = await getDownloadURL(imageRef);
         const refdownloadURL = await getDownloadURL(refimageref);
-        alert("Image uploaded successfully");
         toast.loading("Processing the images");
-        console.log(downloadURL);
         const res = await axios.post("http://localhost:8000/verify", {
           image1_url: downloadURL,
           image2_url: refdownloadURL,
         });
-        console.log(res);
 
         if (res.data.verified) {
-          alert("Attendance marked successfully");
           toast.success("Attendance marked successfully");
         } else {
-          alert("Attendance not marked, please try again");
+          toast.error("Attendance not marked, please try again");
         }
       } catch (error) {
         console.error("Error uploading image: ", error);
       }
     }
-  };
-
-  const handleManualAttendance = () => {
-    ``;
-    navigate("/teacher/manual-attendance");
   };
 
   return (
@@ -75,8 +64,8 @@ const MarkTeacherAttendance = () => {
       >
         <div className="flex flex-col items-center">
           <h1 className="text-2xl font-bold text-center mb-8 bg-sky-800 w-full p-7 text-mox">
-            Mark Attendance
-            <handleManualAttendance />"
+            Mark Your Attendance
+            <handleManualAttendance />
           </h1>
 
           <button
@@ -101,16 +90,6 @@ const MarkTeacherAttendance = () => {
               </button>
             </div>
           )}
-
-          <div className="mt-4 text-center">
-            <p className="text-gray-600">OR</p>
-            <button
-              className="bg-sky-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition mt-2"
-              onClick={handleManualAttendance}
-            >
-              Mark Attendance Manually
-            </button>
-          </div>
         </div>
       </div>
     </div>
