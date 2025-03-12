@@ -78,6 +78,7 @@ import ClassroomSuperAnalytics from "./Pages/SuperAdmin/Pages/ClassroomAnalytics
 import Profile from "./components/Profile";
 import SelectClassroomForQuiz from "./Pages/Teacher/Pages/SelectClassroomForQuiz";
 import MarkStudentAttendance from "./Pages/Teacher/Pages/MarkStudentAttendance";
+import Dashboard from "./Pages/SuperAdmin/Pages/ReportCardPage";
 
 const App = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -92,7 +93,7 @@ const App = () => {
 
           <Route path="/profile/:role/:id" element={<Profile />} />
 
-          {/* Admin Page Routes */}
+      
           <Route
             path="/admin"
             element={
@@ -140,6 +141,7 @@ const App = () => {
               element={<ClassroomSuperAnalytics />}
             />
           </Route>
+          <Route path="/report" element={<Dashboard/>}/>
 
           {/* Student Page Routes */}
           <Route
