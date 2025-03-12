@@ -41,14 +41,14 @@ const Profile = () => {
   return (
     <>
       {userData ? (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-blue-600 p-6">
+        <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-blue-600">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
             className="w-full max-w-3xl"
           >
-            <Card className="bg-white p-6 rounded-2xl shadow-lg mt-7">
+            <Card className="p-6 bg-white shadow-lg rounded-2xl mt-7">
               <div className="flex flex-col items-center text-center">
                 <h2 className="text-2xl font-bold">{userData.name}</h2>
                 <p className="text-gray-500">{userData.email}</p>
@@ -59,7 +59,7 @@ const Profile = () => {
                   <p className="text-gray-500">{userData.address}</p>
                 )}
               </div>
-              <div className="mt-4 flex justify-around mt-5">
+              <div className="flex justify-around mt-5">
                 {userData?.students && (
                   <div className="text-center">
                     <p className="text-lg font-semibold">
@@ -87,8 +87,8 @@ const Profile = () => {
               </div>
             </Card>
 
-            <div className="bg-white p-6 rounded-2xl shadow-lg mt-6">
-              <h3 className="text-xl font-bold mb-4 text-center">
+            <div className="p-6 mt-6 bg-white shadow-lg rounded-2xl">
+              <h3 className="mb-4 text-xl font-bold text-center">
                 Attendance Overview
               </h3>
               <div className="h-40">

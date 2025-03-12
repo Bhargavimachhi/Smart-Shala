@@ -88,7 +88,7 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
     >
       <button
         onClick={toggleSidebar}
-        className="p-4 focus:outline-none text-xl textColor w-full"
+        className="w-full p-4 text-xl focus:outline-none textColor"
       >
         {isExpanded ? <FaAngleLeft /> : <FaAngleRight />}
       </button>
@@ -123,7 +123,7 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
               >
                 {item.icon}
                 {isExpanded && (
-                  <span className="ml-4 textColor font-normal">
+                  <span className="ml-4 font-normal textColor">
                     {item.name}
                   </span>
                 )}
@@ -131,7 +131,7 @@ const TeacherLeftSideNavBar = ({ isExpanded, toggleSidebar }) => {
             </li>
           );
         })}
-        <li className="rounded-lg text-text hover:bg-btn hover:text-white m-2">
+        <li className="m-2 rounded-lg text-text hover:bg-btn hover:text-white">
           <Link
             to="/login"
             className={`${

@@ -1,21 +1,16 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import TeacherLeftSideNavBar from "../Components/TeacherLeftSideNavBar";
 import Webcam from "react-webcam";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import { storage } from "../../../../firebase";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { ICONS } from "../Icons/icons";
 
 const MarkTeacherAttendance = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [hasPermission, setHasPermission] = useState(false);
   const webcamRef = useRef(null);
   const navigate = useNavigate();
-
-  const toggleSidebar = () => {
-    setIsExpanded(!isExpanded);
-  };
 
   const requestCameraPermission = () => {
     setHasPermission(true);
@@ -24,7 +19,7 @@ const MarkTeacherAttendance = () => {
 
   const capturePhoto = async () => {
     const screenshot = webcamRef.current.getScreenshot({ format: "jpeg" });
-    
+
     if (screenshot) {
       const imageRef = ref(storage, `Attendance/current/1`);
       const refimageref = ref(storage, `Attendance/Reference/image.jpg`);
@@ -52,24 +47,23 @@ const MarkTeacherAttendance = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      <TeacherLeftSideNavBar
-        isExpanded={isExpanded}
-        toggleSidebar={toggleSidebar}
-      />
-      <div
-        className={`flex-1 transition-all duration-300 ml-${
-          isExpanded ? "64" : "16"
-        } p-6 mr-50 overflow-x-auto`}
-      >
+    <main>
+      <div className="bg-white">
+        {/* Header */}
+        <div className="flex items-center justify-between pb-3 mb-6 border-b border-btn">
+          <div className="flex items-center gap-2 text-text">
+            <span>
+              <ICONS.CHECK_ATTENDANCE size={30} />
+            </span>
+            <h1 className="text-2xl font-semibold ">Mark Your Attendance</h1>
+          </div>
+        </div>
+
         <div className="flex flex-col items-center">
-          <h1 className="text-2xl font-bold text-center mb-8 bg-sky-800 w-full p-7 text-mox">
-            Mark Your Attendance
-            <handleManualAttendance />
-          </h1>
+          {/* <handleManualAttendance /> */}
 
           <button
-            className="bg-sky-800 text-white py-2 px-4 rounded-lg hover:bg-sky-800-600 transition"
+            className="px-4 py-2 text-white transition rounded-lg bg-sky-800 hover:bg-sky-800-600"
             onClick={requestCameraPermission}
           >
             Request Camera Permission
@@ -83,7 +77,7 @@ const MarkTeacherAttendance = () => {
                 className="rounded-lg"
               />
               <button
-                className="bg-sky-800 text-white py-2 px-4 rounded-lg hover:bg-sky-800-600 transition mt-2"
+                className="px-4 py-2 mt-2 text-white transition rounded-lg bg-sky-800 hover:bg-sky-800-600"
                 onClick={capturePhoto}
               >
                 Capture Photo
@@ -92,7 +86,7 @@ const MarkTeacherAttendance = () => {
           )}
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

@@ -7,10 +7,12 @@ import RightSidebar from "../Components/hompageComponent/RightSidebar";
 import { useAuth } from "../../../context/auth";
 import { useNavigate } from "react-router-dom";
 import { ICONS } from "../Icons/icons";
+import { useUserContext } from "@/context/userContext";
 const StudentHomePage = () => {
   const [studentAuth] = useAuth();
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
+  const { userData } = useUserContext();
 
   useEffect(() => {
     if (!studentAuth?.token || studentAuth.role !== "student") {
@@ -22,13 +24,14 @@ const StudentHomePage = () => {
     return null;
   }
 
+  console.log(userData);
+
   const studentInfo = {
-    name: "Cupie Johnson",
+    name: userData?.name,
+    email: userData?.email,
     standard: "12th Grade",
     rollNumber: "A12B34",
-    contact: "9876543210",
-    gender: "Male",
-    birthdate: "28-02-2007",
+    contact: userData?.contact,
   };
 
   return (
@@ -67,9 +70,11 @@ const StudentHomePage = () => {
               <ICONS.USER className="text-5xl text-blue-600 rounded-full cursor-pointer hover:bg-bgBlue hover:text-white" />
             </div>
             <div className="grid grid-cols-1 gap-4 text-start md:grid-cols-2 text-text">
-             
               <p>
                 <span className="font-bold">Name : </span> {studentInfo.name}
+              </p>
+              <p>
+                <span className="font-bold">Email : </span> {studentInfo.email}
               </p>
               <p>
                 <span className="font-bold">Standard : </span>{" "}
@@ -83,15 +88,7 @@ const StudentHomePage = () => {
                 <span className="font-bold">Contact : </span>+91{" "}
                 {studentInfo.contact}
               </p>
-              <p>
-                <span className="font-bold">Gender : </span>
-                {studentInfo.gender}
-              </p>
-              <p>
-                <span className="font-bold">Birthdate : </span>
-                {studentInfo.birthdate}
-              </p>
-            </div>
+              </div>
           </div>
         </div>
 

@@ -181,7 +181,10 @@ app.get("/teacher/:id/attendance", getPresentDaysAttendanceOfTeacher);
 app.get("/student/:id", getStudent);
 app.get("/student/:id/attendance", getPresentDaysAttendance);
 app.get("/student/:id/quizzes-result", getQuizResultOfStudent);
-app.get("/student/:id/attendance-percentage", getPresentDaysPercentageAttendance);
+app.get(
+  "/student/:id/attendance-percentage",
+  getPresentDaysPercentageAttendance
+);
 app.get("/student/:id/attendance/present", markPresent);
 app.get("/student/:id/attendance/absent", markAbsent);
 app.get("/student/:id/pending-homeworks", getPendingHomeworkOfStudent);
