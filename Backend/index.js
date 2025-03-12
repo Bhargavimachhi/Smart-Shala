@@ -22,6 +22,7 @@ import {
   submitHomeWorkOfStudent,
   getPresentDaysAttendance,
   getPresentDaysPercentageAttendance,
+  getQuizResultOfStudent,
 } from "./Controller/student.js";
 import {
   addTeacher,
@@ -179,6 +180,7 @@ app.get("/teacher/:id/attendance", getPresentDaysAttendanceOfTeacher);
 // student routes
 app.get("/student/:id", getStudent);
 app.get("/student/:id/attendance", getPresentDaysAttendance);
+app.get("/student/:id/quizzes-result", getQuizResultOfStudent);
 app.get("/student/:id/attendance-percentage", getPresentDaysPercentageAttendance);
 app.get("/student/:id/attendance/present", markPresent);
 app.get("/student/:id/attendance/absent", markAbsent);
