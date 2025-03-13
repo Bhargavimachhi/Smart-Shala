@@ -25,7 +25,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import TeacherStats from '../Components/TeacherStats';
-import TeacherAttendence from '../Components/TeacherAttendence'
+
 
 const TeacherData = () => {
     const [teachers, setTeachers] = useState([]);
@@ -517,7 +517,8 @@ const TeacherData = () => {
               </TabsContent>
 
               <TabsContent value="attendance" className=" space-y-4 pt-4">
-                <TeacherAttendence teacher={selectedTeacher} />
+                <h1> Attendence section</h1>
+                
               </TabsContent>
             </Tabs>
           </DialogContent>
