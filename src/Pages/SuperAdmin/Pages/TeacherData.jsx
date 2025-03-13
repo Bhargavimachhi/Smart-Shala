@@ -25,6 +25,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import TeacherStats from '../Components/TeacherStats';
+import axios, { all } from 'axios'
 
 
 const TeacherData = () => {
@@ -34,6 +35,7 @@ const TeacherData = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTeacher, setSelectedTeacher] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [schools,setschools] = useState([]);
 
 
    const mockSchools = [
@@ -69,6 +71,7 @@ const TeacherData = () => {
     },
   ];
 
+ 
   const mockTeachers = [
     {
         id: "teacher1",
@@ -188,8 +191,90 @@ const TeacherData = () => {
   ]
 
   useEffect(()=>{
-    setTeachers(mockTeachers);
-    setFilteredTeachers(mockTeachers)
+
+
+    async function getallteacherdata(){
+      const res= await axios.get("http://localhost:3000/authority/67cac400ca7c42a22aa73f4c/schools");
+      
+      const allschools = res.data.schools;
+      setschools(allschools);
+      
+
+
+      const teacherPromises = allschools.map(async(school)=>{
+      
+
+        const teacherData = await Promise.all(
+          school.teachers.map(async(teacherid)=>{
+            
+            const teacherRes = await axios.get(`http://localhost:3000/teacher/${teacherid}`);
+            const teacher = teacherRes.data.teacher;
+            
+
+            const classroomData = await Promise.all(
+              teacher.classrooms.map(async (classroomId) => {
+                const classroomRes = await axios.get(`http://localhost:3000/classroom/${classroomId}`);
+                const classroom = classroomRes.data.classroom;
+                return {
+                  id: classroom._id,
+                  name: classroom.name,
+                  grade: classroom.name ,
+                  subject: classroom.subjects.join(", ") || "N/A",
+                  studentCount: classroom.students.length,
+                  schedule: classroom.schedule || "N/A",
+                }
+              })
+            );
+           
+            const homeworkData = await Promise.all(
+              teacher.homeworks.map(async (homeworkId) => {
+                const homeworkRes = await axios.get(`http://localhost:3000/homework/${homeworkId}`);
+               
+                return homeworkRes.data.homework.title;
+              })
+            );
+            
+
+            return {
+              id: teacher._id,
+              email:teacher.email,
+              name:teacher.name,
+              school:school.name,
+              subjects: teacher.subjects,
+              classrooms: classroomData,
+              homeworks: homeworkData,
+              contact: teacher.contact,
+              address: teacher.address,
+              absentDays: teacher.absentDays,
+              presentDays: teacher.presentDays,
+            
+
+            }
+          })
+
+        )
+        return teacherData;
+
+      });
+      const teachersData = await Promise.all(teacherPromises);
+      const allTeachers = teachersData.flat();
+
+      
+     
+      setTeachers(allTeachers);
+      setFilteredTeachers(allTeachers);
+
+    }
+
+
+    
+
+    
+
+
+
+    getallteacherdata();
+    
 
   },[]);
 
@@ -198,7 +283,7 @@ const TeacherData = () => {
 
    // Forr filtering all the teachers from school
     if (selectedSchool !== "all") {
-      result = result.filter((teacher) => teacher.school.id === selectedSchool)
+      result = result.filter((teacher) => teacher.school.id === selectedSchool.name)
     }
 
    //Searching badhi school mate
@@ -210,7 +295,8 @@ const TeacherData = () => {
           teacher.email.toLowerCase().includes(query) ||
           teacher.subjects.some((subject) => subject.toLowerCase().includes(query)),
       )
-    }
+    };
+   
 
     setFilteredTeachers(result)
   }, [selectedSchool, searchQuery, teachers])
@@ -246,8 +332,8 @@ const TeacherData = () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Schools</SelectItem>
-                {mockSchools.map((school) => (
-                  <SelectItem key={school.id} value={school.id}>
+                {schools.map((school) => (
+                  <SelectItem key={school.id} value={school.name}>
                     {school.name}
                   </SelectItem>
                 ))}
