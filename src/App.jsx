@@ -142,9 +142,10 @@ const App = () => {
               path="classrooms/:classroomId/analytics"
               element={<ClassroomSuperAnalytics />}
             />
+            <Route path="teacherdata" element={<TeacherData/>}/>
           </Route>
           <Route path="/report" element={<Dashboard />} />
-          <Route path="/teacherdata" element={<TeacherData/>}/>
+          
 
           {/* Student Page Routes */}
           <Route
