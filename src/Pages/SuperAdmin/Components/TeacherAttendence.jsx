@@ -71,7 +71,7 @@ const TeacherAttendence = ({teacher}) => {
 
   return (
     <>
-    <div className="space-y-6">
+    <div className="h-full overflow-auto space-y-6">
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
     <Card>
@@ -140,7 +140,7 @@ const TeacherAttendence = ({teacher}) => {
         </CardContent>
       </Card>
 
-      <Card>
+      {/* <Card>
         <CardHeader>
           <CardTitle>Recent Attendance</CardTitle>
         </CardHeader>
@@ -187,7 +187,7 @@ const TeacherAttendence = ({teacher}) => {
             )}
           </div>
         </CardContent>
-      </Card>
+      </Card> */}
 
 
 
