@@ -81,6 +81,7 @@ import Dashboard from "./Pages/SuperAdmin/Pages/ReportCardPage";
 import StudentQuizResults from "./Pages/Student/StudentPages/StudentQuizResults";
 import TeacherLayout from "./Pages/Teacher/Layouts/TeacherLayout";
 import TeacherHome from "./Pages/Teacher/Pages/TeacherHome";
+import TeacherData from "./Pages/SuperAdmin/Pages/TeacherData";
 
 const App = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -143,6 +144,7 @@ const App = () => {
             />
           </Route>
           <Route path="/report" element={<Dashboard />} />
+          <Route path="/teacherdata" element={<TeacherData/>}/>
 
           {/* Student Page Routes */}
           <Route
