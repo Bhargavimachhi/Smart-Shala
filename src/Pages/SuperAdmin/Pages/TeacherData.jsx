@@ -26,6 +26,7 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import TeacherStats from '../Components/TeacherStats';
 import axios, { all } from 'axios'
+import TeacherAttendence from '../Components/TeacherAttendence'
 
 
 const TeacherData = () => {
@@ -456,7 +457,7 @@ const TeacherData = () => {
               </TabsContent>
 
               <TabsContent value="attendance" className=" space-y-4 pt-4">
-                <h1> Attendence section</h1>
+                <TeacherAttendence teacher={selectedTeacher}/>
                 
               </TabsContent>
             </Tabs>
