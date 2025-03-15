@@ -60,6 +60,7 @@ import TeacherAttendence from "../Components/TeacherAttendence";
 import toast from "react-hot-toast";
 import { GradeComponent } from "../Components/GradeComponent";
 import { useNavigate } from "react-router-dom";
+import Loader from "@/Pages/InitialPages/Loader";
 
 const StudentDataAnalytics = () => {
   const [allStudents, setAllStudents] = useState([]);
@@ -68,6 +69,7 @@ const StudentDataAnalytics = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [schools, setschools] = useState([]);
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
   const navigate = useNavigate();
@@ -87,6 +89,7 @@ const StudentDataAnalytics = () => {
           })
         );
         setAllStudents(data);
+        setLoading(false);
       } catch (err) {
         console.log(err);
       }
@@ -111,6 +114,10 @@ const StudentDataAnalytics = () => {
       ),
     }))
     .filter((school) => school.students.length > 0);
+
+  if(loading) {
+    return <Loader text="Loading ..." />
+  }
 
   return (
     <>
