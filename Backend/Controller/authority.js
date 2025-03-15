@@ -3,8 +3,25 @@ import { Authority } from "../Models/Authority.js";
 import { Student } from "../Models/Student.js";
 import { Classroom } from "../Models/Classroom.js";
 import JWT from "jsonwebtoken";
+import { Teacher } from "../Models/Teacher.js";
 //add Admin
 export const JWT_SECRET = "asbcdefgh123";
+
+export const getAuthority = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const authority = await Authority.findById(id);
+
+    if (!authority) {
+      return res.status(403).json({ message: "Authority does not exists" });
+    }
+
+    return res.status(200).json({ message: "success", authority });
+  } catch (err) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 export const addAuthority = async (req, res) => {
   let authority = await Authority.findOne({ email: req.body.email });
 
@@ -107,6 +124,29 @@ export const getSchoolsOfAuthority = async (req, res) => {
     schools.push(school);
   }
   return res.status(200).json({ message: "success", schools });
+};
+
+//get teachers of authority
+export const getTeachersOfAuthority = async (req, res) => {
+  let { id } = req.params;
+  let authority = await Authority.findById(id);
+
+  if (!authority) {
+    return res.status(404).json({ message: "Authority Doesnot exist" });
+  }
+
+  let teachers = [];
+
+  for (let i = 0; i < authority.schools.length; i++) {
+    let school = await Admin.findById(authority.schools[i]);
+    let data = [];
+    await Promise.all(school.teachers.map(async(teacherId) => {
+      let teacher = await Teacher.findById(teacherId);
+      data.push(teacher);
+    }))
+    teachers.push({schoolName : school.name, teachers : data});
+  }
+  return res.status(200).json({ message: "success", teachers });
 };
 
 //get average attendance of schools of authority

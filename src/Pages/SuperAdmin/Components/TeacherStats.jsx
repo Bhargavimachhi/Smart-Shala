@@ -5,8 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell, Tooltip, Legend } from "recharts"
 
 import React from 'react'
+import { useUserContext } from "@/context/userContext"
 
 const TeacherStats = ({teachers}) => {
+    const { userData } = useUserContext();
 
     const totalteachers = teachers.length;
 
@@ -65,50 +67,49 @@ const TeacherStats = ({teachers}) => {
     <>
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 
-    <Card>
+    <Card className="text-blue-600">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Total Teachers</CardTitle>
-          <Users className="h-4 w-4 text-muted-foreground" />
+          <Users className="h-4 w-4 " />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{totalteachers}</div>
-          <p className="text-xs text-muted-foreground">Across {uniqueSchools} schools</p>
+          <p className="text-xs ">Across {uniqueSchools} schools</p>
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="text-green-600">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Total Classrooms</CardTitle>
-          <BookOpen className="h-4 w-4 text-muted-foreground" />
+          <BookOpen className="h-4 w-4 " />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{totalClassrooms}</div>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs">
             {(totalClassrooms / totalteachers).toFixed(1)} classrooms per teacher
           </p>
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="text-yellow-500">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Schools</CardTitle>
-          <School className="h-4 w-4 text-muted-foreground" />
+          <School className="h-4 w-4" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{uniqueSchools}</div>
-          <p className="text-xs text-muted-foreground">Out of 63 total schools</p>
+          <div className="text-2xl font-bold">{userData?.schools?.length}</div>
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="text-orange-600">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Avg. Attendance</CardTitle>
-          <CheckCircle className="h-4 w-4 text-muted-foreground" />
+          <CheckCircle className="h-4 w-4 " />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{averageAttendance}%</div>
-          <div className="mt-1 h-2 w-full rounded-full bg-muted">
-            <div className="h-2 rounded-full bg-primary" style={{ width: `${averageAttendance}%` }} />
+          <div className="mt-1 h-2 w-full rounded-full">
+            <div className="h-2 rounded-full bg-orange-600" style={{ width: `${averageAttendance}%` }} />
           </div>
         </CardContent>
       </Card>

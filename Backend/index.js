@@ -114,8 +114,10 @@ import {
 import {
   addAuthority,
   addSchoolToAuthority,
+  getAuthority,
   getAverageAttendanceOfSchoolsOfAuthority,
   getSchoolsOfAuthority,
+  getTeachersOfAuthority,
   loginAuthority,
 } from "./Controller/authority.js";
 
@@ -214,8 +216,10 @@ app.get("/admin/:id/classrooms/attendance", getAttendanceOfClassroomsOfAdmin);
 app.post("/addAdmin", addAdmin);
 
 // authority routes
+app.get("/authority/:id", getAuthority);
 app.post("/add-authority", addAuthority);
 app.get("/authority/:id/schools", getSchoolsOfAuthority);
+app.get("/authority/:id/teachers", getTeachersOfAuthority);
 app.post("/authority/:id/add-school", addSchoolToAuthority);
 app.get("/authority/:id/attendance", getAverageAttendanceOfSchoolsOfAuthority);
 

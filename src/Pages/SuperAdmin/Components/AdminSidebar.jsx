@@ -47,6 +47,11 @@ const AdminSidebar = () => {
       icon: <ICONS.DATA_ANALYTICS size={20} />,
       path: "/authority/data-analytics",
     },
+    {
+      name: "Teacher Data Analytics",
+      icon: <ICONS.DATA_ANALYTICS size={20} />,
+      path: "/authority/teacher/analytics"
+    }
   ];
 
   return (
