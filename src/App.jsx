@@ -81,6 +81,8 @@ import Dashboard from "./Pages/SuperAdmin/Pages/ReportCardPage";
 import StudentQuizResults from "./Pages/Student/StudentPages/StudentQuizResults";
 import TeacherLayout from "./Pages/Teacher/Layouts/TeacherLayout";
 import TeacherHome from "./Pages/Teacher/Pages/TeacherHome";
+import TeacherData from "./Pages/SuperAdmin/Pages/TeacherData";
+import CommonSignUp from "./Pages/InitialPages/CommonSignup";
 
 const App = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -141,8 +143,10 @@ const App = () => {
               path="classrooms/:classroomId/analytics"
               element={<ClassroomSuperAnalytics />}
             />
+            <Route path="teacherdata" element={<TeacherData/>}/>
           </Route>
           <Route path="/report" element={<Dashboard />} />
+          
 
           {/* Student Page Routes */}
           <Route
@@ -228,6 +232,7 @@ const App = () => {
           </Route>
 
           {/* SignUp Page Routes */}
+          <Route path="/signup" element={<CommonSignUp />} />
           <Route path="/signup/student" element={<AddStudent />} />
           <Route path="/signup/teacher" element={<AddTeacher />} />
           <Route path="/signup/admin" element={<AdminForm />} />

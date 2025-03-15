@@ -1,34 +1,73 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { User, Shield, GraduationCap, UserCog } from "lucide-react";
 
-const CommonSignup = () => {
+const CommonSignUp = () => {
+  // Define roles with descriptions
+  const roles = [
+    {
+      label: "Authority",
+      path: "/signup/authority",
+      icon: <Shield className="w-8 h-8" />,
+      description:
+        "Manage and oversee all operations. Approve requests and ensure smooth institutional management.",
+    },
+    {
+      label: "Admin",
+      path: "/signup/admin",
+      icon: <UserCog className="w-8 h-8" />,
+      description:
+        "Handle user accounts, monitor system activities, and maintain the platform's integrity.",
+    },
+    {
+      label: "Teacher",
+      path: "/signup/teacher",
+      icon: <GraduationCap className="w-8 h-8" />,
+      description:
+        "Upload study materials, manage classes, and track student progress and attendance.",
+    },
+    {
+      label: "Student",
+      path: "/signup/student",
+      icon: <User className="w-8 h-8" />,
+      description:
+        "Access courses, submit assignments, and view grades and announcements from teachers.",
+    },
+  ];
+
   return (
-    <div className="w-screen h-screen bg-gray-100 flex items-center justify-center p-5">
-      <div className="bg-white shadow-lg rounded-lg p-10 flex flex-col items-center">
-        <h1 className="text-3xl font-bold text-blue-600 mb-8">Signup As</h1>
-        <div className="flex space-x-5">
-          <NavLink to='/signup/admin'>
-            <div className="bg-blue-500 text-white shadow-m px-20 py-5 rounded-md hover:bg-blue-600 cursor-pointer transition duration-300">
-              Admin
-            </div>
-          </NavLink>
-          <NavLink to='/signup/teacher'>
-            <div className="bg-blue-500 text-white shadow-m px-20 py-5 rounded-md hover:bg-blue-600 cursor-pointer transition duration-300">
-              Teacher
-            </div>
-          </NavLink>
-          <NavLink to='/signup/student'>
-            <div className="bg-blue-500 text-white shadow-m px-20 py-5 rounded-md hover:bg-blue-600 cursor-pointer transition duration-300">
-              Student
-            </div>
-          </NavLink>
+    <div className="flex items-center justify-center min-h-screen p-5 bg-gradient-to-r from-sky-100 to-blue-100">
+      <div className="w-full max-w-5xl p-10 bg-white shadow-2xl rounded-2xl">
+        {/* Title */}
+        <h1 className="mb-8 text-4xl font-extrabold text-center text-sky-600 drop-shadow-md">
+          Signup As
+        </h1>
+
+        {/* Role Cards */}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {roles.map((role) => (
+            <NavLink key={role.label} to={role.path}>
+              <div className="flex flex-col justify-between h-full p-6 space-y-4 text-white transition-transform transform shadow-lg cursor-pointer bg-sky-700 rounded-xl hover:bg-sky-600 hover:scale-105">
+                <div className="flex flex-col items-center space-y-3">
+                  {role.icon}
+                  <h2 className="text-xl font-semibold">{role.label}</h2>
+                </div>
+                <p className="text-sm text-center text-blue-100">
+                  {role.description}
+                </p>
+              </div>
+            </NavLink>
+          ))}
         </div>
-        <h2 className="text-xl text-gray-700 mt-8 text-center">
-          This page will navigate to the Signup page and then verify your role to automatically access the appropriate page for teachers, students, and admins.
-        </h2>
+
+        {/* Info Text */}
+        <p className="mt-10 text-base text-center text-gray-600">
+          Select your role to navigate to the singup page. After verifying your
+          role, you'll be redirected automatically to your dashboard.
+        </p>
       </div>
     </div>
   );
 };
 
-export default CommonSignup;
+export default CommonSignUp;
