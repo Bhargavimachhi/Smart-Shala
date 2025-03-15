@@ -149,6 +149,29 @@ export const getTeachersOfAuthority = async (req, res) => {
   return res.status(200).json({ message: "success", teachers });
 };
 
+//get students of authority
+export const getStudentsOfAuthority = async (req, res) => {
+  let { id } = req.params;
+  let authority = await Authority.findById(id);
+
+  if (!authority) {
+    return res.status(404).json({ message: "Authority Doesnot exist" });
+  }
+
+  let students = [];
+
+  for (let i = 0; i < authority.schools.length; i++) {
+    let school = await Admin.findById(authority.schools[i]);
+    let data = [];
+    await Promise.all(school.students.map(async(studentId) => {
+      let student = await Student.findById(studentId);
+      data.push(student);
+    }))
+    students.push({schoolName : school.name, students : data});
+  }
+  return res.status(200).json({ message: "success", students });
+};
+
 //get average attendance of schools of authority
 export const getAverageAttendanceOfSchoolsOfAuthority = async (req, res) => {
   let { id } = req.params;

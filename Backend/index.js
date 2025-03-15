@@ -117,6 +117,7 @@ import {
   getAuthority,
   getAverageAttendanceOfSchoolsOfAuthority,
   getSchoolsOfAuthority,
+  getStudentsOfAuthority,
   getTeachersOfAuthority,
   loginAuthority,
 } from "./Controller/authority.js";
@@ -220,6 +221,7 @@ app.get("/authority/:id", getAuthority);
 app.post("/add-authority", addAuthority);
 app.get("/authority/:id/schools", getSchoolsOfAuthority);
 app.get("/authority/:id/teachers", getTeachersOfAuthority);
+app.get("/authority/:id/students", getStudentsOfAuthority);
 app.post("/authority/:id/add-school", addSchoolToAuthority);
 app.get("/authority/:id/attendance", getAverageAttendanceOfSchoolsOfAuthority);
 

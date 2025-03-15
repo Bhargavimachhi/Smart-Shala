@@ -83,6 +83,7 @@ import TeacherLayout from "./Pages/Teacher/Layouts/TeacherLayout";
 import TeacherHome from "./Pages/Teacher/Pages/TeacherHome";
 import TeacherData from "./Pages/SuperAdmin/Pages/TeacherData";
 import CommonSignUp from "./Pages/InitialPages/CommonSignup";
+import StudentDataAnalytics from "./Pages/SuperAdmin/Pages/StudentDataAnalytics";
 
 const App = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -144,6 +145,7 @@ const App = () => {
               element={<ClassroomSuperAnalytics />}
             />
             <Route path="teacher/analytics" element={<TeacherData/>}/>
+            <Route path="student/analytics" element={<StudentDataAnalytics/>}/>
             <Route path="school/analytics" element={<TeacherData/>}/>
           </Route>
           <Route path="/report" element={<Dashboard />} />
