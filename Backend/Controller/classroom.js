@@ -2,6 +2,7 @@ import {Classroom} from "../Models/Classroom.js"
 import {Teacher} from "../Models/Teacher.js"
 import {Student} from "../Models/Student.js"
 import { Homework } from "../Models/Homework.js";
+import { Admin } from "../Models/Admin.js";
 
 //get Classroom
 export const getClassroom = async(req,res)=>{
@@ -38,6 +39,7 @@ export const getAllClassrooms = async(req,res)=>{
 export const assignTeacherToClassroom = async(req,res) => {
     let teacher = await Teacher.findOne({email : req.body.email});
     let classroom = await Classroom.findById(req.params.id);
+    let admin = await Admin.findById(req.body.adminId);
 
     if(teacher == null) {
         res.status(404).json({"message" : "Teacher does not exist"});
@@ -49,6 +51,10 @@ export const assignTeacherToClassroom = async(req,res) => {
         return;
     }
 
+    if(!admin) {
+        return res.status(404).json({"message" : "Admin does not exist"});
+    }
+
     if(classroom.teachers.includes(teacher._id) || teacher.classrooms.includes(classroom._id)) {
         res.status(404).json({"message" : "Teacher already exist in classroom"});
         return;
@@ -56,9 +62,11 @@ export const assignTeacherToClassroom = async(req,res) => {
 
     classroom.teachers.push(teacher._id);
     teacher.classrooms.push(classroom._id);
+    admin.teachers.push(teacher._id);
 
     classroom.save().then(()=>{
         teacher.save();
+        admin.save();
         res.status(200).json({ message: "Teacher Assigned to Classroom Successfully" });
     }).catch((err)=>{
         console.log(err);
@@ -70,6 +78,7 @@ export const assignTeacherToClassroom = async(req,res) => {
 export const assignStudentToClassroom = async(req,res) => {
     let student = await Student.findOne({email : req.body.email});
     let classroom = await Classroom.findById(req.params.id);
+    let admin = await Admin.findById(req.body.adminId);
 
     if(student == null) {
         res.status(404).json({"message" : "Student does not exist"});
@@ -79,6 +88,10 @@ export const assignStudentToClassroom = async(req,res) => {
     if(classroom == null) {
         res.status(404).json({"message" : "Classroom does not exist"});
         return;
+    }
+
+    if(!admin) {
+        return res.status(404).json({"message" : "Admin does not exist"});
     }
 
     if(classroom.students.includes(student._id)) {
@@ -93,9 +106,11 @@ export const assignStudentToClassroom = async(req,res) => {
 
     classroom.students.push(student._id);
     student.classroom = classroom._id;
+    admin.students.push(student._id);
 
     classroom.save().then(()=>{
         student.save();
+        admin.save();
         res.status(200).json({ message: "Student Assigned to Classroom Successfully" });
     }).catch((err)=>{
         console.log(err);
@@ -212,6 +227,7 @@ export const initiateAttendance = async(req, res) => {
 export const removeStudentFromClassroom = async(req, res) => {
     const student = await Student.findById(req.params.sId);
     const classroom = await Classroom.findById(req.params.cId);
+    const admin = await Admin.findById(req.body.adminId);
 
     if(!student) {
         res.status(404).json({message : "Student does not exist"});
@@ -223,6 +239,11 @@ export const removeStudentFromClassroom = async(req, res) => {
         return;
     }
 
+    if(!admin) {
+        res.status(404).json({message : "Admin does not exist"});
+        return;
+    }
+
     if(!classroom.students.includes(student._id)) {
         res.status(404).json({message : "Classroom does not contain student"});
         return;
@@ -230,9 +251,11 @@ export const removeStudentFromClassroom = async(req, res) => {
     
     classroom.students = classroom.students.filter((s)=> s._id != student.id);
     student.classroom = null;
-
+    admin.students = admin.students.filter((s) => s._id != student.id);
+    
     classroom.save().then(()=>{
         student.save();
+        admin.save();
         res.status(200).json({ message: "Student Deleted from Classroom Successfully"});
     }).catch((err)=>{
         console.log(err);
@@ -244,6 +267,7 @@ export const removeStudentFromClassroom = async(req, res) => {
 export const removeTeacherFromClassroom = async(req, res) => {
     const teacher = await Teacher.findById(req.params.tId);
     const classroom = await Classroom.findById(req.params.cId);
+    const admin = await Admin.findById(req.body.adminId);
 
     if(!teacher) {
         res.status(404).json({message : "Teacher does not exist"});
@@ -255,6 +279,11 @@ export const removeTeacherFromClassroom = async(req, res) => {
         return;
     }
 
+    if(!admin) {
+        res.status(404).json({message : "Admin does not exist"});
+        return;
+    }
+
     if(!classroom.teachers.includes(teacher._id)) {
         res.status(404).json({message : "Classroom does not contain teacher"});
         return;
@@ -262,9 +291,11 @@ export const removeTeacherFromClassroom = async(req, res) => {
     
     classroom.teachers = classroom.teachers.filter((t)=> t._id != teacher.id);
     teacher.classrooms = teacher.classrooms.filter((c)=> c._id != classroom.id);
+    admin.teachers = admin.teachers.filter((t) => t._id != teacher.id);
 
     classroom.save().then(()=>{
         teacher.save();
+        admin.save();
         res.status(200).json({ message: "Teacher Deleted from Classroom Successfully"});
     }).catch((err)=>{
         console.log(err);

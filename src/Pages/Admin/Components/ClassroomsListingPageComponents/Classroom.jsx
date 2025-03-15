@@ -52,7 +52,7 @@ const Classroom = () => {
     async function fetchStudentsforadmin() {
       try {
         const res = await axios.get(
-          `http://localhost:3000/admin/${savedAuth.id}/students`
+          `http://localhost:3000/classroom/${id}/students`
         );
         setStudents(res.data.students);
       } catch (error) {
@@ -63,7 +63,7 @@ const Classroom = () => {
     async function fetchTeachersforadmin() {
       try {
         const res = await axios.get(
-          `http://localhost:3000/admin/${savedAuth.id}/teachers`
+          `http://localhost:3000/classroom/${id}/teachers`
         );
         setTeachers(res.data.teachers);
       } catch (error) {
@@ -186,6 +186,7 @@ const Classroom = () => {
                   </Typography>
                   <Addstudenttoclassroom
                     students={students}
+                    classroom={classroom}
                     onAddStudent={addStudentFunction}
                   />
                 </div>

@@ -35,19 +35,23 @@ const addteachertoclassroom = ({ teachers, onAddTeacher, classroom }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent form default behavior
+    toast.loading("Adding Teacher ...");
     if (!teacherEmail) {
+      toast.dismiss();
       toast.error("Please enter a valid email.");
       return;
     }
 
     try {
       const response = await axios.post(
-        `http://localhost:3000/admin/${savedAuth.id}/assign-teacher`,
-        { email: teacherEmail }
+        `http://localhost:3000/classroom/${classroom._id}/assign-teacher`,
+        { email: teacherEmail, adminId: savedAuth.id }
       );
+      toast.dismiss();
       toast.success("Teacher added successfully!");
       setTeacherEmail(null);
     } catch (error) {
+      toast.dismiss();
       toast.error(error.response.data.message);
     }
   };
