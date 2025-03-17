@@ -20,7 +20,6 @@ import StudentNotification from "./Pages/Student/StudentPages/StudentNotificatio
 import Issuessection from "./Pages/Admin/Pages/Issuessection.jsx";
 
 import TeacherSignUpForm from "./Pages/Teacher/Pages/TeacherSignUpForm";
-import TeacherProfilePage from "./Pages/Teacher/Pages/TeacherProfilePage";
 import MarkTeacherAttendance from "./Pages/Teacher/Pages/MarkTeacherAttendance";
 import GenerateTeacherIssue from "./Pages/Teacher/Pages/GenerateTeacherIssue";
 import ClassroomStudents from "./Pages/Teacher/Pages/ClassroomStudents";
@@ -41,14 +40,12 @@ import LandingPage from "./Pages/InitialPages/LandingPage.jsx";
 
 import Createclassroom from "./Pages/Admin/Components/ClassroomsListingPageComponents/Createclassroom.jsx";
 import HwSubmission from "./Pages/Teacher/Pages/HwSubmission.jsx";
-import TeacherEmergencyForm from "./Pages/Teacher/Pages/TeacherEmergencyForm.jsx";
 import CheckAllAttendance from "./Pages/Teacher/Pages/CheckAllAttendance";
 import ClassroomAnalytics from "./Pages/Admin/Components/DataAnalyticsPageComponents/ClassroomAnalytics.jsx";
 
 import ViewClassrooms from "./Pages/Teacher/Pages/ViewClassrooms";
 import ClassroomSubmittedHomeworks from "./Pages/Teacher/Pages/ClassroomSubmittedHomeworks";
 import ClassroomsLowAttendance from "./Pages/Teacher/Pages/ClassroomsLowAttendance";
-import PendingList from "./Pages/Student/Components/submitHWComponent/PendingList.jsx";
 import StudentPerformanceReport from "./Pages/Student/StudentPages/StudentPerformanceReport.jsx";
 import FilePreviewMain from "./Pages/Student/Components/performanceRepoComponent/FilePreviewMain.jsx";
 import ManualAttendancePage from "./Pages/Teacher/Pages/ManualAttendancePage.jsx";
@@ -68,7 +65,6 @@ import Schools from "./Pages/SuperAdmin/Pages/Schools";
 import Home from "./Pages/SuperAdmin/Pages/Home";
 import DataAnalytics from "./Pages/SuperAdmin/Pages/DataAnalytics";
 import { AttemptQuiz } from "./Pages/Student/Components/attemptQuiz/attemptQuiz.jsx";
-import StudentLayout from "./layouts/Layout";
 import Layout from "./layouts/Layout";
 import AddSchool from "./Pages/SuperAdmin/Pages/AddSchool";
 import AuthorityLoginpage from "./Pages/SuperAdmin/Pages/AuthorityLoginPage";

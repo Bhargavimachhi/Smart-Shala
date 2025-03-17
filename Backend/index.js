@@ -42,6 +42,7 @@ import {
   markTeacherPresent,
   getPresentDaysAttendanceOfTeacher,
   getPercentageOfPresentDaysAttendanceOfTeacher,
+  uploadPhotoOfTeacher,
 } from "./Controller/teacher.js";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -181,6 +182,7 @@ app.get("/teacher/:id/attendance/present", markTeacherPresent);
 app.get("/teacher/:id/attendance/absent", markTeacherAbsent);
 app.get("/teacher/:id/attendance", getPresentDaysAttendanceOfTeacher);
 app.get("/teacher/:id/attendance-percentage", getPercentageOfPresentDaysAttendanceOfTeacher);
+app.post("/teacher/:id/upload-photo", uploadPhotoOfTeacher);
 
 // student routes
 app.get("/student/:id", getStudent);
