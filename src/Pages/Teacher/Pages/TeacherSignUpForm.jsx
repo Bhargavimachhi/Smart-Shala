@@ -69,6 +69,7 @@ const TeacherForm = () => {
       toast.success("Teacher Added Successfully");
       navigate("/login");
     } catch (error) {
+      toast.dismiss();
       toast.error(error.response.data.message);
     }
   };

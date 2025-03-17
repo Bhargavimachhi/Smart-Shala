@@ -23,6 +23,7 @@ import {
   getPresentDaysAttendance,
   getPresentDaysPercentageAttendance,
   getQuizResultOfStudent,
+  uploadPhotoOfStudent,
 } from "./Controller/student.js";
 import {
   addTeacher,
@@ -198,6 +199,7 @@ app.get("/student/:id/pending-homeworks", getPendingHomeworkOfStudent);
 app.get("/student/:id/submitted-homeworks", getSubmmitedHomeworkOfStudent);
 app.get("/student/:sId/homework/:hId/submit", submitHomeWorkOfStudent);
 app.get("/student/:id/add-face", addFaceOfStudent);
+app.post("/student/:id/upload-photo", uploadPhotoOfStudent);
 
 // issue generation routes
 app.get("/issue/:id/delete", deleteIssue);
