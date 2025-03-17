@@ -5,7 +5,6 @@ import { useAuth } from "../../../context/auth.jsx";
 import { ICONS } from "../Icons/icons";
 import { useUserContext } from "@/context/userContext";
 import { Avatar } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
 
 const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
   const [auth, setAuth] = useAuth();
@@ -69,7 +68,6 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
               sx={{ bgcolor: "primary.main", width: 35, height: 35 }}
               src={userData?.face}
             >
-              {userData?.face || <PersonIcon sx={{ fontSize: 40 }} />}
             </Avatar>
           </div>
           <div>

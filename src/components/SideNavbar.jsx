@@ -3,6 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth.jsx";
 import axios from "axios";
 import { ICONS } from "../Pages/Admin/Icons/icons.jsx";
+import { Avatar } from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
+import { useUserContext } from "@/context/userContext.jsx";
 
 const SideNavbar = () => {
   const location = useLocation();
@@ -10,6 +13,7 @@ const SideNavbar = () => {
   const [auth, setAuth] = useAuth();
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
   const [admin, setAdmin] = useState(null);
+  const { userData } = useUserContext();
 
   useEffect(() => {
     async function getAdmin() {
@@ -63,7 +67,11 @@ const SideNavbar = () => {
     <div className="w-auto p-4 space-y-4 bg-white border border-r-border">
       <div className="flex items-center gap-2 p-2 ">
         <div className="flex items-center justify-center w-8 h-8 rounded-full bg-btn">
-          <span className="text-sm text-white">{admin && admin.email[0]}</span>
+          <Avatar
+            sx={{ bgcolor: "primary.main", width: 35, height: 35 }}
+            src={userData?.face}
+          >
+          </Avatar>
         </div>
         <div>
           <p className="text-sm font-medium">Admin</p>
