@@ -5,8 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { ICONS } from "../Icons/icons";
 import { useUserContext } from "@/context/userContext";
 import Loader from "@/Pages/InitialPages/Loader";
-import axios from "axios";
 import { ResponsiveCalendar } from "@nivo/calendar";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const StudentHomePage = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -14,15 +20,13 @@ const StudentHomePage = () => {
   const [attendanceData, setAttendanceData] = useState([]);
   const navigate = useNavigate();
   const { userData } = useUserContext();
-  const savedAuth = JSON.parse(localStorage.getItem("auth"));
+  const currYear = new Date().getFullYear();
+  const [selectedYear, setSelectedYear] = useState(currYear);
 
   useEffect(() => {
     async function fetchAttendance() {
       try {
-        let res = await axios.get(
-          `http://localhost:3000/student/${savedAuth.id}/attendance`
-        );
-        let data = res.data.presentDays;
+        let data = userData.presentDays;
 
         data = data.map((date) => ({ day: date, value: 1 }));
         setAttendanceData(data);
@@ -33,7 +37,7 @@ const StudentHomePage = () => {
       }
     }
     fetchAttendance();
-  }, [navigate]);
+  }, [navigate, userData]);
 
   const studentInfo = {
     name: userData?.name,
@@ -108,11 +112,28 @@ const StudentHomePage = () => {
             <h3 className="mb-4 text-xl font-bold text-center">
               Attendance Overview
             </h3>
+            <Select
+              value={selectedYear}
+              onValueChange={(e) => {
+                setSelectedYear(e);
+              }}
+            >
+              <SelectTrigger className="w-full sm:w-[200px]">
+                <SelectValue placeholder="Select Year" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={currYear}>{currYear}</SelectItem>
+                <SelectItem value={currYear - 1}>{currYear - 1}</SelectItem>
+                <SelectItem value={currYear - 2}>{currYear - 2}</SelectItem>
+                <SelectItem value={currYear - 3}>{currYear - 3}</SelectItem>
+                <SelectItem value={currYear - 4}>{currYear - 4}</SelectItem>
+              </SelectContent>
+            </Select>
             <div className="h-60">
               <ResponsiveCalendar
                 data={attendanceData}
-                from="2025-01-01"
-                to="2025-12-31"
+                from={`${selectedYear}-01-01`}
+                to={`${selectedYear}-12-31`}
                 emptyColor="#eeeeee"
                 colors={["#33cc33"]}
                 margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
