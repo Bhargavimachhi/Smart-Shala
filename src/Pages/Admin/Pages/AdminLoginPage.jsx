@@ -36,7 +36,7 @@ const AdminLoginpage = () => {
         token: res.data.jwt_token,
         role:"admin"
       });
-      navigate("/admin");
+      window.location.href = window.location.origin+"/admin";
     } catch (error) {
       toast.error(error.response.data.message);
     }

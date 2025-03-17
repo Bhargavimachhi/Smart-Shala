@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Typography,
   List,
@@ -20,11 +20,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useUserContext } from "@/context/userContext";
+import { Pencil } from "lucide-react";
+import toast from "react-hot-toast";
+import { Button } from "@/components/ui/button";
+import { fetchFile, uploadFile } from "../../../../../upload";
+import axios from "axios";
 
 const TeacherProfile = ({ teacher }) => {
   const [attendanceData, setAttendanceData] = useState([]);
   const currYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = useState(currYear);
+  const [photo, setPhoto] = useState(null);
+  const { userData } = useUserContext();
+  const inputFile = useRef(null);
 
   useEffect(() => {
     let data = teacher.presentDays;
@@ -32,6 +49,45 @@ const TeacherProfile = ({ teacher }) => {
     data = data.map((date) => ({ day: date, value: 1 }));
     setAttendanceData(data);
   }, []);
+
+  const changeImage = (e) => {
+    if (e.target.files) {
+      if (e.target.files[0].type.split("/")[0] != "image") {
+        inputFile.current.value = "";
+        inputFile.current.type = "text";
+        inputFile.current.type = "file";
+        toast.error("Enter Valid Image");
+        return;
+      }
+      setPhoto(e.target.files[0]);
+    }
+  };
+
+  const handleImageUpload = async () => {
+    if (!photo) {
+      toast.error("Upload Photo");
+      return;
+    }
+    toast.loading("Uploading Image...");
+    try {
+      await uploadFile(
+        photo,
+        `/attentance/${userData._id}/reference`
+      );
+      const url = await fetchFile(
+        `/attentance/${userData._id}/reference`
+      );
+      await axios.post(
+        `http://localhost:3000/teacher/${userData._id}/upload-photo`,
+        { url }
+      );
+      toast.dismiss();
+      toast.success("Photo uploaded successfully");
+    } catch (err) {
+      toast.dismiss();
+      toast.error("Error while uploading image");
+    }
+  };
   return (
     <Card
       sx={{
@@ -46,13 +102,48 @@ const TeacherProfile = ({ teacher }) => {
       <CardContent>
         <Grid container spacing={2} alignItems="center" justifyContent="start">
           <Grid item>
-            <Avatar sx={{ bgcolor: "primary.main", width: 64, height: 64 }}>
-              <PersonIcon sx={{ fontSize: 40 }} />
+            <Avatar
+              sx={{ bgcolor: "primary.main", width: 64, height: 64 }}
+              src={userData?.face}
+            >
             </Avatar>
           </Grid>
           <Grid item>
             <Typography variant="h5" component="div" fontWeight="bold">
               {teacher.name || "Teacher Name"}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="h5" component="div" fontWeight="bold">
+              <Dialog>
+                <DialogTrigger>
+                  <Pencil className="cursor-pointer" />
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Edit Your Photo</DialogTitle>
+                    <DialogDescription>
+                      Your uploaded photo will be used for your attendance
+                      varification. Upload photo with clear face.
+                    </DialogDescription>
+                    <Avatar
+                      sx={{ bgcolor: "primary.main", width: 64, height: 64 }}
+                      src={userData?.face}
+                    >
+                      {userData?.face || <PersonIcon sx={{ fontSize: 40 }} />}
+                    </Avatar>
+                    <input
+                      type="file"
+                      ref={inputFile}
+                      onChange={changeImage}
+                      required
+                    />
+                    <Button onClick={handleImageUpload} className="mt-5" variant="secondary">
+                      Submit Photo
+                    </Button>
+                  </DialogHeader>
+                </DialogContent>
+              </Dialog>
             </Typography>
           </Grid>
         </Grid>

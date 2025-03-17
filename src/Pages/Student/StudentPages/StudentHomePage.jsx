@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import LeftSideNavbar from "../Components/LeftSideNavBar";
 import "../css/rawcss.css";
 import { useNavigate } from "react-router-dom";
-import { ICONS } from "../Icons/icons";
 import { useUserContext } from "@/context/userContext";
 import Loader from "@/Pages/InitialPages/Loader";
 import { ResponsiveCalendar } from "@nivo/calendar";
@@ -13,6 +12,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Avatar } from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Pencil } from "lucide-react";
+import toast from "react-hot-toast";
+import { Button } from "@/components/ui/button";
+import { fetchFile, uploadFile } from "../../../../upload";
+import axios from "axios";
 
 const StudentHomePage = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -22,6 +36,42 @@ const StudentHomePage = () => {
   const { userData } = useUserContext();
   const currYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = useState(currYear);
+  const [photo, setPhoto] = useState(null);
+  const inputFile = useRef(null);
+
+  const changeImage = (e) => {
+    if (e.target.files) {
+      if (e.target.files[0].type.split("/")[0] != "image") {
+        inputFile.current.value = "";
+        inputFile.current.type = "text";
+        inputFile.current.type = "file";
+        toast.error("Enter Valid Image");
+        return;
+      }
+      setPhoto(e.target.files[0]);
+    }
+  };
+
+  const handleImageUpload = async () => {
+    if (!photo) {
+      toast.error("Upload Photo");
+      return;
+    }
+    toast.loading("Uploading Image...");
+    try {
+      await uploadFile(photo, `/attentance/${userData._id}/reference`);
+      const url = await fetchFile(`/attentance/${userData._id}/reference`);
+      await axios.post(
+        `http://localhost:3000/student/${userData._id}/upload-photo`,
+        { url }
+      );
+      toast.dismiss();
+      toast.success("Photo uploaded successfully");
+    } catch (err) {
+      toast.dismiss();
+      toast.error("Error while uploading image");
+    }
+  };
 
   useEffect(() => {
     async function fetchAttendance() {
@@ -43,7 +93,7 @@ const StudentHomePage = () => {
     name: userData?.name,
     email: userData?.email,
     standard: "12th Grade",
-    rollNumber: "A12B34",
+    address: userData?.address,
     contact: userData?.contact,
   };
 
@@ -84,7 +134,45 @@ const StudentHomePage = () => {
             </h2>
             <hr className="mb-4 border border-b-btn" />
             <div className="flex items-center justify-start mb-4">
-              <ICONS.USER className="text-5xl text-blue-600 rounded-full cursor-pointer hover:bg-bgBlue hover:text-white" />
+              <Avatar
+                sx={{ bgcolor: "primary.main", width: 64, height: 64 }}
+                src={userData?.face}
+              >
+              </Avatar>
+              
+              <Dialog>
+                <DialogTrigger>
+                  <Pencil className="cursor-pointer" />
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Edit Your Photo</DialogTitle>
+                    <DialogDescription>
+                      Your uploaded photo will be used for your attendance
+                      varification. Upload photo with clear face.
+                    </DialogDescription>
+                    <Avatar
+                      sx={{ bgcolor: "primary.main", width: 64, height: 64 }}
+                      src={userData?.face}
+                    >
+                      {userData?.face || <PersonIcon sx={{ fontSize: 40 }} />}
+                    </Avatar>
+                    <input
+                      type="file"
+                      ref={inputFile}
+                      onChange={changeImage}
+                      required
+                    />
+                    <Button
+                      onClick={handleImageUpload}
+                      className="mt-5"
+                      variant="secondary"
+                    >
+                      Submit Photo
+                    </Button>
+                  </DialogHeader>
+                </DialogContent>
+              </Dialog>
             </div>
             <div className="grid grid-cols-1 gap-4 text-start md:grid-cols-2 text-text">
               <p>
@@ -98,8 +186,8 @@ const StudentHomePage = () => {
                 {studentInfo.standard}
               </p>
               <p>
-                <span className="font-bold">Roll Number : </span>{" "}
-                {studentInfo.rollNumber}
+                <span className="font-bold">Address : </span>{" "}
+                {studentInfo.address}
               </p>
               <p>
                 <span className="font-bold">Contact : </span>+91{" "}

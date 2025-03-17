@@ -4,6 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../../context/auth.jsx";
 import { ICONS } from "../Icons/icons";
 import { useUserContext } from "@/context/userContext";
+import { Avatar } from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
 
 const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
   const [auth, setAuth] = useAuth();
@@ -63,7 +65,12 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
       {isExpanded && (
         <div className="flex items-center gap-2 p-2 ">
           <div className="flex items-center justify-center w-8 h-8 rounded-full bg-btn">
-            <span className="text-sm text-white">{userData?.name[0]}</span>
+            <Avatar
+              sx={{ bgcolor: "primary.main", width: 35, height: 35 }}
+              src={userData?.face}
+            >
+              {userData?.face || <PersonIcon sx={{ fontSize: 40 }} />}
+            </Avatar>
           </div>
           <div>
             <p className="text-sm font-medium">Hello {userData?.name}</p>
