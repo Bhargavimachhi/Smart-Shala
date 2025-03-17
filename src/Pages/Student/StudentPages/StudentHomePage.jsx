@@ -1,30 +1,39 @@
 import React, { useState, useEffect } from "react";
 import LeftSideNavbar from "../Components/LeftSideNavBar";
-import UnitTestBoxContainer from "../Components/hompageComponent/UnitTestBoxContainer";
-import OnlineMeetSchedule from "../Components/hompageComponent/OnlineMeetSchedule";
 import "../css/rawcss.css";
-import RightSidebar from "../Components/hompageComponent/RightSidebar";
-import { useAuth } from "../../../context/auth";
 import { useNavigate } from "react-router-dom";
 import { ICONS } from "../Icons/icons";
 import { useUserContext } from "@/context/userContext";
+import Loader from "@/Pages/InitialPages/Loader";
+import axios from "axios";
+import { ResponsiveCalendar } from "@nivo/calendar";
+
 const StudentHomePage = () => {
-  const [studentAuth] = useAuth();
   const [isExpanded, setIsExpanded] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [attendanceData, setAttendanceData] = useState([]);
   const navigate = useNavigate();
   const { userData } = useUserContext();
+  const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
   useEffect(() => {
-    if (!studentAuth?.token || studentAuth.role !== "student") {
-      navigate("/student/login", { replace: true });
+    async function fetchAttendance() {
+      try {
+        let res = await axios.get(
+          `http://localhost:3000/student/${savedAuth.id}/attendance`
+        );
+        let data = res.data.presentDays;
+
+        data = data.map((date) => ({ day: date, value: 1 }));
+        setAttendanceData(data);
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+        console.log(err);
+      }
     }
-  }, [studentAuth, navigate]);
-
-  if (!studentAuth?.token || studentAuth.role !== "student") {
-    return null;
-  }
-
-  console.log(userData);
+    fetchAttendance();
+  }, [navigate]);
 
   const studentInfo = {
     name: userData?.name,
@@ -33,6 +42,10 @@ const StudentHomePage = () => {
     rollNumber: "A12B34",
     contact: userData?.contact,
   };
+
+  if (loading) {
+    return <Loader text="Loading User..." />;
+  }
 
   return (
     <>
@@ -88,12 +101,29 @@ const StudentHomePage = () => {
                 <span className="font-bold">Contact : </span>+91{" "}
                 {studentInfo.contact}
               </p>
-              </div>
+            </div>
+          </div>
+
+          <div className="p-6 mt-6 bg-white shadow-lg rounded-2xl">
+            <h3 className="mb-4 text-xl font-bold text-center">
+              Attendance Overview
+            </h3>
+            <div className="h-60">
+              <ResponsiveCalendar
+                data={attendanceData}
+                from="2025-01-01"
+                to="2025-12-31"
+                emptyColor="#eeeeee"
+                colors={["#33cc33"]}
+                margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
+                yearSpacing={40}
+                monthBorderColor="#ffffff"
+                dayBorderWidth={2}
+                dayBorderColor="#ffffff"
+              />
+            </div>
           </div>
         </div>
-
-        {/* Right Sidebar */}
-        <RightSidebar />
       </div>
     </>
   );
