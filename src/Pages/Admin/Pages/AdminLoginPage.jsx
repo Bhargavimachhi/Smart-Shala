@@ -21,14 +21,8 @@ const AdminLoginpage = () => {
   const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
 
-  // Log `auth` when it updates
-  useEffect(() => {
-    console.log("auth updated:", auth);
-  }, [auth]);
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Admin email and password are: ", AdminEmail, AdminPassword);
 
     try {
       // Send login request to the server
@@ -42,7 +36,7 @@ const AdminLoginpage = () => {
         token: res.data.jwt_token,
         role:"admin"
       });
-      window.location.href = window.location.origin+"/admin";
+      navigate("/admin");
     } catch (error) {
       toast.error(error.response.data.message);
     }

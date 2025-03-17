@@ -78,6 +78,7 @@ import {
   getAdmin,
   getAttendanceOfClassroomsOfAdmin,
   getPresentDaysOfAdmin,
+  uploadPhotoOfAdmin,
 } from "./Controller/admin.js";
 import {
   generateIssue,
@@ -221,6 +222,7 @@ app.post("/admin/:id/assign-teacher", addTeacherToAdmin);
 app.post("/admin/:id/assign-student", addStudentToAdmin);
 app.get("/admin/:id/classrooms/attendance", getAttendanceOfClassroomsOfAdmin);
 app.post("/addAdmin", addAdmin);
+app.post("/admin/:id/upload-photo", uploadPhotoOfAdmin);
 
 // authority routes
 app.get("/authority/:id", getAuthority);
