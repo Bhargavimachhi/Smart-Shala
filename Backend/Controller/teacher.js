@@ -360,6 +360,18 @@ export const getPresentDaysAttendanceOfTeacher = async (req, res) => {
     return res.status(404).json({ message: "Teacher does not exist" });
   }
 
+  return res.status(200).json({ message: "success", presentDays:teacher.presentDays });
+};
+
+// get percentage of present days
+export const getPercentageOfPresentDaysAttendanceOfTeacher = async (req, res) => {
+  const id = req.params.id;
+  const teacher = await Teacher.findById(id);
+
+  if (!teacher) {
+    return res.status(404).json({ message: "Teacher does not exist" });
+  }
+
   const presentDays = teacher.presentDays.length;
   const total = teacher.absentDays.length + presentDays;
   const percentage = (presentDays / total) * 100;

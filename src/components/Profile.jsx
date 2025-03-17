@@ -64,7 +64,28 @@ const Profile = () => {
                 {userData?.address && (
                   <p className="text-gray-500">{userData.address}</p>
                 )}
+                {userData?.parentName && (
+                  <div className="text-center mt-5">
+                    <hr />
+                    <p className="text-lg font-semibold">Parent Details</p>
+                  </div>
+                )}
+                {userData?.parentContact && (
+                  <div className="text-center">
+                    <p className="text-sm text-gray-500">
+                      Name : {userData?.parentContact}
+                    </p>
+                  </div>
+                )}
+                {userData?.parentContact && (
+                  <div className="text-center">
+                    <p className="text-sm text-gray-500">
+                      Contact : {userData?.parentContact}
+                    </p>
+                  </div>
+                )}
               </div>
+              <hr className="mt-5" />
               <div className="flex justify-around mt-5">
                 {userData?.students && (
                   <div className="text-center">
@@ -88,6 +109,14 @@ const Profile = () => {
                       {userData?.classrooms?.length}
                     </p>
                     <p className="text-sm text-gray-500">Classrooms</p>
+                  </div>
+                )}
+                {userData?.grades && (
+                  <div className="text-center">
+                    <p className="text-lg font-semibold">
+                      {userData.grades.length}
+                    </p>
+                    <p className="text-sm text-gray-500">Quizzes Attepmted</p>
                   </div>
                 )}
               </div>
