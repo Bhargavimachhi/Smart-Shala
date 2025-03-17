@@ -70,10 +70,10 @@ const Profile = () => {
                     <p className="text-lg font-semibold">Parent Details</p>
                   </div>
                 )}
-                {userData?.parentContact && (
+                {userData?.parentName && (
                   <div className="text-center">
                     <p className="text-sm text-gray-500">
-                      Name : {userData?.parentContact}
+                      Name : {userData?.parentName}
                     </p>
                   </div>
                 )}
