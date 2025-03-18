@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import { TextField, Button, Box, List, ListItem, ListItemText, Typography, Container, Drawer, IconButton, Chip } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
-import SideNavbar from "../../../../components/SideNavbar";
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  Container,
+  Chip,
+} from "@mui/material";
 import toast from "react-hot-toast";
 import axios from "axios";
 
@@ -27,23 +32,25 @@ const Createclassroom = () => {
     }
   };
 
-
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if(classroomName === "") {
+    if (classroomName === "") {
       toast.error("Classroom is required");
       return;
     }
     try {
-      const response = await axios.post(`http://localhost:3000/admin/${savedAuth.id}/assign-classroom`, {
-        name : classroomName,
-        subjects,
-        equipments
-      });
+      const response = await axios.post(
+        `http://localhost:3000/admin/${savedAuth.id}/assign-classroom`,
+        {
+          name: classroomName,
+          subjects,
+          equipments,
+        }
+      );
       toast.success("Classroom added successfully");
     } catch (error) {
-      console.error('Error generating issue:', error);
+      console.error("Error generating issue:", error);
       toast.error(error.response.data.message);
     }
     // Add your form submission logic here
@@ -51,14 +58,18 @@ const Createclassroom = () => {
 
   return (
     <Box display="flex" className="flex min-h-screen bg-gray-100">
-      {/* Sidebar */}
-      <SideNavbar />
-
+      <div className="flex-1 w-full p-8 m-5 bg-white rounded">
       {/* Main content */}
       <Container maxWidth="sm" sx={{ marginLeft: "250px", padding: 4 }}>
-        <Box component="form" className="form-container" sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-          <Typography variant="h4" gutterBottom>Create Classroom</Typography>
-          
+        <Box
+          component="form"
+          className="form-container"
+          sx={{ display: "flex", flexDirection: "column", gap: 3 }}
+        >
+          <Typography variant="h4" gutterBottom>
+            Create Classroom
+          </Typography>
+
           {/* Classroom Name */}
           <TextField
             label="Classroom Name"
@@ -78,10 +89,16 @@ const Createclassroom = () => {
               onChange={(e) => setSubjectInput(e.target.value)}
               fullWidth
             />
-            <Button variant="contained" color="primary" onClick={handleAddSubject}>Add</Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleAddSubject}
+            >
+              Add
+            </Button>
           </Box>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-              <h1>Subjects Added : </h1>
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+            <h1>Subjects Added : </h1>
             {subjects.map((subject, index) => (
               <Chip key={index} label={subject} />
             ))}
@@ -96,21 +113,34 @@ const Createclassroom = () => {
               onChange={(e) => setEquipmentInput(e.target.value)}
               fullWidth
             />
-            <Button variant="contained" color="primary" onClick={handleAddEquipment}>Add</Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleAddEquipment}
+            >
+              Add
+            </Button>
           </Box>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-              <h1>Equipments Added : </h1>
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+            <h1>Equipments Added : </h1>
             {equipments.map((equipment, index) => (
               <Chip key={index} label={equipment} />
             ))}
           </Box>
 
           {/* Submit Button */}
-          <Button variant="contained" color="primary" type="submit" sx={{ marginTop: 2 }} onClick={handleSubmit}>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            sx={{ marginTop: 2 }}
+            onClick={handleSubmit}
+          >
             Submit
           </Button>
         </Box>
       </Container>
+      </div>
     </Box>
   );
 };

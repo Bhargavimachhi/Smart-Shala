@@ -107,8 +107,8 @@ const App = () => {
             }
           >
             <Route path="" element={<AdminHome />} />
-            <Route path="schools" element={<SchoolListingPage />} />
-            <Route path="add-school" element={<AddSchools />} />
+            {/* <Route path="schools" element={<SchoolListingPage />} /> */}
+            {/* <Route path="add-school" element={<AddSchools />} /> */}
             <Route path="students" element={<StudentListingpage />} />
             <Route path="teachers" element={<TeacherListingpage />} />
             <Route path="classrooms" element={<ClassroomListingpage />} />
