@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import FilePreviewComponent from './FilePreviewComponent';
-import LeftSideNavbar from '../LeftSideNavBar';
-import EvaluationGSA from './EvaluationGSA';
-import { useParams } from 'react-router-dom';
-import toast from 'react-hot-toast';
+import React, { useEffect, useState } from "react";
+import EvaluationGSA from "./EvaluationGSA";
+import { useParams } from "react-router-dom";
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../../../../firebase";
-import axios from 'axios';
+import axios from "axios";
+import { File } from "lucide-react";
+import Loader from "@/Pages/InitialPages/Loader";
 
 const FilePreviewMain = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [url, setUrl] = useState('');
-  const [urlOfTeacherFile, setUrlOfTeacherfile] = useState('');
-  const [homework, setHomework] = useState('');
+  const [url, setUrl] = useState("");
+  const [urlOfTeacherFile, setUrlOfTeacherfile] = useState("");
+  const [homework, setHomework] = useState("");
   const { id } = useParams();
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
-
-  const handleToggleSidebar = () => {
-    setIsExpanded((prevState) => !prevState);
-  };
 
   useEffect(() => {
     async function fetchHomework() {
@@ -38,7 +32,7 @@ const FilePreviewMain = () => {
         setUrl(url);
         fetchTeacherFile();
       } catch (error) {
-        console.error('Error fetching file:', error);
+        console.error("Error fetching file:", error);
       }
     }
 
@@ -49,7 +43,7 @@ const FilePreviewMain = () => {
         setUrlOfTeacherfile(url);
         setLoading(false);
       } catch (error) {
-        console.error('File not found');
+        console.error("File not found");
       }
     }
 
@@ -58,19 +52,19 @@ const FilePreviewMain = () => {
   }, []);
 
   if (loading) {
-    return <div className="flex items-center justify-center h-screen bg-gray-100">Loading...</div>;
+    return <Loader text="Loading ..." />;
   }
 
   return (
     <div className="flex h-screen bg-gray-100 pr-14 ">
-      {/* Sidebar */}
-      <LeftSideNavbar isExpanded={isExpanded} handleToggleSidebar={handleToggleSidebar} />
-
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col overflow-hidden p-6">
         {/* Header */}
         <header className="bg-white shadow-md p-4 mb-6">
-          <h1 className="text-xl font-semibold text-gray-800"> Preview Your Work</h1>
+          <h1 className="text-xl font-semibold text-gray-800">
+            {" "}
+            Preview Your Work
+          </h1>
         </header>
 
         {/* Main Content */}
@@ -80,10 +74,10 @@ const FilePreviewMain = () => {
             {/* Student File Section */}
             <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
               <div className="flex items-center mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" className='h-10 w-10 text-red-500 mr-2' x="0px" y="0px" width="40" height="40" viewBox="0 0 16 16">
-<path d="M 4.5 2 C 3.675781 2 3 2.675781 3 3.5 L 3 12.5 C 3 13.324219 3.675781 14 4.5 14 L 11.5 14 C 12.324219 14 13 13.324219 13 12.5 L 13 5.292969 L 9.707031 2 Z M 4.5 3 L 9 3 L 9 6 L 12 6 L 12 12.5 C 12 12.78125 11.78125 13 11.5 13 L 4.5 13 C 4.21875 13 4 12.78125 4 12.5 L 4 3.5 C 4 3.21875 4.21875 3 4.5 3 Z M 10 3.707031 L 11.292969 5 L 10 5 Z"></path>
-</svg>
-                <h2 className="text-lg font-medium text-gray-700">Your Submission</h2>
+                <File className="mr-5" size={40} />
+                <h2 className="text-lg font-medium text-gray-700">
+                  Your Submission
+                </h2>
               </div>
               <p className="text-gray-600">Student File</p>
               <a
@@ -99,10 +93,10 @@ const FilePreviewMain = () => {
             {/* Teacher File Section */}
             <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
               <div className="flex items-center mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" className='h-10 w-10 text-red-500 mr-2' x="0px" y="0px" width="44" height="44" viewBox="0 0 16 16">
-<path d="M 4.5 2 C 3.675781 2 3 2.675781 3 3.5 L 3 12.5 C 3 13.324219 3.675781 14 4.5 14 L 11.5 14 C 12.324219 14 13 13.324219 13 12.5 L 13 5.292969 L 9.707031 2 Z M 4.5 3 L 9 3 L 9 6 L 12 6 L 12 12.5 C 12 12.78125 11.78125 13 11.5 13 L 4.5 13 C 4.21875 13 4 12.78125 4 12.5 L 4 3.5 C 4 3.21875 4.21875 3 4.5 3 Z M 10 3.707031 L 11.292969 5 L 10 5 Z"></path>
-</svg>
-                <h2 className="text-lg font-medium text-gray-700">Teacher's File</h2>
+                <File className="mr-5" size={40} />
+                <h2 className="text-lg font-medium text-gray-700">
+                  Teacher's File
+                </h2>
               </div>
               <p className="text-gray-600">Teacher File</p>
               <a
@@ -118,8 +112,10 @@ const FilePreviewMain = () => {
 
           {/* Evaluation Section */}
           <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
-            <h2 className="text-lg font-medium text-gray-700 mb-4">Evaluation</h2>
-            {/* <EvaluationGSA url={url} /> */}
+            <h2 className="text-lg font-medium text-gray-700 mb-4">
+              Evaluation
+            </h2>
+            <EvaluationGSA url={url} />
           </div>
         </main>
       </div>
