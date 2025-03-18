@@ -7,16 +7,8 @@ import {
   IconButton,
   Paper,
   Typography,
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  AppBar,
-  Toolbar,
 } from "@mui/material";
 
-import LeftSideNavbar from "../Components/LeftSideNavBar";
 import axios from "axios";
 import Markdown from "react-markdown";
 import { ICONS } from "../Icons/icons";
@@ -25,14 +17,6 @@ const StudentChatbot = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const messagesEndRef = useRef(null);
-  const drawerWidth = 240;
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [loading, setloading] = useState(false);
-
-  const handleToggleSidebar = () => {
-    setIsExpanded((prevState) => !prevState);
-  };
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -41,7 +25,6 @@ const StudentChatbot = () => {
     const res = await axios.post("http://localhost:3000/getAnswer", {
       question: que,
     });
-    console.log(res.data.answer);
     return res.data.answer;
   }
 
@@ -67,7 +50,6 @@ const StudentChatbot = () => {
       sender: "ai",
     };
     setMessages((prevMessages) => [...prevMessages, thinkingMessage]);
-    setloading(true);
 
     // Fetch AI response
     const aiResponseText = await getAnswertoQuery(inputMessage);
@@ -103,17 +85,8 @@ const StudentChatbot = () => {
   };
 
   return (
-    <div className="flex flex-wrap">
-      <LeftSideNavbar
-        isExpanded={isExpanded}
-        toggleSidebar={handleToggleSidebar}
-      />
-      <div
-        className={`flex-1 transition-all duration-300 ${
-          isExpanded ? "ml-56" : "ml-16"
-        } p-2 mr-50 overflow-x-auto`}
-      >
-        <Box className="flex max-h-[97.5vh] min-h-[97.5vh]">
+    <div className="flex flex-wrap w-full ">
+        <Box className="flex max-h-[97.5vh] min-h-[97.5vh] w-full">
           <Box className="flex flex-col flex-1">
             <Box className="flex-1 p-4 overflow-y-auto bg-gray-50">
               {messages.map((message, index) => (
@@ -146,7 +119,6 @@ const StudentChatbot = () => {
             </Paper>
           </Box>
         </Box>
-      </div>
     </div>
   );
 };

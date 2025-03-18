@@ -11,12 +11,14 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const TableListingstudent = ({ id }) => {
   const [student, setStudent] = useState("");
   const [open, setOpen] = useState(false); // For controlling the modal
   const [isDeleting, setIsDeleting] = useState(false); // For managing delete state
   const navigate = useNavigate();
+  const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
   useEffect(() => {
     async function getstudents() {
@@ -38,14 +40,18 @@ const TableListingstudent = ({ id }) => {
 
   // Function to handle deletion
   const handleDelete = async () => {
+    toast.loading("Deleting Student");
     setIsDeleting(true);
     try {
-      await axios.get(
+      await axios.post(
         // /classroom/:cId/student/:sId/remove
-        `http://localhost:3000/classroom/${student.classroom}/student/${student._id}/remove`
+        `http://localhost:3000/classroom/${student.classroom}/student/${student._id}/remove`,
+        { adminId: savedAuth.id }
       );
       window.location.reload(); // Reload the page to update the table
     } catch (error) {
+      toast.dismiss();
+      toast.error("Error occured while deleting student");
       console.error("Error deleting student:", error);
     } finally {
       setIsDeleting(false);

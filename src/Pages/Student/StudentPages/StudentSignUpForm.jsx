@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { StudentRegistrationImage } from "../../Admin/Icons/NavIcon.jsx";
 import { StudentSignupImage } from "../../Admin/Icons/NavIcon.jsx";
 import axios from "axios";
@@ -28,9 +28,26 @@ const StudentForm = () => {
   const [parentName, setParentName] = useState("");
   const [parentContact, setParentContact] = useState("");
   const [password, setPassword] = useState("");
+  const [photo, setPhoto] = useState(null);
+  const inputFile = useRef(null);
+  const navigate = useNavigate();
+
+  const handleFileChange = (e) => {
+    if (e.target.files) {
+      if (e.target.files[0].type.split("/")[0] != "image") {
+        inputFile.current.value = "";
+        inputFile.current.type = "text";
+        inputFile.current.type = "file";
+        toast.error("Enter Valid Image");
+        return;
+      }
+      setPhoto(e.target.files[0]);
+    }
+  };
 
   const HandleStudentSubmit = async (e) => {
     e.preventDefault();
+    toast.loading("Registering User...");
     const studentFormData = {
       name,
       email,
@@ -56,10 +73,27 @@ const StudentForm = () => {
     }
 
     try {
-      await axios.post("http://localhost:3000/signup/student", studentFormData);
-      window.location.href = window.location.origin + "/login";
+      const responce = await axios.post(
+        "http://localhost:3000/signup/student",
+        studentFormData
+      );
+      await uploadFile(
+        photo,
+        `/attentance/${responce.data.student._id}/reference`
+      );
+      const url = await fetchFile(
+        `/attentance/${responce.data.student._id}/reference`
+      );
+      await axios.post(
+        `http://localhost:3000/student/${responce.data.student._id}/upload-photo`,
+        { url }
+      );
+      toast.dismiss();
+      toast.success("Student Added Successfully");
+      navigate("/login");
     } catch (error) {
-      toast.error(error.response?.data?.message || "An error occurred");
+      toast.dismiss();
+      toast.error(error.response.data.message);
     }
   };
 
@@ -115,26 +149,43 @@ const StudentForm = () => {
         required
       />
 
-      <h2 className="text-2xl font-bold text-gray-800">Parent's Details</h2>
-      <hr className="border-t border-gray-200" />
-
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <InputField
-          label="Parent Name"
-          type="text"
-          value={parentName}
-          onChange={(e) => setParentName(e.target.value)}
-          placeholder="Ex. John Doe"
-          required
-        />
-        <InputField
-          label="Parent Phone Number"
-          type="number"
-          value={parentContact}
-          onChange={(e) => setParentContact(e.target.value)}
-          placeholder="Ex. 1234567890"
-          required
-        />
+      <h2 className="text-xl font-semibold text-text">Parent's Details</h2>
+      <hr className="border-border" />
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="flex flex-col gap-2">
+          <label className="block">Parent Name :</label>
+          <input
+            type="text"
+            className="p-1 pl-2 border rounded-md border-text input-field focus:ring focus-visible:outline-none focus-visible:ring-1"
+            value={parentName}
+            onChange={(e) => setParentName(e.target.value)}
+            placeholder="Ex. John Doe"
+            required
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="block">Phone/Mo. :</label>
+          <input
+            type="number"
+            className="p-1 pl-2 border rounded-md border-text input-field focus:ring focus-visible:outline-none focus-visible:ring-1"
+            value={parentContact}
+            onChange={(e) => setParentContact(e.target.value)}
+            placeholder="Ex. 12345-67890"
+            required
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="block">Upload Image for Attendance Purpose :</label>
+          <div className="mx-auto flex cursor-pointer flex-col items-center justify-center gap-y-2 rounded-lg border border-foreground p-4 shadow-sm shadow-foreground">
+            <ImagePlus className={`size-20 block`} />
+            <input
+              type="file"
+              ref={inputFile}
+              onChange={handleFileChange}
+              required
+            />
+          </div>
+        </div>
       </div>
 
       <button
@@ -143,6 +194,14 @@ const StudentForm = () => {
       >
         Submit
       </button>
+
+      <hr />
+      <FormHelperText className="flex justify-center">
+        Already have an account?{" "}
+        <Link href="/login/student" underline="hover">
+          Log In
+        </Link>
+      </FormHelperText>
     </form>
   );
 };

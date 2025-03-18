@@ -47,6 +47,16 @@ const AdminSidebar = () => {
       icon: <ICONS.DATA_ANALYTICS size={20} />,
       path: "/authority/data-analytics",
     },
+    {
+      name: "Teacher Analytics",
+      icon: <ICONS.DATA_ANALYTICS size={20} />,
+      path: "/authority/teacher/analytics"
+    },
+    {
+      name: "Student Analytics",
+      icon: <ICONS.DATA_ANALYTICS size={20} />,
+      path: "/authority/student/analytics"
+    }
   ];
 
   return (
@@ -80,7 +90,7 @@ const AdminSidebar = () => {
               })}
             </nav>
             <div className="p-4 border-t border-gray-700">
-              <Button variant="destructive" className="w-full">
+              <Button variant="destructive" className="w-full" onClick={handleLogout}>
                 Logout
               </Button>
             </div>

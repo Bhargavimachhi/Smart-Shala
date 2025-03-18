@@ -1,4 +1,3 @@
-import SideNavbar from "../../../components/SideNavbar";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import {
@@ -85,72 +84,77 @@ const TeacherListingpage = () => {
   return (
     <>
       <div className="flex min-h-screen bg-gray-100">
-        <SideNavbar />
-        <div className="flex-1 p-8">
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="text-2xl font-bold">Teachers</h1>
+        <div className="flex-1 w-full m-5 bg-white rounded">
+          <div className="flex-1 p-8">
+            <div className="flex items-center justify-between mb-6">
+              <h1 className="text-2xl font-bold">Teachers</h1>
+            </div>
+
+            {/* end of form to add teacher */}
+
+            {teachers && teachers.length > 0 ? (
+              <>
+                <div className="flex gap-5 mb-10">
+                  {/* Search bar */}
+                  <TextField
+                    label="Search here"
+                    variant="outlined"
+                    fullWidth
+                    margin="normal"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+
+                  {/* Sorting dropdown */}
+                  <FormControl fullWidth margin="normal">
+                    <InputLabel id="sort-label" className="-mt-5">
+                      Sort By
+                    </InputLabel>
+                    <Select
+                      labelId="sort-label"
+                      value={sortOption}
+                      onChange={(e) => setSortOption(e.target.value)}
+                    >
+                      <MenuItem value="name">Name</MenuItem>
+                      <MenuItem value="email">Email</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+
+                <Grid container spacing={3}>
+                  {filteredTeachers.map((teacher) => (
+                    <Grid item xs={12} sm={6} md={4} key={teacher._id}>
+                      <Card
+                        elevation={3}
+                        className="cursor-pointer hover-card"
+                        onClick={() => {
+                          navigate(`/profile/teacher/${teacher._id}`);
+                        }}
+                      >
+                        <CardContent>
+                          <Typography variant="h6" gutterBottom>
+                            {teacher.name}
+                          </Typography>
+                          {teacher.email && (
+                            <Typography color="textSecondary">
+                              Email: {teacher.email}
+                            </Typography>
+                          )}
+                          {teacher.contact && (
+                            <Typography color="textSecondary">
+                              Contact: {teacher.contact}
+                            </Typography>
+                          )}
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  ))}
+                </Grid>
+              </>
+            ) : (
+              <div className="mt-8 text-center">No teacher found</div>
+            )}
           </div>
-
-          {/* end of form to add teacher */}
-
-          {teachers && teachers.length > 0 ? (
-            <>
-              <div className="flex gap-5 mb-10">
-                {/* Search bar */}
-                <TextField
-                  label="Search here"
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-
-                {/* Sorting dropdown */}
-                <FormControl fullWidth margin="normal">
-                  <InputLabel id="sort-label" className="-mt-5">
-                    Sort By
-                  </InputLabel>
-                  <Select
-                    labelId="sort-label"
-                    value={sortOption}
-                    onChange={(e) => setSortOption(e.target.value)}
-                  >
-                    <MenuItem value="name">Name</MenuItem>
-                    <MenuItem value="email">Email</MenuItem>
-                  </Select>
-                </FormControl>
-              </div>
-
-              <Grid container spacing={3}>
-                {filteredTeachers.map((teacher) => (
-                  <Grid item xs={12} sm={6} md={4} key={teacher._id}>
-                    <Card elevation={3} className="cursor-pointer hover-card" onClick={() => {
-                      navigate(`/profile/teacher/${teacher._id}`)
-                    }}>
-                      <CardContent>
-                        <Typography variant="h6" gutterBottom>
-                          {teacher.name}
-                        </Typography>
-                        {teacher.email && (
-                          <Typography color="textSecondary">
-                            Email: {teacher.email}
-                          </Typography>
-                        )}
-                        {teacher.contact && (
-                          <Typography color="textSecondary">
-                            Contact: {teacher.contact}
-                          </Typography>
-                        )}
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                ))}
-              </Grid>
-            </>
-          ) : (
-            <div className="mt-8 text-center">No teacher found</div>
-          )}
         </div>
       </div>
     </>

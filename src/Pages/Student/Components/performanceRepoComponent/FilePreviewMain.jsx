@@ -65,12 +65,9 @@ const FilePreviewMain = () => {
 
   return (
     <>
-      <div className="flex">
-      <LeftSideNavbar isExpanded={isExpanded} toggleSidebar={handleToggleSidebar} />
+      <div className="flex w-full">
       <div
-        className={`flex-1 transition-width duration-300 ml-${
-          isExpanded ? "64" : "16"
-        } p-6 mr-50 overflow-x-auto`}
+        className={`flex-1 transition-width duration-300 p-6 mr-50 overflow-x-auto w-full`}
       > 
       <a href={url}>View File</a> <br />
       <a href={urlOfTeacherFile}>View File</a>

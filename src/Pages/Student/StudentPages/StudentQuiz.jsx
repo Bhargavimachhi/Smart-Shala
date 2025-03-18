@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import { useUserContext } from "../../../context/userContext";
 import axios from "axios";
 import Loader from "../../InitialPages/Loader";
-import { AttemptQuiz } from "../Components/attemptQuiz/attemptQuiz.jsx";
-import LeftSideNavbar from "../Components/LeftSideNavBar.jsx";
 import {
   Card,
   CardContent,
@@ -19,17 +17,10 @@ import { useNavigate } from "react-router-dom";
 
 const StudentQuiz = () => {
   const [quizzes, setQuizzes] = useState([]);
-  // const [filteredQuizzes, setFilteredQuizzes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const savedAuth = JSON.parse(localStorage.getItem("auth"));
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const { userData } = useUserContext();
-
-  const [isExpanded, setIsExpanded] = useState(false);
-  const handleToggleSidebar = () => {
-    setIsExpanded((prevState) => !prevState);
-  };
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -62,14 +53,8 @@ const StudentQuiz = () => {
   return (
     <>
       <div className="flex min-h-screen bg-gray-100">
-        <LeftSideNavbar
-          isExpanded={isExpanded}
-          toggleSidebar={handleToggleSidebar}
-        />
         <div
-          className={`flex-1 transition-all duration-300 ${
-            isExpanded ? "ml-56" : "ml-16"
-          } p-6 mr-50 overflow-x-auto`}
+          className={`flex-1 transition-all duration-300 p-6 mr-50 overflow-x-auto`}
         >
           <div className="flex items-center justify-between mb-6">
             <h1 className="mb-2 text-2xl font-bold">Your Quizes</h1>

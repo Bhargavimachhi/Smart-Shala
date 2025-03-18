@@ -17,6 +17,7 @@ const TableListingteacher = ({ id, cId }) => {
   const [open, setOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const navigate = useNavigate();
+  const savedAuth = JSON.parse(localStorage.getItem("auth"));
 
   useEffect(() => {
     async function getTeachers() {
@@ -44,8 +45,8 @@ const TableListingteacher = ({ id, cId }) => {
   const handleDelete = async () => {
     setIsDeleting(true);
     try {
-      await axios.get(
-        `http://localhost:3000/classroom/${cId}/teacher/${teacher._id}/remove`
+      await axios.post(
+        `http://localhost:3000/classroom/${cId}/teacher/${teacher._id}/remove`, {adminId: savedAuth.id}
       );
       window.location.reload();
     } catch (error) {

@@ -21,14 +21,8 @@ const AdminLoginpage = () => {
   const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
 
-  // Log `auth` when it updates
-  useEffect(() => {
-    console.log("auth updated:", auth);
-  }, [auth]);
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Admin email and password are: ", AdminEmail, AdminPassword);
 
     try {
       // Send login request to the server
@@ -95,7 +89,7 @@ const AdminLoginpage = () => {
               </Button>
               <FormHelperText className="flex justify-center">
                 Don't have an account?{" "}
-                <Link href="#" underline="hover">
+                <Link href="/signup/admin" underline="hover">
                   Sign Up
                 </Link>
               </FormHelperText>

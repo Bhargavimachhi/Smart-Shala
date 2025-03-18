@@ -73,7 +73,6 @@ const ResourceManagement = () => {
   return (
     <>
       <div className="flex min-h-screen bg-gray-200">
-        <SideNavbar />
         <div className="flex-1 p-6">
           <Toaster />
           <h1 className="mb-6 text-3xl font-bold">Resource Management</h1>

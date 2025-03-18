@@ -17,10 +17,10 @@ import {
   ListItemText,
   Checkbox,
 } from "@mui/material";
-import toast from "react-hot-toast";
+import toast, { ToastBar } from "react-hot-toast";
 import axios from "axios";
 
-const Addstudenttoclassroom = ({ students, onAddStudent }) => {
+const Addstudenttoclassroom = ({ students, classroom, onAddStudent }) => {
   const [openStudentDialog, setOpenStudentDialog] = useState(false);
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
@@ -33,19 +33,23 @@ const Addstudenttoclassroom = ({ students, onAddStudent }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent form default behavior
+    toast.loading("Adding Student");
     if (!studentEmail) {
+      toast.dismiss();
       toast.error("Please enter a valid email.");
       return;
     }
 
     try {
-      const response = await axios.post(
-        `http://localhost:3000/admin/${savedAuth.id}/assign-student`,
-        { email: studentEmail }
+      let response = await axios.post(
+        `http://localhost:3000/classroom/${classroom._id}/assign-student`,
+        { email: studentEmail, adminId: savedAuth.id }
       );
+      toast.dismiss();
       toast.success("Student added successfully!");
       setStudentEmail(null);
     } catch (error) {
+      toast.dismiss();
       toast.error(error.response.data.message);
     }
   };

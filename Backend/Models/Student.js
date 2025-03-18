@@ -66,8 +66,7 @@ let studentSchema = new mongoose.Schema({
         default:[]
     }],
     face : {
-        type : Object,
-        default : null,
+        type : String
     }
 });
 

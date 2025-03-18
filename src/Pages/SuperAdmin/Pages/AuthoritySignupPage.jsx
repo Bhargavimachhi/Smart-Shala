@@ -7,6 +7,8 @@ import {
   Typography,
   Box,
   Paper,
+  FormHelperText,
+  Link,
 } from "@mui/material";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -88,6 +90,12 @@ const AuthoritySignupPage = () => {
               Sign Up
             </Button>
           </Box>
+          <FormHelperText className="flex justify-center">
+            Already have an account?{" "}
+            <Link href="/login/authority" underline="hover">
+              Log In
+            </Link>
+          </FormHelperText>
         </Paper>
       </Container>
     </>

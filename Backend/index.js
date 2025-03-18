@@ -23,6 +23,7 @@ import {
   getPresentDaysAttendance,
   getPresentDaysPercentageAttendance,
   getQuizResultOfStudent,
+  uploadPhotoOfStudent,
 } from "./Controller/student.js";
 import {
   addTeacher,
@@ -41,6 +42,8 @@ import {
   markTeacherAbsent,
   markTeacherPresent,
   getPresentDaysAttendanceOfTeacher,
+  getPercentageOfPresentDaysAttendanceOfTeacher,
+  uploadPhotoOfTeacher,
 } from "./Controller/teacher.js";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -75,6 +78,7 @@ import {
   getAdmin,
   getAttendanceOfClassroomsOfAdmin,
   getPresentDaysOfAdmin,
+  uploadPhotoOfAdmin,
 } from "./Controller/admin.js";
 import {
   generateIssue,
@@ -114,8 +118,11 @@ import {
 import {
   addAuthority,
   addSchoolToAuthority,
+  getAuthority,
   getAverageAttendanceOfSchoolsOfAuthority,
   getSchoolsOfAuthority,
+  getStudentsOfAuthority,
+  getTeachersOfAuthority,
   loginAuthority,
 } from "./Controller/authority.js";
 
@@ -141,8 +148,8 @@ app.post("/classroom/:id/initiate-attendance", initiateAttendance);
 app.get("/classroom/:id", getClassroom);
 app.post("/classroom/:id/assign-student", assignStudentToClassroom);
 app.post("/classroom/:id/assign-teacher", assignTeacherToClassroom);
-app.get("/classroom/:cId/student/:sId/remove", removeStudentFromClassroom);
-app.get("/classroom/:cId/teacher/:tId/remove", removeTeacherFromClassroom);
+app.post("/classroom/:cId/student/:sId/remove", removeStudentFromClassroom);
+app.post("/classroom/:cId/teacher/:tId/remove", removeTeacherFromClassroom);
 app.get("/classroom/:id/homeworks", getHomeworkOfClass);
 app.get("/classroom/:id/students", getStudentsOfClassroom);
 app.get("/classroom/:id/attendance", getAverageStudentAttendanceOfClassroom);
@@ -176,6 +183,8 @@ app.post("/teacher/send-low-attendance-sms", sendSMSToLowAttendanceStudents);
 app.get("/teacher/:id/attendance/present", markTeacherPresent);
 app.get("/teacher/:id/attendance/absent", markTeacherAbsent);
 app.get("/teacher/:id/attendance", getPresentDaysAttendanceOfTeacher);
+app.get("/teacher/:id/attendance-percentage", getPercentageOfPresentDaysAttendanceOfTeacher);
+app.post("/teacher/:id/upload-photo", uploadPhotoOfTeacher);
 
 // student routes
 app.get("/student/:id", getStudent);
@@ -191,6 +200,7 @@ app.get("/student/:id/pending-homeworks", getPendingHomeworkOfStudent);
 app.get("/student/:id/submitted-homeworks", getSubmmitedHomeworkOfStudent);
 app.get("/student/:sId/homework/:hId/submit", submitHomeWorkOfStudent);
 app.get("/student/:id/add-face", addFaceOfStudent);
+app.post("/student/:id/upload-photo", uploadPhotoOfStudent);
 
 // issue generation routes
 app.get("/issue/:id/delete", deleteIssue);
@@ -212,10 +222,14 @@ app.post("/admin/:id/assign-teacher", addTeacherToAdmin);
 app.post("/admin/:id/assign-student", addStudentToAdmin);
 app.get("/admin/:id/classrooms/attendance", getAttendanceOfClassroomsOfAdmin);
 app.post("/addAdmin", addAdmin);
+app.post("/admin/:id/upload-photo", uploadPhotoOfAdmin);
 
 // authority routes
+app.get("/authority/:id", getAuthority);
 app.post("/add-authority", addAuthority);
 app.get("/authority/:id/schools", getSchoolsOfAuthority);
+app.get("/authority/:id/teachers", getTeachersOfAuthority);
+app.get("/authority/:id/students", getStudentsOfAuthority);
 app.post("/authority/:id/add-school", addSchoolToAuthority);
 app.get("/authority/:id/attendance", getAverageAttendanceOfSchoolsOfAuthority);
 
