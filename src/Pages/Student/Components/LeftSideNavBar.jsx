@@ -1,26 +1,25 @@
 import React, { useState } from "react";
 import "../css/HoLeftNavBar.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/auth.jsx";
 import { ICONS } from "../Icons/icons";
 import { useUserContext } from "@/context/userContext";
-import { Avatar } from "@mui/material";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
-  SheetTitle,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Sidebar } from "@/components/ui/sidebar";
 
-const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
+const LeftSideNavbar = () => {
   const isMobile = useIsMobile();
   const [auth, setAuth] = useAuth();
   const location = useLocation();
   const { userData } = useUserContext();
   const [open, setOpen] = useState(!isMobile);
+  const navigate = useNavigate();
   const handleLogout = () => {
     setAuth({
       _id: null,
@@ -28,6 +27,7 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
       role: "",
     });
     localStorage.removeItem("token");
+    navigate("/login")
   };
 
   const StudentNavLinks = [
@@ -93,7 +93,6 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
                       key={index}
                       to={link.path}
                       label={link.name}
-                      onClick={toggleSidebar}
                     >
                       <div className="flex items-center justify-start gap-2">
                         <span className="text-black">{link.icon}</span>
@@ -105,7 +104,7 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
               })}
             </nav>
             <div className="p-4 border-t border-gray-700">
-              <Button variant="destructive" className="w-full">
+              <Button variant="destructive" className="w-full" onClick={handleLogout}>
                 Logout
               </Button>
             </div>
@@ -131,7 +130,6 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
                     key={index}
                     to={link.path}
                     label={link.name}
-                    onClick={toggleSidebar}
                   >
                     <div
                       className={`flex items-center justify-start gap-2 p-2 rounded-lg ${

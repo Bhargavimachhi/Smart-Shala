@@ -64,6 +64,7 @@ import Home from "./Pages/SuperAdmin/Pages/Home";
 import DataAnalytics from "./Pages/SuperAdmin/Pages/DataAnalytics";
 import { AttemptQuiz } from "./Pages/Student/Components/attemptQuiz/attemptQuiz.jsx";
 import Layout from "./layouts/Layout";
+import StudentLayout from "./layouts/StudentLayout";
 import AddSchool from "./Pages/SuperAdmin/Pages/AddSchool";
 import AuthorityLoginpage from "./Pages/SuperAdmin/Pages/AuthorityLoginPage";
 import AuthoritySignupPage from "./Pages/SuperAdmin/Pages/AuthoritySignupPage";
@@ -154,7 +155,7 @@ const App = () => {
             path="/student"
             element={
               savedAuth && savedAuth.role == "student" ? (
-                <Layout />
+                <StudentLayout />
               ) : (
                 <LoginAlert />
               )

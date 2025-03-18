@@ -5,14 +5,9 @@ import LeftSideNavbar from "@/Pages/Student/Components/LeftSideNavBar";
 
 const Layout = () => {
   return (
-    <SidebarProvider>
-      <div className="flex w-full">
-        <LeftSideNavbar />
-        <div className="w-full">
-          <Outlet />
-        </div>
-      </div>
-    </SidebarProvider>
+    <div className="w-full">
+      <Outlet />
+    </div>
   );
 };
 
