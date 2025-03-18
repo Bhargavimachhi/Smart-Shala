@@ -123,7 +123,11 @@ const TeacherSidebar = () => {
               })}
             </nav>
             <div className="p-4 border-t border-gray-700">
-              <Button variant="destructive" className="w-full">
+              <Button
+                variant="destructive"
+                className="w-full"
+                onClick={handleLogout}
+              >
                 Logout
               </Button>
             </div>
@@ -140,7 +144,7 @@ const TeacherSidebar = () => {
               <p className="text-xs text-text">{userData?.email}</p>
             </div>
           </div>
-          <hr className="border-b border-btn"/>
+          <hr className="border-b border-btn" />
           <nav className="flex flex-col flex-1 gap-0 p-2 space-y-2">
             {teacherNavLinks.map((link, index) => {
               return (
