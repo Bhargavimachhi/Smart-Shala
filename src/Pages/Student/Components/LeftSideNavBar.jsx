@@ -5,11 +5,7 @@ import { useAuth } from "../../../context/auth.jsx";
 import { ICONS } from "../Icons/icons";
 import { useUserContext } from "@/context/userContext";
 import { useIsMobile } from "@/hooks/use-mobile";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Sidebar } from "@/components/ui/sidebar";
 
@@ -20,6 +16,7 @@ const LeftSideNavbar = () => {
   const { userData } = useUserContext();
   const [open, setOpen] = useState(!isMobile);
   const navigate = useNavigate();
+
   const handleLogout = () => {
     setAuth({
       _id: null,
@@ -27,8 +24,10 @@ const LeftSideNavbar = () => {
       role: "",
     });
     localStorage.removeItem("token");
-    navigate("/login")
+    navigate("/login");
   };
+
+  const toggleSidebar = () => setOpen((prev) => !prev);
 
   const StudentNavLinks = [
     { name: "Home", icon: <ICONS.HOME size={20} />, path: "/student" },
@@ -89,11 +88,7 @@ const LeftSideNavbar = () => {
               {StudentNavLinks.map((link, index) => {
                 return (
                   <>
-                    <Link
-                      key={index}
-                      to={link.path}
-                      label={link.name}
-                    >
+                    <Link key={index} to={link.path} label={link.name}>
                       <div className="flex items-center justify-start gap-2">
                         <span className="text-black">{link.icon}</span>
                         <span>{link.name}</span>
@@ -104,7 +99,11 @@ const LeftSideNavbar = () => {
               })}
             </nav>
             <div className="p-4 border-t border-gray-700">
-              <Button variant="destructive" className="w-full" onClick={handleLogout}>
+              <Button
+                variant="destructive"
+                className="w-full"
+                onClick={handleLogout}
+              >
                 Logout
               </Button>
             </div>
@@ -126,11 +125,7 @@ const LeftSideNavbar = () => {
             {StudentNavLinks.map((link, index) => {
               return (
                 <>
-                  <Link
-                    key={index}
-                    to={link.path}
-                    label={link.name}
-                  >
+                  <Link key={index} to={link.path} label={link.name}>
                     <div
                       className={`flex items-center justify-start gap-2 p-2 rounded-lg ${
                         location.pathname === link.path
@@ -158,6 +153,14 @@ const LeftSideNavbar = () => {
           </div>
         </Sidebar>
       )}
+      <Button
+        className="absolute z-50 p-2 rounded-full top-4 left-4 sm:hidden"
+        variant="ghost"
+        size="icon"
+        onClick={toggleSidebar}
+      >
+        <ICONS.PANEL_RIGHT className="w-6 h-6" size={20} />
+      </Button>
     </>
   );
 };

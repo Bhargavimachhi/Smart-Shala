@@ -92,13 +92,7 @@ const AdminHome = () => {
 
   return (
     <>
-      <div className="w-screen h-screen" id="main-home-window">
-        {/* side Navbar */}
-        <div id="side-nav-container">
-          <div className="fixed flex h-screen">
-            <SideNavbar />
-          </div>
-        </div>
+      <div className="w-full m-5 overscroll-x-none">
         <div className="overscroll-y-none overscroll-x-none w-full">
           <Card
             sx={{

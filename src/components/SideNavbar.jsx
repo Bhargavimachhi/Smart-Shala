@@ -3,16 +3,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth.jsx";
 import axios from "axios";
 import { ICONS } from "../Pages/Admin/Icons/icons.jsx";
-import { Avatar } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
 import { useUserContext } from "@/context/userContext.jsx";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link } from "react-router-dom";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Sidebar } from "@/components/ui/sidebar";
 
@@ -35,6 +29,7 @@ const SideNavbar = () => {
     }
     getAdmin();
   }, []);
+
   const handleLogout = () => {
     setAuth({
       _id: null,
@@ -44,6 +39,9 @@ const SideNavbar = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
+
+  const toggleSidebar = () => { setOpen(!open);}
+
   const navItems = [
     { icon: <ICONS.HOME size={20} />, name: "Home", path: "/admin" },
     {
@@ -136,7 +134,12 @@ const SideNavbar = () => {
             {navItems.map((link, index) => {
               return (
                 <>
-                  <Link key={index} to={link.path} label={link.name}>
+                  <Link
+                    key={index}
+                    to={link.path}
+                    label={link.name}
+                    onClick={toggleSidebar}
+                  >
                     <div
                       className={`flex items-center justify-start gap-2 p-2 rounded-lg ${
                         location.pathname === link.path
@@ -164,6 +167,14 @@ const SideNavbar = () => {
           </div>
         </Sidebar>
       )}
+      <Button
+        className="absolute z-50 p-2 rounded-full top-4 left-4 sm:hidden"
+        variant="ghost"
+        size="icon"
+        onClick={toggleSidebar}
+      >
+        <ICONS.PANEL_LEFT className="w-6 h-6" size={20} />
+      </Button>
     </>
   );
 };
