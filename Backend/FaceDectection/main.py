@@ -21,7 +21,7 @@ def verify_faces(image_urls: ImageURLs):
     try:
         print(image_urls.image1_url,image_urls.image2_url)
         resp = DeepFace.verify(img1_path=image_urls.image1_url, img2_path=image_urls.image2_url, model_name="Facenet",
-                         enforce_detection=False, threshold=55.0)
+                         enforce_detection=False, threshold=60.0)
         
         return resp
     except Exception as e:
