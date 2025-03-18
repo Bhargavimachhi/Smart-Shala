@@ -30,7 +30,7 @@ const MarkStudentAttendance = () => {
     setPhoto(screenshot);
     if (screenshot) {
       const imageRef = ref(storage, `Attendance/current/1`);
-      const refimageref = ref(storage, `Attendance/Reference/image.jpg`);
+      const refimageref = ref(storage, `/attentance/67a0b861564a8b041cef28d4/reference`);
 
       try {
         // await uploadString(imageRef, screenshot, "data_url");

@@ -80,6 +80,7 @@ import TeacherHome from "./Pages/Teacher/Pages/TeacherHome";
 import TeacherData from "./Pages/SuperAdmin/Pages/TeacherData";
 import CommonSignUp from "./Pages/InitialPages/CommonSignup";
 import StudentDataAnalytics from "./Pages/SuperAdmin/Pages/StudentDataAnalytics";
+import StudentRecommdation from "./Pages/Student/StudentPages/StudentRecommdation";
 
 const App = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -170,6 +171,7 @@ const App = () => {
             <Route path="quiz-results" element={<StudentQuizResults />} />
             <Route path="attempt-quiz/:id" element={<AttemptQuiz />} />
             <Route path="homework/:id/preview" element={<FilePreviewMain />} />
+            <Route path="recommed" element={<StudentRecommdation />} />
           </Route>
 
           {/* Teacher Page Routes */}
