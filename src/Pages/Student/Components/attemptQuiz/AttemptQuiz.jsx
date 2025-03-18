@@ -1,24 +1,17 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import TeacherLeftSideNavBar from "../../../Teacher/Components/TeacherLeftSideNavBar";
+import { useParams } from "react-router-dom";
 import { useUserContext } from "../../../../context/userContext";
 import Loader from "../../../InitialPages/Loader";
 import axios from "axios";
 import toast from "react-hot-toast";
-import LeftSideNavbar from "../LeftSideNavBar";
 
 export const AttemptQuiz = () => {
   const { id } = useParams();
   const [quiz, setQuiz] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
   const [answers, setAnswers] = useState([]);
   const [result, setResult] = useState(null);
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
-  const [isExpanded, setIsExpanded] = useState(false);
-  const toggleSidebar = () => {
-    setIsExpanded(!isExpanded);
-  };
   const { userData } = useUserContext();
 
   const handleAnswerChange = (questionIndex, value) => {
@@ -82,14 +75,8 @@ export const AttemptQuiz = () => {
 
   return (
     <>
-      <LeftSideNavbar
-        isExpanded={isExpanded}
-        toggleSidebar={toggleSidebar}
-      />
       <div
-        className={`flex-1 p-8 transition-all duration-300 ${
-          isExpanded ? "ml-64" : "ml-16"
-        }`}
+        className={`flex-1 p-8 transition-all duration-300`}
       >
         <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md">
           <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">

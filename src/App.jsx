@@ -15,7 +15,6 @@ import AddTeacher from "./Pages/Teacher/Pages/TeacherSignUpForm.jsx";
 import { Toaster } from "react-hot-toast";
 import ClassroomListingpage from "./Pages/Admin/Pages/ClassroomListing.jsx";
 import Classroom from "./Pages/Admin/Components/ClassroomsListingPageComponents/Classroom.jsx";
-import SubmitHomework from "./Pages/Student/StudentPages/SubmitHomework.jsx";
 import StudentNotification from "./Pages/Student/StudentPages/StudentNotification.jsx";
 import Issuessection from "./Pages/Admin/Pages/Issuessection.jsx";
 
@@ -29,7 +28,6 @@ import AddHomeworkPage from "./Pages/Teacher/Components/HomeworkComponents/AddHo
 import StudentChatbot from "./Pages/Student/StudentPages/StudentChatbot.jsx";
 import TeachersClassroom from "./Pages/Teacher/Pages/TeachersClassroom.jsx";
 
-import StudentAttendancePage from "./Pages/Student/StudentPages/StudentAttendancePage.jsx";
 import CommonLogin from "./Pages/InitialPages/CommonLogin.jsx";
 import TeacherLogin from "./Pages/InitialPages/TeacherLogin.jsx";
 import StudentLogin from "./Pages/InitialPages/StudentLogin.jsx";
@@ -81,6 +79,8 @@ import TeacherData from "./Pages/SuperAdmin/Pages/TeacherData";
 import CommonSignUp from "./Pages/InitialPages/CommonSignup";
 import StudentDataAnalytics from "./Pages/SuperAdmin/Pages/StudentDataAnalytics";
 import StudentRecommdation from "./Pages/Student/StudentPages/StudentRecommdation";
+import PendingList from "./Pages/Student/Components/submitHWComponent/PendingList";
+import MainAtComponent from "./Pages/Student/Components/attendanceComponent/MainAtComponent";
 
 const App = () => {
   const savedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -161,17 +161,17 @@ const App = () => {
             }
           >
             <Route path="" element={<StudentHomePage />} />
-            <Route path="submit-homework" element={<SubmitHomework />} />
+            <Route path="submit-homework" element={<PendingList />} />
             <Route path="notification" element={<StudentNotification />} />
             <Route path="doubts" element={<StudentChatbot />} />
             <Route path=":id/pending-homework" element={<SubmitHWmainBox />} />
-            <Route path="attendance" element={<StudentAttendancePage />} />
+            <Route path="attendance" element={<MainAtComponent />} />
             <Route path="performance" element={<StudentPerformanceReport />} />
             <Route path="quizzes" element={<StudentQuiz />} />
             <Route path="quiz-results" element={<StudentQuizResults />} />
             <Route path="attempt-quiz/:id" element={<AttemptQuiz />} />
             <Route path="homework/:id/preview" element={<FilePreviewMain />} />
-            <Route path="recommed" element={<StudentRecommdation />} />
+            <Route path="recommend" element={<StudentRecommdation />} />
           </Route>
 
           {/* Teacher Page Routes */}

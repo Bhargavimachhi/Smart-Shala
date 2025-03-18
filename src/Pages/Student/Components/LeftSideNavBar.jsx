@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import "../css/HoLeftNavBar.css";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../../context/auth.jsx";
 import { ICONS } from "../Icons/icons";
 import { useUserContext } from "@/context/userContext";
 import { Avatar } from "@mui/material";
+import { useIsMobile } from "@/hooks/use-mobile";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { Sidebar } from "@/components/ui/sidebar";
 
 const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
+  const isMobile = useIsMobile();
   const [auth, setAuth] = useAuth();
   const location = useLocation();
   const { userData } = useUserContext();
+  const [open, setOpen] = useState(!isMobile);
   const handleLogout = () => {
     setAuth({
       _id: null,
@@ -42,6 +53,11 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
       path: "/student/attendance",
     },
     {
+      name: "Notifications",
+      icon: <ICONS.BELL size={20} />,
+      path: "/student/notification",
+    },
+    {
       name: " Doubts(Chat bot)",
       icon: <ICONS.CHAT size={20} />,
       path: "/student/doubts",
@@ -49,76 +65,102 @@ const LeftSideNavbar = ({ isExpanded, toggleSidebar }) => {
   ];
 
   return (
-    <div
-      className={`${
-        isExpanded ? "w-56" : "w-16"
-      } h-screen transition-all duration-300  fixed border border-r-btn`}
-    >
-      <button
-        onClick={toggleSidebar}
-        className="w-full px-2 py-4 text-xl focus:outline-none text-text bg-bg"
-      >
-        {isExpanded ? <ICONS.LEFT /> : <ICONS.RIGHT />}
-      </button>
-
-      {isExpanded && (
-        <div className="flex items-center gap-2 p-2 ">
-          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-btn">
-            <Avatar
-              sx={{ bgcolor: "primary.main", width: 35, height: 35 }}
-              src={userData?.face}
-            >
-            </Avatar>
-          </div>
-          <div>
-            <p className="text-sm font-medium">Hello {userData?.name}</p>
-            <p className="text-xs text-text">{userData?.email}</p>
-          </div>
-        </div>
-      )}
-
-      <ul className={`${isExpanded ? "p-2" : "p-1"} mt-4`}>
-        {StudentNavLinks.map((item, index) => {
-          return (
-            <li
-              key={index}
-              className={`mb-2 sm:rounded-lg text-text hover:bg-btn hover:text-white ${
-                location.pathname === item.path ? "bg-btn text-white" : ""
-              }`}
-            >
-              <Link
-                to={item.path}
-                className={`${
-                  isExpanded ? "justify-start" : "justify-center"
-                } flex items-center px-2 py-4 rounded cursor-pointer`}
-              >
-                {item.icon}
-                {isExpanded && (
-                  <span className="ml-4 font-normal textColor">
-                    {item.name}
-                  </span>
-                )}
-              </Link>
-            </li>
-          );
-        })}
-
-        <li className="rounded-lg text-text hover:bg-btn hover:text-white">
-          <Link
-            to="/login"
-            className={`${
-              isExpanded ? "justify-start" : "justify-center"
-            } flex items-center px-2 py-4 rounded cursor-pointer`}
-            onClick={handleLogout}
+    <>
+      {isMobile ? (
+        <Sheet open={open} onOpenChange={setOpen}>
+          <SheetContent
+            side="left"
+            className="flex flex-col w-64 h-full p-4 bg-gray-300"
           >
-            <ICONS.LOGOUT size={20} />
-            {isExpanded && (
-              <span className="ml-4 font-normal textColor">LogOut</span>
-            )}
-          </Link>
-        </li>
-      </ul>
-    </div>
+            <SheetHeader>
+              <div className="flex items-center gap-2 p-2 ">
+                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-btn">
+                  <span className="text-sm text-white">
+                    {/* {userData?.name[0]} */}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-sm font-medium">Hello {userData?.name}</p>
+                  <p className="text-xs text-text">{userData?.email}</p>
+                </div>
+              </div>
+            </SheetHeader>
+            <nav className="flex flex-col flex-1 gap-2 mt-0 space-y-2">
+              {StudentNavLinks.map((link, index) => {
+                return (
+                  <>
+                    <Link
+                      key={index}
+                      to={link.path}
+                      label={link.name}
+                      onClick={toggleSidebar}
+                    >
+                      <div className="flex items-center justify-start gap-2">
+                        <span className="text-black">{link.icon}</span>
+                        <span>{link.name}</span>
+                      </div>
+                    </Link>
+                  </>
+                );
+              })}
+            </nav>
+            <div className="p-4 border-t border-gray-700">
+              <Button variant="destructive" className="w-full">
+                Logout
+              </Button>
+            </div>
+          </SheetContent>
+        </Sheet>
+      ) : (
+        <Sidebar className="w-64 h-screen text-black bg-bg">
+          <div className="flex items-center gap-2 p-2 mb-2">
+            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-btn">
+              {/* <span className="text-sm text-white">{userData?.name[0]}</span> */}
+            </div>
+            <div>
+              <p className="text-sm font-medium">Hello {userData?.name}</p>
+              <p className="text-xs text-text">{userData?.email}</p>
+            </div>
+          </div>
+          <hr className="border-b border-btn" />
+          <nav className="flex flex-col flex-1 gap-0 p-2 space-y-2">
+            {StudentNavLinks.map((link, index) => {
+              return (
+                <>
+                  <Link
+                    key={index}
+                    to={link.path}
+                    label={link.name}
+                    onClick={toggleSidebar}
+                  >
+                    <div
+                      className={`flex items-center justify-start gap-2 p-2 rounded-lg ${
+                        location.pathname === link.path
+                          ? "bg-btn text-white"
+                          : "hover:bg-bg text-text hover:border-btn border"
+                      }`}
+                    >
+                      <span>{link.icon}</span>
+                      <span>{link.name}</span>
+                    </div>
+                  </Link>
+                </>
+              );
+            })}
+          </nav>
+          <div className="p-4 border-t border-text">
+            <Button
+              variant="default"
+              className="flex items-center justify-between w-full"
+              onClick={handleLogout}
+            >
+              <span>Logout</span>
+              <ICONS.LOGOUT size={20} />
+            </Button>
+          </div>
+        </Sidebar>
+      )}
+    </>
   );
 };
 
