@@ -89,7 +89,7 @@ const AdminLoginpage = () => {
               </Button>
               <FormHelperText className="flex justify-center">
                 Don't have an account?{" "}
-                <Link href="#" underline="hover">
+                <Link href="/signup/admin" underline="hover">
                   Sign Up
                 </Link>
               </FormHelperText>

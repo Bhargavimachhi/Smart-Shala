@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { fetchFile, uploadFile } from "../../../../upload.js";
 import { ImagePlus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { FormHelperText, Link } from "@mui/material";
 
 const TeacherForm = () => {
   const [name, setName] = useState("");
@@ -168,6 +169,14 @@ const TeacherForm = () => {
       >
         Submit
       </button>
+
+      <hr />
+      <FormHelperText className="flex justify-center">
+        Already have an account?{" "}
+        <Link href="/login/teacher" underline="hover">
+          Log In
+        </Link>
+      </FormHelperText>
     </form>
   );
 };

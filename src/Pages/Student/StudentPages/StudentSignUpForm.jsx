@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { fetchFile, uploadFile } from "../../../../upload.js";
 import { ImagePlus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { FormHelperText, Link } from "@mui/material";
 
 const StudentForm = () => {
   const [name, setName] = useState("");
@@ -56,7 +57,10 @@ const StudentForm = () => {
       return;
     }
     try {
-      const responce = await axios.post("http://localhost:3000/signup/student", studentFormData);
+      const responce = await axios.post(
+        "http://localhost:3000/signup/student",
+        studentFormData
+      );
       await uploadFile(
         photo,
         `/attentance/${responce.data.student._id}/reference`
@@ -186,6 +190,14 @@ const StudentForm = () => {
       >
         Submit
       </button>
+
+      <hr />
+      <FormHelperText className="flex justify-center">
+        Already have an account?{" "}
+        <Link href="/login/student" underline="hover">
+          Log In
+        </Link>
+      </FormHelperText>
     </form>
   );
 };

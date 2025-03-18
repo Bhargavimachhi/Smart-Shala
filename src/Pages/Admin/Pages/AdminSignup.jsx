@@ -8,6 +8,8 @@ import {
   Typography,
   Box,
   Paper,
+  FormHelperText,
+  Link,
 } from "@mui/material";
 import toast from "react-hot-toast";
 import { fetchFile, uploadFile } from "../../../../upload.js";
@@ -152,6 +154,12 @@ const AdminForm = () => {
               Sign Up
             </Button>
           </Box>
+          <FormHelperText className="flex justify-center">
+            Already have an account?{" "}
+            <Link href="/login/admin" underline="hover">
+              Log In
+            </Link>
+          </FormHelperText>
         </Paper>
       </Container>
     </>
