@@ -30,15 +30,17 @@ const MarkTeacherAttendance = () => {
         const downloadURL = await getDownloadURL(imageRef);
         const refdownloadURL = await getDownloadURL(refimageref);
         toast.loading("Processing the images");
-        const res = await axios.post("http://localhost:8000/verify", {
+        const res = await axios.post("http://localhost:8000/verification", {
           image1_url: downloadURL,
           image2_url: refdownloadURL,
         });
 
-        if (res.data.verified) {
+        console.log(res.data);
+        if (res.data == "Yes") {
+          alert("Attendance marked successfully");
           toast.success("Attendance marked successfully");
         } else {
-          toast.error("Attendance not marked, please try again");
+          alert("Attendance not marked, please try again");
         }
       } catch (error) {
         console.error("Error uploading image: ", error);
