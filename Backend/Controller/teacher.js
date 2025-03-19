@@ -17,8 +17,9 @@ export const addTeacher = async (req, res) => {
   teacher
     .save()
     .then(() => {
-      console.log("New Teacher Added Successfully");
-      res.status(200).json({ message: "New Teacher Added Successfully" });
+      res
+        .status(200)
+        .json({ message: "New Teacher Added Successfully", teacher });
     })
     .catch((err) => {
       res.send("Error Occurred !!! , Couldn't Add new Teacher");
@@ -176,12 +177,10 @@ export const checkAttendanceAndSendEmails = async (req, res) => {
   }
 
   // console.log("Students fetched successfully", studentsToNotify);
-  res
-    .status(200)
-    .json({
-      message: "Students fetched successfully",
-      students: studentsToNotify,
-    });
+  res.status(200).json({
+    message: "Students fetched successfully",
+    students: studentsToNotify,
+  });
 };
 
 import axios from "axios";
@@ -216,12 +215,10 @@ export const sendEmailsToLowAttendanceStudents = async (req, res) => {
       "Error sending emails:",
       error.response ? error.response.data : error.message
     );
-    res
-      .status(500)
-      .json({
-        message: "Error sending emails",
-        error: error.response ? error.response.data : error.message,
-      });
+    res.status(500).json({
+      message: "Error sending emails",
+      error: error.response ? error.response.data : error.message,
+    });
   }
 };
 
@@ -276,12 +273,10 @@ export const sendSMSToLowAttendanceStudents = async (req, res) => {
       "Error sending SMS:",
       error.response ? error.response.data : error.message
     );
-    res
-      .status(500)
-      .json({
-        message: "Error sending SMS",
-        error: error.response ? error.response.data : error.message,
-      });
+    res.status(500).json({
+      message: "Error sending SMS",
+      error: error.response ? error.response.data : error.message,
+    });
   }
 };
 
@@ -360,9 +355,42 @@ export const getPresentDaysAttendanceOfTeacher = async (req, res) => {
     return res.status(404).json({ message: "Teacher does not exist" });
   }
 
+  return res
+    .status(200)
+    .json({ message: "success", presentDays: teacher.presentDays });
+};
+
+// get percentage of present days
+export const getPercentageOfPresentDaysAttendanceOfTeacher = async (
+  req,
+  res
+) => {
+  const id = req.params.id;
+  const teacher = await Teacher.findById(id);
+
+  if (!teacher) {
+    return res.status(404).json({ message: "Teacher does not exist" });
+  }
+
   const presentDays = teacher.presentDays.length;
   const total = teacher.absentDays.length + presentDays;
   const percentage = (presentDays / total) * 100;
 
   return res.status(200).json({ message: "success", percentage });
+};
+
+export const uploadPhotoOfTeacher = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const teacher = await Teacher.findById(id);
+
+    if (!teacher) {
+      return res.status(404).json({ message: "Teacher does not exist" });
+    }
+    teacher.face = req.body.url;
+    await teacher.save();
+    return res.status(200).json({ message: "success" });
+  } catch (err) {
+    res.status(500).json({ message: "Error occurred while saving photo" });
+  }
 };

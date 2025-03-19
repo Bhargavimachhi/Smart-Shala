@@ -90,7 +90,7 @@ const AuthorityLoginpage = () => {
               </Button>
               <FormHelperText className="flex justify-center">
                 Don't have an account?{" "}
-                <Link href="#" underline="hover">
+                <Link href="/signup/authority" underline="hover">
                   Sign Up
                 </Link>
               </FormHelperText>

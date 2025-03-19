@@ -55,7 +55,6 @@ const ClassroomAnalytics = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <SideNavbar />
       <div className="flex-1 p-8">
         <button
           onClick={() => navigate(-1)}

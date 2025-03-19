@@ -13,6 +13,7 @@ const EvaluationGSA = (params) => {
   useEffect(() => {
     async function fetchAnalysis() {
       try {
+        console.log("Analysis started");
         const res = await axios.post(
           `http://localhost:3000/homework/analysis`,
           { url: params.url }
@@ -27,7 +28,7 @@ const EvaluationGSA = (params) => {
       }
     }
     fetchAnalysis();
-  });
+  }, []);
 
   if (loading) {
     return <GenerateLoader text={"Generating Report..."} />;

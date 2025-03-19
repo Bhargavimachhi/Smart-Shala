@@ -15,8 +15,7 @@ export const addStudent = async(req, res) => {
     student = new Student(req.body);
 
     student.save().then(()=>{
-        console.log("New Student Added Successfully");
-        res.status(200).json({ message: "New Student Added Successfully" });
+        res.status(200).json({ message: "New Student Added Successfully" , student});
     }).catch((err)=>{
         console.log(err);
         res.send("Error Occurred !!! , Couldn't Add new Student");
@@ -273,3 +272,19 @@ export const getQuizResultOfStudent = async(req, res) => {
 
     }
 }
+
+export const uploadPhotoOfStudent = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const student = await Student.findById(id);
+
+    if (!student) {
+      return res.status(404).json({ message: "student does not exist" });
+    }
+    student.face = req.body.url;
+    await student.save();
+    return res.status(200).json({ message: "success" });
+  } catch (err) {
+    res.status(500).json({ message: "Error occurred while saving photo" });
+  }
+};

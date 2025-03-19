@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import SideNavbar from "../../../../components/SideNavbar";
 import {
   Box,
   Typography,
@@ -160,88 +159,91 @@ const Classroom = () => {
   return (
     <>
       <div className="flex min-h-screen bg-gray-100">
-        <SideNavbar />
+        <div className="flex-1 w-full m-5 bg-white rounded">
+          <div className="flex-1 p-8">
+            <Box className="p-8">
+              {classroom ? (
+                <>
+                  <div className="flex justify-between mb-10">
+                    <Typography variant="h4" className="mb-4">
+                      {classroom.name} Classroom Details
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      className="mb-4"
+                      onClick={handleOpenDialog}
+                    >
+                      Edit Classroom
+                    </Button>
+                  </div>
 
-        <div className="flex-1 p-8">
-          <Box className="p-8">
-            {classroom ? (
-              <>
-                <div className="flex justify-between mb-10">
-                  <Typography variant="h4" className="mb-4">
-                    {classroom.name} Classroom Details
-                  </Typography>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className="mb-4"
-                    onClick={handleOpenDialog}
-                  >
-                    Edit Classroom
-                  </Button>
-                </div>
+                  <div className="flex justify-between">
+                    <Typography variant="h5" className="mb-4">
+                      Students
+                    </Typography>
+                    <Addstudenttoclassroom
+                      students={students}
+                      classroom={classroom}
+                      onAddStudent={addStudentFunction}
+                    />
+                  </div>
+                  <TableContainer component={Paper} className="mb-4">
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Name</TableCell>
+                          <TableCell>Email</TableCell>
+                          <TableCell>Contact no</TableCell>
+                          <TableCell>Action</TableCell>
+                          <TableCell>Delete</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {classroom.students.map((student) => (
+                          <TableListingstudent id={student} />
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
 
-                <div className="flex justify-between">
-                  <Typography variant="h5" className="mb-4">
-                    Students
-                  </Typography>
-                  <Addstudenttoclassroom
-                    students={students}
-                    classroom={classroom}
-                    onAddStudent={addStudentFunction}
-                  />
-                </div>
-                <TableContainer component={Paper} className="mb-4">
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Email</TableCell>
-                        <TableCell>Contact no</TableCell>
-                        <TableCell>Action</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {classroom.students.map((student) => (
-                        <TableListingstudent id={student} />
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-
-                <div className="flex justify-between">
-                  <Typography variant="h5" className="mb-4">
-                    Teachers
-                  </Typography>
-                  <Addteachertoclassroom
-                    teachers={teachers}
-                    onAddTeacher={Addteacherfunction}
-                    classroom={classroom}
-                  />
-                </div>
-                <TableContainer component={Paper}>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Email</TableCell>
-                        <TableCell>Contact no</TableCell>
-                        <TableCell>Action</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {classroom.teachers.map((teacher) => (
-                        <TableListingteacher id={teacher} cId={classroom._id}/>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
-            ) : (
-              <h1>No nothing</h1>
-            )}
-          </Box>
+                  <div className="flex justify-between">
+                    <Typography variant="h5" className="mb-4">
+                      Teachers
+                    </Typography>
+                    <Addteachertoclassroom
+                      teachers={teachers}
+                      onAddTeacher={Addteacherfunction}
+                      classroom={classroom}
+                    />
+                  </div>
+                  <TableContainer component={Paper}>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Name</TableCell>
+                          <TableCell>Email</TableCell>
+                          <TableCell>Contact no</TableCell>
+                          <TableCell>Action</TableCell>
+                          <TableCell>Delete</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {classroom.teachers.map((teacher) => (
+                          <TableListingteacher
+                            id={teacher}
+                            cId={classroom._id}
+                          />
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </>
+              ) : (
+                <h1>No nothing</h1>
+              )}
+            </Box>
+          </div>
         </div>
       </div>
 

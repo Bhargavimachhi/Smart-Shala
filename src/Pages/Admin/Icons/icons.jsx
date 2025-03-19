@@ -12,6 +12,7 @@ import { GrResources } from "react-icons/gr";
 import { SiGoogleclassroom } from "react-icons/si";
 import { MdOutlineQuiz } from "react-icons/md";
 import { MdCoPresent } from "react-icons/md";
+import { PanelRightClose } from "lucide-react";
 
 export const ICONS = {
   ISSUES: AiOutlineIssuesClose,
@@ -25,5 +26,6 @@ export const ICONS = {
   RESOUECE: GrResources,
   TEACHERS: FaChalkboardTeacher,
   QUIZ: MdOutlineQuiz,
-  PRESENT: MdCoPresent
+  PRESENT: MdCoPresent,
+  PANEL_LEFT: PanelRightClose,
 };

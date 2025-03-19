@@ -58,6 +58,9 @@ let adminSchema = new mongoose.Schema({
         type: [String],
         default : [],
     },
+    face: {
+        type: String
+    }
 });
 
 export const Admin = mongoose.model("Admin", adminSchema);

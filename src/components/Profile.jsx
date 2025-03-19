@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { ResponsiveCalendar } from "@nivo/calendar";
-import { useUserContext } from "@/context/userContext";
 import Loader from "@/Pages/InitialPages/Loader";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import toast from "react-hot-toast";
 import NotFoundPage from "./PageNotFound";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const Profile = () => {
   const { id, role } = useParams();
   const [attendanceData, setAttendanceData] = useState([]);
+  const currYear = new Date().getFullYear();
+  const [selectedYear, setSelectedYear] = useState(currYear);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -58,7 +64,28 @@ const Profile = () => {
                 {userData?.address && (
                   <p className="text-gray-500">{userData.address}</p>
                 )}
+                {userData?.parentName && (
+                  <div className="text-center mt-5">
+                    <hr />
+                    <p className="text-lg font-semibold">Parent Details</p>
+                  </div>
+                )}
+                {userData?.parentName && (
+                  <div className="text-center">
+                    <p className="text-sm text-gray-500">
+                      Name : {userData?.parentName}
+                    </p>
+                  </div>
+                )}
+                {userData?.parentContact && (
+                  <div className="text-center">
+                    <p className="text-sm text-gray-500">
+                      Contact : {userData?.parentContact}
+                    </p>
+                  </div>
+                )}
               </div>
+              <hr className="mt-5" />
               <div className="flex justify-around mt-5">
                 {userData?.students && (
                   <div className="text-center">
@@ -84,6 +111,14 @@ const Profile = () => {
                     <p className="text-sm text-gray-500">Classrooms</p>
                   </div>
                 )}
+                {userData?.grades && (
+                  <div className="text-center">
+                    <p className="text-lg font-semibold">
+                      {userData.grades.length}
+                    </p>
+                    <p className="text-sm text-gray-500">Quizzes Attepmted</p>
+                  </div>
+                )}
               </div>
             </Card>
 
@@ -91,11 +126,28 @@ const Profile = () => {
               <h3 className="mb-4 text-xl font-bold text-center">
                 Attendance Overview
               </h3>
+              <Select
+                value={selectedYear}
+                onValueChange={(e) => {
+                  setSelectedYear(e);
+                }}
+              >
+                <SelectTrigger className="w-full sm:w-[200px]">
+                  <SelectValue placeholder="Select Year" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={currYear}>{currYear}</SelectItem>
+                  <SelectItem value={currYear - 1}>{currYear - 1}</SelectItem>
+                  <SelectItem value={currYear - 2}>{currYear - 2}</SelectItem>
+                  <SelectItem value={currYear - 3}>{currYear - 3}</SelectItem>
+                  <SelectItem value={currYear - 4}>{currYear - 4}</SelectItem>
+                </SelectContent>
+              </Select>
               <div className="h-40">
                 <ResponsiveCalendar
                   data={attendanceData}
-                  from="2025-01-01"
-                  to="2025-12-31"
+                  from={`${selectedYear}-01-01`}
+                  to={`${selectedYear}-12-31`}
                   emptyColor="#eeeeee"
                   colors={["#33cc33"]}
                   margin={{ top: 10, right: 10, bottom: 10, left: 10 }}

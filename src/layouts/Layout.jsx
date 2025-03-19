@@ -1,11 +1,18 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import LeftSideNavbar from "@/Pages/Student/Components/LeftSideNavBar";
+import SideNavbar from "@/components/SideNavbar";
 
 const Layout = () => {
   return (
-    <Outlet />
+    <SidebarProvider>
+      <div className="flex w-full">
+        <SideNavbar />
+        <div className="w-full">
+          <Outlet />
+        </div>
+      </div>
+    </SidebarProvider>
   );
 };
 

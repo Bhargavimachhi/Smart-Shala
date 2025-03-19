@@ -10,6 +10,8 @@ import {
 import { IoIosDocument } from "react-icons/io";
 import { IoLogOut } from "react-icons/io5";
 import { MdQuiz } from "react-icons/md";
+import { Bell } from "lucide-react";
+import { PanelRightClose } from "lucide-react";
 
 export const ICONS = {
   //mui/icons-material
@@ -27,5 +29,7 @@ export const ICONS = {
   RIGHT: FaAngleRight,
   LOGOUT: IoLogOut,
   DOCUMENT: IoIosDocument,
-  QUIZ : MdQuiz
+  QUIZ : MdQuiz,
+  BELL : Bell,
+  PANEL_RIGHT : PanelRightClose,
 };

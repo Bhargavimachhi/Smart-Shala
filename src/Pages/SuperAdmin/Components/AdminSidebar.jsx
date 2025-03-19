@@ -90,7 +90,7 @@ const AdminSidebar = () => {
               })}
             </nav>
             <div className="p-4 border-t border-gray-700">
-              <Button variant="destructive" className="w-full">
+              <Button variant="destructive" className="w-full" onClick={handleLogout}>
                 Logout
               </Button>
             </div>
