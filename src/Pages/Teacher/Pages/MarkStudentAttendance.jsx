@@ -40,13 +40,13 @@ const MarkStudentAttendance = () => {
         alert("Image uploaded successfully");
         toast.loading("Processing the images");
         console.log(downloadURL);
-        const res = await axios.post("http://localhost:8000/verify", {
+        const res = await axios.post("http://localhost:8000/verification", {
           image1_url: downloadURL,
           image2_url: refdownloadURL,
         });
-        console.log(res);
+        console.log(res.data);
 
-        if (res.data.verified) {
+        if (res.data == "Yes") {
           alert("Attendance marked successfully");
           toast.success("Attendance marked successfully");
         } else {
