@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Webcam from "react-webcam";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
@@ -7,15 +7,51 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { ICONS } from "../Icons/icons";
 
+const target_latitude = 22.319315583779158;
+const target_longitude = 73.21650254289236;
+const max_dist = 0.5;
+
+
 const MarkTeacherAttendance = () => {
   const [hasPermission, setHasPermission] = useState(false);
   const webcamRef = useRef(null);
   const navigate = useNavigate();
+  const [isNearLocation, setIsNearLocation] = useState(false);
+  const [locationError, setLocationError] = useState("");
 
   const requestCameraPermission = () => {
     setHasPermission(true);
     capturePhoto();
   };
+
+  useEffect(()=>{
+
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition((pos)=>{
+        const {latitude, longitude} = pos.coords;
+        
+
+        const distance = getDistanceFromLatLonInKm(latitude,longitude,target_latitude,target_longitude);
+
+        if(distance <= max_dist){
+          setIsNearLocation(true);
+          
+        }
+        else{
+          setLocationError("`Please be within ${MAX_DISTANCE} km of the target location.");
+
+        }
+      },(error)=>{
+        setLocationError("Error getting location: " + error.message);
+
+      })
+    }
+    
+
+  },[]);
+
+
+  
 
   const capturePhoto = async () => {
     const screenshot = webcamRef.current.getScreenshot({ format: "jpeg" });
@@ -47,6 +83,37 @@ const MarkTeacherAttendance = () => {
       }
     }
   };
+
+
+  
+  const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
+    const R = 6371; 
+    const dLat = deg2rad(lat2 - lat1);
+    const dLon = deg2rad(lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c; 
+    return distance;
+  };
+
+  const deg2rad = (deg) => {
+    return deg * (Math.PI / 180);
+  };
+
+  if (!isNearLocation) {
+    return (
+      <main>
+        <div className="bg-white">
+          <div className="flex items-center justify-center h-screen">
+            <p className="text-xl text-red-500">{locationError}</p>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main>

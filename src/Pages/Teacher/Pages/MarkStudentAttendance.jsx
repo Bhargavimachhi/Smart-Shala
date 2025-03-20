@@ -33,7 +33,7 @@ const MarkStudentAttendance = () => {
       const refimageref = ref(storage, `/attentance/67a0b861564a8b041cef28d4/reference`);
 
       try {
-        // await uploadString(imageRef, screenshot, "data_url");
+        
         await uploadString(imageRef, screenshot, "data_url");
         const downloadURL = await getDownloadURL(imageRef);
         const refdownloadURL = await getDownloadURL(refimageref);
